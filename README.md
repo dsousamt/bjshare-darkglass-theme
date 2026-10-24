@@ -49,6 +49,7 @@ manter cache por até 12 h. Não use `raw.githubusercontent.com`: ele serve os a
 | `index.html` | Guia publicado no GitHub Pages |
 | `preview/demo.html` | Página de demonstração com a marcação do BJ e dados fictícios (`?tema=<nome>`) |
 | `tools/gerar-previews.py` | Gera `assets/previews/*.webp` a partir da demonstração |
+| `logos/` | Logos do BJ-Share (PNG, para fundo claro e escuro) e as máscaras `mask-*.png`, embutidas no CSS para pintar o logo com as cores de cada tema (`--logo-mark` e `--logo-text`) |
 
 ### Como o tema é organizado
 

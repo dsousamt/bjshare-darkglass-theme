@@ -126,6 +126,8 @@ Bundles (*.full.css, base + variante num arquivo só): .\build-theme-bundles.ps1
     --header-line: var(--line-strong);
     --header-link: var(--text-bright);
     --header-link-hover: var(--accent-hover);
+    --logo-mark: var(--accent);      /* "bj" do logo */
+    --logo-text: var(--text-strong); /* "share" do logo */
     --alert-link: var(--text-strong);
     --menu-hover-bg: var(--fill-2);
     --menu-hover-fg: var(--text-strong);
@@ -159,6 +161,11 @@ Bundles (*.full.css, base + variante num arquivo só): .\build-theme-bundles.ps1
     --icon-download: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='black' stroke-width='2.5'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3'/%3E%3C/svg%3E");
     --icon-bookmark: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='black' stroke-width='2'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z'/%3E%3C/svg%3E");
     --icon-bookmark-filled: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='black' viewBox='0 0 24 24' stroke='black' stroke-width='2'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z'/%3E%3C/svg%3E");
+    /* Logo (logos/mask-bj.png e logos/mask-share.png embutidos: máscara de outro domínio exige CORS) */
+    --logo-mask-bj: url("data:image/png;base64,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");
+    --logo-mask-share: url("data:image/png;base64,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");
+    --icon-lock: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='black' stroke-width='2'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z'/%3E%3C/svg%3E");
+    --icon-lock-open: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='black' stroke-width='2'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M13.5 10.5V6.75a4.5 4.5 0 119 0v3.75M3.75 21.75h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H3.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z'/%3E%3C/svg%3E");
 
     /* Dropdowns: abrem/fecham com atraso para não piscar ao passar o mouse */
     --dropdown-hide: opacity 0.15s ease 0.3s, transform 0.15s ease 0.3s, visibility 0s linear 0.45s;
@@ -254,7 +261,7 @@ html body #header,
     backdrop-filter: none !important;
     -webkit-backdrop-filter: none !important;
     border-bottom: 1px solid var(--header-line) !important;
-    position: sticky !important;
+    position: relative !important;
     top: 0 !important;
     z-index: 999999 !important;
     order: -1 !important;
@@ -263,6 +270,49 @@ html body #header,
     margin: 0 !important;
     color: var(--text-bright) !important;
 }
+
+/* Menu fixo no topo: o cadeado do BJ (#bj-sticky-menu-lock, criado pelo sticky.js do
+   site) liga body.bj-sticky-menu e lembra a escolha. Destravado, o header rola junto. */
+html body.bj-sticky-menu #wrapper #header,
+html body.bj-sticky-menu #header {
+    position: sticky !important;
+}
+
+/* O script põe o cadeado em position:absolute no canto do #menu (que aqui só tem a
+   largura dos itens) e caía em cima do último item; aqui ele entra no fluxo. */
+#bj-sticky-menu-lock {
+    position: static !important;
+    transform: none !important;
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    padding: 0 !important;
+    border-radius: var(--radius-sm) !important;
+    background: transparent !important;
+    font-size: 0 !important;
+    color: transparent;
+    cursor: pointer;
+    transition: background-color var(--transition-snappy);
+}
+#bj-sticky-menu-lock::before {
+    content: '';
+    width: 16px;
+    height: 16px;
+    background-color: var(--text-muted);
+    -webkit-mask: var(--icon-lock-open) center / contain no-repeat;
+    mask: var(--icon-lock-open) center / contain no-repeat;
+    transition: background-color var(--transition-snappy);
+}
+#bj-sticky-menu-lock[aria-pressed="true"]::before {
+    background-color: var(--accent);
+    -webkit-mask-image: var(--icon-lock);
+    mask-image: var(--icon-lock);
+}
+#bj-sticky-menu-lock:hover,
+#bj-sticky-menu-lock:focus-visible { background: var(--menu-hover-bg) !important; }
+#bj-sticky-menu-lock:hover::before { background-color: var(--menu-hover-fg); }
 
 #header a { color: var(--header-link); }
 #header a:hover,
@@ -287,14 +337,31 @@ html body #header::after {
     }
 }
 
-/* Logo — extrema esquerda */
+/* Logo — extrema esquerda. Desenhado com duas máscaras ("bj" e "share") pintadas
+   com as cores do tema; os PNGs originais estão em logos/. */
 #logo {
+    position: relative;
     order: 1;
     flex: 0 0 auto;
     height: 52px; width: 187px; margin: 0 20px 0 0 !important;
-    background: url('https://matheussousa.com/bjlogo.png') left center no-repeat;
-    background-size: contain; display: block;
+    background: none !important;
+    display: block;
     transition: filter var(--transition-smooth), opacity var(--transition-smooth); opacity: 0.9;
+}
+#logo::before,
+#logo::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-color: var(--logo-mark);
+    -webkit-mask: var(--logo-mask-bj) left center / contain no-repeat;
+    mask: var(--logo-mask-bj) left center / contain no-repeat;
+    pointer-events: none;
+}
+#logo::after {
+    background-color: var(--logo-text);
+    -webkit-mask-image: var(--logo-mask-share);
+    mask-image: var(--logo-mask-share);
 }
 #logo a { display: block; width: 100%; height: 100%; }
 #logo:hover { opacity: 1; filter: drop-shadow(0 0 12px var(--accent-12)); }
@@ -303,6 +370,9 @@ html body #header::after {
 #menu {
     order: 2;
     flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 6px;
     margin: 0 !important; border: none !important; background: transparent !important;
     width: auto !important;
 }
@@ -636,7 +706,7 @@ html body #header::after {
 #noteAlertMsg a { color: var(--alert-link) !important; text-decoration: underline !important; margin-left: 8px; font-weight: 600; }
 
 body:has(#noteAlertMsg:not([style*="display: none"])):has(#noteAlertMsg:not(.hidden)) { padding-top: 28px !important; }
-body:has(#noteAlertMsg:not([style*="display: none"])):has(#noteAlertMsg:not(.hidden)) #header { top: 28px !important; }
+body.bj-sticky-menu:has(#noteAlertMsg:not([style*="display: none"])):has(#noteAlertMsg:not(.hidden)) #header { top: 28px !important; }
 
 /* Noty (toasts do canto inferior) */
 #noty_bottomRight_layout_container {

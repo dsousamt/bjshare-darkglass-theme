@@ -18,17 +18,11 @@
     }
   })();
 </script>
-<style>
-  /* Só da demo: o logo real vem de outro domínio; aqui um texto ocupa o lugar */
-  #logo { background-image: none !important; display: flex !important; align-items: center; }
-  #logo span { font-weight: 800; font-size: 22px; letter-spacing: -0.5px; color: var(--text-strong); }
-  #logo span b { color: var(--accent); }
-</style>
 </head>
 <body>
 <div id="wrapper">
   <div id="header">
-    <a href="#"><div id="logo"><span>BJ<b>·</b>Share</span></div></a>
+    <a href="#"><div id="logo"></div></a>
     <div id="userinfo">
       <ul id="userinfo_stats">
         <li id="stats_seeding"><a href="#">Up</a>: <span class="stat">2.48 TiB</span></li>
@@ -77,6 +71,7 @@
           </ul>
         </div>
       </div>
+      <span id="bj-sticky-menu-lock" role="button" tabindex="0" aria-pressed="false" title="Travar/destravar o menu fixo no topo">🔓</span>
     </div>
     <div id="searchbars">
       <ul>
@@ -114,6 +109,20 @@
 </div>
 
 <script>
+  // Imita o sticky.js do BJ: o cadeado liga/desliga body.bj-sticky-menu (menu fixo no topo)
+  (function () {
+    var lock = document.getElementById('bj-sticky-menu-lock');
+    function toggle() {
+      var on = document.body.classList.toggle('bj-sticky-menu');
+      lock.setAttribute('aria-pressed', on ? 'true' : 'false');
+      lock.textContent = on ? '🔒' : '🔓';
+    }
+    lock.addEventListener('click', toggle);
+    lock.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
+    });
+  })();
+
   // Ícone de categoria: azulejo SVG simples (os ícones reais ficam no servidor do BJ)
   function catIcon(label, color) {
     var svg = "<svg xmlns='http://www.w3.org/2000/svg' width='50' height='50'>" +
