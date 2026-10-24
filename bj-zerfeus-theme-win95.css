@@ -7,6 +7,7 @@
 @import url('bj-zerfeus-theme.css');
 
 :root {
+    --color-scheme: light;
     --font-main: Tahoma, "MS Sans Serif", "Segoe UI", sans-serif;
     --radius-sm: 0;
     --radius-md: 0;

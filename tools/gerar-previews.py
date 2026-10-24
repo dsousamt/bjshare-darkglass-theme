@@ -85,7 +85,11 @@ def main():
             # menu aberto mostra o dropdown do tema; o atraso de abertura é 0.3s
             caixa = page.locator("#nav_torrents > a").bounding_box()
             page.mouse.move(caixa["x"] + caixa["width"] / 2, caixa["y"] + caixa["height"] / 2)
-            page.wait_for_timeout(800)
+            page.wait_for_timeout(500)
+            # no mega-menu, mostra também o painel de gêneros de Filmes
+            filmes = page.locator("#nav_torrents > ul > li > ul > li > a", has_text="Filmes").first.bounding_box()
+            page.mouse.move(filmes["x"] + 20, filmes["y"] + filmes["height"] / 2, steps=10)
+            page.wait_for_timeout(600)
             png = page.screenshot()
             destino = SAIDA / f"{nome}.webp"
             Image.open(io.BytesIO(png)).save(destino, "WEBP", quality=82, method=6)
