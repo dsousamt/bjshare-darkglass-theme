@@ -27,6 +27,16 @@ Para voltar ao visual normal, apague o link desse campo e salve.
 Se a página ficar sem estilo, use a versão "arquivo único" do tema: troque `.css` por
 `.full.css` no fim do link (ex.: `bj-zerfeus-theme-dracula.full.css`).
 
+### Extra: BJ-Blue em negrito
+
+O tema BJ-Blue original do site com todo o texto mais grosso, para quem precisa de mais legibilidade:
+
+`https://dsousamt.github.io/bjshare-darkglass-theme/bj-blue-negrito.css`
+
+O arquivo importa o BJ-Blue direto do BJ (`static/styles/bj-blue/style.css`), então acompanha as
+atualizações do site. Ele só engrossa a letra: o texto comum vai para 600, o que já era negrito
+fica mais forte, e os ícones do Font Awesome não são afetados.
+
 ## Para quem mexe no código
 
 ### Hospedagem

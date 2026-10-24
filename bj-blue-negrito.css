@@ -1,0 +1,26 @@
+/*
+ * BJ-Blue em negrito: o tema BJ-Blue original do site, com todo o texto mais grosso,
+ * para quem precisa de mais legibilidade.
+ * Link: https://dsousamt.github.io/bjshare-darkglass-theme/bj-blue-negrito.css
+ *
+ * O @import puxa o BJ-Blue direto do BJ: se o site atualizar o tema, esta versão acompanha.
+ */
+@import url("https://bj-share.info/static/styles/bj-blue/style.css");
+
+/* Todo texto em 600, inclusive os spans que o BJ-Blue fixa em 400 (horário dos torrents,
+   fórum/data na home). Ícones do Font Awesome ficam de fora: o peso escolhe o estilo do
+   ícone (300 fino, 400 regular, 900 sólido). :where() zera a especificidade para a regra
+   de baixo poder vencer. */
+body,
+body :where(*:not(i, [class*="fa-"], .fa, .fas, .far, .fal, .fad, .fab)) {
+    font-weight: 600 !important;
+}
+
+/* O que o BJ-Blue já deixa em negrito (700) fica mais forte, nunca mais fino */
+body :where(a, th, h1, h2, h3, h4, h5, h6, .colhead, .colhead_dark, td.label, .alertbar,
+            .error_message, .save_message, .spellcheck, #menudrop a, [id^="stats_"] .stat) {
+    font-weight: 800 !important;
+}
+body :where(b, strong) {
+    font-weight: 900 !important;
+}
