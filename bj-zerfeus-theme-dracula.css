@@ -1,0 +1,181 @@
+/*
+ * BJ Zerfeus — variante Dracula (palette classica Dracula)
+ *
+ * O @import resolve em relacao ao URL desta folha. Se o site injeta CSS inline,
+ * ou o base nao esta na mesma pasta publica, o navegador pode NAO carregar
+ * bj-zerfeus-theme.css — ficam so estes :root (sem layout/regras do base).
+ *
+ * Use entao: bj-zerfeus-theme-dracula.full.css (base+variante fundidos; um URL so),
+ * ou publique base e variante na mesma pasta, ou troque a linha abaixo por URL
+ * absoluto do teu base (como abaixo) se publicares a variante noutra pasta.
+ *
+ * Regenerar .full.css: .\build-theme-bundles.ps1
+ */
+@import url('https://matheussousa.com/bj-zerfeus-theme.css');
+
+:root {
+    --bg-base: #282a36;
+    --bg-panel: rgba(40, 42, 54, 0.94);
+    --bg-card: rgba(68, 71, 90, 0.72);
+    --bg-card-hover: rgba(98, 114, 164, 0.35);
+    --bg-solid: #21222c;
+
+    --text-muted: #6272a4;
+    --text-main: #bcc2cd;
+    --text-bright: #f8f8f2;
+    --text-white: #ffffff;
+
+    --accent-main: #ff79c6;
+    --accent-glow: rgba(255, 121, 198, 0.35);
+    --accent-hover: #ff92d0;
+    --accent-gradient: linear-gradient(135deg, #ff79c6 0%, #bd93f9 100%);
+    --accent-soft: rgba(255, 121, 198, 0.12);
+    /* UI: evitar vermelho — laranja Dracula para avisos / dislike */
+    --color-danger: #ffb86c;
+    --color-success: #50fa7b;
+    --color-warning: #f1fa8c;
+    --color-info: #8be9fd;
+    --border-glow: rgba(189, 147, 249, 0.2);
+    --shadow-glow: 0 0 20px rgba(255, 121, 198, 0.22), 0 0 40px rgba(189, 147, 249, 0.12);
+
+    --border-color: rgba(255, 255, 255, 0.08);
+    --border-light: rgba(255, 255, 255, 0.12);
+
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.35), 0 1px 2px rgba(0, 0, 0, 0.28);
+    --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.4), 0 10px 28px rgba(0, 0, 0, 0.45);
+    --shadow-lg: 0 10px 28px rgba(0, 0, 0, 0.5), 0 20px 50px rgba(0, 0, 0, 0.55);
+
+    --scrollbar-track: rgba(33, 34, 44, 0.96);
+    --scrollbar-thumb: rgba(255, 121, 198, 0.28);
+    --scrollbar-thumb-border: rgba(255, 255, 255, 0.1);
+    --scrollbar-face: linear-gradient(180deg, rgba(255, 255, 255, 0.2) 0%, rgba(189, 147, 249, 0.12) 100%);
+    --scrollbar-hover: linear-gradient(180deg, rgba(255, 121, 198, 0.65) 0%, rgba(189, 147, 249, 0.55) 100%);
+    --scrollbar-inset-top: rgba(255, 255, 255, 0.08);
+    --scrollbar-inset-top-strong: rgba(255, 255, 255, 0.14);
+    --scrollbar-border-hover: rgba(255, 255, 255, 0.22);
+
+    --overlay-15: rgba(0, 0, 0, 0.2);
+    --overlay-20: rgba(0, 0, 0, 0.28);
+    --overlay-25: rgba(0, 0, 0, 0.32);
+    --overlay-30: rgba(0, 0, 0, 0.38);
+    --overlay-35: rgba(0, 0, 0, 0.42);
+    --overlay-40: rgba(0, 0, 0, 0.48);
+    --overlay-50: rgba(0, 0, 0, 0.55);
+    --overlay-60: rgba(0, 0, 0, 0.62);
+    --overlay-90: rgba(0, 0, 0, 0.88);
+
+    --shadow-header: 0 4px 20px rgba(0, 0, 0, 0.55);
+    --shadow-submenu: 0 8px 30px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(0, 0, 0, 0.35);
+    --shadow-scroll-lift: 0 1px 4px rgba(0, 0, 0, 0.4);
+    --shadow-noty-1: 0 4px 16px rgba(0, 0, 0, 0.45), 0 8px 32px rgba(0, 0, 0, 0.38);
+    --shadow-noty-2: 0 4px 16px rgba(0, 0, 0, 0.45), 0 12px 40px rgba(0, 0, 0, 0.42);
+    --shadow-noty-item: 0 4px 16px rgba(0, 0, 0, 0.45), 0 10px 40px rgba(0, 0, 0, 0.38);
+    --shadow-popdrop: 0 4px 12px rgba(0, 0, 0, 0.5);
+    --shadow-hero-torrent: 0 10px 40px rgba(0, 0, 0, 0.58);
+    --shadow-card-muted: 0 4px 16px rgba(0, 0, 0, 0.38), 0 8px 32px rgba(0, 0, 0, 0.32);
+    --shadow-filter-torrents: 0 10px 40px rgba(0, 0, 0, 0.58);
+    --shadow-banner-secondary: 0 4px 15px rgba(0, 0, 0, 0.45);
+    --shadow-box-default: 0 4px 16px rgba(0, 0, 0, 0.45), 0 8px 32px rgba(0, 0, 0, 0.38);
+    --shadow-box-hover: 0 4px 16px rgba(0, 0, 0, 0.45), 0 12px 40px rgba(0, 0, 0, 0.42);
+
+    --header-bg-solid: var(--bg-base);
+    --header-border-bottom: rgba(255, 255, 255, 0.1);
+
+    --body-spot-accent: rgba(255, 121, 198, 0.1);
+    --body-spot-info: rgba(139, 233, 253, 0.06);
+
+    /* Seleção estilo editor Dracula: roxo + primeiro plano clássico */
+    --text-selection-bg: rgba(189, 147, 249, 0.45);
+    --text-selection-color: #f8f8f2;
+    --link-glow: rgba(255, 121, 198, 0.2);
+
+    --accent-a-06: rgba(255, 121, 198, 0.08);
+    --accent-a-08: rgba(255, 121, 198, 0.1);
+    --accent-a-10: rgba(255, 121, 198, 0.14);
+    --accent-a-12: rgba(255, 121, 198, 0.16);
+    --accent-a-15: rgba(255, 121, 198, 0.2);
+    --accent-a-20: rgba(255, 121, 198, 0.26);
+    --accent-a-25: rgba(255, 121, 198, 0.32);
+    --accent-a-35: rgba(255, 121, 198, 0.42);
+    --accent-a-40: rgba(255, 121, 198, 0.48);
+    --accent-gradient-hover: linear-gradient(135deg, #ff92d0 0%, #caa9ff 100%);
+    --accent-hero-gradient: linear-gradient(135deg, rgba(189, 147, 249, 0.92) 0%, rgba(255, 121, 198, 0.9) 100%);
+    --accent-noty-glow: rgba(255, 121, 198, 0.45);
+
+    --shadow-groupbanner-primary: 0 4px 15px rgba(255, 121, 198, 0.45);
+    --shadow-groupbanner-primary-hover: 0 8px 25px rgba(255, 121, 198, 0.6);
+    --groupbanner-cta-bg: rgba(255, 121, 198, 0.9);
+    --groupbanner-btn-border: rgba(248, 248, 242, 0.22);
+    --groupbanner-icon-muted: rgba(248, 248, 242, 0.65);
+    --list-hover-faint: rgba(255, 255, 255, 0.06);
+
+    --alert-strip-link: var(--color-info);
+
+    --album-votes-number-gradient: linear-gradient(180deg, #f8f8f2 18%, rgba(248, 248, 242, 0.38) 100%);
+    --album-votes-meta-bg: rgba(255, 255, 255, 0.04);
+    --album-votes-meta-border: rgba(255, 255, 255, 0.08);
+    --album-votes-meta-bg-hover: rgba(255, 255, 255, 0.07);
+    --album-votes-meta-border-hover: rgba(255, 255, 255, 0.12);
+    --ft-submit-shadow-hover: 0 6px 20px var(--accent-a-40);
+
+    --gradient-submenu: linear-gradient(180deg, rgba(68, 71, 90, 0.98) 0%, rgba(40, 42, 54, 0.98) 100%);
+    --gradient-footer: linear-gradient(180deg, rgba(40, 42, 54, 0.95) 0%, rgba(33, 34, 44, 0.98) 100%);
+    --footer-top-border: rgba(255, 255, 255, 0.08);
+
+    --box-outline: rgba(255, 255, 255, 0.1);
+    --box-outline-hover: rgba(255, 255, 255, 0.14);
+    --details-outline: rgba(255, 255, 255, 0.16);
+
+    --panel-head-gradient: linear-gradient(180deg, rgba(0, 0, 0, 0.42) 0%, rgba(0, 0, 0, 0.32) 100%);
+    --table-th-gradient: linear-gradient(180deg, rgba(0, 0, 0, 0.52) 0%, rgba(0, 0, 0, 0.4) 100%);
+    --search-input-fill: rgba(255, 255, 255, 0.05);
+
+    --torrent-title-shadow: rgba(0, 0, 0, 0.75);
+    --torrent-list-title-color: var(--text-white);
+
+    --header-menu-hover-color: var(--text-white);
+    --menu-link-hover-fg: var(--text-white);
+    --header-menu-hover-bg: rgba(255, 255, 255, 0.07);
+    --submenu-border: rgba(255, 255, 255, 0.1);
+    --submenu-row-line: rgba(255, 255, 255, 0.06);
+    --menu-item-hover-bg: rgba(255, 121, 198, 0.1);
+    --logo-ambient-glow: rgba(255, 121, 198, 0.2);
+
+    --userinfo-stat-bg: rgba(255, 255, 255, 0.06);
+    --userinfo-stat-bg-hover: rgba(255, 121, 198, 0.12);
+    --userinfo-stat-border-hover: rgba(255, 121, 198, 0.28);
+
+    --torrent-group-header-bg: rgba(36, 38, 48, 0.97);
+    --torrent-group-header-border: rgba(255, 255, 255, 0.09);
+    --torrent-edition-row-bg: rgba(255, 255, 255, 0.02);
+    --torrent-group-title-bg: rgba(255, 255, 255, 0.06);
+    --torrent-group-title-bg-hover: rgba(255, 121, 198, 0.12);
+
+    --table-row-stripe: rgba(255, 255, 255, 0.02);
+    --table-cell-divider: rgba(255, 255, 255, 0.05);
+    --table-row-zebra-torrent: rgba(255, 255, 255, 0.015);
+
+    --gradient-banner-fade: linear-gradient(180deg, transparent 0%, var(--overlay-90) 100%);
+    --gradient-album-votes: linear-gradient(180deg, var(--overlay-15) 0%, transparent 100%);
+
+    /* Download: ciano Dracula (não vermelho BJ) */
+    --download-btn-bg: rgba(139, 233, 253, 0.12);
+    --download-btn-border: rgba(139, 233, 253, 0.38);
+    --download-btn-hover-glow: 0 0 14px rgba(139, 233, 253, 0.45);
+    --download-icon-svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%238be9fd' stroke-width='2.5'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3' /%3E%3C/svg%3E");
+    --download-icon-svg-on-accent: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23282a36' stroke-width='2.5'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3' /%3E%3C/svg%3E");
+
+    /* Tons “negativos” alinhados ao laranja, não ao vermelho */
+    --ui-negative-soft-bg: rgba(255, 184, 108, 0.1);
+    --ui-negative-soft-border: rgba(255, 184, 108, 0.22);
+    --ui-negative-hover-bg: rgba(255, 184, 108, 0.18);
+    --ui-negative-hover-border: rgba(255, 184, 108, 0.4);
+    --ui-negative-glow-soft: 0 0 16px rgba(255, 184, 108, 0.15);
+    --ui-negative-idle-bg: rgba(255, 184, 108, 0.1);
+    --ui-negative-idle-border: rgba(255, 184, 108, 0.32);
+    --ui-negative-hover-shadow: 0 0 0 4px rgba(255, 184, 108, 0.12), 0 0 28px rgba(255, 184, 108, 0.28), 0 8px 20px rgba(255, 184, 108, 0.18);
+    --ui-negative-ring: rgba(255, 184, 108, 0.35);
+    --stat-danger-glow: rgba(255, 184, 108, 0.28);
+    --torrent-inline-bad: #ffb86c;
+    --torrent-inline-bad-glow: rgba(255, 184, 108, 0.35);
+}

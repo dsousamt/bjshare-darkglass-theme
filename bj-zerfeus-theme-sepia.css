@@ -1,0 +1,142 @@
+/*
+ * BJ Zerfeus — Sepia (papel envelhecido, leitura prolongada)
+ * @import absoluto ao base em producao.
+ */
+@import url('https://matheussousa.com/bj-zerfeus-theme.css');
+
+:root {
+    --bg-base: #e6dcc4;
+    --bg-panel: rgba(244, 236, 216, 0.96);
+    --bg-card: rgba(250, 243, 228, 0.92);
+    --bg-card-hover: rgba(232, 218, 194, 0.95);
+    --bg-solid: #f4ecd8;
+
+    --text-muted: #7a6654;
+    --text-main: #4a3b2e;
+    --text-bright: #2c2218;
+    --text-white: #fffef8;
+
+    --accent-main: #8b4513;
+    --accent-glow: rgba(139, 69, 19, 0.25);
+    --accent-hover: #a0522d;
+    --accent-gradient: linear-gradient(135deg, #8b4513 0%, #6b3410 100%);
+    --accent-soft: rgba(139, 69, 19, 0.12);
+    --color-danger: #a52a2a;
+    --color-success: #2d6a2d;
+    --color-warning: #b8860b;
+    --color-info: #4a6fa5;
+
+    --border-color: rgba(60, 48, 36, 0.12);
+    --border-light: rgba(60, 48, 36, 0.18);
+    --border-glow: rgba(139, 69, 19, 0.15);
+
+    --shadow-sm: 0 1px 2px rgba(60, 48, 36, 0.08);
+    --shadow-md: 0 4px 14px rgba(60, 48, 36, 0.1);
+    --shadow-lg: 0 10px 28px rgba(60, 48, 36, 0.12);
+
+    --scrollbar-track: #e8dcc8;
+    --scrollbar-thumb: rgba(90, 72, 56, 0.35);
+    --scrollbar-thumb-border: rgba(60, 48, 36, 0.12);
+    --scrollbar-face: linear-gradient(180deg, rgba(90, 72, 56, 0.22) 0%, rgba(90, 72, 56, 0.12) 100%);
+    --scrollbar-hover: linear-gradient(180deg, rgba(139, 69, 19, 0.45) 0%, rgba(107, 52, 16, 0.4) 100%);
+    --scrollbar-inset-top: rgba(255, 252, 245, 0.5);
+    --scrollbar-inset-top-strong: rgba(255, 252, 245, 0.75);
+    --scrollbar-border-hover: rgba(60, 48, 36, 0.25);
+
+    --overlay-15: rgba(60, 48, 36, 0.06);
+    --overlay-20: rgba(60, 48, 36, 0.08);
+    --overlay-25: rgba(60, 48, 36, 0.1);
+    --overlay-30: rgba(255, 250, 240, 0.92);
+    --overlay-35: rgba(252, 246, 232, 0.96);
+    --overlay-40: rgba(248, 240, 220, 0.94);
+    --overlay-50: rgba(245, 235, 210, 0.96);
+    --overlay-60: rgba(230, 215, 190, 0.95);
+    --overlay-90: rgba(44, 34, 24, 0.88);
+
+    --shadow-header: 0 2px 0 rgba(255, 252, 245, 0.6), 0 6px 20px rgba(60, 48, 36, 0.08);
+    --shadow-submenu: 0 12px 32px rgba(60, 48, 36, 0.12);
+    --shadow-scroll-lift: 0 1px 2px rgba(60, 48, 36, 0.1);
+    --shadow-box-default: var(--shadow-md);
+    --shadow-box-hover: var(--shadow-lg);
+
+    --header-bg-solid: #f0e6d2;
+    --header-border-bottom: rgba(60, 48, 36, 0.12);
+
+    --text-selection-bg: rgba(139, 69, 19, 0.22);
+    --text-selection-color: #1a1410;
+    --link-glow: rgba(139, 69, 19, 0.12);
+
+    --accent-a-06: rgba(139, 69, 19, 0.08);
+    --accent-a-08: rgba(139, 69, 19, 0.1);
+    --accent-a-10: rgba(139, 69, 19, 0.12);
+    --accent-a-12: rgba(139, 69, 19, 0.15);
+    --accent-a-15: rgba(139, 69, 19, 0.18);
+    --accent-a-20: rgba(139, 69, 19, 0.22);
+    --accent-a-25: rgba(139, 69, 19, 0.28);
+    --accent-a-35: rgba(139, 69, 19, 0.36);
+    --accent-a-40: rgba(139, 69, 19, 0.42);
+    --accent-gradient-hover: linear-gradient(135deg, #a0522d 0%, #8b4513 100%);
+    --accent-hero-gradient: linear-gradient(135deg, rgba(160, 82, 45, 0.92) 0%, rgba(139, 69, 19, 0.92) 100%);
+    --accent-noty-glow: rgba(139, 69, 19, 0.35);
+
+    --gradient-submenu: linear-gradient(180deg, #faf4e6 0%, #f0e8d8 100%);
+    --gradient-footer: linear-gradient(180deg, #f4ecd8 0%, #e8dcc8 100%);
+    --footer-top-border: rgba(60, 48, 36, 0.1);
+
+    --panel-head-gradient: linear-gradient(180deg, #e8d8c0 0%, #dcc8a8 100%);
+    --table-th-gradient: linear-gradient(180deg, #e0d0b8 0%, #d4c4a8 100%);
+    --search-input-fill: rgba(60, 48, 36, 0.06);
+
+    --box-head-fg: var(--text-bright);
+    --box-filter-head-bg: rgba(232, 216, 192, 0.95);
+    --filter-input-fg: var(--text-bright);
+    --filter-label-hover-fg: var(--text-bright);
+
+    --header-menu-hover-color: var(--text-bright);
+    --menu-link-hover-fg: var(--text-bright);
+    --header-menu-hover-bg: rgba(139, 69, 19, 0.1);
+    --submenu-border: rgba(60, 48, 36, 0.12);
+    --submenu-row-line: rgba(60, 48, 36, 0.08);
+    --menu-item-hover-bg: rgba(139, 69, 19, 0.08);
+    --logo-ambient-glow: rgba(139, 69, 19, 0.15);
+
+    --torrent-list-title-color: #1e1810;
+    --torrent-title-shadow: rgba(60, 48, 36, 0.08);
+
+    --noty-message-color: var(--text-bright);
+    --noty-button-bg: rgba(60, 48, 36, 0.08);
+    --noty-button-border: rgba(60, 48, 36, 0.15);
+    --noty-button-fg: var(--text-main);
+
+    --alert-strip-link: var(--accent-main);
+    --submenu-grid-item-hover-bg: rgba(139, 69, 19, 0.1);
+    --submenu-symbol-border: rgba(60, 48, 36, 0.1);
+
+    --torrent-group-header-bg: linear-gradient(180deg, #ebe0cc 0%, #e0d4bc 100%);
+    --torrent-group-header-border: rgba(60, 48, 36, 0.1);
+    --table-row-stripe: rgba(245, 238, 224, 0.9);
+    --list-hover-faint: rgba(139, 69, 19, 0.06);
+
+    --download-btn-bg: rgba(139, 69, 19, 0.12);
+    --download-btn-border: rgba(139, 69, 19, 0.36);
+    --download-btn-hover-glow: 0 0 12px rgba(139, 69, 19, 0.28);
+    --download-icon-svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%238b4513' stroke-width='2.5'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3' /%3E%3C/svg%3E");
+    --download-icon-svg-on-accent: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23fffef8' stroke-width='2.5'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3' /%3E%3C/svg%3E");
+
+    --album-votes-number-gradient: linear-gradient(180deg, var(--text-bright) 15%, rgba(60, 48, 36, 0.45) 100%);
+    --album-votes-meta-bg: rgba(60, 48, 36, 0.05);
+    --album-votes-meta-border: rgba(60, 48, 36, 0.1);
+    --album-votes-meta-bg-hover: rgba(60, 48, 36, 0.08);
+    --album-votes-meta-border-hover: rgba(60, 48, 36, 0.14);
+
+    --groupbanner-btn-border: rgba(60, 48, 36, 0.2);
+    --groupbanner-icon-muted: rgba(255, 252, 245, 0.85);
+}
+
+#footer {
+    color: var(--text-muted);
+    background: var(--gradient-footer);
+}
+#footer a {
+    color: var(--text-main);
+}

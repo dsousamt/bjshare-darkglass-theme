@@ -1,0 +1,128 @@
+/*
+ * BJ Zerfeus — OLED (preto verdadeiro, contorno minimo, pouca luz ambiente)
+ */
+@import url('https://matheussousa.com/bj-zerfeus-theme.css');
+
+:root {
+    --bg-base: #000000;
+    --bg-panel: rgba(0, 0, 0, 0.98);
+    --bg-card: rgba(8, 8, 8, 0.94);
+    --bg-card-hover: rgba(18, 18, 18, 0.96);
+    --bg-solid: #000000;
+
+    --text-muted: #8e8e93;
+    --text-main: #c7c7cc;
+    --text-bright: #f2f2f7;
+    --text-white: #ffffff;
+
+    --accent-main: #ff375f;
+    --accent-glow: rgba(255, 55, 95, 0.35);
+    --accent-hover: #ff6b86;
+    --accent-gradient: linear-gradient(135deg, #ff375f 0%, #ff2d55 100%);
+    --accent-soft: rgba(255, 55, 95, 0.12);
+    --color-danger: #ff453a;
+    --color-success: #30d158;
+    --color-warning: #ffd60a;
+    --color-info: #64d2ff;
+
+    --border-color: rgba(255, 255, 255, 0.09);
+    --border-light: rgba(255, 255, 255, 0.14);
+    --border-glow: rgba(255, 55, 95, 0.2);
+
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.8);
+    --shadow-md: 0 2px 8px rgba(0, 0, 0, 0.85);
+    --shadow-lg: 0 4px 24px rgba(0, 0, 0, 0.9);
+    --shadow-glow: 0 0 20px rgba(255, 55, 95, 0.2);
+
+    --scrollbar-track: #000000;
+    --scrollbar-thumb: rgba(255, 55, 95, 0.35);
+    --scrollbar-thumb-border: rgba(255, 255, 255, 0.08);
+    --scrollbar-face: linear-gradient(180deg, rgba(255, 80, 100, 0.35) 0%, rgba(255, 45, 85, 0.2) 100%);
+    --scrollbar-hover: linear-gradient(180deg, rgba(255, 55, 95, 0.65) 0%, rgba(255, 30, 70, 0.5) 100%);
+    --scrollbar-inset-top: rgba(255, 255, 255, 0.06);
+    --scrollbar-inset-top-strong: rgba(255, 255, 255, 0.1);
+    --scrollbar-border-hover: rgba(255, 55, 95, 0.35);
+
+    --overlay-15: rgba(255, 255, 255, 0.04);
+    --overlay-20: rgba(255, 255, 255, 0.06);
+    --overlay-25: rgba(255, 255, 255, 0.08);
+    --overlay-30: rgba(255, 255, 255, 0.06);
+    --overlay-35: rgba(255, 255, 255, 0.08);
+    --overlay-40: rgba(255, 255, 255, 0.1);
+    --overlay-50: rgba(255, 255, 255, 0.12);
+    --overlay-60: rgba(255, 255, 255, 0.14);
+    --overlay-90: rgba(0, 0, 0, 0.92);
+
+    --shadow-header: 0 2px 12px rgba(0, 0, 0, 0.9);
+    --shadow-submenu: 0 8px 28px rgba(0, 0, 0, 0.92);
+    --shadow-scroll-lift: none;
+    --shadow-box-default: var(--shadow-md);
+    --shadow-box-hover: var(--shadow-lg);
+
+    --header-bg-solid: #000000;
+    --header-border-bottom: rgba(255, 255, 255, 0.08);
+
+    --body-spot-accent: rgba(255, 55, 95, 0.06);
+    --body-spot-info: rgba(100, 210, 255, 0.04);
+
+    --text-selection-bg: rgba(255, 55, 95, 0.35);
+    --text-selection-color: #ffffff;
+
+    --accent-a-06: rgba(255, 55, 95, 0.08);
+    --accent-a-08: rgba(255, 55, 95, 0.1);
+    --accent-a-10: rgba(255, 55, 95, 0.14);
+    --accent-a-12: rgba(255, 55, 95, 0.16);
+    --accent-a-15: rgba(255, 55, 95, 0.2);
+    --accent-a-20: rgba(255, 55, 95, 0.26);
+    --accent-a-25: rgba(255, 55, 95, 0.32);
+    --accent-a-35: rgba(255, 55, 95, 0.42);
+    --accent-a-40: rgba(255, 55, 95, 0.48);
+    --accent-gradient-hover: linear-gradient(135deg, #ff6b86 0%, #ff375f 100%);
+    --accent-noty-glow: rgba(255, 55, 95, 0.45);
+
+    --gradient-submenu: linear-gradient(180deg, #0a0a0a 0%, #000000 100%);
+    --gradient-footer: linear-gradient(180deg, #000000 0%, #000000 100%);
+    --footer-top-border: rgba(255, 255, 255, 0.08);
+
+    --panel-head-gradient: linear-gradient(180deg, #101010 0%, #000000 100%);
+    --table-th-gradient: linear-gradient(180deg, #121212 0%, #000000 100%);
+    --search-input-fill: rgba(255, 255, 255, 0.05);
+
+    --box-head-fg: var(--text-white);
+    --box-filter-head-bg: rgba(255, 255, 255, 0.06);
+    --filter-input-fg: var(--text-bright);
+    --filter-label-hover-fg: var(--text-white);
+
+    --header-menu-hover-bg: rgba(255, 55, 95, 0.12);
+    --header-menu-hover-color: var(--text-white);
+    --menu-link-hover-fg: var(--text-white);
+    --menu-item-hover-bg: rgba(255, 55, 95, 0.1);
+    --torrent-group-header-bg: rgba(0, 0, 0, 0.96);
+    --torrent-group-header-border: rgba(255, 255, 255, 0.08);
+    --table-row-stripe: rgba(255, 255, 255, 0.02);
+    --list-hover-faint: rgba(255, 55, 95, 0.06);
+
+    --download-btn-bg: rgba(255, 55, 95, 0.12);
+    --download-btn-border: rgba(255, 55, 95, 0.38);
+    --download-btn-hover-glow: 0 0 14px rgba(255, 55, 95, 0.38);
+    --download-icon-svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23ff375f' stroke-width='2.5'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3' /%3E%3C/svg%3E");
+    --download-icon-svg-on-accent: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23ffffff' stroke-width='2.5'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3' /%3E%3C/svg%3E");
+
+    --shadow-groupbanner-primary: 0 4px 20px rgba(255, 55, 95, 0.25);
+    --shadow-groupbanner-primary-hover: 0 8px 28px rgba(255, 55, 95, 0.35);
+    --groupbanner-cta-bg: rgba(255, 55, 95, 0.85);
+    --groupbanner-btn-border: rgba(255, 255, 255, 0.2);
+    --groupbanner-icon-muted: rgba(255, 255, 255, 0.65);
+
+    --album-votes-number-gradient: linear-gradient(180deg, #ffffff 18%, rgba(255, 255, 255, 0.35) 100%);
+    --album-votes-meta-bg: rgba(255, 255, 255, 0.04);
+    --album-votes-meta-border: rgba(255, 255, 255, 0.08);
+}
+
+#footer {
+    color: var(--text-muted);
+    background: var(--gradient-footer);
+}
+#footer a {
+    color: var(--text-main);
+}

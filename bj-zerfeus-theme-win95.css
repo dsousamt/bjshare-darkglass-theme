@@ -1,0 +1,233 @@
+/*
+ * BJ Zerfeus — System Classic / Windows 95 (cinza, bordas em relevo, barra de titulo azul)
+ */
+@import url('https://matheussousa.com/bj-zerfeus-theme.css');
+
+:root {
+    --font-main: Tahoma, "MS Sans Serif", "Segoe UI", sans-serif;
+
+    --radius-sm: 0;
+    --radius-md: 0;
+    --radius-lg: 0;
+    --radius-pill: 0;
+
+    --glass-blur: none;
+
+    --bg-base: #c0c0c0;
+    --bg-panel: #c0c0c0;
+    --bg-card: #c0c0c0;
+    --bg-card-hover: #d4d4d4;
+    --bg-solid: #c0c0c0;
+
+    --text-muted: #404040;
+    --text-main: #000000;
+    --text-bright: #000000;
+    --text-white: #ffffff;
+
+    --accent-main: #000080;
+    --accent-glow: rgba(0, 0, 128, 0.25);
+    --accent-hover: #1084d0;
+    --accent-gradient: linear-gradient(180deg, #000080 0%, #000060 100%);
+    --accent-soft: rgba(0, 0, 128, 0.08);
+    --color-danger: #800000;
+    --color-success: #008000;
+    --color-warning: #808000;
+    --color-info: #000080;
+
+    --border-color: #808080;
+    --border-light: #dfdfdf;
+    --border-glow: rgba(0, 0, 0, 0.15);
+
+    --shadow-sm: 1px 1px 0 #ffffff, -1px -1px 0 #404040;
+    --shadow-md: 2px 2px 0 #404040;
+    --shadow-lg: 3px 3px 0 #404040;
+    --shadow-glow: none;
+
+    --scrollbar-track: #c0c0c0;
+    --scrollbar-thumb: #c0c0c0;
+    --scrollbar-thumb-border: #404040;
+    --scrollbar-face: linear-gradient(180deg, #dfdfdf 0%, #c0c0c0 50%, #a0a0a0 100%);
+    --scrollbar-hover: linear-gradient(180deg, #e8e8e8 0%, #c0c0c0 100%);
+    --scrollbar-inset-top: #ffffff;
+    --scrollbar-inset-top-strong: #ffffff;
+    --scrollbar-border-hover: #000080;
+
+    --overlay-15: rgba(0, 0, 0, 0.05);
+    --overlay-20: rgba(255, 255, 255, 0.5);
+    --overlay-25: rgba(0, 0, 0, 0.08);
+    --overlay-30: #ffffff;
+    --overlay-35: #ffffff;
+    --overlay-40: #dfdfdf;
+    --overlay-50: #ffffff;
+    --overlay-60: #c0c0c0;
+    --overlay-90: rgba(0, 0, 0, 0.85);
+
+    --shadow-header: 2px 2px 0 #404040;
+    --shadow-submenu: 4px 4px 0 #404040;
+    --shadow-scroll-lift: none;
+    --shadow-box-default: 2px 2px 0 #404040;
+    --shadow-box-hover: 3px 3px 0 #404040;
+
+    --header-bg-solid: #c0c0c0;
+    --header-border-bottom: #404040;
+
+    --body-spot-accent: transparent;
+    --body-spot-info: transparent;
+
+    --text-selection-bg: #000080;
+    --text-selection-color: #ffffff;
+    --link-glow: none;
+
+    --accent-a-06: rgba(0, 0, 128, 0.08);
+    --accent-a-08: rgba(0, 0, 128, 0.1);
+    --accent-a-10: rgba(0, 0, 128, 0.14);
+    --accent-a-12: rgba(0, 0, 128, 0.16);
+    --accent-a-15: rgba(0, 0, 128, 0.2);
+    --accent-a-20: rgba(0, 0, 128, 0.25);
+    --accent-a-25: rgba(0, 0, 128, 0.3);
+    --accent-a-35: rgba(0, 0, 128, 0.38);
+    --accent-a-40: rgba(0, 0, 128, 0.42);
+    --accent-gradient-hover: linear-gradient(180deg, #1084d0 0%, #000080 100%);
+    --accent-hero-gradient: linear-gradient(180deg, #000080 0%, #000060 100%);
+    --accent-noty-glow: none;
+
+    --gradient-submenu: #c0c0c0;
+    --gradient-footer: #c0c0c0;
+    --footer-top-border: #404040;
+
+    --panel-head-gradient: linear-gradient(90deg, #000080 0%, #1084d0 100%);
+    --table-th-gradient: #c0c0c0;
+    --search-input-fill: #ffffff;
+
+    --box-head-fg: #ffffff;
+    --box-filter-head-bg: #000080;
+    --filter-input-fg: #000000;
+    --filter-label-hover-fg: #000080;
+
+    --box-outline: #404040;
+    --box-outline-hover: #000080;
+    --details-outline: #404040;
+
+    --header-menu-hover-bg: #000080;
+    --header-menu-hover-color: #ffffff;
+    --menu-link-hover-fg: #ffffff;
+    --submenu-border: #404040;
+    --submenu-row-line: #808080;
+    --menu-item-hover-bg: #000080;
+    --submenu-grid-item-hover-bg: #a6caf0;
+    --submenu-symbol-border: #808080;
+    --logo-ambient-glow: none;
+
+    --header-search-text: #000000;
+    --header-search-placeholder: #808080;
+    --header-link-fg: #000000;
+    --header-link-hover-fg: #ffffff;
+
+    --torrent-list-title-color: #000000;
+    --torrent-title-shadow: none;
+
+    --noty-message-color: #000000;
+    --noty-button-bg: #c0c0c0;
+    --noty-button-border: #404040;
+    --noty-button-fg: #000000;
+
+    --alert-strip-link: #000080;
+    --on-accent-fg: #ffffff;
+    --banner-secondary-hover-bg: #a6caf0;
+
+    --torrent-group-header-bg: #c0c0c0;
+    --torrent-group-header-border: #404040;
+    --table-row-stripe: rgba(0, 0, 0, 0.04);
+    --list-hover-faint: rgba(0, 0, 128, 0.08);
+
+    --download-btn-bg: rgba(0, 0, 128, 0.1);
+    --download-btn-border: rgba(0, 0, 128, 0.5);
+    --download-btn-hover-glow: 0 0 8px rgba(16, 132, 208, 0.45);
+    --download-icon-svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23000080' stroke-width='2.5'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3' /%3E%3C/svg%3E");
+    --download-icon-svg-on-accent: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23ffffff' stroke-width='2.5'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3' /%3E%3C/svg%3E");
+
+    --shadow-groupbanner-primary: 3px 3px 0 #404040;
+    --groupbanner-cta-bg: #c0c0c0;
+    --groupbanner-btn-border: #404040;
+    --groupbanner-icon-muted: #404040;
+
+    --transition-snappy: 0.05s linear;
+    --transition-smooth: 0.08s linear;
+}
+
+#footer {
+    color: var(--text-main);
+    background: var(--gradient-footer);
+    border-top: 2px solid #dfdfdf;
+    box-shadow: inset 0 2px 0 #404040;
+}
+#footer a {
+    color: #000080;
+}
+
+/* Bordas em relevo estilo Win95 */
+#header {
+    border-bottom: 2px solid #dfdfdf !important;
+    box-shadow: inset 0 -2px 0 #404040, var(--shadow-header) !important;
+    background-image: repeating-linear-gradient(
+        135deg,
+        transparent,
+        transparent 1px,
+        rgba(0, 0, 0, 0.04) 1px,
+        rgba(0, 0, 0, 0.04) 2px
+    ) !important;
+}
+
+.box,
+.torrent_details,
+.news_post {
+    border-radius: 0 !important;
+    border: 2px solid !important;
+    border-color: #dfdfdf #404040 #404040 #dfdfdf !important;
+    box-shadow: none !important;
+}
+
+.box:hover,
+.news_post:hover {
+    border-color: #ffffff #606060 #606060 #ffffff !important;
+}
+
+.box .head,
+.head2,
+.colhead,
+.colhead_dark,
+.headTitulos {
+    border-bottom: 2px solid #404040 !important;
+    box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.25);
+}
+
+.box.filter_torrents .head {
+    border-bottom: 2px solid #000040 !important;
+}
+
+#menudrop ul ul,
+#userinfo ul ul {
+    border: 2px solid !important;
+    border-color: #dfdfdf #404040 #404040 #dfdfdf !important;
+    border-radius: 0 !important;
+    box-shadow: 4px 4px 0 #404040 !important;
+}
+
+#searchbars input[type="text"] {
+    border: 2px solid !important;
+    border-color: #404040 #dfdfdf #dfdfdf #404040 !important;
+    border-radius: 0 !important;
+}
+
+input[type="submit"],
+.box.filter_torrents .ft_submit input[value="Filtrar"] {
+    border: 2px solid !important;
+    border-color: #dfdfdf #404040 #404040 #dfdfdf !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+}
+
+input[type="submit"]:hover,
+.box.filter_torrents .ft_submit input[value="Filtrar"]:hover {
+    border-color: #404040 #dfdfdf #dfdfdf #404040 !important;
+}

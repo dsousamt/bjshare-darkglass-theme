@@ -1,0 +1,2656 @@
+/*
+BJ-Share (DarkGlass Moderno & Responsivo - Edição Ultimate V62)
+Banners de Capa Imersivos (Degradê) e Sistema de Avaliação (Votos) Modernizado
+
+Producao: https://matheussousa.com/bj-zerfeus-theme.css (base). Variantes: *-light.css, *-dracula.css, *-sepia.css, *-highcontrast.css, *-oled.css,
+*-solarized.css, *-matrix.css, *-win95.css, *-monochrome.css, *-cyberpunk.css
+(importam o base). Bundles: .\build-theme-bundles.ps1
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+/* ==========================================================================
+   1. Variáveis de Design Tokens
+   ========================================================================== */
+:root {
+    --bg-base: #0b0d10;                            
+    --bg-panel: rgba(13, 15, 19, 0.94);            
+    --bg-card: rgba(18, 21, 27, 0.78);             
+    --bg-card-hover: rgba(35, 39, 50, 0.88);       
+    --bg-solid: #12141a; 
+    
+    --glass-blur: blur(20px);                      
+    
+    --text-muted: #6b7280;
+    --text-main: #9ca3af;
+    --text-bright: #e5e7eb;
+    --text-white: #f9fafb;
+    
+    --accent-main: #dc2626;
+    --accent-glow: rgba(220, 38, 38, 0.3);
+    --accent-hover: #ef4444;
+    --accent-gradient: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+    --accent-soft: rgba(220, 38, 38, 0.08);
+    
+    --color-success: #22c55e;
+    --color-danger: #ef4444;
+    --color-warning: #eab308;
+    --color-info: #3b82f6;
+
+    --border-color: rgba(255, 255, 255, 0.06);
+    --border-light: rgba(255, 255, 255, 0.1);
+    --border-glow: rgba(220, 38, 38, 0.15);
+    
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px 2px rgba(0, 0, 0, 0.2);
+    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.3), 0 10px 30px rgba(0, 0, 0, 0.5);
+    --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.5), 0 20px 50px rgba(0, 0, 0, 0.6);
+    --shadow-glow: 0 0 20px rgba(220, 38, 38, 0.25), 0 0 40px rgba(220, 38, 38, 0.1);
+    
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 18px;
+    --radius-pill: 9999px;
+    
+    --transition-snappy: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-smooth: 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    --transition-bounce: 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    
+    --font-main: 'Inter', system-ui, -apple-system, sans-serif;
+    /* Tipografia: só múltiplos de 4px, mínimo 12 (exc. font-size:0 em truques de ícone) */
+    --text-page: 12px;
+    --text-caption: 12px;
+    --text-sm: 12px;
+    --text-md: 12px;
+    --text-elevated: 16px;
+    --text-hi: 16px;
+    /* Densidade (padding/gap) — valores baixos = UI mais adensada */
+    --space-y-page: 12px;
+    --space-x-shell: 16px;
+    --gap-col: 12px;
+    --pad-inset: 10px 12px;
+    --pad-head: 10px 14px;
+    --space-block: 16px;
+    --pad-cell: 7px 10px;
+    /* Scrollbars — largura visível real (evitar thumb “fantasma” com border+clip) */
+    --scrollbar-size: 14px;
+    --scrollbar-track: rgba(10, 12, 16, 0.95);
+    --scrollbar-thumb: rgba(255, 255, 255, 0.16);
+    --scrollbar-thumb-border: rgba(255, 255, 255, 0.12);
+    --scrollbar-face: linear-gradient(180deg, rgba(255, 255, 255, 0.22) 0%, rgba(255, 255, 255, 0.1) 100%);
+    --scrollbar-hover: linear-gradient(180deg, rgba(239, 68, 68, 0.55) 0%, rgba(185, 28, 28, 0.5) 100%);
+    --scrollbar-inset-top: rgba(255, 255, 255, 0.06);
+    --scrollbar-inset-top-strong: rgba(255, 255, 255, 0.12);
+    --scrollbar-border-hover: rgba(255, 255, 255, 0.18);
+
+    /* Overlays (light/dracula redefinem) */
+    --overlay-15: rgba(0, 0, 0, 0.15);
+    --overlay-20: rgba(0, 0, 0, 0.2);
+    --overlay-25: rgba(0, 0, 0, 0.25);
+    --overlay-30: rgba(0, 0, 0, 0.3);
+    --overlay-35: rgba(0, 0, 0, 0.35);
+    --overlay-40: rgba(0, 0, 0, 0.4);
+    --overlay-50: rgba(0, 0, 0, 0.5);
+    --overlay-60: rgba(0, 0, 0, 0.6);
+    --overlay-90: rgba(0, 0, 0, 0.9);
+
+    --shadow-header: 0 4px 20px rgba(0, 0, 0, 0.5);
+    --shadow-submenu: 0 8px 30px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(0, 0, 0, 0.3);
+    --shadow-scroll-lift: 0 1px 4px rgba(0, 0, 0, 0.35);
+    --shadow-noty-1: 0 4px 16px rgba(0, 0, 0, 0.4), 0 8px 32px rgba(0, 0, 0, 0.3);
+    --shadow-noty-2: 0 4px 16px rgba(0, 0, 0, 0.4), 0 12px 40px rgba(0, 0, 0, 0.35);
+    --shadow-noty-item: 0 4px 16px rgba(0, 0, 0, 0.4), 0 10px 40px rgba(0, 0, 0, 0.3);
+    --shadow-popdrop: 0 4px 12px rgba(0, 0, 0, 0.5);
+    --shadow-hero-torrent: 0 10px 40px rgba(0, 0, 0, 0.6);
+    --shadow-card-muted: 0 4px 16px rgba(0, 0, 0, 0.3), 0 8px 32px rgba(0, 0, 0, 0.25);
+    --shadow-filter-torrents: 0 10px 40px rgba(0, 0, 0, 0.6);
+    --shadow-banner-secondary: 0 4px 15px rgba(0, 0, 0, 0.4);
+    --shadow-box-default: 0 4px 16px rgba(0, 0, 0, 0.4), 0 8px 32px rgba(0, 0, 0, 0.3);
+    --shadow-box-hover: 0 4px 16px rgba(0, 0, 0, 0.4), 0 12px 40px rgba(0, 0, 0, 0.35);
+
+    --header-bg-solid: var(--bg-base);
+    --header-border-bottom: rgba(255, 255, 255, 0.08);
+
+    --body-spot-accent: rgba(220, 38, 38, 0.07);
+    --body-spot-info: rgba(59, 130, 246, 0.02);
+
+    --text-selection-bg: rgba(220, 38, 38, 0.3);
+    --text-selection-color: var(--text-white);
+    --link-glow: rgba(220, 38, 38, 0.15);
+
+    --accent-a-06: rgba(220, 38, 38, 0.06);
+    --accent-a-08: rgba(220, 38, 38, 0.08);
+    --accent-a-10: rgba(220, 38, 38, 0.1);
+    --accent-a-12: rgba(220, 38, 38, 0.12);
+    --accent-a-15: rgba(220, 38, 38, 0.15);
+    --accent-a-20: rgba(220, 38, 38, 0.2);
+    --accent-a-25: rgba(220, 38, 38, 0.25);
+    --accent-a-35: rgba(220, 38, 38, 0.35);
+    --accent-a-40: rgba(220, 38, 38, 0.4);
+    --accent-gradient-hover: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+    --accent-hero-gradient: linear-gradient(135deg, rgba(239, 68, 68, 0.9) 0%, rgba(220, 38, 38, 0.9) 100%);
+    --accent-noty-glow: rgba(201, 42, 53, 0.4);
+    --shadow-groupbanner-primary: 0 4px 15px rgba(201, 42, 53, 0.5);
+    --shadow-groupbanner-primary-hover: 0 8px 25px rgba(201, 42, 53, 0.7);
+    --groupbanner-cta-bg: rgba(201, 42, 53, 0.9);
+    --groupbanner-btn-border: rgba(255, 255, 255, 0.2);
+    --list-hover-faint: rgba(255, 255, 255, 0.05);
+    --ft-submit-shadow-hover: 0 6px 20px var(--accent-a-40);
+
+    /* Botão de download (ícone SVG embutido — variantes sobrescrevem a URL) */
+    --download-btn-bg: rgba(201, 42, 53, 0.15);
+    --download-btn-border: rgba(201, 42, 53, 0.3);
+    --download-btn-hover-glow: 0 0 10px rgba(201, 42, 53, 0.4);
+    --download-icon-svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23c92a35' stroke-width='2.5'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3' /%3E%3C/svg%3E");
+    --download-icon-svg-on-accent: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23ffffff' stroke-width='2.5'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3' /%3E%3C/svg%3E");
+
+    /* Estados “negativos” / dislike (sem acoplar ao vermelho BJ nas variantes) */
+    --ui-negative-soft-bg: rgba(239, 68, 68, 0.08);
+    --ui-negative-soft-border: rgba(239, 68, 68, 0.15);
+    --ui-negative-hover-bg: rgba(239, 68, 68, 0.15);
+    --ui-negative-hover-border: rgba(239, 68, 68, 0.3);
+    --ui-negative-glow-soft: 0 0 16px rgba(239, 68, 68, 0.1);
+    --ui-negative-idle-bg: rgba(239, 68, 68, 0.08);
+    --ui-negative-idle-border: rgba(239, 68, 68, 0.25);
+    --ui-negative-hover-shadow: 0 0 0 4px rgba(239, 68, 68, 0.1), 0 0 28px rgba(239, 68, 68, 0.3), 0 8px 20px rgba(239, 68, 68, 0.15);
+    --ui-negative-ring: rgba(239, 68, 68, 0.25);
+    --stat-danger-glow: rgba(239, 68, 68, 0.2);
+    --torrent-inline-bad: #ff4757;
+    --torrent-inline-bad-glow: rgba(255, 71, 87, 0.3);
+
+    --gradient-submenu: linear-gradient(180deg, rgba(18, 20, 26, 0.98) 0%, rgba(14, 16, 20, 0.98) 100%);
+    --gradient-footer: linear-gradient(180deg, rgba(13, 15, 19, 0.92) 0%, rgba(13, 15, 19, 0.97) 100%);
+    --footer-top-border: rgba(255, 255, 255, 0.06);
+
+    --box-outline: rgba(255, 255, 255, 0.08);
+    --box-outline-hover: rgba(255, 255, 255, 0.12);
+    --details-outline: rgba(255, 255, 255, 0.15);
+
+    --panel-head-gradient: linear-gradient(180deg, rgba(0, 0, 0, 0.35) 0%, rgba(0, 0, 0, 0.25) 100%);
+    --table-th-gradient: linear-gradient(180deg, rgba(0, 0, 0, 0.45) 0%, rgba(0, 0, 0, 0.35) 100%);
+    --search-input-fill: rgba(255, 255, 255, 0.04);
+
+    /* Cabecalhos de caixa (.head, .colhead, etc.) e filtro de torrents */
+    --box-head-fg: var(--text-white);
+    --box-filter-head-bg: var(--overlay-40);
+    --filter-input-fg: var(--text-white);
+    --filter-label-hover-fg: var(--text-white);
+
+    /* Botoes nativos (ex.: Lançamentos por categoria) */
+    --btn-pill-bg: var(--overlay-30);
+    --btn-pill-fg: var(--text-bright);
+    --btn-pill-border: var(--border-light);
+    --btn-pill-hover-bg: var(--accent-soft);
+    --btn-pill-hover-border: var(--accent-main);
+    --btn-disabled-bg: rgba(255, 255, 255, 0.05);
+    --btn-disabled-fg: var(--text-muted);
+    --btn-disabled-border: var(--border-color);
+    --btn-disabled-opacity: 0.85;
+
+    --torrent-title-shadow: rgba(0, 0, 0, 0.8);
+    --torrent-list-title-color: var(--text-white);
+
+    /* Header / menus — hover e bordas (light redefinem com tinta escura suave) */
+    --header-menu-hover-bg: rgba(255, 255, 255, 0.06);
+    --header-menu-hover-color: var(--text-white);
+    --menu-link-hover-fg: var(--text-white);
+    --submenu-border: rgba(255, 255, 255, 0.08);
+    --submenu-row-line: rgba(255, 255, 255, 0.04);
+    --menu-item-hover-bg: rgba(255, 255, 255, 0.05);
+    --logo-ambient-glow: rgba(255, 255, 255, 0.08);
+
+    --userinfo-stat-bg: rgba(255, 255, 255, 0.04);
+    --userinfo-stat-bg-hover: rgba(255, 255, 255, 0.07);
+    --userinfo-stat-border-hover: rgba(255, 255, 255, 0.12);
+    --userinfo-stat-label: var(--text-muted);
+    --userinfo-highlite-fg: var(--text-white);
+
+    /* Barra superior: texto / busca / alerta fixo */
+    --header-search-text: var(--text-bright);
+    --header-search-placeholder: var(--text-muted);
+    --alert-strip-link: var(--text-white);
+    --submenu-grid-item-hover-bg: rgba(255, 255, 255, 0.08);
+    --submenu-symbol-border: rgba(255, 255, 255, 0.04);
+    --on-accent-fg: #ffffff;
+    --banner-secondary-hover-bg: rgba(255, 255, 255, 0.1);
+
+    /* Noty (toast canto inferior) — texto principal legível em painel claro ou escuro */
+    --noty-message-color: var(--text-bright);
+    --noty-button-bg: rgba(255, 255, 255, 0.08);
+    --noty-button-border: rgba(255, 255, 255, 0.12);
+    --noty-button-fg: var(--text-bright);
+
+    /* Links na barra superior (herdam de `a` global; token para variantes claras) */
+    --header-link-fg: var(--text-bright);
+    --header-link-hover-fg: var(--accent-hover);
+
+    /* Votos / meta no bloco album (evita branco fixo na variante clara) */
+    --album-votes-number-gradient: linear-gradient(180deg, #ffffff 20%, rgba(255, 255, 255, 0.45) 100%);
+    --album-votes-meta-bg: rgba(255, 255, 255, 0.03);
+    --album-votes-meta-border: rgba(255, 255, 255, 0.06);
+    --album-votes-meta-bg-hover: rgba(255, 255, 255, 0.06);
+    --album-votes-meta-border-hover: rgba(255, 255, 255, 0.1);
+
+    /* Ícones Font Awesome nos botões do banner de grupo */
+    --groupbanner-icon-muted: rgba(255, 255, 255, 0.72);
+
+    /* Listagem: cabeçalho de grupo e título do release */
+    --torrent-group-header-bg: rgba(20, 24, 30, 0.95);
+    --torrent-group-header-border: rgba(255, 255, 255, 0.08);
+    --torrent-edition-row-bg: rgba(255, 255, 255, 0.015);
+    --torrent-group-title-bg: rgba(255, 255, 255, 0.05);
+    --torrent-group-title-bg-hover: rgba(255, 255, 255, 0.1);
+
+    --table-row-stripe: rgba(255, 255, 255, 0.015);
+    --table-cell-divider: rgba(255, 255, 255, 0.03);
+    --table-row-zebra-torrent: rgba(255, 255, 255, 0.01);
+
+    --gradient-banner-fade: linear-gradient(180deg, transparent 0%, var(--overlay-90) 100%);
+    --gradient-album-votes: linear-gradient(180deg, var(--overlay-15) 0%, transparent 100%);
+}
+
+/* ==========================================================================
+   2. Reset Moderno & Base
+   ========================================================================== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+    scrollbar-width: auto;
+    scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+}
+
+html, body {
+    width: 100%; min-width: 100%; min-height: 100vh;
+    background-color: var(--bg-base);
+    color: var(--text-main);
+    font-family: var(--font-main);
+    font-size: var(--text-page, 12px);
+    line-height: 1.45;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    display: flex;
+    flex-direction: column; 
+}
+
+body {
+    background-image: 
+        radial-gradient(ellipse 80% 50% at 50% -20%, var(--body-spot-accent) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 40% at 80% 50%, var(--body-spot-info) 0%, transparent 50%);
+    background-attachment: fixed;
+    max-width: 100vw;
+}
+
+/* Seleção de texto estilizada */
+::selection {
+    background-color: var(--text-selection-bg);
+    color: var(--text-selection-color);
+}
+::-moz-selection {
+    background-color: var(--text-selection-bg);
+    color: var(--text-selection-color);
+}
+
+a { color: var(--text-bright); text-decoration: none; font-weight: 500; transition: color var(--transition-snappy), text-shadow var(--transition-snappy); }
+a:hover, a:focus { color: var(--accent-hover); text-shadow: 0 0 12px var(--link-glow); }
+img, video { max-width: 100%; height: auto; }
+
+/* Ocultar Lixo Nativo e Banner do Telegram Indesejado */
+.hidden:not(.newsbody), span.hidden, h1.hidden { display: none !important; }
+.alertbar, #alerts { display: none !important; opacity: 0 !important; visibility: hidden !important; pointer-events: none !important; }
+ul, ol, li, ul.nobullet, ul.stats { list-style: none; margin: 0; padding: 0; }
+
+/* ==========================================================================
+   3. Layout & Grid
+   ========================================================================== */
+#wrapper { display: flex; flex-direction: column; min-height: 100vh; width: 100%; flex: 1; }
+#content { flex: 1; padding: var(--space-y-page) 0; width: 100%; } 
+
+.thin, .widethin {
+    width: 100%; max-width: 1280px; margin: 0 auto; padding: 0 var(--space-x-shell);
+    display: flex; flex-wrap: wrap; gap: var(--gap-col);
+    align-items: flex-start;
+}
+
+.thin > *, .widethin > * { width: 100%; }
+
+/* sem sticky: com sticky, a sidebar permanecia "colada" até o fim do .thin, que
+   acompanha a coluna de torrents — parecia rolar tudo a listagem para "soltar" destaques */
+.thin > .sidebar, .widethin > .sidebar {
+    width: 260px;
+    flex: 0 0 260px;
+    order: 2;
+    position: static;
+}
+
+.thin > .main_column, .widethin > .main_column {
+    flex: 1 1 0%; min-width: 0; width: calc(100% - 272px); order: 1; /* 260 sidebar + gap */
+}
+
+/* ==========================================================================
+   4. TOPBAR FLEXBOX PERFEITA & MENU
+   ========================================================================== */
+html body #wrapper #header, 
+html body #header, 
+#header {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    padding: 8px 16px !important; 
+    background-color: var(--header-bg-solid) !important;
+    background: var(--header-bg-solid) !important;
+    background-image: none !important; /* Anula qualquer imagem ou gradiente base */
+    opacity: 1 !important; 
+    backdrop-filter: none !important; 
+    -webkit-backdrop-filter: none !important;
+    border-bottom: 1px solid var(--header-border-bottom) !important;
+    position: sticky !important; 
+    top: 0 !important; 
+    z-index: 999999 !important; 
+    order: -1 !important; 
+    box-shadow: var(--shadow-header) !important; 
+    width: 100% !important;
+    margin: 0 !important;
+    color: var(--text-bright) !important;
+}
+
+#header a {
+    color: var(--header-link-fg);
+}
+#header a:hover,
+#header a:focus {
+    color: var(--header-link-hover-fg);
+}
+
+/* Prevenir overlays transparentes nativos */
+html body #wrapper #header::before,
+html body #wrapper #header::after,
+html body #header::before,
+html body #header::after {
+    display: none !important;
+    background: none !important;
+    opacity: 0 !important;
+}
+
+@media screen and (min-width: 1320px) {
+    html body #wrapper #header, 
+    html body #header, 
+    #header {
+        padding-left: calc((100% - 1280px) / 2) !important;
+        padding-right: calc((100% - 1280px) / 2) !important;
+    }
+}
+
+/* Logo - Extrema Esquerda (Aumentado em +15%) */
+#logo {
+    order: 1;
+    flex: 0 0 auto;
+    height: 52px; width: 187px; margin: 0 20px 0 0 !important;
+    background: url('https://matheussousa.com/bjlogo.png') left center no-repeat;
+    background-size: contain; display: block;
+    transition: filter var(--transition-smooth), opacity var(--transition-smooth); opacity: 0.9;
+}
+#logo a { display: block; width: 100%; height: 100%; }
+#logo:hover { opacity: 1; filter: drop-shadow(0 0 10px var(--logo-ambient-glow)); }
+
+/* Menu Principal */
+#menu { 
+    order: 2;
+    flex: 0 0 auto;
+    margin: 0 !important; border: none !important; background: transparent !important; 
+    width: auto !important;
+}
+#centertopmenu { padding: 0 !important; margin: 0 !important; width: auto !important; }
+
+/* Dropdown Container Setup */
+#menudrop { position: relative; z-index: 1000; }
+#menudrop > ul { display: flex !important; flex-wrap: wrap; align-items: center; gap: 4px; justify-content: flex-start !important; }
+#menudrop > ul > li { position: relative; } /* Âncora para o nível 1 */
+
+#menudrop > ul > li > a {
+    display: block; padding: 8px 10px; 
+    color: var(--text-bright);
+    font-weight: 600; font-size: 12px; text-transform: uppercase;
+    letter-spacing: 0.6px; border-radius: var(--radius-sm); transition: all var(--transition-snappy);
+    position: relative;
+}
+#menudrop > ul > li > a:hover { background-color: var(--header-menu-hover-bg); color: var(--header-menu-hover-color); }
+#menudrop > ul > li > a::after { 
+    content: ''; position: absolute; bottom: 6px; left: 50%; width: 0; height: 2px;
+    background: var(--accent-gradient); border-radius: 1px; 
+    transform: translateX(-50%); transition: width var(--transition-smooth);
+}
+#menudrop > ul > li:hover > a::after { width: 60%; }
+
+/* SUBMENU - NÍVEL 1 (Torrents, Fórum, etc) */
+#menudrop ul ul {
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-4px);
+    position: absolute; 
+    top: 100%; 
+    left: 0; 
+    right: auto; 
+    min-width: 240px; 
+    background: var(--gradient-submenu); 
+    border: 1px solid var(--submenu-border); 
+    border-top: 2px solid var(--accent-main);
+    border-radius: 0 0 var(--radius-md) var(--radius-md); 
+    box-shadow: var(--shadow-submenu); 
+    padding: 6px 0; 
+    margin-top: 0 !important;
+    backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+    transition: opacity 0.15s ease 0.3s, transform 0.15s ease 0.3s, visibility 0s linear 0.45s;
+}
+#menudrop ul ul::before { content: ''; position: absolute; top: -20px; left: 0; width: 100%; height: 20px; background: transparent; }
+#menudrop ul li:hover > ul {
+    visibility: visible;
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+    transition: opacity 0.15s ease 0.3s, transform 0.15s ease 0.3s, visibility 0s linear 0.3s;
+}
+@keyframes fadeIn { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: translateY(0); } }
+
+#menudrop ul ul li { border-bottom: 1px solid var(--submenu-row-line); position: relative; }
+#menudrop ul ul li:last-child { border-bottom: none; }
+#menudrop ul ul a {
+    display: flex; justify-content: space-between; 
+    padding: 8px 22px 8px 14px; 
+    color: var(--text-bright); font-size: 12px; font-weight: 500; border-radius: 0;
+    transition: all var(--transition-snappy);
+}
+#menudrop ul ul a:hover { background-color: var(--accent-a-06); color: var(--menu-link-hover-fg); padding-left: 18px; }
+
+
+/* ==========================================================================
+   GRELHA INTELIGENTE (SMART GRID) - Submenus (Nível 2)
+   ========================================================================== */
+
+/* PADRÃO: 1 Coluna para submenus curtos */
+#menudrop ul ul ul {
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateX(-4px);
+    position: absolute; 
+    top: -10px; 
+    left: 100%; 
+    right: auto;
+    width: 200px !important;
+    background-color: var(--bg-solid); 
+    border: 1px solid var(--border-light); 
+    border-top: 2px solid var(--accent-main); 
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-lg);
+    padding: 8px 0 !important; 
+    margin-left: 2px;
+    z-index: 10001;
+    transition: opacity 0.15s ease 0.3s, transform 0.15s ease 0.3s, visibility 0s linear 0.45s;
+}
+
+#menudrop ul ul li:hover > ul {
+    visibility: visible !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    transform: translateX(0) !important;
+    transition: opacity 0.15s ease 0.3s, transform 0.15s ease 0.3s, visibility 0s linear 0.3s !important;
+}
+
+#menudrop ul ul ul li {
+    border-bottom: 1px solid var(--submenu-row-line) !important;
+}
+#menudrop ul ul ul li:last-child {
+    border-bottom: none !important;
+}
+
+#menudrop ul ul ul a {
+    padding: 12px 20px !important;
+    border-radius: 0 !important;
+    font-size: 12px !important;
+}
+#menudrop ul ul ul a:hover {
+    background-color: var(--menu-item-hover-bg) !important;
+    padding-left: 24px !important;
+    color: var(--menu-link-hover-fg) !important;
+}
+
+/* GRELHA (GRID) apenas para submenus de GÉNEROS longos (Level 4, 7+ itens: Seriados, Filmes...) */
+#menudrop ul ul ul ul:has(li:nth-child(7)) {
+    width: 540px !important; 
+    padding: 18px !important; 
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+    max-height: calc(100vh - 80px) !important;
+    overflow-y: auto !important;
+    top: 0 !important;
+    scrollbar-width: auto;
+    scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+}
+
+#menudrop ul ul ul li:hover > ul:has(li:nth-child(7)) {
+    display: grid !important; 
+}
+
+#menudrop ul ul ul ul:has(li:nth-child(7)) li {
+    border-bottom: none !important; 
+}
+
+#menudrop ul ul ul ul:has(li:nth-child(7)) a {
+    padding: 10px 14px !important;
+    border-radius: var(--radius-sm) !important;
+    font-size: 12px !important;
+}
+#menudrop ul ul ul ul:has(li:nth-child(7)) a:hover {
+    background-color: var(--submenu-grid-item-hover-bg) !important;
+    padding-left: 18px !important;
+}
+
+/* Level 3 longo (Categorias): 2 colunas — permite Level 4 escapar para a direita */
+#menudrop ul ul ul:has(li:nth-child(7)) {
+    top: 0 !important;
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr);
+    width: 380px !important;
+    padding: 8px !important;
+    gap: 2px;
+}
+#menudrop ul ul ul:has(li:nth-child(7)) li {
+    border-bottom: none !important;
+}
+#menudrop ul ul ul:has(li:nth-child(7)) > li > a {
+    padding: 8px 12px !important;
+    border-radius: var(--radius-sm) !important;
+    display: block;
+}
+
+/* Setinhas Indicadoras Padrão (Nível 1) */
+#menudrop ul ul a.symbol {
+    position: absolute; right: 0; top: 0; width: 35px; height: 100%;
+    border-left: 1px solid var(--submenu-symbol-border); display: flex; align-items: center; justify-content: center;
+    color: var(--text-muted); padding: 0 !important; font-size: 12px !important;
+}
+#menudrop ul ul a.symbol:hover { background: var(--accent-main); color: var(--on-accent-fg); }
+
+/* Setinha no Nível 2 para o Nível 3 */
+#menudrop ul ul ul a.symbol { 
+    display: flex !important; 
+    border-left: none !important; 
+    width: 25px;
+    background: transparent !important;
+    opacity: 0.6;
+}
+#menudrop ul ul ul a.symbol:hover {
+    color: var(--on-accent-fg) !important;
+    opacity: 1;
+}
+
+/* SUBMENU - NÍVEL 3 (Subcategorias ex: Jogos -> PS2) */
+#menudrop ul ul ul ul {
+    top: -8px !important; /* Compensação para listas curtas */
+    margin-left: 2px !important;
+    z-index: 10002;
+}
+
+/* Se o pai for uma Grelha, o ajuste da altura do filho é diferente */
+#menudrop ul ul ul ul:has(li:nth-child(7)) ul {
+    top: -18px !important; 
+    margin-left: 8px !important;
+}
+
+/* ==========================================================================
+   Menu do Perfil (UserInfo)
+   ========================================================================== */
+#userinfo {
+    order: 3;
+    flex: 1 1 auto; 
+    margin: 0 !important; padding: 0 !important; border: none !important;
+    background: transparent !important; display: flex; align-items: center; justify-content: flex-end !important;
+}
+#userinfo ul { 
+    display: flex; 
+    flex-wrap: wrap !important; 
+    gap: 4px; align-items: center; justify-content: flex-end !important; margin: 0; 
+}
+
+/* Ocultação do UserInfo Minor (Doações, Pedidos duplos, etc) */
+#nav_donations, #nav_requests, #userinfo_minor { display: none !important; }
+
+#userinfo_stats li {
+    background: var(--userinfo-stat-bg); padding: 4px 10px; 
+    border-radius: var(--radius-pill); border: 1px solid var(--border-color);
+    display: flex; align-items: center; gap: 5px; font-size: 12px !important;
+    color: var(--userinfo-stat-label);
+    transition: all var(--transition-snappy);
+}
+#userinfo_stats li:hover {
+    background: var(--userinfo-stat-bg-hover);
+    border-color: var(--userinfo-stat-border-hover);
+}
+
+#stats_seeding .stat { color: var(--color-success); font-weight: 700; text-shadow: 0 0 8px rgba(34, 197, 94, 0.2); }
+#stats_leeching .stat { color: var(--color-danger); font-weight: 700; text-shadow: 0 0 8px var(--stat-danger-glow); }
+#stats_ratio .stat { font-weight: 700; color: var(--text-bright); }
+#stats_bjpontos .stat { color: var(--color-warning); font-weight: 700; text-shadow: 0 0 8px rgba(234, 179, 8, 0.2); }
+#userinfo_minor.highlite a { color: var(--userinfo-highlite-fg); font-weight: 700; }
+
+/* Dropdown Perfil Principal */
+#userinfo ul li { position: relative; }
+#userinfo ul ul {
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-4px);
+    position: absolute; top: 100%; right: 0; left: auto;
+    min-width: 180px; background-color: var(--bg-solid);
+    border: 1px solid var(--border-light); border-top: 2px solid var(--accent-main); border-radius: 0 0 var(--radius-md) var(--radius-md);
+    box-shadow: var(--shadow-md); padding: 6px 0; z-index: 1001; margin-top: 0;
+    transition: opacity 0.15s ease 0.3s, transform 0.15s ease 0.3s, visibility 0s linear 0.45s;
+}
+#userinfo ul ul::before { content: ''; position: absolute; top: -20px; left: 0; width: 100%; height: 20px; background: transparent; }
+#userinfo ul li:hover > ul {
+    visibility: visible;
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+    transition: opacity 0.15s ease 0.3s, transform 0.15s ease 0.3s, visibility 0s linear 0.3s;
+}
+#userinfo ul ul li { display: block; width: 100%; border: none; background: transparent; padding: 0; position: relative; }
+#userinfo ul ul li a {
+    display: block; padding: 10px 16px; 
+    color: var(--text-bright);
+    font-size: 12px; font-weight: 500; text-align: left; border-radius: 0;
+}
+#userinfo ul ul li a:hover { background-color: var(--menu-item-hover-bg); color: var(--menu-link-hover-fg); padding-left: 20px; }
+
+/* Setinha indicadora no Perfil para opções com Submenu */
+#userinfo ul ul li:has(ul) > a::after {
+    content: '▸'; float: right; color: var(--text-muted); font-size: 12px; margin-top: 2px; opacity: 0.7;
+}
+
+/* Nível 3 do Perfil (Ex: Mensagens -> Recebidas) ABRE PARA A ESQUERDA */
+#userinfo ul ul ul {
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateX(4px);
+    position: absolute; 
+    top: -10px; 
+    right: 100%; 
+    left: auto; 
+    min-width: 160px; 
+    background-color: var(--bg-solid);
+    border: 1px solid var(--border-light); 
+    border-top: 2px solid var(--accent-main); 
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-lg); 
+    padding: 6px 0; 
+    z-index: 1002; 
+    margin-right: 2px;
+    transition: opacity 0.15s ease 0.3s, transform 0.15s ease 0.3s, visibility 0s linear 0.45s;
+}
+#userinfo ul ul li:hover > ul {
+    visibility: visible;
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateX(0);
+    transition: opacity 0.15s ease 0.3s, transform 0.15s ease 0.3s, visibility 0s linear 0.3s;
+}
+
+/* Barras de Pesquisa */
+#searchbars { 
+    order: 4;
+    flex: 0 0 100%; 
+    margin: 10px 0 0 0 !important; padding: 12px 0 0 0 !important; 
+    border-top: 1px solid var(--border-color) !important; border-bottom: none !important;
+    background: transparent !important; width: 100%; 
+    display: flex; justify-content: center;
+}
+#searchbars ul { display: flex !important; flex-wrap: wrap; justify-content: center; gap: 6px; align-items: center; }
+#searchbars form { display: flex; margin: 0; padding: 0; }
+
+#searchbars input[type="text"] {
+    width: 160px; padding: 8px 16px; background-color: var(--search-input-fill);
+    border: 1px solid var(--border-color); border-radius: var(--radius-pill); color: var(--header-search-text);
+    text-align: center; font-size: 12px; transition: all var(--transition-smooth);
+}
+#searchbars input[type="text"]::placeholder {
+    color: var(--header-search-placeholder);
+    opacity: 0.9;
+}
+#searchbars input[type="text"]:focus { 
+    width: 240px; border-color: var(--accent-main); 
+    background-color: var(--overlay-50); outline: none; 
+    box-shadow: 0 0 0 3px var(--accent-a-10);
+}
+#searchbars input[type="text"]:-webkit-autofill,
+#searchbars input[type="text"]:-webkit-autofill:hover,
+#searchbars input[type="text"]:-webkit-autofill:focus {
+    -webkit-text-fill-color: var(--header-search-text) !important;
+    caret-color: var(--header-search-text);
+    box-shadow: 0 0 0 1000px var(--search-input-fill) inset !important;
+    transition: background-color 99999s ease-out;
+}
+
+/* ==========================================================================
+   5. Alertas & Notificações
+   ========================================================================== */
+#noteAlertMsg { 
+    position: fixed !important; top: 0 !important; left: 0 !important;
+    width: 100% !important; height: 28px !important;
+    display: flex !important; align-items: center !important; justify-content: center !important;
+    background-color: var(--bg-solid) !important; color: var(--text-bright) !important;
+    font-size: 12px !important; font-weight: 500 !important;
+    z-index: 100000 !important; padding: 0 !important; margin: 0 !important;
+    border: none !important; border-bottom: 1px solid var(--border-color) !important;
+}
+#noteAlertMsg a { color: var(--alert-strip-link) !important; text-decoration: underline !important; margin-left: 8px; font-weight: 600; }
+
+body:has(#noteAlertMsg:not([style*="display: none"])):has(#noteAlertMsg:not(.hidden)) { padding-top: 28px !important; }
+body:has(#noteAlertMsg:not([style*="display: none"])):has(#noteAlertMsg:not(.hidden)) #header { top: 28px !important; }
+
+#noty_bottomRight_layout_container {
+    max-height: calc(100vh - 60px) !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    scrollbar-width: auto !important;
+    scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track) !important;
+}
+#noty_bottomRight_layout_container::-webkit-scrollbar { width: var(--scrollbar-size) !important; height: var(--scrollbar-size) !important; }
+#noty_bottomRight_layout_container::-webkit-scrollbar-track { background: var(--scrollbar-track) !important; border-radius: var(--radius-sm) !important; border: 1px solid var(--border-color) !important; }
+#noty_bottomRight_layout_container::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-face) !important;
+    border-radius: var(--radius-md) !important;
+    border: 1px solid var(--scrollbar-thumb-border) !important;
+    box-shadow: inset 0 1px 0 var(--scrollbar-inset-top), var(--shadow-scroll-lift) !important;
+}
+#noty_bottomRight_layout_container::-webkit-scrollbar-thumb:hover {
+    background: var(--scrollbar-hover) !important;
+    border-color: var(--scrollbar-border-hover) !important;
+    box-shadow: inset 0 1px 0 var(--scrollbar-inset-top-strong), 0 0 14px var(--accent-glow) !important;
+}
+
+#noty_bottomRight_layout_container li {
+    background: var(--bg-panel) !important; 
+    background-image: none !important; 
+    border: 1px solid var(--border-light) !important;
+    border-radius: var(--radius-md) !important;
+    box-shadow: var(--shadow-md) !important;
+    color: var(--noty-message-color) !important;
+    margin-top: 12px !important;
+    backdrop-filter: var(--glass-blur) !important;
+    -webkit-backdrop-filter: var(--glass-blur) !important;
+}
+.noty_bar { background: transparent !important; border: none !important; outline: none !important; }
+.noty_message,
+.noty_message .noty_text,
+#noty_bottomRight_layout_container .noty_text {
+    color: var(--noty-message-color) !important;
+    font-family: var(--font-main) !important;
+    font-size: 12px !important;
+}
+.noty_message { padding: 8px 12px !important; }
+.noty_buttons { background-color: var(--overlay-25) !important; border-top: 1px solid var(--border-color) !important; padding: 6px 10px !important; text-align: right !important; }
+
+.noty_buttons a.brackets {
+    display: inline-block !important; background: var(--noty-button-bg) !important; border: 1px solid var(--noty-button-border) !important;
+    border-radius: var(--radius-sm) !important; color: var(--noty-button-fg) !important; padding: 5px 12px !important; font-size: 12px !important;
+    font-weight: 600 !important; margin-left: 8px !important; text-transform: uppercase; letter-spacing: 0.5px; transition: all var(--transition-snappy) !important; text-decoration: none !important;
+}
+.noty_buttons a.brackets:hover { background: var(--accent-main) !important; border-color: var(--accent-main) !important; color: var(--on-accent-fg) !important; box-shadow: 0 0 10px var(--accent-noty-glow) !important; }
+
+/* ==========================================================================
+   6. UI Geral: Boxes e Painéis 
+   ========================================================================== */
+.box, .torrent_details, .news_post {
+    background-color: var(--bg-card); backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--box-outline); border-radius: var(--radius-md);
+    box-shadow: var(--shadow-box-default); 
+    margin-bottom: var(--space-block); overflow: hidden; transform: translateZ(0);
+    transition: border-color var(--transition-smooth), box-shadow var(--transition-smooth);
+}
+
+.box:hover, .news_post:hover {
+    border-color: var(--box-outline-hover);
+    box-shadow: var(--shadow-box-hover);
+}
+
+.box .head, .head2, .colhead, .colhead_dark, .headTitulos {
+    background: var(--panel-head-gradient); 
+    border-bottom: 1px solid var(--border-color);
+    padding: var(--pad-head); font-weight: 600; color: var(--box-head-fg); font-size: 16px; margin-bottom: 0;
+    letter-spacing: 0.3px;
+}
+.box .head a, .head2 a, .colhead a, .headTitulos a { color: inherit; }
+.box .head a:hover, .head2 a:hover, .colhead a:hover, .headTitulos a:hover { color: var(--accent-hover); }
+
+.pad, .body { padding: var(--pad-inset); }
+
+.sidebar .box > .body, .sidebar .box > .pad, .sidebar .box > ul.stats,
+.sidebar .box > ul.nobullet, .sidebar .box > div:not(.head) { padding: var(--pad-inset); }
+
+.sidebar .box ul.stats li, .sidebar .box ul.nobullet li { padding: 4px 0; border-bottom: 1px solid var(--border-color); }
+.sidebar .box ul.stats li:last-child, .sidebar .box ul.nobullet li:last-child { border-bottom: none; padding-bottom: 0; }
+
+.center { text-align: center; }
+.right { text-align: right; }
+
+/* Botoes nativos em caixas (Lançamentos: Geral / XXX / …, paginação em .post_return) */
+.box .center button[type="button"],
+.box .pad button[type="button"],
+.box .post_return button[type="button"] {
+    font-family: var(--font-main);
+    font-size: 12px;
+    font-weight: 600;
+    padding: 8px 14px;
+    margin: 2px 2px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--btn-pill-border);
+    background: var(--btn-pill-bg);
+    color: var(--btn-pill-fg);
+    cursor: pointer;
+    transition: border-color var(--transition-snappy), background-color var(--transition-snappy), color var(--transition-snappy);
+    vertical-align: middle;
+}
+.box .center button[type="button"]:not(:disabled):hover,
+.box .pad button[type="button"]:not(:disabled):hover,
+.box .post_return button[type="button"]:not(:disabled):hover {
+    background: var(--btn-pill-hover-bg);
+    border-color: var(--btn-pill-hover-border);
+    color: var(--btn-pill-fg);
+}
+.box .center button[type="button"]:disabled,
+.box .pad button[type="button"]:disabled,
+.box .post_return button[type="button"]:disabled {
+    cursor: not-allowed;
+    opacity: var(--btn-disabled-opacity);
+    background: var(--btn-disabled-bg) !important;
+    color: var(--btn-disabled-fg) !important;
+    border-color: var(--btn-disabled-border) !important;
+}
+.box .center button[type="button"] img,
+.box .pad button[type="button"] img,
+.box .post_return button[type="button"] img {
+    vertical-align: middle;
+    display: inline-block;
+}
+
+/* ==========================================================================
+   7. Inputs Básicos & Checkboxes Globais
+   ========================================================================== */
+input[type="text"], input[type="password"], textarea, select {
+    max-width: 100%; padding: 6px 10px; background-color: var(--overlay-30);
+    border: 1px solid var(--border-color); border-radius: var(--radius-sm); color: var(--text-bright);
+    font-family: var(--font-main);
+    font-size: var(--text-page, 12px);
+    transition: all var(--transition-snappy);
+}
+input:focus, textarea:focus, select:focus { border-color: var(--accent-main); background-color: var(--overlay-50); outline: none; box-shadow: 0 0 0 3px var(--accent-a-08); }
+
+/* Checkboxes Customizados e Modernos (Global) */
+input[type="checkbox"], input[type="radio"] {
+    appearance: none !important; -webkit-appearance: none !important;
+    width: 18px !important; min-width: 18px !important; height: 18px !important;
+    border: 2px solid var(--border-light) !important; border-radius: 4px !important;
+    background-color: var(--overlay-40) !important; cursor: pointer !important;
+    position: relative !important; transition: all var(--transition-snappy) !important;
+    margin: 0 !important; display: inline-block !important; vertical-align: middle !important;
+}
+input[type="radio"] { border-radius: 50% !important; }
+
+input[type="checkbox"]:checked, input[type="radio"]:checked {
+    background-color: var(--accent-main) !important; border-color: var(--accent-main) !important;
+}
+input[type="checkbox"]:checked::after {
+    content: '✔' !important; position: absolute !important; top: 50% !important; left: 50% !important;
+    transform: translate(-50%, -50%) !important; color: white !important; font-size: 12px !important;
+}
+input[type="radio"]:checked::after {
+    content: '' !important; position: absolute !important; top: 50% !important; left: 50% !important;
+    transform: translate(-50%, -50%) !important; width: 8px !important; height: 8px !important;
+    background-color: white !important; border-radius: 50% !important;
+}
+
+/* ==========================================================================
+   8. Tags Neutras, Linkbox e Brackets (Botões)
+   ========================================================================== */
+input[type="button"], input[type="submit"], button {
+    display: inline-flex; align-items: center; justify-content: center; padding: 6px 14px;
+    background-color: rgba(255, 255, 255, 0.06); color: var(--text-white);
+    border: 1px solid var(--border-color); border-radius: var(--radius-sm);
+    font-weight: 500; font-size: 12px; cursor: pointer; transition: all var(--transition-snappy);
+    letter-spacing: 0.2px;
+}
+input[type="submit"] { background: var(--accent-gradient); border-color: transparent; color: white; box-shadow: 0 2px 8px var(--accent-a-20); }
+input[type="button"]:hover, button:hover { background-color: rgba(255, 255, 255, 0.12); border-color: rgba(255, 255, 255, 0.15); }
+input[type="submit"]:hover { background: var(--accent-gradient-hover); box-shadow: 0 4px 14px var(--accent-a-35); transform: translateY(-1px); }
+
+div.linkbox { text-align: center; padding: 6px 8px; margin: 6px 0; }
+div.linkbox a {
+    display: inline-block; padding: 5px 12px; margin: 0 4px 4px 0;
+    background: rgba(255, 255, 255, 0.04); border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm); color: var(--text-main); font-size: 12px;
+    transition: all var(--transition-snappy);
+}
+div.linkbox a:hover { background: var(--accent-gradient); color: #fff; border-color: transparent; box-shadow: 0 2px 8px var(--accent-a-20); }
+
+/* TAGS DE GÊNERO/CATEGORIA */
+.tags a {
+    display: inline-block; padding: 3px 10px; margin: 2px 4px 2px 0;
+    background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: var(--radius-pill); color: var(--text-muted); font-size: 12px;
+    font-weight: 600; text-transform: uppercase; letter-spacing: 0.6px;
+    transition: all var(--transition-snappy); white-space: nowrap;
+}
+.tags a:hover { background: var(--accent-a-10); color: var(--accent-hover); border-color: var(--accent-a-20); text-shadow: none; }
+
+.brackets {
+    display: inline-block; padding: 4px 8px; margin: 0 4px; background: transparent;
+    border: 1px solid var(--border-color); border-radius: var(--radius-sm); font-size: 12px;
+    color: var(--text-muted); font-weight: 500; transition: all var(--transition-snappy);
+}
+.brackets:hover { background: rgba(255, 255, 255, 0.1); color: var(--text-bright); border-color: var(--border-light); }
+
+/* ==========================================================================
+   9. Tabelas, Torrents e Download Centralizado
+   ========================================================================== */
+table { width: 100%; border-collapse: collapse; margin-bottom: 0; }
+th, td { padding: var(--pad-cell); text-align: left; border-bottom: 1px solid var(--border-color); vertical-align: middle; }
+th { 
+    background: var(--table-th-gradient); 
+    font-weight: 600; color: var(--text-white); font-size: 12px; text-transform: uppercase; 
+    letter-spacing: 0.8px; border-top: none; 
+}
+
+tr:nth-child(even) td { background-color: var(--table-row-stripe); }
+
+table.layout { width: 100%; }
+table.layout td.label { width: 25%; font-weight: 600; text-align: right; background: var(--overlay-25); color: var(--text-bright); }
+
+/* Estilo Global para as Tabelas Principais (Borda e Sombra Forte) */
+.torrent_table { 
+    background-color: var(--bg-panel);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--box-outline);
+    box-shadow: var(--shadow-noty-item);
+    border-collapse: separate;
+    border-spacing: 0;
+    overflow: hidden;
+    margin-bottom: var(--space-block);
+}
+
+/* Garante que a última linha da tabela não conflita com a borda de fora */
+.torrent_table tr:last-child td,
+table:has(tr.torrent_row) tr:last-child td,
+table:has(tr.audio_header) tr:last-child td,
+table:has(tr.season_header) tr:last-child td,
+table:has(tr.resolution_header) tr:last-child td {
+    border-bottom: none !important;
+}
+
+
+/* ==========================================================================
+   9.1. Hierarquia Visual (Grupos e Edições - PÁGINA PRINCIPAL APENAS)
+   ========================================================================== */
+tr.group td { 
+    background: var(--torrent-group-header-bg) !important; 
+    border-top: 1px solid var(--torrent-group-header-border);
+    font-weight: 700; 
+}
+
+/* Exclusão estrita: As regras abaixo só se aplicam à lista PRINCIPAL e evitam poluir as tabelas de detalhes */
+tr.group_torrent:not(.audio_header):not(.season_header):not(.torrent_row) td { 
+    background-color: var(--torrent-edition-row-bg) !important; 
+}
+
+.torrent_table tr.group_torrent:not(.audio_header):not(.season_header):not(.torrent_row) td:first-child {
+    padding-left: 85px !important; 
+    font-size: 0 !important; 
+    vertical-align: middle;
+}
+
+.torrent_table tr.group_torrent:not(.audio_header):not(.season_header):not(.torrent_row) td:first-child * {
+    font-size: 12px;
+    text-decoration: none !important;
+}
+
+.torrent_table tr.group_torrent:not(.audio_header):not(.season_header):not(.torrent_row) td:first-child > a {
+    display: inline-flex;
+    align-items: center;
+    background: var(--torrent-group-title-bg);
+    border-left: 3px solid var(--accent-main); /* Apenas na página principal */
+    color: var(--torrent-list-title-color) !important;
+    padding: 5px 14px;
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    transition: all var(--transition-snappy);
+    vertical-align: middle;
+}
+
+.torrent_table tr.group_torrent:not(.audio_header):not(.season_header):not(.torrent_row) td:first-child > a:hover {
+    background: var(--torrent-group-title-bg-hover);
+    color: var(--torrent-list-title-color) !important;
+    transform: translateX(4px);
+    box-shadow: var(--shadow-sm);
+}
+
+.torrent_table tr.group_torrent:not(.audio_header):not(.season_header):not(.torrent_row):not(.edition_0) td:first-child span {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.torrent_table tr.group_torrent:not(.audio_header):not(.season_header):not(.torrent_row):not(.edition_0) td:first-child span a[href*="action=download"],
+.torrent_table tr.group_torrent:not(.audio_header):not(.season_header):not(.torrent_row):not(.edition_0) td:first-child span a[title="Baixar"] {
+    position: static !important;
+    transform: none !important;
+    margin: 0 12px 0 0 !important;
+    box-shadow: none !important;
+}
+
+/* Botão de download nas linhas edition_0: posicionar à direita como nas tr.torrent */
+.torrent_table tr.group_torrent.edition_0 td[colspan] {
+    position: relative !important;
+    padding-right: 50px !important;
+}
+.torrent_table tr.group_torrent.edition_0 td[colspan] > span:first-child {
+    position: absolute !important;
+    right: 8px !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    margin: 0 !important;
+}
+
+tr.torrent td { background-color: transparent; }
+
+.torrent_table tr:not(.colhead):not(.group):hover td { background-color: var(--bg-card-hover); transition: background var(--transition-snappy); }
+
+/* Linha lateral de seleção (Apenas Pág Principal) */
+.torrent_table tr.torrent:hover td:first-child, .torrent_table tr.group_torrent:not(.audio_header):not(.season_header):not(.torrent_row):hover td:first-child { position: relative; }
+.torrent_table tr.torrent:hover td:first-child::before, .torrent_table tr.group_torrent:not(.audio_header):not(.season_header):not(.torrent_row):hover td:first-child::before {
+    content: ''; position: absolute; left: 0; top: 0; height: 100%; width: 3px; background-color: var(--accent-main);
+}
+
+/* IMAGENS DAS CATEGORIAS — listagem geral (inclui filtro por categoria: sem tr[data-categoryid]) */
+.torrent_table td.cats_col a {
+    display: inline-block;
+    line-height: 0;
+}
+.torrent_table td.cats_col img {
+    width: 72px !important;
+    max-width: 72px !important;
+    height: auto !important;
+    object-fit: contain !important;
+    border-radius: var(--radius-md) !important;
+    box-shadow: var(--shadow-popdrop) !important;
+    display: block !important;
+    margin: 0 auto !important;
+}
+
+/* NOME DA RELEASE EM DESTAQUE E INFORMAÇÕES EXTRAS */
+.torrent_table td a[href*="torrents.php?id="]:first-of-type:not([href*="action=download"]):not(.brackets) {
+    font-size: 12px !important; font-weight: 700 !important; color: var(--torrent-list-title-color) !important;
+    letter-spacing: 0.2px; display: inline-block; margin-bottom: 4px;
+    text-shadow: 0 2px 4px var(--torrent-title-shadow); transition: color var(--transition-snappy);
+}
+.torrent_table td a[href*="torrents.php?id="]:first-of-type:not([href*="action=download"]):not(.brackets):hover {
+    color: var(--accent-main) !important;
+}
+
+/* CORES PREMIUM PARA AS INFORMAÇÕES (Tabela Principal e Detalhes) */
+.torrent_table strong[style*="color:red"], .torrent_table strong[style*="color: red"], table:has(tr.torrent_row) strong[style*="color:red"], table:has(tr.torrent_row) strong[style*="color: red"] { color: var(--torrent-inline-bad) !important; text-shadow: 0 0 8px var(--torrent-inline-bad-glow) !important; }
+.torrent_table strong[style*="color:green"], .torrent_table strong[style*="color: green"], .torrent_table .free, table:has(tr.torrent_row) strong[style*="color:green"], table:has(tr.torrent_row) strong[style*="color: green"], table:has(tr.torrent_row) .free { color: #2ed573 !important; text-shadow: 0 0 8px rgba(46, 213, 115, 0.3) !important; }
+.torrent_table strong[style*="color:orange"], .torrent_table strong[style*="color: orange"], .torrent_table .internalbox, table:has(tr.torrent_row) strong[style*="color:orange"], table:has(tr.torrent_row) strong[style*="color: orange"], table:has(tr.torrent_row) .internalbox { color: #ffa502 !important; text-shadow: 0 0 8px rgba(255, 165, 2, 0.3) !important; }
+.torrentinfo_release { color: #70a1ff !important; font-weight: 700 !important; }
+
+/* ==========================================================================
+   9.2. Capas e Proteção de Ícones IMDb (Bulletproof)
+   ========================================================================== */
+
+/* CAPA DO TORRENT (PROTEÇÃO CONTRA OVERFLOW NA SIDEBAR) */
+.sidebar .box_albumart img,
+.sidebar #covers img {
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+    border-radius: var(--radius-md) !important;
+    box-shadow: var(--shadow-sm) !important;
+    display: block !important;
+    margin: 0 auto !important;
+    box-sizing: border-box !important;
+}
+
+.sidebar #covers .pad {
+    padding: 12px !important;
+    overflow: hidden !important;
+}
+
+/* PROTEÇÃO GLOBAL DOS ÍCONES NATIVOS DO IMDb */
+img[src*="imdb.png"],
+img[src*="imdb.gif"] {
+    height: 15px !important;
+    max-height: 15px !important;
+    width: auto !important;
+    max-width: 40px !important;
+    display: inline-block !important;
+    vertical-align: text-bottom !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+}
+
+a:has(> img[src*="imdb.png"]),
+a:has(> img[src*="imdb.gif"]) {
+    display: inline-block !important;
+    background: transparent !important;
+    border: none !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+    margin: 0 !important;
+}
+
+/* CHIP DE NOTA IMDb (Apenas o Bloco de Texto Customizado) */
+div.browse_rating {
+    display: inline-block !important;
+    margin-left: 8px !important;
+    vertical-align: middle !important;
+    margin-bottom: 4px !important;
+    background: transparent !important;
+    border: none !important;
+    padding: 0 !important;
+}
+
+div.browse_rating a,
+.group_info a[href*="imdb.com/title/"] {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background-color: #f5c518 !important; /* Amarelo oficial IMDb */
+    background-image: none !important;
+    border: none !important; 
+    color: #000000 !important; /* Texto preto para contraste absoluto */
+    font-family: var(--font-main) !important;
+    font-weight: 800 !important;
+    font-size: 12px !important;
+    padding: 3px 10px !important;
+    border-radius: var(--radius-pill) !important; 
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+    transition: all var(--transition-snappy) !important;
+    text-shadow: none !important;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.5) !important;
+    text-decoration: none !important;
+    margin-top: 4px !important;
+}
+
+div.browse_rating a:hover,
+.group_info a[href*="imdb.com/title/"]:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 4px 10px rgba(245, 197, 24, 0.4) !important;
+    background-color: #e4b715 !important;
+    color: #000000 !important;
+}
+
+div.browse_rating a::before {
+    content: '★';
+    margin-right: 4px;
+    font-size: 12px;
+    color: #000000 !important;
+}
+
+
+/* ANCORAGEM SEGURA PARA O BOTÃO DE DOWNLOAD E FAVORITOS (Browse) */
+.torrent_table .group_info {
+    position: relative !important; padding-right: 90px !important; 
+    display: block !important; min-height: 36px; 
+}
+
+/* BOTÃO DE DOWNLOAD (Browse) */
+.torrent_table a[href*="action=download"], .torrent_table a[title="Download"], .torrent_table a[title="Baixar"] {
+    position: absolute !important; right: 5px !important; top: 50% !important; transform: translateY(-50%) !important;
+    display: inline-flex !important; float: none !important; margin: 0 !important; align-items: center; justify-content: center;
+    width: 32px !important; height: 32px !important; background-color: var(--download-btn-bg) !important;
+    border: 1px solid var(--download-btn-border) !important; border-radius: var(--radius-pill) !important; color: transparent !important; 
+    transition: all var(--transition-snappy) !important; z-index: 10 !important;
+    background-image: var(--download-icon-svg) !important;
+    background-size: 16px !important; background-position: center !important; background-repeat: no-repeat !important;
+}
+.torrent_table a[href*="action=download"]:hover, .torrent_table a[title="Download"]:hover, .torrent_table a[title="Baixar"]:hover {
+    background-color: var(--accent-main) !important; border-color: var(--accent-main) !important;
+    transform: translateY(-50%) scale(1.15) !important; box-shadow: var(--shadow-glow) !important;
+    background-image: var(--download-icon-svg-on-accent) !important;
+}
+.torrent_table a[href*="action=download"]::after, .torrent_table a[title="Download"]::after, .torrent_table a[title="Baixar"]::after { display: none !important; }
+/* FA / Duotone: o SVG de fundo substitui o <i>; senão o glifo nativo fica por cima ou ilegivel */
+.torrent_table a[href*="action=download"] i,
+.torrent_table a[title="Download"] i,
+.torrent_table a[title="Baixar"] i {
+    display: none !important;
+}
+
+/* BOTÃO DE FAVORITOS (Bookmark Centrado Perfeitamente) */
+.torrent_table .add_bookmark,
+.torrent_table .remove_bookmark {
+    position: absolute !important;
+    right: 45px !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    z-index: 10 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    height: 32px !important;
+}
+
+.torrent_table .add_bookmark a,
+.torrent_table .remove_bookmark a {
+    display: inline-flex !important; align-items: center; justify-content: center;
+    width: 32px !important; height: 32px !important;
+    background-color: rgba(245, 158, 11, 0.15) !important; border: 1px solid rgba(245, 158, 11, 0.3) !important;
+    border-radius: var(--radius-pill) !important; color: transparent !important; transition: all var(--transition-snappy) !important;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23f59e0b' stroke-width='2'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z' /%3E%3C/svg%3E") !important;
+    background-size: 15px !important; background-position: center !important; background-repeat: no-repeat !important;
+    margin: 0 !important;
+}
+
+.torrent_table .add_bookmark a:hover,
+.torrent_table .remove_bookmark a:hover {
+    background-color: #f59e0b !important; border-color: #f59e0b !important; transform: scale(1.15) !important;
+    box-shadow: 0 0 10px rgba(245, 158, 11, 0.4) !important;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23ffffff' stroke-width='2'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z' /%3E%3C/svg%3E") !important;
+}
+
+.torrent_table .remove_bookmark a {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23f59e0b' viewBox='0 0 24 24' stroke='%23f59e0b' stroke-width='2'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z' /%3E%3C/svg%3E") !important;
+}
+.torrent_table .remove_bookmark a:hover {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23ffffff' viewBox='0 0 24 24' stroke='%23ffffff' stroke-width='2'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z' /%3E%3C/svg%3E") !important;
+}
+
+.torrent_table .add_bookmark a i,
+.torrent_table .remove_bookmark a i,
+.torrent_table .remove_bookmark a img { display: none !important; }
+
+
+/* ==========================================================================
+   9.3. Página de Detalhes do Torrent (Lista de Releases/Edições em Cascata)
+   ========================================================================== */
+/* O sistema divide diferentes qualidades em várias tabelas avulsas.
+   Este seletor garante que TODAS ganham o estilo base com bordas e sombras! */
+.torrent_table.details,
+table:has(tr.torrent_row),
+table:has(tr.audio_header),
+table:has(tr.resolution_header),
+table:has(tr.season_header) {
+    background-color: var(--bg-panel) !important; /* Cor idêntica ao header para máxima coerência */
+    border-radius: var(--radius-md) !important;
+    overflow: hidden !important;
+    border: 1px solid var(--details-outline) !important;
+    box-shadow: var(--shadow-hero-torrent) !important;
+    margin-bottom: var(--space-block) !important;
+    width: 100% !important;
+    border-collapse: separate !important; /* Exigido para que a borda com radius funcione perfeitamente */
+    border-spacing: 0 !important;
+}
+
+/* 1. Nível: Cabeçalhos Principais (Séries e Temporadas) */
+tr.season_header td {
+    background-color: var(--overlay-40) !important;
+    color: var(--text-white) !important;
+    font-size: 12px !important;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 10px 12px !important;
+    border-top: none !important;
+    border-bottom: 1px solid var(--border-color) !important;
+    border-left: none !important; 
+    text-align: left !important;
+}
+
+/* Sobrescreve o width: 500px inline que o site injeta no td colspan da season_header */
+tr.season_header td[colspan] {
+    width: auto !important;
+}
+
+/* Substitui "Tamanho" por ícone de HDD — é o único td sem classe e sem colspan */
+tr.season_header td:not([colspan]):not(.center) {
+    text-align: center !important;
+    padding: 10px 6px !important;
+}
+tr.season_header td:not([colspan]):not(.center) strong {
+    font-size: 0 !important;
+    display: block !important;
+}
+tr.season_header td:not([colspan]):not(.center) strong::before {
+    content: '\f0a0';
+    font-family: 'Font Awesome 5 Free', 'Font Awesome 5 Pro', 'FontAwesome';
+    font-weight: 900;
+    font-size: 12px !important;
+    color: var(--text-white);
+    display: block;
+}
+
+/* ==========================================================================
+   Substituição de Labels de Texto por Ícones
+   ========================================================================== */
+/* Variável reutilizável de família de fonte FA */
+/* ── (esconder) nas season headers ── */
+tr.season_header td a[onclick*="toggleSeason"] {
+    font-size: 0 !important;
+    width: 24px !important;
+    height: 24px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 0 !important;
+    border: 1px solid rgba(255,255,255,0.1) !important;
+    border-radius: var(--radius-sm) !important;
+    float: right;
+}
+tr.season_header td a[onclick*="toggleSeason"]::before {
+    content: '\f070';
+    font-family: 'Font Awesome 5 Free', 'Font Awesome 5 Pro', 'FontAwesome';
+    font-weight: 900;
+    font-size: 12px;
+    color: var(--text-muted);
+}
+tr.season_header td a[onclick*="toggleSeason"]:hover {
+    background: rgba(255,255,255,0.08) !important;
+    border-color: rgba(255,255,255,0.2) !important;
+}
+tr.season_header td a[onclick*="toggleSeason"]:hover::before {
+    color: var(--text-white);
+}
+
+/* ── Botões Adicionar aos Favoritos e Logs na linkbox ── */
+.linkbox a.add_bookmark.brackets,
+.linkbox a.brackets[href*="serieslog"] {
+    font-size: 0 !important;
+    width: 40px !important;
+    height: 40px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 0 !important;
+}
+/* Seletor de alta especificidade para sobrescrever .header:has(.groupbanner) .linkbox a.brackets */
+.header .linkbox a.add_bookmark.brackets,
+.header .linkbox a.brackets[href*="serieslog"] {
+    font-size: 0 !important;
+    padding: 0 !important;
+    width: 44px !important;
+    height: 44px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+.linkbox a.add_bookmark.brackets::before,
+.header .linkbox a.add_bookmark.brackets::before {
+    content: '\f02e';
+    font-family: 'Font Awesome 5 Free', 'Font Awesome 5 Pro', 'FontAwesome';
+    font-weight: 900;
+    font-size: 12px;
+}
+.linkbox a.brackets[href*="serieslog"]::before,
+.header .linkbox a.brackets[href*="serieslog"]::before {
+    content: '\f1da';
+    font-family: 'Font Awesome 5 Free', 'Font Awesome 5 Pro', 'FontAwesome';
+    font-weight: 900;
+    font-size: 12px;
+}
+
+/* ── Citar nos comentários ── */
+a.brackets[onclick*="Quote"] {
+    font-size: 0 !important;
+    width: 28px !important;
+    height: 28px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 0 !important;
+}
+a.brackets[onclick*="Quote"]::before {
+    content: '\f10e';
+    font-family: 'Font Awesome 5 Free', 'Font Awesome 5 Pro', 'FontAwesome';
+    font-weight: 900;
+    font-size: 12px;
+    color: var(--text-muted);
+}
+a.brackets[onclick*="Quote"]:hover::before { color: var(--text-white); }
+
+/* ── Denunciar nos comentários ── */
+a.brackets[href*="reports.php"],
+a.brackets[href="#quickreplypreview"] {
+    font-size: 0 !important;
+    width: 28px !important;
+    height: 28px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 0 !important;
+}
+a.brackets[href*="reports.php"]::before,
+a.brackets[href="#quickreplypreview"]::before {
+    content: '\f024';
+    font-family: 'Font Awesome 5 Free', 'Font Awesome 5 Pro', 'FontAwesome';
+    font-weight: 900;
+    font-size: 12px;
+    color: var(--text-muted);
+}
+a.brackets[href*="reports.php"]:hover::before,
+a.brackets[href="#quickreplypreview"]:hover::before {
+    color: var(--color-danger);
+}
+
+/* O botão "(esconder)" — texto substituído por ícone via regra específica abaixo */
+tr.season_header td a {
+    color: var(--text-muted) !important;
+    text-transform: none !important;
+    letter-spacing: normal !important;
+    transition: color var(--transition-snappy);
+    float: right;
+}
+tr.season_header td a:hover {
+    color: var(--text-white) !important;
+}
+
+/* 2. Nível: Cabeçalho de Áudio (Neutro, Suave e Título Geral) */
+tr.audio_header td, td.audio_header {
+    background-color: transparent !important; /* Fundo limpo */
+    border-bottom: 1px solid var(--box-outline) !important;
+    color: var(--text-white) !important;
+    font-size: 12px !important;
+    font-weight: 700 !important;
+    padding: 10px 10px !important; 
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-left: none !important; /* Remove linha vermelha lateral */
+}
+
+/* Restaura o tamanho da fonte e alinhamento da célula principal do Áudio */
+tr.audio_header td:first-child,
+td.audio_header.edition_info {
+    font-size: 12px !important;
+    padding-left: 14px !important; /* Padronizado para alinhar perfeitamente à esquerda */
+    text-align: left !important;
+    border-left: none !important;
+}
+
+td.audio_header i {
+    color: var(--text-muted) !important;
+}
+
+/* 3. Nível: Cabeçalho de Resolução (Alinhado à esquerda, totalmente NEUTRO) */
+tr.resolution_header td {
+    background-color: var(--overlay-25) !important;
+    border-bottom: 1px solid var(--table-cell-divider) !important;
+    border-left: none !important; /* Removida a linha vermelha indesejada */
+    color: var(--text-white) !important;
+    text-align: left !important;
+    padding: 10px 12px 10px 14px !important; /* Sem indentação exagerada */
+}
+
+tr.resolution_header td b {
+    color: var(--text-white) !important;
+    font-size: 16px !important; /* destaque hierárquico (múltiplo de 4) */
+    font-weight: 700 !important;
+    text-align: left !important;
+    display: block;
+}
+
+/* 4. Nível: Linhas das Edições/Releases (Indentadas) */
+tr.torrent_row td {
+    background-color: var(--table-row-zebra-torrent) !important;
+    padding: 5px 6px !important;
+    border-bottom: 1px solid var(--table-cell-divider) !important;
+    border-left: none !important;
+    vertical-align: middle !important;
+    transition: background var(--transition-snappy);
+}
+
+/* Colunas numéricas: largura mínima fixa, a coluna principal preenche o resto */
+/* tr.torrent = página de listagem | tr.torrent_row = página de detalhes */
+tr.torrent td.number_column,
+tr.torrent_row td.number_column {
+    width: 1% !important;
+    white-space: nowrap !important;
+    text-align: center !important;  
+    font-size: 12px !important;
+    color: var(--text-muted) !important;
+    font-variant-numeric: tabular-nums !important;
+    min-width: 48px !important;
+}
+tr.torrent td.number_column.nobr,
+tr.torrent_row td.number_column.nobr {
+    min-width: 50px !important;
+    color: var(--text-bright) !important;
+    font-size: 12px !important;
+    font-weight: 600 !important;
+}
+
+/* Coluna de categoria: min-width evita sumir o ícone quando .big_info não usa 99% */
+.torrent_table tr.torrent td.cats_col,
+.torrent_table tr.group_torrent td.cats_col {
+    width: 1% !important;
+    min-width: 64px !important;
+    padding: 4px 6px !important;
+    vertical-align: middle !important;
+    box-sizing: border-box !important;
+}
+
+/* Coluna principal (99% esmagava cats_col nas listagens com 1ª coluna vazia + filtro) */
+tr.torrent td.big_info {
+    width: auto !important;
+    min-width: 0 !important;
+}
+
+/* Coluna de uploader e demais sem classe: compactar */
+tr.torrent td:not(.big_info):not(.number_column):not(.cats_col) {
+    width: 1% !important;
+    white-space: nowrap !important;
+}
+tr.torrent_row:hover td {
+    background-color: var(--list-hover-faint) !important;
+}
+
+/* Coluna Lateral de Temporada/Episódio (quando existente) */
+table:has(tr.torrent_row) td[rowspan] {
+    background-color: var(--overlay-20) !important;
+    border-right: 1px solid var(--border-color) !important;
+    padding: 8px 6px !important;
+    vertical-align: middle !important;
+    text-align: left !important;
+    width: 70px !important;
+}
+table:has(tr.torrent_row) td[rowspan] .year {
+    background: rgba(255,255,255,0.08) !important;
+    padding: 1px 4px !important;
+    border-radius: var(--radius-sm) !important;
+    font-size: 12px !important;
+    color: var(--text-muted) !important;
+    float: none !important;
+    display: inline-block !important;
+    margin-bottom: 4px !important;
+    font-weight: 600 !important;
+}
+table:has(tr.torrent_row) td[rowspan] a {
+    display: block !important;
+    font-size: 12px !important;
+    font-weight: 600 !important;
+    color: var(--text-bright) !important;
+    transition: color var(--transition-snappy) !important;
+    white-space: nowrap !important;
+    line-height: 1.3 !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+}
+table:has(tr.torrent_row) td[rowspan] a:hover {
+    color: var(--accent-main) !important;
+}
+
+/* Formatação da Coluna Principal das Releases (Botões e Pílula) */
+tr.torrent_row td:first-child {
+    padding-left: 12px !important;
+    font-size: 0 !important;
+    position: relative !important; 
+    padding-right: 100px !important;
+}
+
+/* Pílula do Nome/Características da Release - Sem border esquerda e minúscula */
+tr.torrent_row td:first-child > a:not(.tooltip),
+tr.group_torrent.torrent_row td:first-child > a:not(.tooltip) {
+    display: inline-flex !important;
+    align-items: center;
+    font-size: 12px !important; /* Fonte menor, não ofusca a hierarquia principal */
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: none !important; /* OBRIGATÓRIO: SEM QUALQUER BORDINHA AQUI */
+    border-left: none !important;
+    padding: 6px 12px !important;
+    border-radius: var(--radius-pill) !important;
+    color: var(--text-bright) !important;
+    text-decoration: none !important;
+    vertical-align: middle;
+    transition: all var(--transition-snappy) !important;
+    font-weight: 500 !important;
+    box-shadow: none !important;
+}
+tr.torrent_row td:first-child > a:not(.tooltip):hover {
+    background: rgba(255, 255, 255, 0.1) !important;
+    color: var(--text-white) !important;
+    transform: none !important; /* Mantém a estabilidade da página de detalhes */
+}
+
+/* Container dos botões de ação à direita na página de Detalhes */
+tr.torrent_row td:first-child > span {
+    position: absolute !important;
+    right: 12px !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    display: inline-flex !important;
+    gap: 6px;
+    align-items: center;
+    font-size: 0 !important; 
+}
+
+/* Botões Globais de Detalhe: Download, Report, Link */
+tr.torrent_row td:first-child > span a {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    width: 32px !important;
+    height: 32px !important;
+    font-size: 12px !important;
+    background-color: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: var(--radius-pill) !important;
+    color: var(--text-muted) !important;
+    transition: all var(--transition-snappy) !important;
+    
+    position: static !important;
+    transform: none !important;
+    background-image: none !important;
+    text-decoration: none !important;
+}
+
+tr.torrent_row td:first-child > span a i {
+    display: block !important;
+}
+
+/* O Botão de Download idêntico ao original, globalizado também para as tabelas de detalhes */
+tr.torrent_row td:first-child > span a[href*="action=download"] {
+    color: transparent !important;
+    background-color: var(--download-btn-bg) !important;
+    border: 1px solid var(--download-btn-border) !important;
+    background-image: var(--download-icon-svg) !important;
+    background-size: 16px !important; 
+    background-position: center !important; 
+    background-repeat: no-repeat !important;
+}
+
+tr.torrent_row td:first-child > span a[href*="action=download"] i {
+    display: none !important;
+}
+
+tr.torrent_row td:first-child > span a[href*="action=download"]:hover {
+    background-color: var(--accent-main) !important; 
+    border-color: var(--accent-main) !important;
+    transform: scale(1.15) !important; 
+    box-shadow: var(--download-btn-hover-glow) !important;
+    background-image: var(--download-icon-svg-on-accent) !important;
+}
+
+/* Hover de Report e Link em Detalhes */
+tr.torrent_row td:first-child > span a:not([href*="action=download"]):hover {
+    background-color: rgba(255, 255, 255, 0.15) !important;
+    color: var(--text-white) !important;
+    border-color: rgba(255, 255, 255, 0.3) !important;
+    transform: scale(1.15) !important;
+}
+
+/* ==========================================================================
+   10. Fórum e Elementos Internos (Leitura Destacada)
+   ========================================================================== */
+table.forum_post {
+    background-color: var(--bg-card) !important;
+    backdrop-filter: var(--glass-blur) !important;
+    -webkit-backdrop-filter: var(--glass-blur) !important;
+    border: 1px solid var(--box-outline) !important;
+    border-radius: var(--radius-lg) !important;
+    box-shadow: var(--shadow-card-muted) !important;
+    margin-bottom: var(--space-block) !important;
+    border-collapse: separate !important;
+    border-spacing: 0 !important;
+    overflow: hidden !important;
+    width: 100% !important;
+    transition: border-color var(--transition-smooth) !important;
+}
+
+table.forum_post:hover {
+    border-color: var(--box-outline-hover) !important;
+}
+
+/* Cabeçalho do Comentário (Onde fica o Nick e a Data) */
+table.forum_post tr.colhead_dark td {
+    background-color: var(--overlay-50) !important;
+    padding: 10px 14px !important;
+    border-bottom: 1px solid rgba(255,255,255,0.08) !important;
+    font-size: 12px !important;
+}
+
+/* Coluna do Avatar */
+table.forum_post td.avatar {
+    width: 150px !important;
+    background-color: var(--overlay-20) !important;
+    text-align: center !important;
+    border-right: 1px solid rgba(255,255,255,0.05) !important;
+    padding: 12px 10px !important;
+    vertical-align: top !important;
+}
+
+table.forum_post td.avatar img {
+    border-radius: var(--radius-sm) !important;
+    box-shadow: var(--shadow-sm) !important;
+    max-width: 100% !important;
+    height: auto !important;
+}
+
+/* Corpo do Comentário */
+table.forum_post td.body {
+    padding: 16px 20px !important;
+    vertical-align: top !important;
+}
+
+/* Padronização de Texto (Fórum e Torrents agora ficam 100% iguais) */
+table.forum_post td.body > div,
+.comment_content {
+    font-size: 12px !important;
+    line-height: 1.5 !important;
+    color: var(--text-bright) !important;
+}
+
+/* Estilo para as Citações (Quotes) */
+blockquote {
+    background-color: var(--overlay-30) !important;
+    border-left: 3px solid var(--accent-main) !important;
+    padding: 12px 14px !important;
+    margin: 12px 0 !important;
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0 !important;
+    color: var(--text-main) !important;
+    font-style: italic !important;
+    font-size: 12px !important;
+    position: relative !important;
+}
+blockquote::before {
+    content: '“';
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    font-size: 24px;
+    color: var(--accent-a-20);
+    font-style: normal;
+    line-height: 1;
+}
+
+/* ==========================================================================
+   11. O Slider de Imagens 
+   ========================================================================== */
+#container { 
+    position: relative; width: 100%; border-radius: var(--radius-md);
+    overflow: hidden; box-shadow: var(--shadow-md); background: transparent;
+    border: none; margin-bottom: 12px; 
+    aspect-ratio: 5 / 7; 
+}
+
+#banner-fade, ul.bjqs, li.bjqs-slide { width: 100% !important; max-width: 100% !important; height: 100% !important; margin: 0 !important; padding: 0 !important; }
+ul.bjqs { list-style: none !important; overflow: hidden !important; }
+ul.bjqs li a { display: block !important; width: 100% !important; height: 100% !important; }
+
+ul.bjqs li img { 
+    width: 100% !important; height: 100% !important; object-fit: cover !important; 
+    display: block !important; border-radius: var(--radius-md) !important; margin: 0 !important;
+}
+
+/* Slider caption */
+p.bjqs-caption {
+    background: var(--gradient-banner-fade); 
+    color: var(--text-white); padding: 20px 20px 14px; position: absolute; bottom: 0; left: 0; right: 0;
+    margin: 0; font-weight: 600; font-size: 12px; text-align: center;
+    letter-spacing: 0.3px;
+}
+
+ul.bjqs-controls { 
+    list-style: none; margin: 0; padding: 0; z-index: 9999 !important; position: absolute; width: 100%; top: 0; height: 100%; pointer-events: none; 
+    opacity: 0; visibility: hidden; transition: all var(--transition-smooth);
+}
+#container:hover ul.bjqs-controls { opacity: 1; visibility: visible; }
+
+ul.bjqs-controls.v-centered li a {
+    pointer-events: auto; position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.7) !important; color: transparent !important; 
+    width: 44px !important; height: 44px !important; display: flex !important; align-items: center !important; justify-content: center !important;
+    border-radius: 50% !important; text-decoration: none !important; font-size: 0 !important; font-weight: bold !important;
+    border: 1px solid rgba(255,255,255,0.2) !important; transition: all var(--transition-snappy) !important; overflow: hidden !important; z-index: 10000 !important;
+}
+ul.bjqs-controls.v-centered li a::after { font-size: 16px !important; color: var(--text-white) !important; display: block !important; line-height: 1 !important; }
+ul.bjqs-controls.v-centered li a:hover { background: var(--accent-main) !important; border-color: var(--accent-main) !important; transform: translateY(-50%) scale(1.1) !important; }
+ul.bjqs-controls.v-centered li.bjqs-next a { right: 15px !important; }
+ul.bjqs-controls.v-centered li.bjqs-next a::after { content: '❯' !important; margin-left: 2px !important; }
+ul.bjqs-controls.v-centered li.bjqs-prev a { left: 15px !important; }
+ul.bjqs-controls.v-centered li.bjqs-prev a::after { content: '❮' !important; margin-right: 2px !important; }
+
+ol.bjqs-markers { 
+    position: absolute; top: 12px; right: 12px; background: rgba(0,0,0,0.5); padding: 5px 8px; border-radius: var(--radius-pill);
+    list-style: none; margin: 0; z-index: 100; display: flex; align-items: center; gap: 6px;
+}
+ol.bjqs-markers li { display: inline; margin: 0; }
+ol.bjqs-markers li a { 
+    display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.3); color: transparent; overflow: hidden; transition: background var(--transition-snappy);
+}
+ol.bjqs-markers li.active-marker a, ol.bjqs-markers li a:hover { background: var(--accent-main); }
+
+/* ==========================================================================
+   12. Cores Utilitárias
+   ========================================================================== */
+.r00 { color: var(--color-danger); font-weight: 700; }
+.r01, .r02, .r03, .r04 { color: #ea580c; font-weight: 700; }
+.r05, .r06, .r07, .r08 { color: var(--color-warning); font-weight: 700; }
+.r09 { color: #ca8a04; font-weight: 700; }
+.r10, .r20, .r99 { color: var(--color-success); font-weight: 700; }
+.r50 { color: var(--color-info); font-weight: 700; }
+
+/* ==========================================================================
+   13. Rodapé
+   ========================================================================== */
+#footer {
+    width: 100%; 
+    background: var(--gradient-footer);
+    backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+    border-top: 1px solid var(--footer-top-border); 
+    padding: 30px 20px; text-align: center; margin-top: auto; color: var(--text-muted);
+}
+#footer p { margin: 6px 0; font-size: 12px; letter-spacing: 0.3px; }
+#footer a { color: var(--text-main); font-weight: 600; transition: color var(--transition-snappy); }
+#footer a:hover { color: var(--accent-hover); text-shadow: 0 0 12px var(--link-glow); }
+
+/* ==========================================================================
+   14. Utilitários Globais
+   ========================================================================== */
+::-webkit-scrollbar { width: var(--scrollbar-size); height: var(--scrollbar-size); }
+::-webkit-scrollbar-track {
+    background: var(--scrollbar-track);
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border-color);
+}
+::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-face);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--scrollbar-thumb-border);
+    box-shadow: inset 0 1px 0 var(--scrollbar-inset-top), var(--shadow-scroll-lift);
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--scrollbar-hover);
+    border-color: var(--scrollbar-border-hover);
+    box-shadow: inset 0 1px 0 var(--scrollbar-inset-top-strong), 0 0 14px var(--accent-glow);
+}
+::-webkit-scrollbar-corner { background: var(--scrollbar-track); }
+
+/* ==========================================================================
+   15. Menu de Configurações (Sticky Seguro)
+   ========================================================================== */
+#settings_sections {
+    position: sticky !important; top: 90px !important; align-self: flex-start !important;
+    max-height: calc(100vh - 130px); overflow-y: auto; z-index: 90;
+    scrollbar-width: auto;
+    scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+}
+#settings_sections::-webkit-scrollbar { width: var(--scrollbar-size); }
+
+/* ==========================================================================
+   16. Filtro de Pesquisa Moderno (Torrents Filter)
+   ========================================================================== */
+.box.filter_torrents {
+    background-color: var(--bg-card); border: 1px solid var(--details-outline);
+    border-radius: var(--radius-lg); box-shadow: var(--shadow-filter-torrents); margin-bottom: var(--space-block); 
+    overflow: visible !important; 
+}
+
+.box.filter_torrents .head {
+    display: flex; justify-content: space-between; align-items: center; padding: 10px 16px;
+    background-color: var(--box-filter-head-bg); border-bottom: 1px solid var(--border-color);
+    color: var(--box-head-fg);
+}
+.box.filter_torrents .head strong { font-size: 16px; letter-spacing: 0.5px; text-transform: uppercase; color: inherit; }
+.box.filter_torrents #ft_container { padding: 16px; }
+
+.box.filter_torrents table.layout { width: 100%; background: transparent; }
+.box.filter_torrents table.layout td.label {
+    width: 15%; min-width: 120px; text-align: right; padding: 10px 12px 10px 0;
+    color: var(--text-muted); font-size: 12px; text-transform: uppercase; font-weight: 700;
+    letter-spacing: 0.5px; background: transparent; border: none; vertical-align: middle;
+}
+.box.filter_torrents table.layout td { padding: 6px 0; border: none; vertical-align: middle; }
+
+.box.filter_torrents input[type="search"], .box.filter_torrents input[type="text"] {
+    width: 100%; max-width: 500px;     padding: 6px 12px; background-color: var(--overlay-30);
+    border: 1px solid var(--border-light); border-radius: var(--radius-md); color: var(--filter-input-fg);
+    font-size: 12px; transition: all var(--transition-snappy);
+}
+.box.filter_torrents input[type="search"]:focus, .box.filter_torrents input[type="text"]:focus {
+    border-color: var(--accent-main); background-color: var(--overlay-60);
+    box-shadow: 0 0 0 3px var(--accent-a-15); outline: none;
+}
+
+.box.filter_torrents select {
+    padding: 6px 12px; background-color: var(--overlay-30); border: 1px solid var(--border-light);
+    border-radius: var(--radius-md); color: var(--text-bright); font-size: 12px; cursor: pointer; transition: border-color var(--transition-snappy);
+}
+.box.filter_torrents select:hover { border-color: var(--text-muted); }
+
+.box.filter_torrents .table-list {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 8px;
+    background: var(--overlay-15); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 12px; margin: 10px 0 16px 0;
+}
+.box.filter_torrents .table-list li { display: flex; align-items: center; gap: 8px; padding: 2px 0; border: none; }
+.box.filter_torrents .table-list label { cursor: pointer; color: var(--text-main); font-size: 12px; font-weight: 500; transition: color var(--transition-snappy); user-select: none; }
+.box.filter_torrents .table-list li:hover label { color: var(--filter-label-hover-fg); }
+
+.box.filter_torrents .cat_list, .box.filter_torrents .tabelaFixa {
+    background: var(--overlay-15); border: 1px solid var(--border-color) !important;
+    border-radius: var(--radius-md); margin-bottom: 12px; display: block; width: 100%;
+    overflow: visible !important; 
+}
+.box.filter_torrents .cat_list tbody, .box.filter_torrents .tabelaFixa tbody { display: table; width: 100%; }
+
+.box.filter_torrents .labelFiltros, .box.filter_torrents .cat_list td[style*="text-align: center"] {
+    background-color: var(--overlay-30) !important; color: var(--text-muted); font-size: 12px;
+    text-transform: uppercase; font-weight: 700; letter-spacing: 0.5px; padding: 10px 12px; border-bottom: 1px solid var(--border-color); text-decoration: none;
+}
+
+.box.filter_torrents .campoFiltros, .box.filter_torrents .cat_list td:not([style*="text-align: center"]) {
+    padding: 12px; vertical-align: top; border: none;
+}
+.box.filter_torrents .cat_list label { margin-left: 8px; cursor: pointer; color: var(--text-bright); font-weight: 500; }
+
+.box.filter_torrents .btn-group { display: block; width: 100%; margin-top: 6px; position: relative; }
+.box.filter_torrents .btn-group > .btn.multiselect {
+    width: 100%; background: var(--overlay-30); border: 1px solid var(--border-light); color: var(--text-bright);
+    padding: 6px 12px; border-radius: var(--radius-md); text-align: left; display: flex; justify-content: space-between;
+    align-items: center; box-shadow: none; text-shadow: none; font-size: 12px; transition: all var(--transition-snappy);
+}
+.box.filter_torrents .btn-group > .btn.multiselect:hover { border-color: var(--text-muted); background: var(--overlay-50); }
+
+.box.filter_torrents .multiselect-container {
+    background-color: var(--bg-solid); border: 1px solid var(--border-color); border-radius: var(--radius-md);
+    box-shadow: var(--shadow-md); padding: 8px 0; width: 100%; max-height: 280px; overflow-y: auto; margin-top: 6px;
+    position: absolute !important; z-index: 99999 !important; 
+}
+.box.filter_torrents .multiselect-container > li > a { color: var(--text-bright); padding: 8px 16px; display: block; transition: background var(--transition-snappy); }
+.box.filter_torrents .multiselect-container > li > a:hover, .box.filter_torrents .multiselect-container > li.active > a { background-color: var(--list-hover-faint); color: var(--menu-link-hover-fg); }
+.box.filter_torrents .multiselect-container .checkbox { display: flex; align-items: center; gap: 8px; margin: 0; font-weight: 500; }
+.box.filter_torrents .multiselect-container .checkbox input[type="checkbox"] { margin: 0 !important; position: static !important; }
+
+.box.filter_torrents .ft_submit { margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--border-color); display: flex; justify-content: center; align-items: center; text-align: center; }
+.box.filter_torrents .ft_submit p { display: flex; align-items: center; justify-content: center; gap: 10px; flex-wrap: wrap; margin: 0; width: 100%; color: var(--text-muted); }
+.box.filter_torrents .ft_submit p br { display: none; }
+.box.filter_torrents .ft_submit input[value="Filtrar"] { background: var(--accent-gradient); border-color: transparent; color: white; font-weight: 700; font-size: 12px; padding: 12px 40px; border-radius: var(--radius-pill); box-shadow: 0 4px 12px var(--accent-a-20); transition: all var(--transition-smooth); }
+.box.filter_torrents .ft_submit input[value="Filtrar"]:hover { background: var(--accent-gradient-hover); box-shadow: var(--ft-submit-shadow-hover); transform: translateY(-2px); }
+.box.filter_torrents .ft_submit input[type="button"], .box.filter_torrents .ft_submit input[name="setdefault"] { background-color: transparent; border: 1px solid var(--border-light); color: var(--text-bright); padding: 10px 24px; border-radius: var(--radius-pill); font-weight: 500; }
+.box.filter_torrents .ft_submit input[type="button"]:hover, .box.filter_torrents .ft_submit input[name="setdefault"]:hover { background-color: rgba(255, 255, 255, 0.08); color: var(--text-white); border-color: var(--text-muted); }
+
+/* ==========================================================================
+   17. Responsividade
+   ========================================================================== */
+@media screen and (max-width: 1024px) {
+    #header > .thin,
+    #header > div:not([id]) {
+        justify-content: center !important; 
+        text-align: center; gap: 15px;
+    }
+    #logo { margin-right: 0 !important; }
+    #userinfo { justify-content: center !important; }
+    #userinfo ul { justify-content: center !important; }
+    #menudrop > ul { justify-content: center !important; }
+    
+    .sidebar { width: 100% !important; flex: 1 1 100% !important; order: 2 !important; position: static !important; }
+    .main_column { width: 100% !important; order: 1 !important; }
+    table.forum_post td.avatar { display: none; }
+}
+
+@media screen and (max-width: 768px) {
+    #searchbars input[type="text"] { width: 100%; }
+    #searchbars input[type="text"]:focus { width: 100%; }
+    
+    #menudrop ul ul {
+        flex-direction: column;
+        padding: 15px;
+        max-height: none !important; /* Em mobile o próprio body rola */
+    }
+    #menudrop ul ul > li { max-width: 100%; flex: 1 1 100%; width: 100%; }
+    
+    .torrent_table, table { display: block; overflow-x: auto; white-space: nowrap; -webkit-overflow-scrolling: touch; }
+}
+
+/* ==========================================================================
+   18. Header / Banner de Séries (Estilo Capa / Fundo de Tela)
+   ========================================================================== */
+/* Alvo específico: A div que contém o #banner ou .groupbanner */
+.header:has(#banner), .header:has(.groupbanner) {
+    position: relative !important;
+    width: 100% !important;
+    min-height: 350px !important; /* Altura considerável para a capa */
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: flex-end !important;
+    align-items: flex-start !important;
+    padding: 30px !important;
+    border-radius: var(--radius-md) !important;
+    overflow: hidden !important;
+    box-shadow: var(--shadow-lg) !important;
+    margin-bottom: 25px !important;
+    border: 1px solid var(--border-light) !important;
+    background-color: var(--bg-panel) !important;
+    z-index: 1; /* Novo contexto de empilhamento */
+}
+
+/* O wrapper da imagem que vem com style inline de 140px */
+.header:has(.groupbanner) > div:first-child {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    margin: 0 !important;
+    z-index: -1 !important; /* Fica atrás dos botões */
+}
+
+/* A imagem em si */
+.header #banner, .header .groupbanner {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    object-position: center 20% !important;
+    /* Máscara de Degradê (Linear Gradient Fade) para o fundo do tema */
+    mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 30%, rgba(0,0,0,0) 100%) !important;
+    -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 30%, rgba(0,0,0,0) 100%) !important;
+}
+
+/* Limpar a tag H2 que envolve a imagem */
+.header:has(.groupbanner) h2 {
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+}
+
+/* Container dos Botões na base */
+.header:has(.groupbanner) .linkbox {
+    position: relative !important;
+    z-index: 2 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    text-align: left !important;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 8px !important;
+}
+
+/* Estilo dos botões sobre o banner */
+.header:has(.groupbanner) .linkbox a.brackets {
+    background-color: var(--groupbanner-cta-bg) !important;
+    color: var(--on-accent-fg) !important;
+    border: 1px solid var(--groupbanner-btn-border) !important;
+    padding: 8px 14px !important;
+    border-radius: var(--radius-pill) !important;
+    font-size: 12px !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+    box-shadow: var(--shadow-groupbanner-primary) !important;
+    backdrop-filter: blur(5px) !important;
+    -webkit-backdrop-filter: blur(5px) !important;
+    transition: all var(--transition-snappy) !important;
+    text-decoration: none !important;
+}
+
+.header:has(.groupbanner) .linkbox a.brackets:hover {
+    transform: translateY(-3px) !important;
+    background-color: var(--accent-hover) !important;
+    box-shadow: var(--shadow-groupbanner-primary-hover) !important;
+}
+
+/* Botão secundário (Logs, etc) pode ter estilo diferente se quisermos, mas o padrão tá ótimo */
+.header:has(.groupbanner) .linkbox a.brackets:not(.add_bookmark):not(.remove_bookmark) {
+    background-color: var(--overlay-60) !important;
+    box-shadow: var(--shadow-banner-secondary) !important;
+}
+.header:has(.groupbanner) .linkbox a.brackets:not(.add_bookmark):not(.remove_bookmark):hover {
+    background-color: var(--banner-secondary-hover-bg) !important;
+}
+
+/* ── Substituição por ícone: deve vir DEPOIS das regras acima para sobrescrever font-size/padding ── */
+.header:has(.groupbanner) .linkbox a.add_bookmark.brackets,
+.header:has(.groupbanner) .linkbox a.remove_bookmark.brackets,
+.header:has(.groupbanner) .linkbox a.brackets[href*="serieslog"] {
+    font-size: 0 !important;
+    padding: 0 !important;
+    width: 48px !important;
+    height: 48px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    letter-spacing: 0 !important;
+    text-transform: none !important;
+}
+/* Não favoritado: ícone outline (regular) */
+.header:has(.groupbanner) .linkbox a.add_bookmark.brackets::before {
+    content: '\f02e';
+    font-family: 'Font Awesome 5 Free', 'Font Awesome 5 Pro', 'FontAwesome';
+    font-weight: 400;
+    font-size: 16px !important;
+    color: var(--groupbanner-icon-muted);
+}
+/* Já favoritado: ícone sólido dourado */
+.header:has(.groupbanner) .linkbox a.remove_bookmark.brackets::before {
+    content: '\f02e';
+    font-family: 'Font Awesome 5 Free', 'Font Awesome 5 Pro', 'FontAwesome';
+    font-weight: 900;
+    font-size: 16px !important;
+    color: var(--color-warning);
+}
+.header:has(.groupbanner) .linkbox a.brackets[href*="serieslog"]::before {
+    content: '\f1da';
+    font-family: 'Font Awesome 5 Free', 'Font Awesome 5 Pro', 'FontAwesome';
+    font-weight: 900;
+    font-size: 16px !important;
+    color: var(--on-accent-fg);
+}
+
+/* ==========================================================================
+   19. Sistema de Votos / Avaliação (Lateral)
+   ========================================================================== */
+/* Container Principal */
+.album_votes,
+.album_votes.body {
+    font-size: 0 !important;
+    text-align: center !important;
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 14px 14px !important;
+    gap: 0 !important;
+    background: var(--gradient-album-votes) !important;
+}
+
+.album_votes br { display: none !important; }
+
+/* ── Número Total de Votos ── */
+.album_votes #totalvotes {
+    font-size: 40px !important;
+    font-weight: 800 !important;
+    line-height: 1 !important;
+    display: block !important;
+    flex: 0 0 100% !important;
+    text-align: center !important;
+    margin-bottom: 4px !important;
+    background: var(--album-votes-number-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: -1px;
+}
+
+/* Label "VOTOS" abaixo do número */
+.album_votes #totalvotes::after {
+    content: 'VOTOS';
+    display: block;
+    font-size: 12px !important;
+    font-weight: 700;
+    color: var(--text-muted);
+    -webkit-text-fill-color: var(--text-muted);
+    letter-spacing: 3px;
+    margin-top: 6px;
+    margin-bottom: 16px;
+}
+
+/* ── Pills de Up/Down lado a lado ── */
+/* Usa [data-tooltip] em vez de :has() para compatibilidade máxima */
+.album_votes .favoritecount.tooltip[data-tooltip="Gostaram"],
+.album_votes .favoritecount.tooltip[data-tooltip="Não Gostaram"] {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: 12px !important;
+    font-weight: 700 !important;
+    padding: 8px 20px !important;
+    border-radius: var(--radius-pill) !important;
+    margin: 0 5px 14px 5px !important;
+    gap: 6px !important;
+    flex: 0 0 auto !important;
+    transition: all var(--transition-snappy) !important;
+}
+
+.album_votes .favoritecount.tooltip[data-tooltip="Gostaram"] {
+    background: rgba(34, 197, 94, 0.08) !important;
+    color: var(--color-success) !important;
+    border: 1px solid rgba(34, 197, 94, 0.15) !important;
+}
+.album_votes .favoritecount.tooltip[data-tooltip="Gostaram"]:hover {
+    background: rgba(34, 197, 94, 0.15) !important;
+    border-color: rgba(34, 197, 94, 0.3) !important;
+    box-shadow: 0 0 16px rgba(34, 197, 94, 0.1) !important;
+}
+
+.album_votes .favoritecount.tooltip[data-tooltip="Não Gostaram"] {
+    background: var(--ui-negative-soft-bg) !important;
+    color: var(--color-danger) !important;
+    border: 1px solid var(--ui-negative-soft-border) !important;
+}
+.album_votes .favoritecount.tooltip[data-tooltip="Não Gostaram"]:hover {
+    background: var(--ui-negative-hover-bg) !important;
+    border-color: var(--ui-negative-hover-border) !important;
+    box-shadow: var(--ui-negative-glow-soft) !important;
+}
+
+/* Remove os símbolos de texto ^ e v */
+.vote_album_up, .vote_album_down { display: none !important; }
+
+/* ── Pontuação e Porcentagem lado a lado ── */
+.album_votes .tooltip_interactive,
+.album_votes > span.favoritecount:not([id]):not(.tooltip) {
+    display: inline-flex !important;
+    align-items: center !important;
+    flex: 0 0 auto !important;
+    font-size: 12px !important;
+    background: var(--album-votes-meta-bg) !important;
+    border: 1px solid var(--album-votes-meta-border) !important;
+    padding: 6px 14px !important;
+    border-radius: var(--radius-pill) !important;
+    color: var(--text-muted) !important;
+    margin: 0 4px 18px 4px !important;
+    font-weight: 500 !important;
+    letter-spacing: 0.2px !important;
+    transition: all var(--transition-snappy) !important;
+}
+.album_votes .tooltip_interactive:hover,
+.album_votes > span.favoritecount:not([id]):not(.tooltip):hover {
+    background: var(--album-votes-meta-bg-hover) !important;
+    border-color: var(--album-votes-meta-border-hover) !important;
+    color: var(--text-bright) !important;
+}
+
+/* ── Separador antes dos botões ── */
+#vote_message {
+    display: flex !important;
+    justify-content: center !important;
+    gap: 24px !important;
+    flex: 0 0 100% !important;
+    padding-top: 20px !important;
+    margin-top: 4px !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.05) !important;
+    position: relative !important;
+}
+
+/* Linha decorativa vermelha no separador */
+#vote_message::before {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 2px;
+    background: var(--accent-gradient);
+    border-radius: 1px;
+}
+
+/* ── Botões Gostei / Não Gostei ── */
+#vote_message a {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 56px !important;
+    height: 56px !important;
+    border-radius: 50% !important;
+    background: rgba(255, 255, 255, 0.03) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    transition: all var(--transition-bounce) !important;
+    text-decoration: none !important;
+    position: relative !important;
+}
+#vote_message a.upvote {
+    background: rgba(34, 197, 94, 0.08) !important;
+    border-color: rgba(34, 197, 94, 0.25) !important;
+}
+#vote_message a.downvote {
+    background: var(--ui-negative-idle-bg) !important;
+    border-color: var(--ui-negative-idle-border) !important;
+}
+
+/* Anel decorativo externo */
+#vote_message a::before {
+    content: '' !important;
+    position: absolute !important;
+    inset: -4px !important;
+    border-radius: 50% !important;
+    border: 1px dashed rgba(255, 255, 255, 0.06) !important;
+    transition: all var(--transition-smooth) !important;
+}
+
+/* Ícones Like/Dislike */
+#vote_message a img {
+    max-width: 22px !important;
+    height: auto !important;
+    filter: brightness(1.1) opacity(0.85) !important;
+    transition: all var(--transition-snappy) !important;
+}
+
+/* Hover — Gostei */
+#vote_message a.upvote:hover {
+    background: linear-gradient(135deg, rgba(34, 197, 94, 0.9) 0%, rgba(22, 163, 74, 0.9) 100%) !important;
+    border-color: var(--color-success) !important;
+    box-shadow: 
+        0 0 0 4px rgba(34, 197, 94, 0.1),
+        0 0 28px rgba(34, 197, 94, 0.3),
+        0 8px 20px rgba(34, 197, 94, 0.15) !important;
+    transform: translateY(-4px) scale(1.1) !important;
+}
+#vote_message a.upvote:hover::before {
+    border-color: rgba(34, 197, 94, 0.25) !important;
+    inset: -6px !important;
+}
+
+/* Hover — Não Gostei */
+#vote_message a.downvote:hover {
+    background: var(--accent-hero-gradient) !important;
+    border-color: var(--color-danger) !important;
+    box-shadow: var(--ui-negative-hover-shadow) !important;
+    transform: translateY(-4px) scale(1.1) !important;
+}
+#vote_message a.downvote:hover::before {
+    border-color: var(--ui-negative-ring) !important;
+    inset: -6px !important;
+}
+
+#vote_message a:hover img {
+    filter: brightness(1.8) opacity(1) drop-shadow(0 0 4px rgba(255,255,255,0.4)) !important;
+}
+
+/* ── Mensagens de já votado — ocultas por design ── */
+#upvoted, #downvoted {
+    display: none !important;
+}
+
+#unvote_message {
+    display: block !important;
+    flex: 0 0 100% !important;
+    text-align: center !important;
+    margin-top: 15px !important;
+}
+#unvote_message a.brackets {
+    font-size: 12px !important;
+    color: var(--text-muted) !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.8px !important;
+    background: transparent !important;
+    border: 1px solid rgba(255, 255, 255, 0.06) !important;
+    text-decoration: none !important;
+    padding: 5px 14px !important;
+    border-radius: var(--radius-pill) !important;
+    transition: all var(--transition-snappy) !important;
+}
+#unvote_message a.brackets:hover {
+    color: var(--color-danger) !important;
+    background: var(--ui-negative-soft-bg) !important;
+    border-color: var(--ui-negative-ring) !important;
+}
+
+/* ==========================================================================
+   20. Polish Final — Efeitos Visuais Extras
+   ========================================================================== */
+
+/* Smooth focus-visible para acessibilidade */
+a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible {
+    outline: 2px solid var(--accent-main);
+    outline-offset: 2px;
+    border-radius: var(--radius-sm);
+}
+
+/* Transição suave para linhas das tabelas */
+tr td { transition: background-color var(--transition-snappy); }
+
+/* Efeito sutil no checkbox marcado */
+input[type="checkbox"]:checked, input[type="radio"]:checked {
+    box-shadow: 0 0 8px var(--accent-a-25) !important;
+}
+
+/* Logo com brilho vermelho sutil */
+#logo:hover { opacity: 1; filter: drop-shadow(0 0 12px var(--accent-a-12)); }
+
+/* Linkbox com hover melhorado */
+div.linkbox a {
+    transition: all var(--transition-snappy);
+}
+div.linkbox a:hover { 
+    background: var(--accent-gradient); color: #fff; border-color: transparent; 
+    box-shadow: 0 2px 8px var(--accent-a-20);
+}
+
+/* ── Overrides finais (última posição no arquivo = máxima prioridade de cascata) ── */
+
+/* Formulário de configurações: torna o <form> transparente ao flexbox do .thin,
+   para que .sidebar e .main_column sejam tratados como filhos diretos */
+.thin > form.edit_form {
+    display: contents;
+}
+/* display:contents faz os filhos participarem do flex do .thin visualmente,
+   mas seletores CSS > ainda usam o DOM real — regras explícitas necessárias */
+form.edit_form > .sidebar {
+    width: 260px !important;
+    flex: 0 0 260px !important;
+    order: 2 !important;
+    position: sticky !important;
+    top: 90px !important;
+    align-self: flex-start !important; /* obrigatório p/ sticky funcionar em flex */
+}
+form.edit_form > .main_column {
+    flex: 1 1 0% !important;
+    min-width: 0 !important;
+    order: 1 !important;
+}
+
+/* Texto "Temporada X" na coluna lateral da tabela de detalhes */
+/* Especificidade (0,6,2) > (0,5,2) do seletor original do site */
+.torrent_table td[rowspan] a[href*="torrents.php?id="]:first-of-type:not([href*="action=download"]):not(.brackets) {
+    white-space: nowrap !important;
+    font-size: 12px !important;
+    font-weight: 500 !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+}
+
+/* ── Index: noticiários (toggle) — :has(> [id^=…]) falhava c/ anúncios aninhados/ AJAX.
+   #content .main_column .newsbody aplica a todos; colapso com +[style] pós bloco aberto. */
+#content .main_column .box:has(.newsbody) {
+    overflow: visible !important;
+}
+.newsbody {
+    transition: max-height 0.25s ease;
+}
+/* Todos os .newsbody na coluna principal: mesma rolagem (AJAX, índice >1, etc.) */
+#content .main_column .newsbody {
+    box-sizing: border-box !important;
+    min-height: 0 !important;
+    max-height: min(32.5vh, 240px) !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-gutter: stable;
+    scrollbar-width: auto;
+    scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+}
+#content .main_column .newsbody::-webkit-scrollbar {
+    width: var(--scrollbar-size);
+    height: var(--scrollbar-size);
+}
+#content .main_column .newsbody::-webkit-scrollbar-track {
+    background: var(--scrollbar-track);
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border-color);
+}
+#content .main_column .newsbody::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-face);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--scrollbar-thumb-border);
+    box-shadow: inset 0 1px 0 var(--scrollbar-inset-top), var(--shadow-scroll-lift);
+}
+#content .main_column .newsbody::-webkit-scrollbar-thumb:hover {
+    background: var(--scrollbar-hover);
+    border-color: var(--scrollbar-border-hover);
+    box-shadow: inset 0 1px 0 var(--scrollbar-inset-top-strong), 0 0 14px var(--accent-glow);
+}
+/* Colapsado: ganha de div.pad… (mais atributo) + evita falso match em “display: none; …” fora de inline */
+.newsbody[style*="display: none"],
+.newsbody[style*="display:none"],
+#content .main_column .newsbody[style*="display: none"],
+#content .main_column .newsbody[style*="display:none"] {
+    max-height: 0 !important;
+    overflow: hidden !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    border-width: 0 !important;
+    scrollbar-gutter: auto;
+}
+/* .newsbody sem id=newsbody*: aberto = altura de animação; sem scroll forçada */
+.newsbody:not([id^="newsbody"]):not([style*="display: none"]):not([style*="display:none"]) {
+    max-height: 5000px !important;
+    overflow: visible;
+}
+
+/* --- bundled: bj-zerfeus-theme.css + bj-zerfeus-theme-sepia.css (generated; run build-theme-bundles.ps1 after edits) --- */
+
+:root {
+    --bg-base: #e6dcc4;
+    --bg-panel: rgba(244, 236, 216, 0.96);
+    --bg-card: rgba(250, 243, 228, 0.92);
+    --bg-card-hover: rgba(232, 218, 194, 0.95);
+    --bg-solid: #f4ecd8;
+
+    --text-muted: #7a6654;
+    --text-main: #4a3b2e;
+    --text-bright: #2c2218;
+    --text-white: #fffef8;
+
+    --accent-main: #8b4513;
+    --accent-glow: rgba(139, 69, 19, 0.25);
+    --accent-hover: #a0522d;
+    --accent-gradient: linear-gradient(135deg, #8b4513 0%, #6b3410 100%);
+    --accent-soft: rgba(139, 69, 19, 0.12);
+    --color-danger: #a52a2a;
+    --color-success: #2d6a2d;
+    --color-warning: #b8860b;
+    --color-info: #4a6fa5;
+
+    --border-color: rgba(60, 48, 36, 0.12);
+    --border-light: rgba(60, 48, 36, 0.18);
+    --border-glow: rgba(139, 69, 19, 0.15);
+
+    --shadow-sm: 0 1px 2px rgba(60, 48, 36, 0.08);
+    --shadow-md: 0 4px 14px rgba(60, 48, 36, 0.1);
+    --shadow-lg: 0 10px 28px rgba(60, 48, 36, 0.12);
+
+    --scrollbar-track: #e8dcc8;
+    --scrollbar-thumb: rgba(90, 72, 56, 0.35);
+    --scrollbar-thumb-border: rgba(60, 48, 36, 0.12);
+    --scrollbar-face: linear-gradient(180deg, rgba(90, 72, 56, 0.22) 0%, rgba(90, 72, 56, 0.12) 100%);
+    --scrollbar-hover: linear-gradient(180deg, rgba(139, 69, 19, 0.45) 0%, rgba(107, 52, 16, 0.4) 100%);
+    --scrollbar-inset-top: rgba(255, 252, 245, 0.5);
+    --scrollbar-inset-top-strong: rgba(255, 252, 245, 0.75);
+    --scrollbar-border-hover: rgba(60, 48, 36, 0.25);
+
+    --overlay-15: rgba(60, 48, 36, 0.06);
+    --overlay-20: rgba(60, 48, 36, 0.08);
+    --overlay-25: rgba(60, 48, 36, 0.1);
+    --overlay-30: rgba(255, 250, 240, 0.92);
+    --overlay-35: rgba(252, 246, 232, 0.96);
+    --overlay-40: rgba(248, 240, 220, 0.94);
+    --overlay-50: rgba(245, 235, 210, 0.96);
+    --overlay-60: rgba(230, 215, 190, 0.95);
+    --overlay-90: rgba(44, 34, 24, 0.88);
+
+    --shadow-header: 0 2px 0 rgba(255, 252, 245, 0.6), 0 6px 20px rgba(60, 48, 36, 0.08);
+    --shadow-submenu: 0 12px 32px rgba(60, 48, 36, 0.12);
+    --shadow-scroll-lift: 0 1px 2px rgba(60, 48, 36, 0.1);
+    --shadow-box-default: var(--shadow-md);
+    --shadow-box-hover: var(--shadow-lg);
+
+    --header-bg-solid: #f0e6d2;
+    --header-border-bottom: rgba(60, 48, 36, 0.12);
+
+    --text-selection-bg: rgba(139, 69, 19, 0.22);
+    --text-selection-color: #1a1410;
+    --link-glow: rgba(139, 69, 19, 0.12);
+
+    --accent-a-06: rgba(139, 69, 19, 0.08);
+    --accent-a-08: rgba(139, 69, 19, 0.1);
+    --accent-a-10: rgba(139, 69, 19, 0.12);
+    --accent-a-12: rgba(139, 69, 19, 0.15);
+    --accent-a-15: rgba(139, 69, 19, 0.18);
+    --accent-a-20: rgba(139, 69, 19, 0.22);
+    --accent-a-25: rgba(139, 69, 19, 0.28);
+    --accent-a-35: rgba(139, 69, 19, 0.36);
+    --accent-a-40: rgba(139, 69, 19, 0.42);
+    --accent-gradient-hover: linear-gradient(135deg, #a0522d 0%, #8b4513 100%);
+    --accent-hero-gradient: linear-gradient(135deg, rgba(160, 82, 45, 0.92) 0%, rgba(139, 69, 19, 0.92) 100%);
+    --accent-noty-glow: rgba(139, 69, 19, 0.35);
+
+    --gradient-submenu: linear-gradient(180deg, #faf4e6 0%, #f0e8d8 100%);
+    --gradient-footer: linear-gradient(180deg, #f4ecd8 0%, #e8dcc8 100%);
+    --footer-top-border: rgba(60, 48, 36, 0.1);
+
+    --panel-head-gradient: linear-gradient(180deg, #e8d8c0 0%, #dcc8a8 100%);
+    --table-th-gradient: linear-gradient(180deg, #e0d0b8 0%, #d4c4a8 100%);
+    --search-input-fill: rgba(60, 48, 36, 0.06);
+
+    --box-head-fg: var(--text-bright);
+    --box-filter-head-bg: rgba(232, 216, 192, 0.95);
+    --filter-input-fg: var(--text-bright);
+    --filter-label-hover-fg: var(--text-bright);
+
+    --header-menu-hover-color: var(--text-bright);
+    --menu-link-hover-fg: var(--text-bright);
+    --header-menu-hover-bg: rgba(139, 69, 19, 0.1);
+    --submenu-border: rgba(60, 48, 36, 0.12);
+    --submenu-row-line: rgba(60, 48, 36, 0.08);
+    --menu-item-hover-bg: rgba(139, 69, 19, 0.08);
+    --logo-ambient-glow: rgba(139, 69, 19, 0.15);
+
+    --torrent-list-title-color: #1e1810;
+    --torrent-title-shadow: rgba(60, 48, 36, 0.08);
+
+    --noty-message-color: var(--text-bright);
+    --noty-button-bg: rgba(60, 48, 36, 0.08);
+    --noty-button-border: rgba(60, 48, 36, 0.15);
+    --noty-button-fg: var(--text-main);
+
+    --alert-strip-link: var(--accent-main);
+    --submenu-grid-item-hover-bg: rgba(139, 69, 19, 0.1);
+    --submenu-symbol-border: rgba(60, 48, 36, 0.1);
+
+    --torrent-group-header-bg: linear-gradient(180deg, #ebe0cc 0%, #e0d4bc 100%);
+    --torrent-group-header-border: rgba(60, 48, 36, 0.1);
+    --table-row-stripe: rgba(245, 238, 224, 0.9);
+    --list-hover-faint: rgba(139, 69, 19, 0.06);
+
+    --download-btn-bg: rgba(139, 69, 19, 0.12);
+    --download-btn-border: rgba(139, 69, 19, 0.36);
+    --download-btn-hover-glow: 0 0 12px rgba(139, 69, 19, 0.28);
+    --download-icon-svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%238b4513' stroke-width='2.5'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3' /%3E%3C/svg%3E");
+    --download-icon-svg-on-accent: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23fffef8' stroke-width='2.5'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3' /%3E%3C/svg%3E");
+
+    --album-votes-number-gradient: linear-gradient(180deg, var(--text-bright) 15%, rgba(60, 48, 36, 0.45) 100%);
+    --album-votes-meta-bg: rgba(60, 48, 36, 0.05);
+    --album-votes-meta-border: rgba(60, 48, 36, 0.1);
+    --album-votes-meta-bg-hover: rgba(60, 48, 36, 0.08);
+    --album-votes-meta-border-hover: rgba(60, 48, 36, 0.14);
+
+    --groupbanner-btn-border: rgba(60, 48, 36, 0.2);
+    --groupbanner-icon-muted: rgba(255, 252, 245, 0.85);
+}
+
+#footer {
+    color: var(--text-muted);
+    background: var(--gradient-footer);
+}
+#footer a {
+    color: var(--text-main);
+}
