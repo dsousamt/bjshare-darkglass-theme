@@ -224,6 +224,14 @@ body {
 
 a { color: var(--text-bright); text-decoration: none; font-weight: 500; transition: color var(--transition-snappy), text-shadow var(--transition-snappy); }
 a:hover, a:focus { color: var(--accent-hover); text-shadow: 0 0 12px var(--link-glow); }
+
+/* Nomes de usuário vêm com a cor da classe inline. A de membro comum (#575757) tem
+   contraste 2,7:1 no fundo escuro e quase some; vira o texto do tema. As outras cores
+   de classe (verde, azul, laranja, rosa, #948B8B) passam de 4:1 e ficam como estão. */
+[style*="color: #575757"],
+[style*="color:#575757"] { color: var(--text-bright) !important; }
+a[style*="color: #575757"]:hover,
+a[style*="color:#575757"]:hover { color: var(--accent-hover) !important; }
 img, video { max-width: 100%; height: auto; }
 
 /* Ocultar lixo nativo e banner do Telegram indesejado */
@@ -1596,18 +1604,23 @@ table:has(tr.torrent_row) td[rowspan] a {
 table:has(tr.torrent_row) td[rowspan] a:hover { color: var(--accent) !important; }
 
 /* Coluna principal das releases (pílula + botões) */
+/* padding-right = largura dos botões de ação (absolutos à direita): 3 × 32px + 2 × 6px
+   de espaço + 12px de margem + folga; com 4 botões, mais 38px */
 tr.torrent_row td:first-child {
     padding-left: 12px !important;
     font-size: 0 !important;
     position: relative !important;
-    padding-right: 100px !important;
+    padding-right: 132px !important;
 }
+tr.torrent_row td:first-child:has(> span > a:nth-of-type(4)) { padding-right: 170px !important; }
 
-/* Pílula com o nome/características da release */
+/* Pílula com o nome/características da release. inline-block (não inline-flex) para o
+   texto quebrar linha em vez de passar por baixo dos botões em releases de nome longo. */
 tr.torrent_row td:first-child > a:not(.tooltip),
 tr.group_torrent.torrent_row td:first-child > a:not(.tooltip) {
-    display: inline-flex !important;
-    align-items: center;
+    display: inline-block !important;
+    max-width: 100%;
+    line-height: 1.45;
     font-size: var(--fs) !important;
     background: var(--fill-2) !important;
     border: none !important;
@@ -1634,10 +1647,12 @@ tr.torrent_row td:first-child > span {
     top: 50% !important;
     transform: translateY(-50%) !important;
     display: inline-flex !important;
-    gap: 6px;
     align-items: center;
     font-size: 0 !important;
 }
+/* Espaço só entre os links: o site escreve "[ … | … ]" entre eles, e com gap cada
+   separador escondido virava um item a mais (132px em vez de 108px) */
+tr.torrent_row td:first-child > span a + a { margin-left: 6px !important; }
 
 tr.torrent_row td:first-child > span a {
     display: flex !important;
