@@ -1,96 +1,41 @@
-# Gera *.full.css (base + variante). Use quando @import em cadeia falhar no tracker.
+# Gera bj-zerfeus-theme-<nome>.full.css (base + variante num arquivo so) para cada
+# variante encontrada na pasta. Use os bundles quando o @import em cadeia falhar no tracker.
 
 $ErrorActionPreference = 'Stop'
-
+$utf8 = [System.Text.UTF8Encoding]::new($false)
 $root = $PSScriptRoot
-
-$basePath = Join-Path $root 'bj-zerfeus-theme.css'
+$baseName = 'bj-zerfeus-theme.css'
+$basePath = Join-Path $root $baseName
 
 if (-not (Test-Path $basePath)) {
-
-    throw "Ficheiro base não encontrado: $basePath"
-
+    throw "Arquivo base nao encontrado: $basePath"
 }
+$base = [System.IO.File]::ReadAllText($basePath, $utf8).Trim()
 
-$base = [System.IO.File]::ReadAllText($basePath, [System.Text.UTF8Encoding]::new($false))
+$variants = Get-ChildItem -Path $root -Filter 'bj-zerfeus-theme-*.css' |
+    Where-Object { $_.Name -notlike '*.full.css' } |
+    Sort-Object Name
 
+foreach ($variant in $variants) {
+    $name = $variant.BaseName -replace '^bj-zerfeus-theme-', ''
+    $body = [System.IO.File]::ReadAllText($variant.FullName, $utf8)
 
+    # Comentario de cabecalho sai; @import do base sai; outros @import (fontes) sobem
+    # para o topo do bundle, pois @import so vale antes de qualquer regra.
+    $body = [regex]::Replace($body, '^\s*/\*[\s\S]*?\*/', '')
+    $imports = [regex]::Matches($body, '@import\s+url\([^)]+\)\s*;') |
+        ForEach-Object { $_.Value } |
+        Where-Object { $_ -notmatch [regex]::Escape($baseName) }
+    $body = [regex]::Replace($body, '@import\s+url\([^)]+\)\s*;\s*', '').Trim()
 
-function Build-FullVariant {
-
-    param(
-
-        [Parameter(Mandatory = $true)][string]$Name
-
-    )
-
-    $variantPath = Join-Path $root "bj-zerfeus-theme-$Name.css"
-
-    if (-not (Test-Path $variantPath)) {
-
-        throw "Variante não encontrada: $variantPath"
-
+    $prefix = ''
+    if ($imports) {
+        $prefix = ($imports -join "`n") + "`n`n"
     }
+    $banner = "/* --- bundle gerado: $baseName + $($variant.Name) - edite os fontes e rode build-theme-bundles.ps1 --- */"
+    $out = $prefix + $base + "`n`n" + $banner + "`n`n" + $body + "`n"
 
-    $tail = [System.IO.File]::ReadAllText($variantPath, [System.Text.UTF8Encoding]::new($false)).TrimStart()
-
-    # Remove todos os blocos iniciais: comentario /* */ e/ou @import (ex.: Google Fonts + base)
-
-    while ($true) {
-
-        $next = [regex]::Replace($tail, '^\s*/\*[\s\S]*?\*/\s*', '', 1)
-
-        if ($next.Length -lt $tail.Length) { $tail = $next; continue }
-
-        $next = [regex]::Replace($tail, '^\s*@import\s+url\([^)]+\)\s*;\s*', '', 1)
-
-        if ($next.Length -lt $tail.Length) { $tail = $next; continue }
-
-        break
-
-    }
-
-    $banner = "`n`n/* --- bundled: bj-zerfeus-theme.css + bj-zerfeus-theme-$Name.css (generated; run build-theme-bundles.ps1 after edits) --- */`n`n"
-
-    # @import so pode aparecer no topo do ficheiro; a variante cyberpunk usa Rajdhani
-    $fontPrefix = ''
-    if ($Name -eq 'cyberpunk') {
-        $fontPrefix = "@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&display=swap');`n`n"
-    }
-
-    $out = $fontPrefix + $base.TrimEnd() + $banner + $tail.TrimStart()
-
-    $outPath = Join-Path $root "bj-zerfeus-theme-$Name.full.css"
-
-    [System.IO.File]::WriteAllText($outPath, $out, [System.Text.UTF8Encoding]::new($false))
-
+    $outPath = Join-Path $root "bj-zerfeus-theme-$name.full.css"
+    [System.IO.File]::WriteAllText($outPath, $out, $utf8)
     Write-Host "Gerado: $outPath"
-
 }
-
-
-
-@(
-
-    'light',
-
-    'dracula',
-
-    'sepia',
-
-    'highcontrast',
-
-    'oled',
-
-    'solarized',
-
-    'matrix',
-
-    'win95',
-
-    'monochrome',
-
-    'cyberpunk'
-
-) | ForEach-Object { Build-FullVariant -Name $_ }
-

@@ -1,68 +1,69 @@
 /*
-BJ-Share (DarkGlass Moderno & Responsivo - Edição Ultimate V62)
-Banners de Capa Imersivos (Degradê) e Sistema de Avaliação (Votos) Modernizado
+BJ-Share (DarkGlass Moderno & Responsivo - Edição Ultimate V63)
+Banners de capa imersivos (degradê) e sistema de avaliação (votos) modernizado.
 
-Producao: https://matheussousa.com/bj-zerfeus-theme.css (base). Variantes: *-light.css, *-dracula.css, *-sepia.css, *-highcontrast.css, *-oled.css,
-*-solarized.css, *-matrix.css, *-win95.css, *-monochrome.css, *-cyberpunk.css
-(importam o base). Bundles: .\build-theme-bundles.ps1
+Produção: https://dsousamt.github.io/bjshare-darkglass-theme/bj-zerfeus-theme.css (GitHub Pages;
+este arquivo = tema base "DarkGlass"). Repositório: https://github.com/dsousamt/bjshare-darkglass-theme
+Variantes (bj-zerfeus-theme-<nome>.css) importam este arquivo e redefinem só as
+sementes da seção 1a; os tons da seção 1b são derivados delas com color-mix().
+Bundles (*.full.css, base + variante num arquivo só): .\build-theme-bundles.ps1
 */
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
 /* ==========================================================================
-   1. Variáveis de Design Tokens
+   1a. Sementes — o que cada variante redefine
    ========================================================================== */
 :root {
-    --bg-base: #0b0d10;                            
-    --bg-panel: rgba(13, 15, 19, 0.94);            
-    --bg-card: rgba(18, 21, 27, 0.78);             
-    --bg-card-hover: rgba(35, 39, 50, 0.88);       
-    --bg-solid: #12141a; 
-    
-    --glass-blur: blur(20px);                      
-    
-    --text-muted: #6b7280;
-    --text-main: #9ca3af;
-    --text-bright: #e5e7eb;
-    --text-white: #f9fafb;
-    
-    --accent-main: #dc2626;
-    --accent-glow: rgba(220, 38, 38, 0.3);
-    --accent-hover: #ef4444;
-    --accent-gradient: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
-    --accent-soft: rgba(220, 38, 38, 0.08);
-    
-    --color-success: #22c55e;
-    --color-danger: #ef4444;
-    --color-warning: #eab308;
-    --color-info: #3b82f6;
-
-    --border-color: rgba(255, 255, 255, 0.06);
-    --border-light: rgba(255, 255, 255, 0.1);
-    --border-glow: rgba(220, 38, 38, 0.15);
-    
-    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px 2px rgba(0, 0, 0, 0.2);
-    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.3), 0 10px 30px rgba(0, 0, 0, 0.5);
-    --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.5), 0 20px 50px rgba(0, 0, 0, 0.6);
-    --shadow-glow: 0 0 20px rgba(220, 38, 38, 0.25), 0 0 40px rgba(220, 38, 38, 0.1);
-    
+    /* Tipografia e forma */
+    --font-main: 'Inter', system-ui, -apple-system, sans-serif;
+    --font-icon: 'Font Awesome 5 Free', 'Font Awesome 5 Pro', 'FontAwesome';
+    --fs: 12px;      /* tamanho único de texto (múltiplos de 4px, mínimo 12) */
+    --fs-lg: 16px;   /* títulos de caixa e destaques */
     --radius-sm: 8px;
     --radius-md: 12px;
     --radius-lg: 18px;
     --radius-pill: 9999px;
-    
-    --transition-snappy: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
-    --transition-smooth: 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    --transition-bounce: 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-    
-    --font-main: 'Inter', system-ui, -apple-system, sans-serif;
-    /* Tipografia: só múltiplos de 4px, mínimo 12 (exc. font-size:0 em truques de ícone) */
-    --text-page: 12px;
-    --text-caption: 12px;
-    --text-sm: 12px;
-    --text-md: 12px;
-    --text-elevated: 16px;
-    --text-hi: 16px;
+    --line-w: 1px;   /* espessura das bordas de componentes (menus, botões, rodapé) */
+    --glass-blur: blur(20px);
+
+    /* Superfícies */
+    --bg-base: #0b0d10;
+    --bg-solid: #12141a;               /* dropdowns e fundos opacos */
+    --bg-panel: rgb(13 15 19 / 0.94);  /* tabelas, notificações, banner */
+    --bg-card: rgb(18 21 27 / 0.78);   /* caixas (.box) */
+    --bg-card-hover: rgb(35 39 50 / 0.88);
+    --header-bg: var(--bg-base);
+
+    /* Texto (do mais apagado ao mais forte) */
+    --text-muted: #6b7280;
+    --text-main: #9ca3af;
+    --text-bright: #e5e7eb;
+    --text-strong: #f9fafb;
+
+    /* Materiais: cores-base dos tons derivados. O alfa regula a intensidade
+       (ex.: tema claro usa --shade com alfa baixo para sombras suaves). */
+    --ink: #ffffff;    /* linhas finas e preenchimentos sutis sobre a superfície */
+    --recess: #000000; /* áreas rebaixadas: cabeçalhos, campos, colunas laterais */
+    --shade: #000000;  /* sombras */
+    --scrim: #000000;  /* véu sobre imagens (banner, slider) */
+    --on-scrim: #ffffff;
+
+    /* Acento */
+    --accent: #dc2626;
+    --accent-2: #b91c1c;   /* fim do gradiente */
+    --accent-hover: #ef4444;
+    --on-accent: #ffffff;  /* texto/ícone sobre fundo de acento */
+
+    /* Estados */
+    --success: #22c55e;
+    --danger: #ef4444;
+    --warning: #eab308;
+    --info: #3b82f6;
+    --download: var(--accent);
+    --bookmark: #f59e0b;
+    --imdb: #f5c518;
+
     /* Densidade (padding/gap) — valores baixos = UI mais adensada */
     --space-y-page: 12px;
     --space-x-shell: 16px;
@@ -71,181 +72,95 @@ Producao: https://matheussousa.com/bj-zerfeus-theme.css (base). Variantes: *-lig
     --pad-head: 10px 14px;
     --space-block: 16px;
     --pad-cell: 7px 10px;
-    /* Scrollbars — largura visível real (evitar thumb “fantasma” com border+clip) */
-    --scrollbar-size: 14px;
-    --scrollbar-track: rgba(10, 12, 16, 0.95);
-    --scrollbar-thumb: rgba(255, 255, 255, 0.16);
-    --scrollbar-thumb-border: rgba(255, 255, 255, 0.12);
-    --scrollbar-face: linear-gradient(180deg, rgba(255, 255, 255, 0.22) 0%, rgba(255, 255, 255, 0.1) 100%);
-    --scrollbar-hover: linear-gradient(180deg, rgba(239, 68, 68, 0.55) 0%, rgba(185, 28, 28, 0.5) 100%);
-    --scrollbar-inset-top: rgba(255, 255, 255, 0.06);
-    --scrollbar-inset-top-strong: rgba(255, 255, 255, 0.12);
-    --scrollbar-border-hover: rgba(255, 255, 255, 0.18);
 
-    /* Overlays (light/dracula redefinem) */
-    --overlay-15: rgba(0, 0, 0, 0.15);
-    --overlay-20: rgba(0, 0, 0, 0.2);
-    --overlay-25: rgba(0, 0, 0, 0.25);
-    --overlay-30: rgba(0, 0, 0, 0.3);
-    --overlay-35: rgba(0, 0, 0, 0.35);
-    --overlay-40: rgba(0, 0, 0, 0.4);
-    --overlay-50: rgba(0, 0, 0, 0.5);
-    --overlay-60: rgba(0, 0, 0, 0.6);
-    --overlay-90: rgba(0, 0, 0, 0.9);
+    --transition-snappy: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-smooth: 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    --transition-bounce: 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
 
-    --shadow-header: 0 4px 20px rgba(0, 0, 0, 0.5);
-    --shadow-submenu: 0 8px 30px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(0, 0, 0, 0.3);
-    --shadow-scroll-lift: 0 1px 4px rgba(0, 0, 0, 0.35);
-    --shadow-noty-1: 0 4px 16px rgba(0, 0, 0, 0.4), 0 8px 32px rgba(0, 0, 0, 0.3);
-    --shadow-noty-2: 0 4px 16px rgba(0, 0, 0, 0.4), 0 12px 40px rgba(0, 0, 0, 0.35);
-    --shadow-noty-item: 0 4px 16px rgba(0, 0, 0, 0.4), 0 10px 40px rgba(0, 0, 0, 0.3);
-    --shadow-popdrop: 0 4px 12px rgba(0, 0, 0, 0.5);
-    --shadow-hero-torrent: 0 10px 40px rgba(0, 0, 0, 0.6);
-    --shadow-card-muted: 0 4px 16px rgba(0, 0, 0, 0.3), 0 8px 32px rgba(0, 0, 0, 0.25);
-    --shadow-filter-torrents: 0 10px 40px rgba(0, 0, 0, 0.6);
-    --shadow-banner-secondary: 0 4px 15px rgba(0, 0, 0, 0.4);
-    --shadow-box-default: 0 4px 16px rgba(0, 0, 0, 0.4), 0 8px 32px rgba(0, 0, 0, 0.3);
-    --shadow-box-hover: 0 4px 16px rgba(0, 0, 0, 0.4), 0 12px 40px rgba(0, 0, 0, 0.35);
+/* ==========================================================================
+   1b. Tons derivados — redefina numa variante só quando o derivado não servir
+   ========================================================================== */
+:root {
+    --line: color-mix(in srgb, var(--ink) 6%, transparent);
+    --line-soft: color-mix(in srgb, var(--ink) 4%, transparent);
+    --line-strong: color-mix(in srgb, var(--ink) 10%, transparent);
+    --fill-1: color-mix(in srgb, var(--ink) 4%, transparent);
+    --fill-2: color-mix(in srgb, var(--ink) 7%, transparent);
+    --fill-3: color-mix(in srgb, var(--ink) 11%, transparent);
+    --fill-4: color-mix(in srgb, var(--ink) 16%, transparent);
+    --row-stripe: color-mix(in srgb, var(--ink) 2%, transparent);
 
-    --header-bg-solid: var(--bg-base);
-    --header-border-bottom: rgba(255, 255, 255, 0.08);
+    --recess-1: color-mix(in srgb, var(--recess) 18%, transparent);
+    --recess-2: color-mix(in srgb, var(--recess) 28%, transparent);
+    --recess-3: color-mix(in srgb, var(--recess) 40%, transparent);
+    --recess-4: color-mix(in srgb, var(--recess) 55%, transparent);
+    --field-bg: var(--recess-2);
+    --field-bg-focus: var(--recess-4);
 
-    --body-spot-accent: rgba(220, 38, 38, 0.07);
-    --body-spot-info: rgba(59, 130, 246, 0.02);
+    --accent-08: color-mix(in srgb, var(--accent) 8%, transparent);
+    --accent-12: color-mix(in srgb, var(--accent) 12%, transparent);
+    --accent-20: color-mix(in srgb, var(--accent) 20%, transparent);
+    --accent-30: color-mix(in srgb, var(--accent) 30%, transparent);
+    --accent-40: color-mix(in srgb, var(--accent) 40%, transparent);
+    --accent-gradient: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%);
+    --accent-gradient-hover: linear-gradient(135deg, var(--accent-hover) 0%, var(--accent) 100%);
+    --orange: color-mix(in oklab, var(--warning), var(--danger));
 
-    --text-selection-bg: rgba(220, 38, 38, 0.3);
-    --text-selection-color: var(--text-white);
-    --link-glow: rgba(220, 38, 38, 0.15);
+    --shadow-sm: 0 1px 3px color-mix(in srgb, var(--shade) 30%, transparent), 0 1px 2px color-mix(in srgb, var(--shade) 20%, transparent);
+    --shadow-md: 0 4px 16px color-mix(in srgb, var(--shade) 40%, transparent), 0 8px 32px color-mix(in srgb, var(--shade) 30%, transparent);
+    --shadow-lg: 0 4px 16px color-mix(in srgb, var(--shade) 40%, transparent), 0 12px 40px color-mix(in srgb, var(--shade) 45%, transparent);
+    --shadow-xl: 0 10px 40px color-mix(in srgb, var(--shade) 60%, transparent);
+    --shadow-header: 0 4px 20px color-mix(in srgb, var(--shade) 50%, transparent);
+    --shadow-menu: 0 8px 30px color-mix(in srgb, var(--shade) 60%, transparent), 0 0 0 1px color-mix(in srgb, var(--shade) 30%, transparent);
+    --shadow-glow: 0 0 20px color-mix(in srgb, var(--accent) 25%, transparent), 0 0 40px color-mix(in srgb, var(--accent) 10%, transparent);
+    --link-glow: color-mix(in srgb, var(--accent) 15%, transparent);
 
-    --accent-a-06: rgba(220, 38, 38, 0.06);
-    --accent-a-08: rgba(220, 38, 38, 0.08);
-    --accent-a-10: rgba(220, 38, 38, 0.1);
-    --accent-a-12: rgba(220, 38, 38, 0.12);
-    --accent-a-15: rgba(220, 38, 38, 0.15);
-    --accent-a-20: rgba(220, 38, 38, 0.2);
-    --accent-a-25: rgba(220, 38, 38, 0.25);
-    --accent-a-35: rgba(220, 38, 38, 0.35);
-    --accent-a-40: rgba(220, 38, 38, 0.4);
-    --accent-gradient-hover: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
-    --accent-hero-gradient: linear-gradient(135deg, rgba(239, 68, 68, 0.9) 0%, rgba(220, 38, 38, 0.9) 100%);
-    --accent-noty-glow: rgba(201, 42, 53, 0.4);
-    --shadow-groupbanner-primary: 0 4px 15px rgba(201, 42, 53, 0.5);
-    --shadow-groupbanner-primary-hover: 0 8px 25px rgba(201, 42, 53, 0.7);
-    --groupbanner-cta-bg: rgba(201, 42, 53, 0.9);
-    --groupbanner-btn-border: rgba(255, 255, 255, 0.2);
-    --list-hover-faint: rgba(255, 255, 255, 0.05);
-    --ft-submit-shadow-hover: 0 6px 20px var(--accent-a-40);
+    /* Componentes */
+    --body-glow-1: color-mix(in srgb, var(--accent) 7%, transparent);
+    --body-glow-2: color-mix(in srgb, var(--info) 2%, transparent);
+    --selection-bg: var(--accent-30);
+    --selection-fg: var(--text-strong);
+    --header-line: var(--line-strong);
+    --header-link: var(--text-bright);
+    --header-link-hover: var(--accent-hover);
+    --alert-link: var(--text-strong);
+    --menu-hover-bg: var(--fill-2);
+    --menu-hover-fg: var(--text-strong);
+    --submenu-bg: color-mix(in srgb, var(--bg-solid) 97%, transparent);
+    --submenu-hover-bg: var(--accent-08);
+    --submenu-hover-fg: var(--text-strong);
+    --panel-border: color-mix(in srgb, var(--ink) 8%, transparent);
+    --panel-border-hover: color-mix(in srgb, var(--ink) 12%, transparent);
+    --panel-border-strong: color-mix(in srgb, var(--ink) 15%, transparent);
+    --head-bg: linear-gradient(180deg, color-mix(in srgb, var(--recess) 35%, transparent) 0%, color-mix(in srgb, var(--recess) 25%, transparent) 100%);
+    --head-fg: var(--text-strong);
+    --th-bg: linear-gradient(180deg, color-mix(in srgb, var(--recess) 45%, transparent) 0%, color-mix(in srgb, var(--recess) 35%, transparent) 100%);
+    --filter-head-bg: var(--recess-3);
+    --group-bg: var(--bg-solid);
+    --title-fg: var(--text-strong);
+    --title-shadow: color-mix(in srgb, var(--shade) 80%, transparent);
+    --btn-bg: var(--recess-2);
+    --btn-fg: var(--text-bright);
+    --btn-border: var(--line-strong);
+    --btn-hover-bg: var(--accent-12);
+    --btn-hover-fg: var(--text-strong);
+    --btn-hover-border: var(--accent);
+    --footer-bg: var(--bg-panel);
+    --footer-line: var(--line);
+    --footer-link: var(--text-main);
+    --scrollbar-track: var(--bg-base);
+    --scrollbar-thumb: color-mix(in srgb, var(--ink) 18%, transparent);
+    --scrollbar-thumb-hover: color-mix(in srgb, var(--accent) 60%, transparent);
 
-    /* Botão de download (ícone SVG embutido — variantes sobrescrevem a URL) */
-    --download-btn-bg: rgba(201, 42, 53, 0.15);
-    --download-btn-border: rgba(201, 42, 53, 0.3);
-    --download-btn-hover-glow: 0 0 10px rgba(201, 42, 53, 0.4);
-    --download-icon-svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23c92a35' stroke-width='2.5'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3' /%3E%3C/svg%3E");
-    --download-icon-svg-on-accent: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23ffffff' stroke-width='2.5'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3' /%3E%3C/svg%3E");
+    /* Ícones (máscaras: a cor vem de background-color) */
+    --icon-download: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='black' stroke-width='2.5'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3'/%3E%3C/svg%3E");
+    --icon-bookmark: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='black' stroke-width='2'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z'/%3E%3C/svg%3E");
+    --icon-bookmark-filled: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='black' viewBox='0 0 24 24' stroke='black' stroke-width='2'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z'/%3E%3C/svg%3E");
 
-    /* Estados “negativos” / dislike (sem acoplar ao vermelho BJ nas variantes) */
-    --ui-negative-soft-bg: rgba(239, 68, 68, 0.08);
-    --ui-negative-soft-border: rgba(239, 68, 68, 0.15);
-    --ui-negative-hover-bg: rgba(239, 68, 68, 0.15);
-    --ui-negative-hover-border: rgba(239, 68, 68, 0.3);
-    --ui-negative-glow-soft: 0 0 16px rgba(239, 68, 68, 0.1);
-    --ui-negative-idle-bg: rgba(239, 68, 68, 0.08);
-    --ui-negative-idle-border: rgba(239, 68, 68, 0.25);
-    --ui-negative-hover-shadow: 0 0 0 4px rgba(239, 68, 68, 0.1), 0 0 28px rgba(239, 68, 68, 0.3), 0 8px 20px rgba(239, 68, 68, 0.15);
-    --ui-negative-ring: rgba(239, 68, 68, 0.25);
-    --stat-danger-glow: rgba(239, 68, 68, 0.2);
-    --torrent-inline-bad: #ff4757;
-    --torrent-inline-bad-glow: rgba(255, 71, 87, 0.3);
-
-    --gradient-submenu: linear-gradient(180deg, rgba(18, 20, 26, 0.98) 0%, rgba(14, 16, 20, 0.98) 100%);
-    --gradient-footer: linear-gradient(180deg, rgba(13, 15, 19, 0.92) 0%, rgba(13, 15, 19, 0.97) 100%);
-    --footer-top-border: rgba(255, 255, 255, 0.06);
-
-    --box-outline: rgba(255, 255, 255, 0.08);
-    --box-outline-hover: rgba(255, 255, 255, 0.12);
-    --details-outline: rgba(255, 255, 255, 0.15);
-
-    --panel-head-gradient: linear-gradient(180deg, rgba(0, 0, 0, 0.35) 0%, rgba(0, 0, 0, 0.25) 100%);
-    --table-th-gradient: linear-gradient(180deg, rgba(0, 0, 0, 0.45) 0%, rgba(0, 0, 0, 0.35) 100%);
-    --search-input-fill: rgba(255, 255, 255, 0.04);
-
-    /* Cabecalhos de caixa (.head, .colhead, etc.) e filtro de torrents */
-    --box-head-fg: var(--text-white);
-    --box-filter-head-bg: var(--overlay-40);
-    --filter-input-fg: var(--text-white);
-    --filter-label-hover-fg: var(--text-white);
-
-    /* Botoes nativos (ex.: Lançamentos por categoria) */
-    --btn-pill-bg: var(--overlay-30);
-    --btn-pill-fg: var(--text-bright);
-    --btn-pill-border: var(--border-light);
-    --btn-pill-hover-bg: var(--accent-soft);
-    --btn-pill-hover-border: var(--accent-main);
-    --btn-disabled-bg: rgba(255, 255, 255, 0.05);
-    --btn-disabled-fg: var(--text-muted);
-    --btn-disabled-border: var(--border-color);
-    --btn-disabled-opacity: 0.85;
-
-    --torrent-title-shadow: rgba(0, 0, 0, 0.8);
-    --torrent-list-title-color: var(--text-white);
-
-    /* Header / menus — hover e bordas (light redefinem com tinta escura suave) */
-    --header-menu-hover-bg: rgba(255, 255, 255, 0.06);
-    --header-menu-hover-color: var(--text-white);
-    --menu-link-hover-fg: var(--text-white);
-    --submenu-border: rgba(255, 255, 255, 0.08);
-    --submenu-row-line: rgba(255, 255, 255, 0.04);
-    --menu-item-hover-bg: rgba(255, 255, 255, 0.05);
-    --logo-ambient-glow: rgba(255, 255, 255, 0.08);
-
-    --userinfo-stat-bg: rgba(255, 255, 255, 0.04);
-    --userinfo-stat-bg-hover: rgba(255, 255, 255, 0.07);
-    --userinfo-stat-border-hover: rgba(255, 255, 255, 0.12);
-    --userinfo-stat-label: var(--text-muted);
-    --userinfo-highlite-fg: var(--text-white);
-
-    /* Barra superior: texto / busca / alerta fixo */
-    --header-search-text: var(--text-bright);
-    --header-search-placeholder: var(--text-muted);
-    --alert-strip-link: var(--text-white);
-    --submenu-grid-item-hover-bg: rgba(255, 255, 255, 0.08);
-    --submenu-symbol-border: rgba(255, 255, 255, 0.04);
-    --on-accent-fg: #ffffff;
-    --banner-secondary-hover-bg: rgba(255, 255, 255, 0.1);
-
-    /* Noty (toast canto inferior) — texto principal legível em painel claro ou escuro */
-    --noty-message-color: var(--text-bright);
-    --noty-button-bg: rgba(255, 255, 255, 0.08);
-    --noty-button-border: rgba(255, 255, 255, 0.12);
-    --noty-button-fg: var(--text-bright);
-
-    /* Links na barra superior (herdam de `a` global; token para variantes claras) */
-    --header-link-fg: var(--text-bright);
-    --header-link-hover-fg: var(--accent-hover);
-
-    /* Votos / meta no bloco album (evita branco fixo na variante clara) */
-    --album-votes-number-gradient: linear-gradient(180deg, #ffffff 20%, rgba(255, 255, 255, 0.45) 100%);
-    --album-votes-meta-bg: rgba(255, 255, 255, 0.03);
-    --album-votes-meta-border: rgba(255, 255, 255, 0.06);
-    --album-votes-meta-bg-hover: rgba(255, 255, 255, 0.06);
-    --album-votes-meta-border-hover: rgba(255, 255, 255, 0.1);
-
-    /* Ícones Font Awesome nos botões do banner de grupo */
-    --groupbanner-icon-muted: rgba(255, 255, 255, 0.72);
-
-    /* Listagem: cabeçalho de grupo e título do release */
-    --torrent-group-header-bg: rgba(20, 24, 30, 0.95);
-    --torrent-group-header-border: rgba(255, 255, 255, 0.08);
-    --torrent-edition-row-bg: rgba(255, 255, 255, 0.015);
-    --torrent-group-title-bg: rgba(255, 255, 255, 0.05);
-    --torrent-group-title-bg-hover: rgba(255, 255, 255, 0.1);
-
-    --table-row-stripe: rgba(255, 255, 255, 0.015);
-    --table-cell-divider: rgba(255, 255, 255, 0.03);
-    --table-row-zebra-torrent: rgba(255, 255, 255, 0.01);
-
-    --gradient-banner-fade: linear-gradient(180deg, transparent 0%, var(--overlay-90) 100%);
-    --gradient-album-votes: linear-gradient(180deg, var(--overlay-15) 0%, transparent 100%);
+    /* Dropdowns: abrem/fecham com atraso para não piscar ao passar o mouse */
+    --dropdown-hide: opacity 0.15s ease 0.3s, transform 0.15s ease 0.3s, visibility 0s linear 0.45s;
+    --dropdown-show: opacity 0.15s ease 0.3s, transform 0.15s ease 0.3s, visibility 0s linear 0.3s;
 }
 
 /* ==========================================================================
@@ -254,7 +169,6 @@ Producao: https://matheussousa.com/bj-zerfeus-theme.css (base). Variantes: *-lig
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 html {
-    scrollbar-width: auto;
     scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
 }
 
@@ -263,38 +177,33 @@ html, body {
     background-color: var(--bg-base);
     color: var(--text-main);
     font-family: var(--font-main);
-    font-size: var(--text-page, 12px);
+    font-size: var(--fs);
     line-height: 1.45;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
     display: flex;
-    flex-direction: column; 
+    flex-direction: column;
 }
 
 body {
-    background-image: 
-        radial-gradient(ellipse 80% 50% at 50% -20%, var(--body-spot-accent) 0%, transparent 60%),
-        radial-gradient(ellipse 60% 40% at 80% 50%, var(--body-spot-info) 0%, transparent 50%);
+    background-image:
+        radial-gradient(ellipse 80% 50% at 50% -20%, var(--body-glow-1) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 40% at 80% 50%, var(--body-glow-2) 0%, transparent 50%);
     background-attachment: fixed;
     max-width: 100vw;
 }
 
-/* Seleção de texto estilizada */
 ::selection {
-    background-color: var(--text-selection-bg);
-    color: var(--text-selection-color);
-}
-::-moz-selection {
-    background-color: var(--text-selection-bg);
-    color: var(--text-selection-color);
+    background-color: var(--selection-bg);
+    color: var(--selection-fg);
 }
 
 a { color: var(--text-bright); text-decoration: none; font-weight: 500; transition: color var(--transition-snappy), text-shadow var(--transition-snappy); }
 a:hover, a:focus { color: var(--accent-hover); text-shadow: 0 0 12px var(--link-glow); }
 img, video { max-width: 100%; height: auto; }
 
-/* Ocultar Lixo Nativo e Banner do Telegram Indesejado */
+/* Ocultar lixo nativo e banner do Telegram indesejado */
 .hidden:not(.newsbody), span.hidden, h1.hidden { display: none !important; }
 .alertbar, #alerts { display: none !important; opacity: 0 !important; visibility: hidden !important; pointer-events: none !important; }
 ul, ol, li, ul.nobullet, ul.stats { list-style: none; margin: 0; padding: 0; }
@@ -303,7 +212,7 @@ ul, ol, li, ul.nobullet, ul.stats { list-style: none; margin: 0; padding: 0; }
    3. Layout & Grid
    ========================================================================== */
 #wrapper { display: flex; flex-direction: column; min-height: 100vh; width: 100%; flex: 1; }
-#content { flex: 1; padding: var(--space-y-page) 0; width: 100%; } 
+#content { flex: 1; padding: var(--space-y-page) 0; width: 100%; }
 
 .thin, .widethin {
     width: 100%; max-width: 1280px; margin: 0 auto; padding: 0 var(--space-x-shell);
@@ -327,40 +236,35 @@ ul, ol, li, ul.nobullet, ul.stats { list-style: none; margin: 0; padding: 0; }
 }
 
 /* ==========================================================================
-   4. TOPBAR FLEXBOX PERFEITA & MENU
+   4. Topbar & Menu
    ========================================================================== */
-html body #wrapper #header, 
-html body #header, 
+html body #wrapper #header,
+html body #header,
 #header {
     display: flex !important;
     flex-wrap: wrap !important;
     align-items: center !important;
     justify-content: flex-start !important;
-    padding: 8px 16px !important; 
-    background-color: var(--header-bg-solid) !important;
-    background: var(--header-bg-solid) !important;
-    background-image: none !important; /* Anula qualquer imagem ou gradiente base */
-    opacity: 1 !important; 
-    backdrop-filter: none !important; 
+    padding: 8px 16px !important;
+    background: var(--header-bg) !important;
+    background-image: none !important; /* anula imagem/gradiente nativos */
+    opacity: 1 !important;
+    backdrop-filter: none !important;
     -webkit-backdrop-filter: none !important;
-    border-bottom: 1px solid var(--header-border-bottom) !important;
-    position: sticky !important; 
-    top: 0 !important; 
-    z-index: 999999 !important; 
-    order: -1 !important; 
-    box-shadow: var(--shadow-header) !important; 
+    border-bottom: 1px solid var(--header-line) !important;
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 999999 !important;
+    order: -1 !important;
+    box-shadow: var(--shadow-header) !important;
     width: 100% !important;
     margin: 0 !important;
     color: var(--text-bright) !important;
 }
 
-#header a {
-    color: var(--header-link-fg);
-}
+#header a { color: var(--header-link); }
 #header a:hover,
-#header a:focus {
-    color: var(--header-link-hover-fg);
-}
+#header a:focus { color: var(--header-link-hover); }
 
 /* Prevenir overlays transparentes nativos */
 html body #wrapper #header::before,
@@ -373,15 +277,15 @@ html body #header::after {
 }
 
 @media screen and (min-width: 1320px) {
-    html body #wrapper #header, 
-    html body #header, 
+    html body #wrapper #header,
+    html body #header,
     #header {
         padding-left: calc((100% - 1280px) / 2) !important;
         padding-right: calc((100% - 1280px) / 2) !important;
     }
 }
 
-/* Logo - Extrema Esquerda (Aumentado em +15%) */
+/* Logo — extrema esquerda */
 #logo {
     order: 1;
     flex: 0 0 auto;
@@ -391,103 +295,97 @@ html body #header::after {
     transition: filter var(--transition-smooth), opacity var(--transition-smooth); opacity: 0.9;
 }
 #logo a { display: block; width: 100%; height: 100%; }
-#logo:hover { opacity: 1; filter: drop-shadow(0 0 10px var(--logo-ambient-glow)); }
+#logo:hover { opacity: 1; filter: drop-shadow(0 0 12px var(--accent-12)); }
 
-/* Menu Principal */
-#menu { 
+/* Menu principal */
+#menu {
     order: 2;
     flex: 0 0 auto;
-    margin: 0 !important; border: none !important; background: transparent !important; 
+    margin: 0 !important; border: none !important; background: transparent !important;
     width: auto !important;
 }
 #centertopmenu { padding: 0 !important; margin: 0 !important; width: auto !important; }
 
-/* Dropdown Container Setup */
 #menudrop { position: relative; z-index: 1000; }
 #menudrop > ul { display: flex !important; flex-wrap: wrap; align-items: center; gap: 4px; justify-content: flex-start !important; }
-#menudrop > ul > li { position: relative; } /* Âncora para o nível 1 */
+#menudrop > ul > li { position: relative; } /* âncora para o nível 1 */
 
 #menudrop > ul > li > a {
-    display: block; padding: 8px 10px; 
+    display: block; padding: 8px 10px;
     color: var(--text-bright);
-    font-weight: 600; font-size: 12px; text-transform: uppercase;
+    font-weight: 600; font-size: var(--fs); text-transform: uppercase;
     letter-spacing: 0.6px; border-radius: var(--radius-sm); transition: all var(--transition-snappy);
     position: relative;
 }
-#menudrop > ul > li > a:hover { background-color: var(--header-menu-hover-bg); color: var(--header-menu-hover-color); }
-#menudrop > ul > li > a::after { 
+#menudrop > ul > li > a:hover { background-color: var(--menu-hover-bg); color: var(--menu-hover-fg); }
+#menudrop > ul > li > a::after {
     content: ''; position: absolute; bottom: 6px; left: 50%; width: 0; height: 2px;
-    background: var(--accent-gradient); border-radius: 1px; 
+    background: var(--accent-gradient); border-radius: 1px;
     transform: translateX(-50%); transition: width var(--transition-smooth);
 }
 #menudrop > ul > li:hover > a::after { width: 60%; }
 
-/* SUBMENU - NÍVEL 1 (Torrents, Fórum, etc) */
+/* Submenu — nível 1 (Torrents, Fórum, etc.) */
 #menudrop ul ul {
     visibility: hidden;
     opacity: 0;
     pointer-events: none;
     transform: translateY(-4px);
-    position: absolute; 
-    top: 100%; 
-    left: 0; 
-    right: auto; 
-    min-width: 240px; 
-    background: var(--gradient-submenu); 
-    border: 1px solid var(--submenu-border); 
-    border-top: 2px solid var(--accent-main);
-    border-radius: 0 0 var(--radius-md) var(--radius-md); 
-    box-shadow: var(--shadow-submenu); 
-    padding: 6px 0; 
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: auto;
+    min-width: 240px;
+    background: var(--submenu-bg);
+    border: var(--line-w) solid var(--line-strong);
+    border-top: 2px solid var(--accent);
+    border-radius: 0 0 var(--radius-md) var(--radius-md);
+    box-shadow: var(--shadow-menu);
+    padding: 6px 0;
     margin-top: 0 !important;
-    backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-    transition: opacity 0.15s ease 0.3s, transform 0.15s ease 0.3s, visibility 0s linear 0.45s;
+    backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
+    transition: var(--dropdown-hide);
 }
+/* ponte invisível para o mouse não "cair" entre o item e o submenu */
 #menudrop ul ul::before { content: ''; position: absolute; top: -20px; left: 0; width: 100%; height: 20px; background: transparent; }
 #menudrop ul li:hover > ul {
     visibility: visible;
     opacity: 1;
     pointer-events: auto;
     transform: translateY(0);
-    transition: opacity 0.15s ease 0.3s, transform 0.15s ease 0.3s, visibility 0s linear 0.3s;
+    transition: var(--dropdown-show);
 }
-@keyframes fadeIn { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: translateY(0); } }
 
-#menudrop ul ul li { border-bottom: 1px solid var(--submenu-row-line); position: relative; }
+#menudrop ul ul li { border-bottom: 1px solid var(--line-soft); position: relative; }
 #menudrop ul ul li:last-child { border-bottom: none; }
 #menudrop ul ul a {
-    display: flex; justify-content: space-between; 
-    padding: 8px 22px 8px 14px; 
-    color: var(--text-bright); font-size: 12px; font-weight: 500; border-radius: 0;
+    display: flex; justify-content: space-between;
+    padding: 8px 22px 8px 14px;
+    color: var(--text-bright); font-size: var(--fs); font-weight: 500; border-radius: 0;
     transition: all var(--transition-snappy);
 }
-#menudrop ul ul a:hover { background-color: var(--accent-a-06); color: var(--menu-link-hover-fg); padding-left: 18px; }
+#menudrop ul ul a:hover { background-color: var(--submenu-hover-bg); color: var(--submenu-hover-fg); padding-left: 18px; }
 
-
-/* ==========================================================================
-   GRELHA INTELIGENTE (SMART GRID) - Submenus (Nível 2)
-   ========================================================================== */
-
-/* PADRÃO: 1 Coluna para submenus curtos */
+/* Submenus nível 2+ — padrão: 1 coluna para listas curtas */
 #menudrop ul ul ul {
     visibility: hidden;
     opacity: 0;
     pointer-events: none;
     transform: translateX(-4px);
-    position: absolute; 
-    top: -10px; 
-    left: 100%; 
+    position: absolute;
+    top: -10px;
+    left: 100%;
     right: auto;
     width: 200px !important;
-    background-color: var(--bg-solid); 
-    border: 1px solid var(--border-light); 
-    border-top: 2px solid var(--accent-main); 
+    background-color: var(--bg-solid);
+    border: var(--line-w) solid var(--line-strong);
+    border-top: 2px solid var(--accent);
     border-radius: var(--radius-md);
-    box-shadow: var(--shadow-lg);
-    padding: 8px 0 !important; 
+    box-shadow: var(--shadow-xl);
+    padding: 8px 0 !important;
     margin-left: 2px;
     z-index: 10001;
-    transition: opacity 0.15s ease 0.3s, transform 0.15s ease 0.3s, visibility 0s linear 0.45s;
+    transition: var(--dropdown-hide);
 }
 
 #menudrop ul ul li:hover > ul {
@@ -495,59 +393,49 @@ html body #header::after {
     opacity: 1 !important;
     pointer-events: auto !important;
     transform: translateX(0) !important;
-    transition: opacity 0.15s ease 0.3s, transform 0.15s ease 0.3s, visibility 0s linear 0.3s !important;
+    transition: var(--dropdown-show) !important;
 }
 
-#menudrop ul ul ul li {
-    border-bottom: 1px solid var(--submenu-row-line) !important;
-}
-#menudrop ul ul ul li:last-child {
-    border-bottom: none !important;
-}
+#menudrop ul ul ul li { border-bottom: 1px solid var(--line-soft) !important; }
+#menudrop ul ul ul li:last-child { border-bottom: none !important; }
 
 #menudrop ul ul ul a {
     padding: 12px 20px !important;
     border-radius: 0 !important;
-    font-size: 12px !important;
+    font-size: var(--fs) !important;
 }
 #menudrop ul ul ul a:hover {
-    background-color: var(--menu-item-hover-bg) !important;
+    background-color: var(--submenu-hover-bg) !important;
     padding-left: 24px !important;
-    color: var(--menu-link-hover-fg) !important;
+    color: var(--submenu-hover-fg) !important;
 }
 
-/* GRELHA (GRID) apenas para submenus de GÉNEROS longos (Level 4, 7+ itens: Seriados, Filmes...) */
+/* Grade só para submenus de GÊNEROS longos (nível 4, 7+ itens: Seriados, Filmes...) */
 #menudrop ul ul ul ul:has(li:nth-child(7)) {
-    width: 540px !important; 
-    padding: 18px !important; 
+    width: 540px !important;
+    padding: 18px !important;
     grid-template-columns: repeat(3, 1fr);
     gap: 6px;
     max-height: calc(100vh - 80px) !important;
     overflow-y: auto !important;
     top: 0 !important;
-    scrollbar-width: auto;
-    scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
 }
 
-#menudrop ul ul ul li:hover > ul:has(li:nth-child(7)) {
-    display: grid !important; 
-}
+#menudrop ul ul ul li:hover > ul:has(li:nth-child(7)) { display: grid !important; }
 
-#menudrop ul ul ul ul:has(li:nth-child(7)) li {
-    border-bottom: none !important; 
-}
+#menudrop ul ul ul ul:has(li:nth-child(7)) li { border-bottom: none !important; }
 
 #menudrop ul ul ul ul:has(li:nth-child(7)) a {
     padding: 10px 14px !important;
     border-radius: var(--radius-sm) !important;
-    font-size: 12px !important;
+    font-size: var(--fs) !important;
 }
 #menudrop ul ul ul ul:has(li:nth-child(7)) a:hover {
-    background-color: var(--submenu-grid-item-hover-bg) !important;
+    background-color: var(--submenu-hover-bg) !important;
     padding-left: 18px !important;
 }
 
-/* Level 3 longo (Categorias): 2 colunas — permite Level 4 escapar para a direita */
+/* Nível 3 longo (Categorias): 2 colunas — permite o nível 4 escapar para a direita */
 #menudrop ul ul ul:has(li:nth-child(7)) {
     top: 0 !important;
     display: grid !important;
@@ -556,46 +444,44 @@ html body #header::after {
     padding: 8px !important;
     gap: 2px;
 }
-#menudrop ul ul ul:has(li:nth-child(7)) li {
-    border-bottom: none !important;
-}
+#menudrop ul ul ul:has(li:nth-child(7)) li { border-bottom: none !important; }
 #menudrop ul ul ul:has(li:nth-child(7)) > li > a {
     padding: 8px 12px !important;
     border-radius: var(--radius-sm) !important;
     display: block;
 }
 
-/* Setinhas Indicadoras Padrão (Nível 1) */
+/* Setinhas indicadoras (nível 1) */
 #menudrop ul ul a.symbol {
     position: absolute; right: 0; top: 0; width: 35px; height: 100%;
-    border-left: 1px solid var(--submenu-symbol-border); display: flex; align-items: center; justify-content: center;
-    color: var(--text-muted); padding: 0 !important; font-size: 12px !important;
+    border-left: 1px solid var(--line-soft); display: flex; align-items: center; justify-content: center;
+    color: var(--text-muted); padding: 0 !important; font-size: var(--fs) !important;
 }
-#menudrop ul ul a.symbol:hover { background: var(--accent-main); color: var(--on-accent-fg); }
+#menudrop ul ul a.symbol:hover { background: var(--accent); color: var(--on-accent); }
 
-/* Setinha no Nível 2 para o Nível 3 */
-#menudrop ul ul ul a.symbol { 
-    display: flex !important; 
-    border-left: none !important; 
+/* Setinha do nível 2 para o nível 3 */
+#menudrop ul ul ul a.symbol {
+    display: flex !important;
+    border-left: none !important;
     width: 25px;
     background: transparent !important;
     opacity: 0.6;
 }
 #menudrop ul ul ul a.symbol:hover {
-    color: var(--on-accent-fg) !important;
+    color: var(--submenu-hover-fg) !important;
     opacity: 1;
 }
 
-/* SUBMENU - NÍVEL 3 (Subcategorias ex: Jogos -> PS2) */
+/* Submenu nível 3 (subcategorias, ex.: Jogos -> PS2) */
 #menudrop ul ul ul ul {
-    top: -8px !important; /* Compensação para listas curtas */
+    top: -8px !important; /* compensação para listas curtas */
     margin-left: 2px !important;
     z-index: 10002;
 }
 
-/* Se o pai for uma Grelha, o ajuste da altura do filho é diferente */
+/* Se o pai for uma grade, o ajuste de altura do filho é diferente */
 #menudrop ul ul ul ul:has(li:nth-child(7)) ul {
-    top: -18px !important; 
+    top: -18px !important;
     margin-left: 8px !important;
 }
 
@@ -604,38 +490,38 @@ html body #header::after {
    ========================================================================== */
 #userinfo {
     order: 3;
-    flex: 1 1 auto; 
+    flex: 1 1 auto;
     margin: 0 !important; padding: 0 !important; border: none !important;
     background: transparent !important; display: flex; align-items: center; justify-content: flex-end !important;
 }
-#userinfo ul { 
-    display: flex; 
-    flex-wrap: wrap !important; 
-    gap: 4px; align-items: center; justify-content: flex-end !important; margin: 0; 
+#userinfo ul {
+    display: flex;
+    flex-wrap: wrap !important;
+    gap: 4px; align-items: center; justify-content: flex-end !important; margin: 0;
 }
 
-/* Ocultação do UserInfo Minor (Doações, Pedidos duplos, etc) */
+/* Ocultação do UserInfo minor (doações, pedidos duplicados, etc.) */
 #nav_donations, #nav_requests, #userinfo_minor { display: none !important; }
 
 #userinfo_stats li {
-    background: var(--userinfo-stat-bg); padding: 4px 10px; 
-    border-radius: var(--radius-pill); border: 1px solid var(--border-color);
-    display: flex; align-items: center; gap: 5px; font-size: 12px !important;
-    color: var(--userinfo-stat-label);
+    background: var(--fill-1); padding: 4px 10px;
+    border-radius: var(--radius-pill); border: 1px solid var(--line);
+    display: flex; align-items: center; gap: 5px; font-size: var(--fs) !important;
+    color: var(--text-muted);
     transition: all var(--transition-snappy);
 }
 #userinfo_stats li:hover {
-    background: var(--userinfo-stat-bg-hover);
-    border-color: var(--userinfo-stat-border-hover);
+    background: var(--accent-12);
+    border-color: var(--accent-30);
 }
 
-#stats_seeding .stat { color: var(--color-success); font-weight: 700; text-shadow: 0 0 8px rgba(34, 197, 94, 0.2); }
-#stats_leeching .stat { color: var(--color-danger); font-weight: 700; text-shadow: 0 0 8px var(--stat-danger-glow); }
+#stats_seeding .stat { color: var(--success); font-weight: 700; text-shadow: 0 0 8px color-mix(in srgb, var(--success) 20%, transparent); }
+#stats_leeching .stat { color: var(--danger); font-weight: 700; text-shadow: 0 0 8px color-mix(in srgb, var(--danger) 20%, transparent); }
 #stats_ratio .stat { font-weight: 700; color: var(--text-bright); }
-#stats_bjpontos .stat { color: var(--color-warning); font-weight: 700; text-shadow: 0 0 8px rgba(234, 179, 8, 0.2); }
-#userinfo_minor.highlite a { color: var(--userinfo-highlite-fg); font-weight: 700; }
+#stats_bjpontos .stat { color: var(--warning); font-weight: 700; text-shadow: 0 0 8px color-mix(in srgb, var(--warning) 20%, transparent); }
+#userinfo_minor.highlite a { color: var(--text-strong); font-weight: 700; }
 
-/* Dropdown Perfil Principal */
+/* Dropdown do perfil */
 #userinfo ul li { position: relative; }
 #userinfo ul ul {
     visibility: hidden;
@@ -644,9 +530,9 @@ html body #header::after {
     transform: translateY(-4px);
     position: absolute; top: 100%; right: 0; left: auto;
     min-width: 180px; background-color: var(--bg-solid);
-    border: 1px solid var(--border-light); border-top: 2px solid var(--accent-main); border-radius: 0 0 var(--radius-md) var(--radius-md);
-    box-shadow: var(--shadow-md); padding: 6px 0; z-index: 1001; margin-top: 0;
-    transition: opacity 0.15s ease 0.3s, transform 0.15s ease 0.3s, visibility 0s linear 0.45s;
+    border: var(--line-w) solid var(--line-strong); border-top: 2px solid var(--accent); border-radius: 0 0 var(--radius-md) var(--radius-md);
+    box-shadow: var(--shadow-menu); padding: 6px 0; z-index: 1001; margin-top: 0;
+    transition: var(--dropdown-hide);
 }
 #userinfo ul ul::before { content: ''; position: absolute; top: -20px; left: 0; width: 100%; height: 20px; background: transparent; }
 #userinfo ul li:hover > ul {
@@ -654,130 +540,117 @@ html body #header::after {
     opacity: 1;
     pointer-events: auto;
     transform: translateY(0);
-    transition: opacity 0.15s ease 0.3s, transform 0.15s ease 0.3s, visibility 0s linear 0.3s;
+    transition: var(--dropdown-show);
 }
 #userinfo ul ul li { display: block; width: 100%; border: none; background: transparent; padding: 0; position: relative; }
 #userinfo ul ul li a {
-    display: block; padding: 10px 16px; 
+    display: block; padding: 10px 16px;
     color: var(--text-bright);
-    font-size: 12px; font-weight: 500; text-align: left; border-radius: 0;
+    font-size: var(--fs); font-weight: 500; text-align: left; border-radius: 0;
 }
-#userinfo ul ul li a:hover { background-color: var(--menu-item-hover-bg); color: var(--menu-link-hover-fg); padding-left: 20px; }
+#userinfo ul ul li a:hover { background-color: var(--submenu-hover-bg); color: var(--submenu-hover-fg); padding-left: 20px; }
 
-/* Setinha indicadora no Perfil para opções com Submenu */
+/* Setinha no perfil para opções com submenu */
 #userinfo ul ul li:has(ul) > a::after {
-    content: '▸'; float: right; color: var(--text-muted); font-size: 12px; margin-top: 2px; opacity: 0.7;
+    content: '▸'; float: right; color: var(--text-muted); font-size: var(--fs); margin-top: 2px; opacity: 0.7;
 }
 
-/* Nível 3 do Perfil (Ex: Mensagens -> Recebidas) ABRE PARA A ESQUERDA */
+/* Nível 3 do perfil (ex.: Mensagens -> Recebidas) abre para a ESQUERDA */
 #userinfo ul ul ul {
     visibility: hidden;
     opacity: 0;
     pointer-events: none;
     transform: translateX(4px);
-    position: absolute; 
-    top: -10px; 
-    right: 100%; 
-    left: auto; 
-    min-width: 160px; 
+    position: absolute;
+    top: -10px;
+    right: 100%;
+    left: auto;
+    min-width: 160px;
     background-color: var(--bg-solid);
-    border: 1px solid var(--border-light); 
-    border-top: 2px solid var(--accent-main); 
+    border: var(--line-w) solid var(--line-strong);
+    border-top: 2px solid var(--accent);
     border-radius: var(--radius-md);
-    box-shadow: var(--shadow-lg); 
-    padding: 6px 0; 
-    z-index: 1002; 
+    box-shadow: var(--shadow-xl);
+    padding: 6px 0;
+    z-index: 1002;
     margin-right: 2px;
-    transition: opacity 0.15s ease 0.3s, transform 0.15s ease 0.3s, visibility 0s linear 0.45s;
+    transition: var(--dropdown-hide);
 }
 #userinfo ul ul li:hover > ul {
     visibility: visible;
     opacity: 1;
     pointer-events: auto;
     transform: translateX(0);
-    transition: opacity 0.15s ease 0.3s, transform 0.15s ease 0.3s, visibility 0s linear 0.3s;
+    transition: var(--dropdown-show);
 }
 
-/* Barras de Pesquisa */
-#searchbars { 
+/* Barras de pesquisa */
+#searchbars {
     order: 4;
-    flex: 0 0 100%; 
-    margin: 10px 0 0 0 !important; padding: 12px 0 0 0 !important; 
-    border-top: 1px solid var(--border-color) !important; border-bottom: none !important;
-    background: transparent !important; width: 100%; 
+    flex: 0 0 100%;
+    margin: 10px 0 0 0 !important; padding: 12px 0 0 0 !important;
+    border-top: 1px solid var(--line) !important; border-bottom: none !important;
+    background: transparent !important; width: 100%;
     display: flex; justify-content: center;
 }
 #searchbars ul { display: flex !important; flex-wrap: wrap; justify-content: center; gap: 6px; align-items: center; }
 #searchbars form { display: flex; margin: 0; padding: 0; }
 
 #searchbars input[type="text"] {
-    width: 160px; padding: 8px 16px; background-color: var(--search-input-fill);
-    border: 1px solid var(--border-color); border-radius: var(--radius-pill); color: var(--header-search-text);
-    text-align: center; font-size: 12px; transition: all var(--transition-smooth);
+    width: 160px; padding: 8px 16px; background-color: var(--fill-1);
+    border: 1px solid var(--line); border-radius: var(--radius-pill); color: var(--text-bright);
+    text-align: center; font-size: var(--fs); transition: all var(--transition-smooth);
 }
 #searchbars input[type="text"]::placeholder {
-    color: var(--header-search-placeholder);
+    color: var(--text-muted);
     opacity: 0.9;
 }
-#searchbars input[type="text"]:focus { 
-    width: 240px; border-color: var(--accent-main); 
-    background-color: var(--overlay-50); outline: none; 
-    box-shadow: 0 0 0 3px var(--accent-a-10);
+#searchbars input[type="text"]:focus {
+    width: 240px; border-color: var(--accent);
+    background-color: var(--field-bg-focus); outline: none;
+    box-shadow: 0 0 0 3px var(--accent-12);
 }
 #searchbars input[type="text"]:-webkit-autofill,
 #searchbars input[type="text"]:-webkit-autofill:hover,
 #searchbars input[type="text"]:-webkit-autofill:focus {
-    -webkit-text-fill-color: var(--header-search-text) !important;
-    caret-color: var(--header-search-text);
-    box-shadow: 0 0 0 1000px var(--search-input-fill) inset !important;
+    -webkit-text-fill-color: var(--text-bright) !important;
+    caret-color: var(--text-bright);
+    box-shadow: 0 0 0 1000px var(--bg-solid) inset !important;
     transition: background-color 99999s ease-out;
 }
 
 /* ==========================================================================
    5. Alertas & Notificações
    ========================================================================== */
-#noteAlertMsg { 
+#noteAlertMsg {
     position: fixed !important; top: 0 !important; left: 0 !important;
     width: 100% !important; height: 28px !important;
     display: flex !important; align-items: center !important; justify-content: center !important;
     background-color: var(--bg-solid) !important; color: var(--text-bright) !important;
-    font-size: 12px !important; font-weight: 500 !important;
+    font-size: var(--fs) !important; font-weight: 500 !important;
     z-index: 100000 !important; padding: 0 !important; margin: 0 !important;
-    border: none !important; border-bottom: 1px solid var(--border-color) !important;
+    border: none !important; border-bottom: 1px solid var(--line) !important;
 }
-#noteAlertMsg a { color: var(--alert-strip-link) !important; text-decoration: underline !important; margin-left: 8px; font-weight: 600; }
+#noteAlertMsg a { color: var(--alert-link) !important; text-decoration: underline !important; margin-left: 8px; font-weight: 600; }
 
 body:has(#noteAlertMsg:not([style*="display: none"])):has(#noteAlertMsg:not(.hidden)) { padding-top: 28px !important; }
 body:has(#noteAlertMsg:not([style*="display: none"])):has(#noteAlertMsg:not(.hidden)) #header { top: 28px !important; }
 
+/* Noty (toasts do canto inferior) */
 #noty_bottomRight_layout_container {
     max-height: calc(100vh - 60px) !important;
     overflow-y: auto !important;
     overflow-x: hidden !important;
-    scrollbar-width: auto !important;
     scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track) !important;
-}
-#noty_bottomRight_layout_container::-webkit-scrollbar { width: var(--scrollbar-size) !important; height: var(--scrollbar-size) !important; }
-#noty_bottomRight_layout_container::-webkit-scrollbar-track { background: var(--scrollbar-track) !important; border-radius: var(--radius-sm) !important; border: 1px solid var(--border-color) !important; }
-#noty_bottomRight_layout_container::-webkit-scrollbar-thumb {
-    background: var(--scrollbar-face) !important;
-    border-radius: var(--radius-md) !important;
-    border: 1px solid var(--scrollbar-thumb-border) !important;
-    box-shadow: inset 0 1px 0 var(--scrollbar-inset-top), var(--shadow-scroll-lift) !important;
-}
-#noty_bottomRight_layout_container::-webkit-scrollbar-thumb:hover {
-    background: var(--scrollbar-hover) !important;
-    border-color: var(--scrollbar-border-hover) !important;
-    box-shadow: inset 0 1px 0 var(--scrollbar-inset-top-strong), 0 0 14px var(--accent-glow) !important;
 }
 
 #noty_bottomRight_layout_container li {
-    background: var(--bg-panel) !important; 
-    background-image: none !important; 
-    border: 1px solid var(--border-light) !important;
+    background: var(--bg-panel) !important;
+    background-image: none !important;
+    border: 1px solid var(--line-strong) !important;
     border-radius: var(--radius-md) !important;
     box-shadow: var(--shadow-md) !important;
-    color: var(--noty-message-color) !important;
+    color: var(--text-bright) !important;
     margin-top: 12px !important;
     backdrop-filter: var(--glass-blur) !important;
     -webkit-backdrop-filter: var(--glass-blur) !important;
@@ -786,40 +659,40 @@ body:has(#noteAlertMsg:not([style*="display: none"])):has(#noteAlertMsg:not(.hid
 .noty_message,
 .noty_message .noty_text,
 #noty_bottomRight_layout_container .noty_text {
-    color: var(--noty-message-color) !important;
+    color: var(--text-bright) !important;
     font-family: var(--font-main) !important;
-    font-size: 12px !important;
+    font-size: var(--fs) !important;
 }
 .noty_message { padding: 8px 12px !important; }
-.noty_buttons { background-color: var(--overlay-25) !important; border-top: 1px solid var(--border-color) !important; padding: 6px 10px !important; text-align: right !important; }
+.noty_buttons { background-color: var(--recess-2) !important; border-top: 1px solid var(--line) !important; padding: 6px 10px !important; text-align: right !important; }
 
 .noty_buttons a.brackets {
-    display: inline-block !important; background: var(--noty-button-bg) !important; border: 1px solid var(--noty-button-border) !important;
-    border-radius: var(--radius-sm) !important; color: var(--noty-button-fg) !important; padding: 5px 12px !important; font-size: 12px !important;
+    display: inline-block !important; background: var(--btn-bg) !important; border: var(--line-w) solid var(--btn-border) !important;
+    border-radius: var(--radius-sm) !important; color: var(--btn-fg) !important; padding: 5px 12px !important; font-size: var(--fs) !important;
     font-weight: 600 !important; margin-left: 8px !important; text-transform: uppercase; letter-spacing: 0.5px; transition: all var(--transition-snappy) !important; text-decoration: none !important;
 }
-.noty_buttons a.brackets:hover { background: var(--accent-main) !important; border-color: var(--accent-main) !important; color: var(--on-accent-fg) !important; box-shadow: 0 0 10px var(--accent-noty-glow) !important; }
+.noty_buttons a.brackets:hover { background: var(--accent) !important; border-color: var(--accent) !important; color: var(--on-accent) !important; box-shadow: 0 0 10px var(--accent-40) !important; }
 
 /* ==========================================================================
-   6. UI Geral: Boxes e Painéis 
+   6. Caixas e Painéis
    ========================================================================== */
 .box, .torrent_details, .news_post {
     background-color: var(--bg-card); backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
-    border: 1px solid var(--box-outline); border-radius: var(--radius-md);
-    box-shadow: var(--shadow-box-default); 
+    border: 1px solid var(--panel-border); border-radius: var(--radius-md);
+    box-shadow: var(--shadow-md);
     margin-bottom: var(--space-block); overflow: hidden; transform: translateZ(0);
     transition: border-color var(--transition-smooth), box-shadow var(--transition-smooth);
 }
 
 .box:hover, .news_post:hover {
-    border-color: var(--box-outline-hover);
-    box-shadow: var(--shadow-box-hover);
+    border-color: var(--panel-border-hover);
+    box-shadow: var(--shadow-lg);
 }
 
 .box .head, .head2, .colhead, .colhead_dark, .headTitulos {
-    background: var(--panel-head-gradient); 
-    border-bottom: 1px solid var(--border-color);
-    padding: var(--pad-head); font-weight: 600; color: var(--box-head-fg); font-size: 16px; margin-bottom: 0;
+    background: var(--head-bg);
+    border-bottom: 1px solid var(--line);
+    padding: var(--pad-head); font-weight: 600; color: var(--head-fg); font-size: var(--fs-lg); margin-bottom: 0;
     letter-spacing: 0.3px;
 }
 .box .head a, .head2 a, .colhead a, .headTitulos a { color: inherit; }
@@ -830,25 +703,47 @@ body:has(#noteAlertMsg:not([style*="display: none"])):has(#noteAlertMsg:not(.hid
 .sidebar .box > .body, .sidebar .box > .pad, .sidebar .box > ul.stats,
 .sidebar .box > ul.nobullet, .sidebar .box > div:not(.head) { padding: var(--pad-inset); }
 
-.sidebar .box ul.stats li, .sidebar .box ul.nobullet li { padding: 4px 0; border-bottom: 1px solid var(--border-color); }
+.sidebar .box ul.stats li, .sidebar .box ul.nobullet li { padding: 4px 0; border-bottom: 1px solid var(--line); }
 .sidebar .box ul.stats li:last-child, .sidebar .box ul.nobullet li:last-child { border-bottom: none; padding-bottom: 0; }
+
+/* Index: Anúncios Oficiais / Últimas do Fórum. O site põe fórum ou data num <span>
+   dentro do link (no estilo original era tooltip); aqui vira uma 2ª linha discreta. */
+a.BJinfoBox {
+    display: inline-block;
+    vertical-align: top;
+    max-width: calc(100% - 1.5em);
+}
+a.BJinfoBox span {
+    display: block !important;
+    position: static !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    margin-top: 2px;
+    font-size: var(--fs);
+    font-weight: 400;
+    color: var(--text-muted);
+    background: none !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+}
 
 .center { text-align: center; }
 .right { text-align: right; }
 
-/* Botoes nativos em caixas (Lançamentos: Geral / XXX / …, paginação em .post_return) */
+/* Botões nativos em caixas (Lançamentos: Geral / XXX / …, paginação em .post_return) */
 .box .center button[type="button"],
 .box .pad button[type="button"],
 .box .post_return button[type="button"] {
     font-family: var(--font-main);
-    font-size: 12px;
+    font-size: var(--fs);
     font-weight: 600;
     padding: 8px 14px;
     margin: 2px 2px;
     border-radius: var(--radius-sm);
-    border: 1px solid var(--btn-pill-border);
-    background: var(--btn-pill-bg);
-    color: var(--btn-pill-fg);
+    border: var(--line-w) solid var(--btn-border);
+    background: var(--btn-bg);
+    color: var(--btn-fg);
     cursor: pointer;
     transition: border-color var(--transition-snappy), background-color var(--transition-snappy), color var(--transition-snappy);
     vertical-align: middle;
@@ -856,18 +751,18 @@ body:has(#noteAlertMsg:not([style*="display: none"])):has(#noteAlertMsg:not(.hid
 .box .center button[type="button"]:not(:disabled):hover,
 .box .pad button[type="button"]:not(:disabled):hover,
 .box .post_return button[type="button"]:not(:disabled):hover {
-    background: var(--btn-pill-hover-bg);
-    border-color: var(--btn-pill-hover-border);
-    color: var(--btn-pill-fg);
+    background: var(--btn-hover-bg);
+    border-color: var(--btn-hover-border);
+    color: var(--btn-hover-fg);
 }
 .box .center button[type="button"]:disabled,
 .box .pad button[type="button"]:disabled,
 .box .post_return button[type="button"]:disabled {
     cursor: not-allowed;
-    opacity: var(--btn-disabled-opacity);
-    background: var(--btn-disabled-bg) !important;
-    color: var(--btn-disabled-fg) !important;
-    border-color: var(--btn-disabled-border) !important;
+    opacity: 0.85;
+    background: var(--fill-1) !important;
+    color: var(--text-muted) !important;
+    border-color: var(--line) !important;
 }
 .box .center button[type="button"] img,
 .box .pad button[type="button"] img,
@@ -877,110 +772,111 @@ body:has(#noteAlertMsg:not([style*="display: none"])):has(#noteAlertMsg:not(.hid
 }
 
 /* ==========================================================================
-   7. Inputs Básicos & Checkboxes Globais
+   7. Inputs & Checkboxes
    ========================================================================== */
 input[type="text"], input[type="password"], textarea, select {
-    max-width: 100%; padding: 6px 10px; background-color: var(--overlay-30);
-    border: 1px solid var(--border-color); border-radius: var(--radius-sm); color: var(--text-bright);
+    max-width: 100%; padding: 6px 10px; background-color: var(--field-bg);
+    border: 1px solid var(--line); border-radius: var(--radius-sm); color: var(--text-bright);
     font-family: var(--font-main);
-    font-size: var(--text-page, 12px);
+    font-size: var(--fs);
     transition: all var(--transition-snappy);
 }
-input:focus, textarea:focus, select:focus { border-color: var(--accent-main); background-color: var(--overlay-50); outline: none; box-shadow: 0 0 0 3px var(--accent-a-08); }
+input:focus, textarea:focus, select:focus { border-color: var(--accent); background-color: var(--field-bg-focus); outline: none; box-shadow: 0 0 0 3px var(--accent-08); }
 
-/* Checkboxes Customizados e Modernos (Global) */
 input[type="checkbox"], input[type="radio"] {
     appearance: none !important; -webkit-appearance: none !important;
     width: 18px !important; min-width: 18px !important; height: 18px !important;
-    border: 2px solid var(--border-light) !important; border-radius: 4px !important;
-    background-color: var(--overlay-40) !important; cursor: pointer !important;
+    border: 2px solid var(--line-strong) !important; border-radius: 4px !important;
+    background-color: var(--recess-3) !important; cursor: pointer !important;
     position: relative !important; transition: all var(--transition-snappy) !important;
     margin: 0 !important; display: inline-block !important; vertical-align: middle !important;
 }
 input[type="radio"] { border-radius: 50% !important; }
 
 input[type="checkbox"]:checked, input[type="radio"]:checked {
-    background-color: var(--accent-main) !important; border-color: var(--accent-main) !important;
+    background-color: var(--accent) !important; border-color: var(--accent) !important;
+    box-shadow: 0 0 8px var(--accent-30) !important;
 }
 input[type="checkbox"]:checked::after {
     content: '✔' !important; position: absolute !important; top: 50% !important; left: 50% !important;
-    transform: translate(-50%, -50%) !important; color: white !important; font-size: 12px !important;
+    transform: translate(-50%, -50%) !important; color: var(--on-accent) !important; font-size: var(--fs) !important;
 }
 input[type="radio"]:checked::after {
     content: '' !important; position: absolute !important; top: 50% !important; left: 50% !important;
     transform: translate(-50%, -50%) !important; width: 8px !important; height: 8px !important;
-    background-color: white !important; border-radius: 50% !important;
+    background-color: var(--on-accent) !important; border-radius: 50% !important;
 }
 
 /* ==========================================================================
-   8. Tags Neutras, Linkbox e Brackets (Botões)
+   8. Botões, Linkbox, Tags e Brackets
    ========================================================================== */
 input[type="button"], input[type="submit"], button {
     display: inline-flex; align-items: center; justify-content: center; padding: 6px 14px;
-    background-color: rgba(255, 255, 255, 0.06); color: var(--text-white);
-    border: 1px solid var(--border-color); border-radius: var(--radius-sm);
-    font-weight: 500; font-size: 12px; cursor: pointer; transition: all var(--transition-snappy);
+    background-color: var(--fill-2); color: var(--text-strong);
+    border: 1px solid var(--line); border-radius: var(--radius-sm);
+    font-weight: 500; font-size: var(--fs); cursor: pointer; transition: all var(--transition-snappy);
     letter-spacing: 0.2px;
 }
-input[type="submit"] { background: var(--accent-gradient); border-color: transparent; color: white; box-shadow: 0 2px 8px var(--accent-a-20); }
-input[type="button"]:hover, button:hover { background-color: rgba(255, 255, 255, 0.12); border-color: rgba(255, 255, 255, 0.15); }
-input[type="submit"]:hover { background: var(--accent-gradient-hover); box-shadow: 0 4px 14px var(--accent-a-35); transform: translateY(-1px); }
+input[type="submit"] { background: var(--accent-gradient); border-color: transparent; color: var(--on-accent); box-shadow: 0 2px 8px var(--accent-20); }
+input[type="button"]:hover, button:hover { background-color: var(--fill-3); border-color: var(--line-strong); }
+input[type="submit"]:hover { background: var(--accent-gradient-hover); box-shadow: 0 4px 14px var(--accent-30); transform: translateY(-1px); }
 
 div.linkbox { text-align: center; padding: 6px 8px; margin: 6px 0; }
 div.linkbox a {
     display: inline-block; padding: 5px 12px; margin: 0 4px 4px 0;
-    background: rgba(255, 255, 255, 0.04); border: 1px solid var(--border-color);
-    border-radius: var(--radius-sm); color: var(--text-main); font-size: 12px;
+    background: var(--fill-1); border: 1px solid var(--line);
+    border-radius: var(--radius-sm); color: var(--text-main); font-size: var(--fs);
     transition: all var(--transition-snappy);
 }
-div.linkbox a:hover { background: var(--accent-gradient); color: #fff; border-color: transparent; box-shadow: 0 2px 8px var(--accent-a-20); }
+div.linkbox a:hover { background: var(--accent-gradient); color: var(--on-accent); border-color: transparent; box-shadow: 0 2px 8px var(--accent-20); }
 
-/* TAGS DE GÊNERO/CATEGORIA */
+/* Tags de gênero/categoria */
 .tags a {
     display: inline-block; padding: 3px 10px; margin: 2px 4px 2px 0;
-    background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: var(--radius-pill); color: var(--text-muted); font-size: 12px;
+    background: var(--fill-1); border: 1px solid var(--panel-border);
+    border-radius: var(--radius-pill); color: var(--text-muted); font-size: var(--fs);
     font-weight: 600; text-transform: uppercase; letter-spacing: 0.6px;
     transition: all var(--transition-snappy); white-space: nowrap;
 }
-.tags a:hover { background: var(--accent-a-10); color: var(--accent-hover); border-color: var(--accent-a-20); text-shadow: none; }
+.tags a:hover { background: var(--accent-12); color: var(--accent-hover); border-color: var(--accent-20); text-shadow: none; }
 
 .brackets {
     display: inline-block; padding: 4px 8px; margin: 0 4px; background: transparent;
-    border: 1px solid var(--border-color); border-radius: var(--radius-sm); font-size: 12px;
+    border: 1px solid var(--line); border-radius: var(--radius-sm); font-size: var(--fs);
     color: var(--text-muted); font-weight: 500; transition: all var(--transition-snappy);
 }
-.brackets:hover { background: rgba(255, 255, 255, 0.1); color: var(--text-bright); border-color: var(--border-light); }
+.brackets:hover { background: var(--fill-3); color: var(--text-bright); border-color: var(--line-strong); }
 
 /* ==========================================================================
-   9. Tabelas, Torrents e Download Centralizado
+   9. Tabelas e Listagem de Torrents
    ========================================================================== */
 table { width: 100%; border-collapse: collapse; margin-bottom: 0; }
-th, td { padding: var(--pad-cell); text-align: left; border-bottom: 1px solid var(--border-color); vertical-align: middle; }
-th { 
-    background: var(--table-th-gradient); 
-    font-weight: 600; color: var(--text-white); font-size: 12px; text-transform: uppercase; 
-    letter-spacing: 0.8px; border-top: none; 
+th, td { padding: var(--pad-cell); text-align: left; border-bottom: 1px solid var(--line); vertical-align: middle; }
+th {
+    background: var(--th-bg);
+    font-weight: 600; color: var(--text-strong); font-size: var(--fs); text-transform: uppercase;
+    letter-spacing: 0.8px; border-top: none;
 }
 
-tr:nth-child(even) td { background-color: var(--table-row-stripe); }
+tr:nth-child(even) td { background-color: var(--row-stripe); }
+tr td { transition: background-color var(--transition-snappy); }
 
 table.layout { width: 100%; }
-table.layout td.label { width: 25%; font-weight: 600; text-align: right; background: var(--overlay-25); color: var(--text-bright); }
+table.layout td.label { width: 25%; font-weight: 600; text-align: right; background: var(--recess-2); color: var(--text-bright); }
 
-/* Estilo Global para as Tabelas Principais (Borda e Sombra Forte) */
-.torrent_table { 
+/* Tabelas principais (borda e sombra fortes) */
+.torrent_table {
     background-color: var(--bg-panel);
     border-radius: var(--radius-md);
-    border: 1px solid var(--box-outline);
-    box-shadow: var(--shadow-noty-item);
+    border: 1px solid var(--panel-border);
+    box-shadow: var(--shadow-lg);
     border-collapse: separate;
     border-spacing: 0;
     overflow: hidden;
     margin-bottom: var(--space-block);
 }
 
-/* Garante que a última linha da tabela não conflita com a borda de fora */
+/* A última linha não conflita com a borda externa */
 .torrent_table tr:last-child td,
 table:has(tr.torrent_row) tr:last-child td,
 table:has(tr.audio_header) tr:last-child td,
@@ -989,38 +885,37 @@ table:has(tr.resolution_header) tr:last-child td {
     border-bottom: none !important;
 }
 
-
-/* ==========================================================================
-   9.1. Hierarquia Visual (Grupos e Edições - PÁGINA PRINCIPAL APENAS)
-   ========================================================================== */
-tr.group td { 
-    background: var(--torrent-group-header-bg) !important; 
-    border-top: 1px solid var(--torrent-group-header-border);
-    font-weight: 700; 
+/* --------------------------------------------------------------------------
+   9.1. Hierarquia visual (grupos e edições — só na listagem principal)
+   -------------------------------------------------------------------------- */
+tr.group td {
+    background: var(--group-bg) !important;
+    border-top: var(--line-w) solid var(--line-strong);
+    font-weight: 700;
 }
 
-/* Exclusão estrita: As regras abaixo só se aplicam à lista PRINCIPAL e evitam poluir as tabelas de detalhes */
-tr.group_torrent:not(.audio_header):not(.season_header):not(.torrent_row) td { 
-    background-color: var(--torrent-edition-row-bg) !important; 
+/* Exclusão estrita: as regras abaixo valem só para a lista PRINCIPAL, não para as tabelas de detalhes */
+tr.group_torrent:not(.audio_header):not(.season_header):not(.torrent_row) td {
+    background-color: var(--row-stripe) !important;
 }
 
 .torrent_table tr.group_torrent:not(.audio_header):not(.season_header):not(.torrent_row) td:first-child {
-    padding-left: 85px !important; 
-    font-size: 0 !important; 
+    padding-left: 85px !important;
+    font-size: 0 !important;
     vertical-align: middle;
 }
 
 .torrent_table tr.group_torrent:not(.audio_header):not(.season_header):not(.torrent_row) td:first-child * {
-    font-size: 12px;
+    font-size: var(--fs);
     text-decoration: none !important;
 }
 
 .torrent_table tr.group_torrent:not(.audio_header):not(.season_header):not(.torrent_row) td:first-child > a {
     display: inline-flex;
     align-items: center;
-    background: var(--torrent-group-title-bg);
-    border-left: 3px solid var(--accent-main); /* Apenas na página principal */
-    color: var(--torrent-list-title-color) !important;
+    background: var(--fill-2);
+    border-left: 3px solid var(--accent);
+    color: var(--title-fg) !important;
     padding: 5px 14px;
     border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
     font-weight: 600;
@@ -1030,8 +925,8 @@ tr.group_torrent:not(.audio_header):not(.season_header):not(.torrent_row) td {
 }
 
 .torrent_table tr.group_torrent:not(.audio_header):not(.season_header):not(.torrent_row) td:first-child > a:hover {
-    background: var(--torrent-group-title-bg-hover);
-    color: var(--torrent-list-title-color) !important;
+    background: var(--fill-3);
+    color: var(--title-fg) !important;
     transform: translateX(4px);
     box-shadow: var(--shadow-sm);
 }
@@ -1041,15 +936,14 @@ tr.group_torrent:not(.audio_header):not(.season_header):not(.torrent_row) td {
     vertical-align: middle;
 }
 
-.torrent_table tr.group_torrent:not(.audio_header):not(.season_header):not(.torrent_row):not(.edition_0) td:first-child span a[href*="action=download"],
-.torrent_table tr.group_torrent:not(.audio_header):not(.season_header):not(.torrent_row):not(.edition_0) td:first-child span a[title="Baixar"] {
+.torrent_table tr.group_torrent:not(.audio_header):not(.season_header):not(.torrent_row):not(.edition_0) td:first-child span :is(a[href*="action=download"], a[title="Baixar"]) {
     position: static !important;
     transform: none !important;
     margin: 0 12px 0 0 !important;
     box-shadow: none !important;
 }
 
-/* Botão de download nas linhas edition_0: posicionar à direita como nas tr.torrent */
+/* Botão de download nas linhas edition_0: à direita, como nas tr.torrent */
 .torrent_table tr.group_torrent.edition_0 td[colspan] {
     position: relative !important;
     padding-right: 50px !important;
@@ -1066,15 +960,15 @@ tr.group_torrent:not(.audio_header):not(.season_header):not(.torrent_row) td {
 
 tr.torrent td { background-color: transparent; }
 
-.torrent_table tr:not(.colhead):not(.group):hover td { background-color: var(--bg-card-hover); transition: background var(--transition-snappy); }
+.torrent_table tr:not(.colhead):not(.group):hover td { background-color: var(--bg-card-hover); }
 
-/* Linha lateral de seleção (Apenas Pág Principal) */
+/* Linha lateral de seleção (só na listagem principal) */
 .torrent_table tr.torrent:hover td:first-child, .torrent_table tr.group_torrent:not(.audio_header):not(.season_header):not(.torrent_row):hover td:first-child { position: relative; }
 .torrent_table tr.torrent:hover td:first-child::before, .torrent_table tr.group_torrent:not(.audio_header):not(.season_header):not(.torrent_row):hover td:first-child::before {
-    content: ''; position: absolute; left: 0; top: 0; height: 100%; width: 3px; background-color: var(--accent-main);
+    content: ''; position: absolute; left: 0; top: 0; height: 100%; width: 3px; background-color: var(--accent);
 }
 
-/* IMAGENS DAS CATEGORIAS — listagem geral (inclui filtro por categoria: sem tr[data-categoryid]) */
+/* Imagens das categorias — listagem geral (inclui filtro por categoria: sem tr[data-categoryid]) */
 .torrent_table td.cats_col a {
     display: inline-block;
     line-height: 0;
@@ -1085,32 +979,40 @@ tr.torrent td { background-color: transparent; }
     height: auto !important;
     object-fit: contain !important;
     border-radius: var(--radius-md) !important;
-    box-shadow: var(--shadow-popdrop) !important;
+    box-shadow: var(--shadow-sm) !important;
     display: block !important;
     margin: 0 auto !important;
 }
 
-/* NOME DA RELEASE EM DESTAQUE E INFORMAÇÕES EXTRAS */
+/* Nome da release em destaque */
 .torrent_table td a[href*="torrents.php?id="]:first-of-type:not([href*="action=download"]):not(.brackets) {
-    font-size: 12px !important; font-weight: 700 !important; color: var(--torrent-list-title-color) !important;
+    font-size: var(--fs) !important; font-weight: 700 !important; color: var(--title-fg) !important;
     letter-spacing: 0.2px; display: inline-block; margin-bottom: 4px;
-    text-shadow: 0 2px 4px var(--torrent-title-shadow); transition: color var(--transition-snappy);
+    text-shadow: 0 2px 4px var(--title-shadow); transition: color var(--transition-snappy);
 }
 .torrent_table td a[href*="torrents.php?id="]:first-of-type:not([href*="action=download"]):not(.brackets):hover {
-    color: var(--accent-main) !important;
+    color: var(--accent) !important;
 }
 
-/* CORES PREMIUM PARA AS INFORMAÇÕES (Tabela Principal e Detalhes) */
-.torrent_table strong[style*="color:red"], .torrent_table strong[style*="color: red"], table:has(tr.torrent_row) strong[style*="color:red"], table:has(tr.torrent_row) strong[style*="color: red"] { color: var(--torrent-inline-bad) !important; text-shadow: 0 0 8px var(--torrent-inline-bad-glow) !important; }
-.torrent_table strong[style*="color:green"], .torrent_table strong[style*="color: green"], .torrent_table .free, table:has(tr.torrent_row) strong[style*="color:green"], table:has(tr.torrent_row) strong[style*="color: green"], table:has(tr.torrent_row) .free { color: #2ed573 !important; text-shadow: 0 0 8px rgba(46, 213, 115, 0.3) !important; }
-.torrent_table strong[style*="color:orange"], .torrent_table strong[style*="color: orange"], .torrent_table .internalbox, table:has(tr.torrent_row) strong[style*="color:orange"], table:has(tr.torrent_row) strong[style*="color: orange"], table:has(tr.torrent_row) .internalbox { color: #ffa502 !important; text-shadow: 0 0 8px rgba(255, 165, 2, 0.3) !important; }
-.torrentinfo_release { color: #70a1ff !important; font-weight: 700 !important; }
+/* Cores das informações inline (listagem e detalhes) — o site injeta style="color:…" */
+.torrent_table strong[style*="color:red"], .torrent_table strong[style*="color: red"],
+table:has(tr.torrent_row) strong[style*="color:red"], table:has(tr.torrent_row) strong[style*="color: red"] {
+    color: var(--danger) !important; text-shadow: 0 0 8px color-mix(in srgb, var(--danger) 30%, transparent) !important;
+}
+.torrent_table strong[style*="color:green"], .torrent_table strong[style*="color: green"], .torrent_table .free,
+table:has(tr.torrent_row) strong[style*="color:green"], table:has(tr.torrent_row) strong[style*="color: green"], table:has(tr.torrent_row) .free {
+    color: var(--success) !important; text-shadow: 0 0 8px color-mix(in srgb, var(--success) 30%, transparent) !important;
+}
+.torrent_table strong[style*="color:orange"], .torrent_table strong[style*="color: orange"], .torrent_table .internalbox,
+table:has(tr.torrent_row) strong[style*="color:orange"], table:has(tr.torrent_row) strong[style*="color: orange"], table:has(tr.torrent_row) .internalbox {
+    color: var(--orange) !important; text-shadow: 0 0 8px color-mix(in srgb, var(--orange) 30%, transparent) !important;
+}
+.torrentinfo_release { color: color-mix(in oklab, var(--info) 75%, var(--text-strong)) !important; font-weight: 700 !important; }
 
-/* ==========================================================================
-   9.2. Capas e Proteção de Ícones IMDb (Bulletproof)
-   ========================================================================== */
-
-/* CAPA DO TORRENT (PROTEÇÃO CONTRA OVERFLOW NA SIDEBAR) */
+/* --------------------------------------------------------------------------
+   9.2. Capas, IMDb, Download e Favoritos
+   -------------------------------------------------------------------------- */
+/* Capa do torrent (proteção contra overflow na sidebar) */
 .sidebar .box_albumart img,
 .sidebar #covers img {
     width: 100% !important;
@@ -1128,7 +1030,7 @@ tr.torrent td { background-color: transparent; }
     overflow: hidden !important;
 }
 
-/* PROTEÇÃO GLOBAL DOS ÍCONES NATIVOS DO IMDb */
+/* Ícones nativos do IMDb */
 img[src*="imdb.png"],
 img[src*="imdb.gif"] {
     height: 15px !important;
@@ -1154,7 +1056,7 @@ a:has(> img[src*="imdb.gif"]) {
     margin: 0 !important;
 }
 
-/* CHIP DE NOTA IMDb (Apenas o Bloco de Texto Customizado) */
+/* Chip de nota IMDb (amarelo oficial, independente do tema) */
 div.browse_rating {
     display: inline-block !important;
     margin-left: 8px !important;
@@ -1170,20 +1072,20 @@ div.browse_rating a,
     display: inline-flex !important;
     align-items: center !important;
     justify-content: center !important;
-    background-color: #f5c518 !important; /* Amarelo oficial IMDb */
+    background-color: var(--imdb) !important;
     background-image: none !important;
-    border: none !important; 
-    color: #000000 !important; /* Texto preto para contraste absoluto */
+    border: none !important;
+    color: #000000 !important;
     font-family: var(--font-main) !important;
     font-weight: 800 !important;
-    font-size: 12px !important;
+    font-size: var(--fs) !important;
     padding: 3px 10px !important;
-    border-radius: var(--radius-pill) !important; 
+    border-radius: var(--radius-pill) !important;
     text-transform: uppercase !important;
     letter-spacing: 0.5px !important;
     transition: all var(--transition-snappy) !important;
     text-shadow: none !important;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.5) !important;
+    box-shadow: 0 2px 4px rgb(0 0 0 / 0.5) !important;
     text-decoration: none !important;
     margin-top: 4px !important;
 }
@@ -1191,49 +1093,64 @@ div.browse_rating a,
 div.browse_rating a:hover,
 .group_info a[href*="imdb.com/title/"]:hover {
     transform: translateY(-2px) !important;
-    box-shadow: 0 4px 10px rgba(245, 197, 24, 0.4) !important;
-    background-color: #e4b715 !important;
+    box-shadow: 0 4px 10px color-mix(in srgb, var(--imdb) 40%, transparent) !important;
+    background-color: color-mix(in srgb, var(--imdb) 92%, #000000) !important;
     color: #000000 !important;
 }
 
 div.browse_rating a::before {
     content: '★';
     margin-right: 4px;
-    font-size: 12px;
+    font-size: var(--fs);
     color: #000000 !important;
 }
 
-
-/* ANCORAGEM SEGURA PARA O BOTÃO DE DOWNLOAD E FAVORITOS (Browse) */
+/* Âncora para os botões de download e favoritos (browse) */
 .torrent_table .group_info {
-    position: relative !important; padding-right: 90px !important; 
-    display: block !important; min-height: 36px; 
+    position: relative !important; padding-right: 90px !important;
+    display: block !important; min-height: 36px;
 }
 
-/* BOTÃO DE DOWNLOAD (Browse) */
-.torrent_table a[href*="action=download"], .torrent_table a[title="Download"], .torrent_table a[title="Baixar"] {
+/* Botão de download (browse). O ícone é uma máscara pintada com a cor do tema. */
+.torrent_table :is(a[href*="action=download"], a[title="Download"], a[title="Baixar"]) {
     position: absolute !important; right: 5px !important; top: 50% !important; transform: translateY(-50%) !important;
     display: inline-flex !important; float: none !important; margin: 0 !important; align-items: center; justify-content: center;
-    width: 32px !important; height: 32px !important; background-color: var(--download-btn-bg) !important;
-    border: 1px solid var(--download-btn-border) !important; border-radius: var(--radius-pill) !important; color: transparent !important; 
+    width: 32px !important; height: 32px !important;
+    background: color-mix(in srgb, var(--download) 15%, transparent) !important;
+    border: var(--line-w) solid color-mix(in srgb, var(--download) 35%, transparent) !important;
+    border-radius: var(--radius-pill) !important; color: transparent !important;
     transition: all var(--transition-snappy) !important; z-index: 10 !important;
-    background-image: var(--download-icon-svg) !important;
-    background-size: 16px !important; background-position: center !important; background-repeat: no-repeat !important;
 }
-.torrent_table a[href*="action=download"]:hover, .torrent_table a[title="Download"]:hover, .torrent_table a[title="Baixar"]:hover {
-    background-color: var(--accent-main) !important; border-color: var(--accent-main) !important;
-    transform: translateY(-50%) scale(1.15) !important; box-shadow: var(--shadow-glow) !important;
-    background-image: var(--download-icon-svg-on-accent) !important;
+.torrent_table :is(a[href*="action=download"], a[title="Download"], a[title="Baixar"]):hover {
+    background: var(--download) !important; border-color: var(--download) !important;
+    transform: translateY(-50%) scale(1.15) !important;
+    box-shadow: 0 0 14px color-mix(in srgb, var(--download) 45%, transparent) !important;
 }
-.torrent_table a[href*="action=download"]::after, .torrent_table a[title="Download"]::after, .torrent_table a[title="Baixar"]::after { display: none !important; }
-/* FA / Duotone: o SVG de fundo substitui o <i>; senão o glifo nativo fica por cima ou ilegivel */
-.torrent_table a[href*="action=download"] i,
-.torrent_table a[title="Download"] i,
-.torrent_table a[title="Baixar"] i {
-    display: none !important;
+.torrent_table :is(a[href*="action=download"], a[title="Download"], a[title="Baixar"])::after { display: none !important; }
+/* FA/Duotone: a máscara substitui o <i>; senão o glifo nativo fica por cima */
+.torrent_table :is(a[href*="action=download"], a[title="Download"], a[title="Baixar"]) i { display: none !important; }
+
+/* Máscaras dos ícones (download e favoritos, listagem e detalhes) */
+.torrent_table :is(a[href*="action=download"], a[title="Download"], a[title="Baixar"])::before,
+tr.torrent_row td:first-child > span a[href*="action=download"]::before,
+.torrent_table :is(.add_bookmark, .remove_bookmark) a::before {
+    content: '' !important;
+    display: block !important;
+    flex: none;
+    width: 16px;
+    height: 16px;
+    background-color: var(--download);
+    -webkit-mask: var(--icon-download) center / contain no-repeat;
+    mask: var(--icon-download) center / contain no-repeat;
+    transition: background-color var(--transition-snappy);
+}
+.torrent_table :is(a[href*="action=download"], a[title="Download"], a[title="Baixar"]):hover::before,
+tr.torrent_row td:first-child > span a[href*="action=download"]:hover::before,
+.torrent_table :is(.add_bookmark, .remove_bookmark) a:hover::before {
+    background-color: var(--on-accent);
 }
 
-/* BOTÃO DE FAVORITOS (Bookmark Centrado Perfeitamente) */
+/* Botão de favoritos (bookmark) */
 .torrent_table .add_bookmark,
 .torrent_table .remove_bookmark {
     position: absolute !important;
@@ -1253,73 +1170,71 @@ div.browse_rating a::before {
 .torrent_table .remove_bookmark a {
     display: inline-flex !important; align-items: center; justify-content: center;
     width: 32px !important; height: 32px !important;
-    background-color: rgba(245, 158, 11, 0.15) !important; border: 1px solid rgba(245, 158, 11, 0.3) !important;
+    background: color-mix(in srgb, var(--bookmark) 15%, transparent) !important;
+    border: var(--line-w) solid color-mix(in srgb, var(--bookmark) 30%, transparent) !important;
     border-radius: var(--radius-pill) !important; color: transparent !important; transition: all var(--transition-snappy) !important;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23f59e0b' stroke-width='2'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z' /%3E%3C/svg%3E") !important;
-    background-size: 15px !important; background-position: center !important; background-repeat: no-repeat !important;
     margin: 0 !important;
+}
+.torrent_table :is(.add_bookmark, .remove_bookmark) a::before {
+    width: 15px;
+    height: 15px;
+    background-color: var(--bookmark);
+    -webkit-mask-image: var(--icon-bookmark);
+    mask-image: var(--icon-bookmark);
+}
+.torrent_table .remove_bookmark a::before {
+    -webkit-mask-image: var(--icon-bookmark-filled);
+    mask-image: var(--icon-bookmark-filled);
 }
 
 .torrent_table .add_bookmark a:hover,
 .torrent_table .remove_bookmark a:hover {
-    background-color: #f59e0b !important; border-color: #f59e0b !important; transform: scale(1.15) !important;
-    box-shadow: 0 0 10px rgba(245, 158, 11, 0.4) !important;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23ffffff' stroke-width='2'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z' /%3E%3C/svg%3E") !important;
-}
-
-.torrent_table .remove_bookmark a {
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23f59e0b' viewBox='0 0 24 24' stroke='%23f59e0b' stroke-width='2'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z' /%3E%3C/svg%3E") !important;
-}
-.torrent_table .remove_bookmark a:hover {
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23ffffff' viewBox='0 0 24 24' stroke='%23ffffff' stroke-width='2'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z' /%3E%3C/svg%3E") !important;
+    background: var(--bookmark) !important; border-color: var(--bookmark) !important; transform: scale(1.15) !important;
+    box-shadow: 0 0 10px color-mix(in srgb, var(--bookmark) 40%, transparent) !important;
 }
 
 .torrent_table .add_bookmark a i,
 .torrent_table .remove_bookmark a i,
 .torrent_table .remove_bookmark a img { display: none !important; }
 
-
-/* ==========================================================================
-   9.3. Página de Detalhes do Torrent (Lista de Releases/Edições em Cascata)
-   ========================================================================== */
-/* O sistema divide diferentes qualidades em várias tabelas avulsas.
-   Este seletor garante que TODAS ganham o estilo base com bordas e sombras! */
+/* --------------------------------------------------------------------------
+   9.3. Página de detalhes (lista de releases/edições em cascata)
+   -------------------------------------------------------------------------- */
+/* O site divide as qualidades em várias tabelas avulsas; todas ganham o mesmo estilo */
 .torrent_table.details,
 table:has(tr.torrent_row),
 table:has(tr.audio_header),
 table:has(tr.resolution_header),
 table:has(tr.season_header) {
-    background-color: var(--bg-panel) !important; /* Cor idêntica ao header para máxima coerência */
+    background-color: var(--bg-panel) !important;
     border-radius: var(--radius-md) !important;
     overflow: hidden !important;
-    border: 1px solid var(--details-outline) !important;
-    box-shadow: var(--shadow-hero-torrent) !important;
+    border: 1px solid var(--panel-border-strong) !important;
+    box-shadow: var(--shadow-xl) !important;
     margin-bottom: var(--space-block) !important;
     width: 100% !important;
-    border-collapse: separate !important; /* Exigido para que a borda com radius funcione perfeitamente */
+    border-collapse: separate !important; /* exigido para o radius funcionar */
     border-spacing: 0 !important;
 }
 
-/* 1. Nível: Cabeçalhos Principais (Séries e Temporadas) */
+/* Nível 1: cabeçalhos principais (séries e temporadas) */
 tr.season_header td {
-    background-color: var(--overlay-40) !important;
-    color: var(--text-white) !important;
-    font-size: 12px !important;
+    background-color: var(--recess-3) !important;
+    color: var(--text-strong) !important;
+    font-size: var(--fs) !important;
     text-transform: uppercase;
     letter-spacing: 1px;
     padding: 10px 12px !important;
     border-top: none !important;
-    border-bottom: 1px solid var(--border-color) !important;
-    border-left: none !important; 
+    border-bottom: 1px solid var(--line) !important;
+    border-left: none !important;
     text-align: left !important;
 }
 
-/* Sobrescreve o width: 500px inline que o site injeta no td colspan da season_header */
-tr.season_header td[colspan] {
-    width: auto !important;
-}
+/* Sobrescreve o width: 500px inline que o site injeta no td colspan */
+tr.season_header td[colspan] { width: auto !important; }
 
-/* Substitui "Tamanho" por ícone de HDD — é o único td sem classe e sem colspan */
+/* Troca "Tamanho" por ícone de HDD — é o único td sem classe e sem colspan */
 tr.season_header td:not([colspan]):not(.center) {
     text-align: center !important;
     padding: 10px 6px !important;
@@ -1330,18 +1245,26 @@ tr.season_header td:not([colspan]):not(.center) strong {
 }
 tr.season_header td:not([colspan]):not(.center) strong::before {
     content: '\f0a0';
-    font-family: 'Font Awesome 5 Free', 'Font Awesome 5 Pro', 'FontAwesome';
+    font-family: var(--font-icon);
     font-weight: 900;
-    font-size: 12px !important;
-    color: var(--text-white);
+    font-size: var(--fs) !important;
+    color: var(--text-strong);
     display: block;
 }
 
 /* ==========================================================================
-   Substituição de Labels de Texto por Ícones
+   Troca de rótulos de texto por ícones (Font Awesome)
    ========================================================================== */
-/* Variável reutilizável de família de fonte FA */
-/* ── (esconder) nas season headers ── */
+/* Link "(esconder)" nas season headers */
+tr.season_header td a {
+    color: var(--text-muted) !important;
+    text-transform: none !important;
+    letter-spacing: normal !important;
+    transition: color var(--transition-snappy);
+    float: right;
+}
+tr.season_header td a:hover { color: var(--text-strong) !important; }
+
 tr.season_header td a[onclick*="toggleSeason"] {
     font-size: 0 !important;
     width: 24px !important;
@@ -1350,26 +1273,24 @@ tr.season_header td a[onclick*="toggleSeason"] {
     align-items: center !important;
     justify-content: center !important;
     padding: 0 !important;
-    border: 1px solid rgba(255,255,255,0.1) !important;
+    border: 1px solid var(--line-strong) !important;
     border-radius: var(--radius-sm) !important;
     float: right;
 }
 tr.season_header td a[onclick*="toggleSeason"]::before {
     content: '\f070';
-    font-family: 'Font Awesome 5 Free', 'Font Awesome 5 Pro', 'FontAwesome';
+    font-family: var(--font-icon);
     font-weight: 900;
-    font-size: 12px;
+    font-size: var(--fs);
     color: var(--text-muted);
 }
 tr.season_header td a[onclick*="toggleSeason"]:hover {
-    background: rgba(255,255,255,0.08) !important;
-    border-color: rgba(255,255,255,0.2) !important;
+    background: var(--fill-2) !important;
+    border-color: var(--fill-4) !important;
 }
-tr.season_header td a[onclick*="toggleSeason"]:hover::before {
-    color: var(--text-white);
-}
+tr.season_header td a[onclick*="toggleSeason"]:hover::before { color: var(--text-strong); }
 
-/* ── Botões Adicionar aos Favoritos e Logs na linkbox ── */
+/* Favoritos e Logs na linkbox */
 .linkbox a.add_bookmark.brackets,
 .linkbox a.brackets[href*="serieslog"] {
     font-size: 0 !important;
@@ -1380,7 +1301,7 @@ tr.season_header td a[onclick*="toggleSeason"]:hover::before {
     justify-content: center !important;
     padding: 0 !important;
 }
-/* Seletor de alta especificidade para sobrescrever .header:has(.groupbanner) .linkbox a.brackets */
+/* Especificidade alta para vencer .header:has(.groupbanner) .linkbox a.brackets */
 .header .linkbox a.add_bookmark.brackets,
 .header .linkbox a.brackets[href*="serieslog"] {
     font-size: 0 !important;
@@ -1394,19 +1315,19 @@ tr.season_header td a[onclick*="toggleSeason"]:hover::before {
 .linkbox a.add_bookmark.brackets::before,
 .header .linkbox a.add_bookmark.brackets::before {
     content: '\f02e';
-    font-family: 'Font Awesome 5 Free', 'Font Awesome 5 Pro', 'FontAwesome';
+    font-family: var(--font-icon);
     font-weight: 900;
-    font-size: 12px;
+    font-size: var(--fs);
 }
 .linkbox a.brackets[href*="serieslog"]::before,
 .header .linkbox a.brackets[href*="serieslog"]::before {
     content: '\f1da';
-    font-family: 'Font Awesome 5 Free', 'Font Awesome 5 Pro', 'FontAwesome';
+    font-family: var(--font-icon);
     font-weight: 900;
-    font-size: 12px;
+    font-size: var(--fs);
 }
 
-/* ── Citar nos comentários ── */
+/* Citar nos comentários */
 a.brackets[onclick*="Quote"] {
     font-size: 0 !important;
     width: 28px !important;
@@ -1418,14 +1339,14 @@ a.brackets[onclick*="Quote"] {
 }
 a.brackets[onclick*="Quote"]::before {
     content: '\f10e';
-    font-family: 'Font Awesome 5 Free', 'Font Awesome 5 Pro', 'FontAwesome';
+    font-family: var(--font-icon);
     font-weight: 900;
-    font-size: 12px;
+    font-size: var(--fs);
     color: var(--text-muted);
 }
-a.brackets[onclick*="Quote"]:hover::before { color: var(--text-white); }
+a.brackets[onclick*="Quote"]:hover::before { color: var(--text-strong); }
 
-/* ── Denunciar nos comentários ── */
+/* Denunciar nos comentários */
 a.brackets[href*="reports.php"],
 a.brackets[href="#quickreplypreview"] {
     font-size: 0 !important;
@@ -1439,90 +1360,75 @@ a.brackets[href="#quickreplypreview"] {
 a.brackets[href*="reports.php"]::before,
 a.brackets[href="#quickreplypreview"]::before {
     content: '\f024';
-    font-family: 'Font Awesome 5 Free', 'Font Awesome 5 Pro', 'FontAwesome';
+    font-family: var(--font-icon);
     font-weight: 900;
-    font-size: 12px;
+    font-size: var(--fs);
     color: var(--text-muted);
 }
 a.brackets[href*="reports.php"]:hover::before,
 a.brackets[href="#quickreplypreview"]:hover::before {
-    color: var(--color-danger);
+    color: var(--danger);
 }
 
-/* O botão "(esconder)" — texto substituído por ícone via regra específica abaixo */
-tr.season_header td a {
-    color: var(--text-muted) !important;
-    text-transform: none !important;
-    letter-spacing: normal !important;
-    transition: color var(--transition-snappy);
-    float: right;
-}
-tr.season_header td a:hover {
-    color: var(--text-white) !important;
-}
-
-/* 2. Nível: Cabeçalho de Áudio (Neutro, Suave e Título Geral) */
+/* Nível 2: cabeçalho de áudio (neutro, suave) */
 tr.audio_header td, td.audio_header {
-    background-color: transparent !important; /* Fundo limpo */
-    border-bottom: 1px solid var(--box-outline) !important;
-    color: var(--text-white) !important;
-    font-size: 12px !important;
+    background-color: transparent !important;
+    border-bottom: 1px solid var(--panel-border) !important;
+    color: var(--text-strong) !important;
+    font-size: var(--fs) !important;
     font-weight: 700 !important;
-    padding: 10px 10px !important; 
+    padding: 10px 10px !important;
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    border-left: none !important; /* Remove linha vermelha lateral */
+    border-left: none !important;
 }
 
-/* Restaura o tamanho da fonte e alinhamento da célula principal do Áudio */
 tr.audio_header td:first-child,
 td.audio_header.edition_info {
-    font-size: 12px !important;
-    padding-left: 14px !important; /* Padronizado para alinhar perfeitamente à esquerda */
+    font-size: var(--fs) !important;
+    padding-left: 14px !important;
     text-align: left !important;
     border-left: none !important;
 }
 
-td.audio_header i {
-    color: var(--text-muted) !important;
-}
+td.audio_header i { color: var(--text-muted) !important; }
 
-/* 3. Nível: Cabeçalho de Resolução (Alinhado à esquerda, totalmente NEUTRO) */
+/* Nível 3: cabeçalho de resolução (alinhado à esquerda, neutro) */
 tr.resolution_header td {
-    background-color: var(--overlay-25) !important;
-    border-bottom: 1px solid var(--table-cell-divider) !important;
-    border-left: none !important; /* Removida a linha vermelha indesejada */
-    color: var(--text-white) !important;
+    background-color: var(--recess-2) !important;
+    border-bottom: 1px solid var(--line-soft) !important;
+    border-left: none !important;
+    color: var(--text-strong) !important;
     text-align: left !important;
-    padding: 10px 12px 10px 14px !important; /* Sem indentação exagerada */
+    padding: 10px 12px 10px 14px !important;
 }
 
 tr.resolution_header td b {
-    color: var(--text-white) !important;
-    font-size: 16px !important; /* destaque hierárquico (múltiplo de 4) */
+    color: var(--text-strong) !important;
+    font-size: var(--fs-lg) !important;
     font-weight: 700 !important;
     text-align: left !important;
     display: block;
 }
 
-/* 4. Nível: Linhas das Edições/Releases (Indentadas) */
+/* Nível 4: linhas das edições/releases */
 tr.torrent_row td {
-    background-color: var(--table-row-zebra-torrent) !important;
+    background-color: var(--row-stripe) !important;
     padding: 5px 6px !important;
-    border-bottom: 1px solid var(--table-cell-divider) !important;
+    border-bottom: 1px solid var(--line-soft) !important;
     border-left: none !important;
     vertical-align: middle !important;
     transition: background var(--transition-snappy);
 }
 
-/* Colunas numéricas: largura mínima fixa, a coluna principal preenche o resto */
-/* tr.torrent = página de listagem | tr.torrent_row = página de detalhes */
+/* Colunas numéricas: largura mínima fixa, a principal preenche o resto
+   (tr.torrent = listagem | tr.torrent_row = detalhes) */
 tr.torrent td.number_column,
 tr.torrent_row td.number_column {
     width: 1% !important;
     white-space: nowrap !important;
-    text-align: center !important;  
-    font-size: 12px !important;
+    text-align: center !important;
+    font-size: var(--fs) !important;
     color: var(--text-muted) !important;
     font-variant-numeric: tabular-nums !important;
     min-width: 48px !important;
@@ -1531,7 +1437,7 @@ tr.torrent td.number_column.nobr,
 tr.torrent_row td.number_column.nobr {
     min-width: 50px !important;
     color: var(--text-bright) !important;
-    font-size: 12px !important;
+    font-size: var(--fs) !important;
     font-weight: 600 !important;
 }
 
@@ -1551,29 +1457,27 @@ tr.torrent td.big_info {
     min-width: 0 !important;
 }
 
-/* Coluna de uploader e demais sem classe: compactar */
+/* Uploader e demais colunas sem classe: compactar */
 tr.torrent td:not(.big_info):not(.number_column):not(.cats_col) {
     width: 1% !important;
     white-space: nowrap !important;
 }
-tr.torrent_row:hover td {
-    background-color: var(--list-hover-faint) !important;
-}
+tr.torrent_row:hover td { background-color: var(--fill-1) !important; }
 
-/* Coluna Lateral de Temporada/Episódio (quando existente) */
+/* Coluna lateral de temporada/episódio (quando existe) */
 table:has(tr.torrent_row) td[rowspan] {
-    background-color: var(--overlay-20) !important;
-    border-right: 1px solid var(--border-color) !important;
+    background-color: var(--recess-1) !important;
+    border-right: 1px solid var(--line) !important;
     padding: 8px 6px !important;
     vertical-align: middle !important;
     text-align: left !important;
     width: 70px !important;
 }
 table:has(tr.torrent_row) td[rowspan] .year {
-    background: rgba(255,255,255,0.08) !important;
+    background: var(--fill-2) !important;
     padding: 1px 4px !important;
     border-radius: var(--radius-sm) !important;
-    font-size: 12px !important;
+    font-size: var(--fs) !important;
     color: var(--text-muted) !important;
     float: none !important;
     display: inline-block !important;
@@ -1582,7 +1486,7 @@ table:has(tr.torrent_row) td[rowspan] .year {
 }
 table:has(tr.torrent_row) td[rowspan] a {
     display: block !important;
-    font-size: 12px !important;
+    font-size: var(--fs) !important;
     font-weight: 600 !important;
     color: var(--text-bright) !important;
     transition: color var(--transition-snappy) !important;
@@ -1591,26 +1495,24 @@ table:has(tr.torrent_row) td[rowspan] a {
     overflow: hidden !important;
     text-overflow: ellipsis !important;
 }
-table:has(tr.torrent_row) td[rowspan] a:hover {
-    color: var(--accent-main) !important;
-}
+table:has(tr.torrent_row) td[rowspan] a:hover { color: var(--accent) !important; }
 
-/* Formatação da Coluna Principal das Releases (Botões e Pílula) */
+/* Coluna principal das releases (pílula + botões) */
 tr.torrent_row td:first-child {
     padding-left: 12px !important;
     font-size: 0 !important;
-    position: relative !important; 
+    position: relative !important;
     padding-right: 100px !important;
 }
 
-/* Pílula do Nome/Características da Release - Sem border esquerda e minúscula */
+/* Pílula com o nome/características da release */
 tr.torrent_row td:first-child > a:not(.tooltip),
 tr.group_torrent.torrent_row td:first-child > a:not(.tooltip) {
     display: inline-flex !important;
     align-items: center;
-    font-size: 12px !important; /* Fonte menor, não ofusca a hierarquia principal */
-    background: rgba(255, 255, 255, 0.05) !important;
-    border: none !important; /* OBRIGATÓRIO: SEM QUALQUER BORDINHA AQUI */
+    font-size: var(--fs) !important;
+    background: var(--fill-2) !important;
+    border: none !important;
     border-left: none !important;
     padding: 6px 12px !important;
     border-radius: var(--radius-pill) !important;
@@ -1622,12 +1524,12 @@ tr.group_torrent.torrent_row td:first-child > a:not(.tooltip) {
     box-shadow: none !important;
 }
 tr.torrent_row td:first-child > a:not(.tooltip):hover {
-    background: rgba(255, 255, 255, 0.1) !important;
-    color: var(--text-white) !important;
-    transform: none !important; /* Mantém a estabilidade da página de detalhes */
+    background: var(--fill-3) !important;
+    color: var(--text-strong) !important;
+    transform: none !important; /* estabilidade da página de detalhes */
 }
 
-/* Container dos botões de ação à direita na página de Detalhes */
+/* Botões de ação à direita (download, report, link) */
 tr.torrent_row td:first-child > span {
     position: absolute !important;
     right: 12px !important;
@@ -1636,74 +1538,60 @@ tr.torrent_row td:first-child > span {
     display: inline-flex !important;
     gap: 6px;
     align-items: center;
-    font-size: 0 !important; 
+    font-size: 0 !important;
 }
 
-/* Botões Globais de Detalhe: Download, Report, Link */
 tr.torrent_row td:first-child > span a {
     display: flex !important;
     align-items: center;
     justify-content: center;
     width: 32px !important;
     height: 32px !important;
-    font-size: 12px !important;
-    background-color: rgba(255, 255, 255, 0.05) !important;
-    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    font-size: var(--fs) !important;
+    background-color: var(--fill-2) !important;
+    border: 1px solid var(--line-strong) !important;
     border-radius: var(--radius-pill) !important;
     color: var(--text-muted) !important;
     transition: all var(--transition-snappy) !important;
-    
     position: static !important;
     transform: none !important;
     background-image: none !important;
     text-decoration: none !important;
 }
 
-tr.torrent_row td:first-child > span a i {
-    display: block !important;
-}
+tr.torrent_row td:first-child > span a i { display: block !important; }
 
-/* O Botão de Download idêntico ao original, globalizado também para as tabelas de detalhes */
+/* Download nos detalhes: mesmo visual da listagem (máscara definida em 9.2) */
 tr.torrent_row td:first-child > span a[href*="action=download"] {
     color: transparent !important;
-    background-color: var(--download-btn-bg) !important;
-    border: 1px solid var(--download-btn-border) !important;
-    background-image: var(--download-icon-svg) !important;
-    background-size: 16px !important; 
-    background-position: center !important; 
-    background-repeat: no-repeat !important;
+    background-color: color-mix(in srgb, var(--download) 15%, transparent) !important;
+    border: var(--line-w) solid color-mix(in srgb, var(--download) 35%, transparent) !important;
 }
-
-tr.torrent_row td:first-child > span a[href*="action=download"] i {
-    display: none !important;
-}
-
+tr.torrent_row td:first-child > span a[href*="action=download"] i { display: none !important; }
 tr.torrent_row td:first-child > span a[href*="action=download"]:hover {
-    background-color: var(--accent-main) !important; 
-    border-color: var(--accent-main) !important;
-    transform: scale(1.15) !important; 
-    box-shadow: var(--download-btn-hover-glow) !important;
-    background-image: var(--download-icon-svg-on-accent) !important;
+    background-color: var(--download) !important;
+    border-color: var(--download) !important;
+    transform: scale(1.15) !important;
+    box-shadow: 0 0 14px color-mix(in srgb, var(--download) 45%, transparent) !important;
 }
 
-/* Hover de Report e Link em Detalhes */
 tr.torrent_row td:first-child > span a:not([href*="action=download"]):hover {
-    background-color: rgba(255, 255, 255, 0.15) !important;
-    color: var(--text-white) !important;
-    border-color: rgba(255, 255, 255, 0.3) !important;
+    background-color: var(--fill-4) !important;
+    color: var(--text-strong) !important;
+    border-color: color-mix(in srgb, var(--ink) 30%, transparent) !important;
     transform: scale(1.15) !important;
 }
 
 /* ==========================================================================
-   10. Fórum e Elementos Internos (Leitura Destacada)
+   10. Fórum e Comentários
    ========================================================================== */
 table.forum_post {
     background-color: var(--bg-card) !important;
     backdrop-filter: var(--glass-blur) !important;
     -webkit-backdrop-filter: var(--glass-blur) !important;
-    border: 1px solid var(--box-outline) !important;
+    border: 1px solid var(--panel-border) !important;
     border-radius: var(--radius-lg) !important;
-    box-shadow: var(--shadow-card-muted) !important;
+    box-shadow: var(--shadow-md) !important;
     margin-bottom: var(--space-block) !important;
     border-collapse: separate !important;
     border-spacing: 0 !important;
@@ -1711,25 +1599,21 @@ table.forum_post {
     width: 100% !important;
     transition: border-color var(--transition-smooth) !important;
 }
+table.forum_post:hover { border-color: var(--panel-border-hover) !important; }
 
-table.forum_post:hover {
-    border-color: var(--box-outline-hover) !important;
-}
-
-/* Cabeçalho do Comentário (Onde fica o Nick e a Data) */
+/* Cabeçalho do comentário (nick e data) */
 table.forum_post tr.colhead_dark td {
-    background-color: var(--overlay-50) !important;
+    background-color: var(--recess-4) !important;
     padding: 10px 14px !important;
-    border-bottom: 1px solid rgba(255,255,255,0.08) !important;
-    font-size: 12px !important;
+    border-bottom: 1px solid var(--panel-border) !important;
+    font-size: var(--fs) !important;
 }
 
-/* Coluna do Avatar */
 table.forum_post td.avatar {
     width: 150px !important;
-    background-color: var(--overlay-20) !important;
+    background-color: var(--recess-1) !important;
     text-align: center !important;
-    border-right: 1px solid rgba(255,255,255,0.05) !important;
+    border-right: 1px solid var(--line-soft) !important;
     padding: 12px 10px !important;
     vertical-align: top !important;
 }
@@ -1741,30 +1625,28 @@ table.forum_post td.avatar img {
     height: auto !important;
 }
 
-/* Corpo do Comentário */
 table.forum_post td.body {
     padding: 16px 20px !important;
     vertical-align: top !important;
 }
 
-/* Padronização de Texto (Fórum e Torrents agora ficam 100% iguais) */
+/* Texto padronizado (fórum e torrents iguais) */
 table.forum_post td.body > div,
 .comment_content {
-    font-size: 12px !important;
+    font-size: var(--fs) !important;
     line-height: 1.5 !important;
     color: var(--text-bright) !important;
 }
 
-/* Estilo para as Citações (Quotes) */
 blockquote {
-    background-color: var(--overlay-30) !important;
-    border-left: 3px solid var(--accent-main) !important;
+    background-color: var(--recess-2) !important;
+    border-left: 3px solid var(--accent) !important;
     padding: 12px 14px !important;
     margin: 12px 0 !important;
     border-radius: 0 var(--radius-sm) var(--radius-sm) 0 !important;
     color: var(--text-main) !important;
     font-style: italic !important;
-    font-size: 12px !important;
+    font-size: var(--fs) !important;
     position: relative !important;
 }
 blockquote::before {
@@ -1773,183 +1655,209 @@ blockquote::before {
     top: 8px;
     left: 8px;
     font-size: 24px;
-    color: var(--accent-a-20);
+    color: var(--accent-20);
     font-style: normal;
     line-height: 1;
 }
 
 /* ==========================================================================
-   11. O Slider de Imagens 
+   11. Slider de Imagens
    ========================================================================== */
-#container { 
+#container {
     position: relative; width: 100%; border-radius: var(--radius-md);
     overflow: hidden; box-shadow: var(--shadow-md); background: transparent;
-    border: none; margin-bottom: 12px; 
-    aspect-ratio: 5 / 7; 
+    border: none; margin-bottom: 12px;
+    aspect-ratio: 5 / 7;
 }
 
 #banner-fade, ul.bjqs, li.bjqs-slide { width: 100% !important; max-width: 100% !important; height: 100% !important; margin: 0 !important; padding: 0 !important; }
 ul.bjqs { list-style: none !important; overflow: hidden !important; }
 ul.bjqs li a { display: block !important; width: 100% !important; height: 100% !important; }
 
-ul.bjqs li img { 
-    width: 100% !important; height: 100% !important; object-fit: cover !important; 
+ul.bjqs li img {
+    width: 100% !important; height: 100% !important; object-fit: cover !important;
     display: block !important; border-radius: var(--radius-md) !important; margin: 0 !important;
 }
 
-/* Slider caption */
 p.bjqs-caption {
-    background: var(--gradient-banner-fade); 
-    color: var(--text-white); padding: 20px 20px 14px; position: absolute; bottom: 0; left: 0; right: 0;
-    margin: 0; font-weight: 600; font-size: 12px; text-align: center;
+    background: linear-gradient(180deg, transparent 0%, color-mix(in srgb, var(--scrim) 90%, transparent) 100%);
+    color: var(--on-scrim); padding: 20px 20px 14px; position: absolute; bottom: 0; left: 0; right: 0;
+    margin: 0; font-weight: 600; font-size: var(--fs); text-align: center;
     letter-spacing: 0.3px;
 }
 
-ul.bjqs-controls { 
-    list-style: none; margin: 0; padding: 0; z-index: 9999 !important; position: absolute; width: 100%; top: 0; height: 100%; pointer-events: none; 
+ul.bjqs-controls {
+    list-style: none; margin: 0; padding: 0; z-index: 9999 !important; position: absolute; width: 100%; top: 0; height: 100%; pointer-events: none;
     opacity: 0; visibility: hidden; transition: all var(--transition-smooth);
 }
 #container:hover ul.bjqs-controls { opacity: 1; visibility: visible; }
 
 ul.bjqs-controls.v-centered li a {
-    pointer-events: auto; position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.7) !important; color: transparent !important; 
+    pointer-events: auto; position: absolute; top: 50%; transform: translateY(-50%);
+    background: color-mix(in srgb, var(--scrim) 70%, transparent) !important; color: transparent !important;
     width: 44px !important; height: 44px !important; display: flex !important; align-items: center !important; justify-content: center !important;
     border-radius: 50% !important; text-decoration: none !important; font-size: 0 !important; font-weight: bold !important;
-    border: 1px solid rgba(255,255,255,0.2) !important; transition: all var(--transition-snappy) !important; overflow: hidden !important; z-index: 10000 !important;
+    border: 1px solid color-mix(in srgb, var(--on-scrim) 20%, transparent) !important;
+    transition: all var(--transition-snappy) !important; overflow: hidden !important; z-index: 10000 !important;
 }
-ul.bjqs-controls.v-centered li a::after { font-size: 16px !important; color: var(--text-white) !important; display: block !important; line-height: 1 !important; }
-ul.bjqs-controls.v-centered li a:hover { background: var(--accent-main) !important; border-color: var(--accent-main) !important; transform: translateY(-50%) scale(1.1) !important; }
+ul.bjqs-controls.v-centered li a::after { font-size: var(--fs-lg) !important; color: var(--on-scrim) !important; display: block !important; line-height: 1 !important; }
+ul.bjqs-controls.v-centered li a:hover { background: var(--accent) !important; border-color: var(--accent) !important; transform: translateY(-50%) scale(1.1) !important; }
 ul.bjqs-controls.v-centered li.bjqs-next a { right: 15px !important; }
 ul.bjqs-controls.v-centered li.bjqs-next a::after { content: '❯' !important; margin-left: 2px !important; }
 ul.bjqs-controls.v-centered li.bjqs-prev a { left: 15px !important; }
 ul.bjqs-controls.v-centered li.bjqs-prev a::after { content: '❮' !important; margin-right: 2px !important; }
 
-ol.bjqs-markers { 
-    position: absolute; top: 12px; right: 12px; background: rgba(0,0,0,0.5); padding: 5px 8px; border-radius: var(--radius-pill);
+ol.bjqs-markers {
+    position: absolute; top: 12px; right: 12px; background: color-mix(in srgb, var(--scrim) 50%, transparent); padding: 5px 8px; border-radius: var(--radius-pill);
     list-style: none; margin: 0; z-index: 100; display: flex; align-items: center; gap: 6px;
 }
 ol.bjqs-markers li { display: inline; margin: 0; }
-ol.bjqs-markers li a { 
-    display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.3); color: transparent; overflow: hidden; transition: background var(--transition-snappy);
+ol.bjqs-markers li a {
+    display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: color-mix(in srgb, var(--on-scrim) 30%, transparent);
+    color: transparent; overflow: hidden; transition: background var(--transition-snappy);
 }
-ol.bjqs-markers li.active-marker a, ol.bjqs-markers li a:hover { background: var(--accent-main); }
+ol.bjqs-markers li.active-marker a, ol.bjqs-markers li a:hover { background: var(--accent); }
+
+/* Lightbox nativo do Gazelle (capa do torrent, imagens dos comentários). O CSS do
+   site não posiciona #lightbox/#curtain; sem isto a imagem abre no fim da página.
+   Abertura/fechamento: o JS do site tira/põe .hidden (ver seção 2). */
+#curtain.curtain {
+    position: fixed !important;
+    inset: 0 !important;
+    background: color-mix(in srgb, var(--scrim) 80%, transparent) !important;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    z-index: 2147483646 !important; /* acima de header e toasts do Noty */
+    cursor: zoom-out;
+}
+#lightbox.lightbox {
+    position: fixed !important;
+    inset: 0 !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 32px;
+    margin: 0 !important;
+    z-index: 2147483647 !important;
+    cursor: zoom-out;
+}
+#lightbox.lightbox img {
+    max-width: 100% !important;
+    max-height: 100% !important;
+    width: auto !important;
+    height: auto !important;
+    object-fit: contain;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-xl);
+}
 
 /* ==========================================================================
-   12. Cores Utilitárias
+   12. Cores de Ratio
    ========================================================================== */
-.r00 { color: var(--color-danger); font-weight: 700; }
-.r01, .r02, .r03, .r04 { color: #ea580c; font-weight: 700; }
-.r05, .r06, .r07, .r08 { color: var(--color-warning); font-weight: 700; }
-.r09 { color: #ca8a04; font-weight: 700; }
-.r10, .r20, .r99 { color: var(--color-success); font-weight: 700; }
-.r50 { color: var(--color-info); font-weight: 700; }
+.r00 { color: var(--danger); font-weight: 700; }
+.r01, .r02, .r03, .r04 { color: var(--orange); font-weight: 700; }
+.r05, .r06, .r07, .r08 { color: var(--warning); font-weight: 700; }
+.r09 { color: color-mix(in oklab, var(--warning), var(--success) 35%); font-weight: 700; }
+.r10, .r20, .r99 { color: var(--success); font-weight: 700; }
+.r50 { color: var(--info); font-weight: 700; }
 
 /* ==========================================================================
    13. Rodapé
    ========================================================================== */
 #footer {
-    width: 100%; 
-    background: var(--gradient-footer);
-    backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
-    border-top: 1px solid var(--footer-top-border); 
+    width: 100%;
+    background: var(--footer-bg);
+    backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
+    border-top: var(--line-w) solid var(--footer-line);
     padding: 30px 20px; text-align: center; margin-top: auto; color: var(--text-muted);
 }
-#footer p { margin: 6px 0; font-size: 12px; letter-spacing: 0.3px; }
-#footer a { color: var(--text-main); font-weight: 600; transition: color var(--transition-snappy); }
+#footer p { margin: 6px 0; font-size: var(--fs); letter-spacing: 0.3px; }
+#footer a { color: var(--footer-link); font-weight: 600; transition: color var(--transition-snappy); }
 #footer a:hover { color: var(--accent-hover); text-shadow: 0 0 12px var(--link-glow); }
 
 /* ==========================================================================
-   14. Utilitários Globais
+   14. Scrollbars
+   Chrome/Edge/Firefox usam scrollbar-color (definido em html e herdado);
+   os pseudo-elementos abaixo só valem no Safari.
    ========================================================================== */
-::-webkit-scrollbar { width: var(--scrollbar-size); height: var(--scrollbar-size); }
-::-webkit-scrollbar-track {
-    background: var(--scrollbar-track);
-    border-radius: var(--radius-sm);
-    border: 1px solid var(--border-color);
-}
+::-webkit-scrollbar { width: 12px; height: 12px; }
+::-webkit-scrollbar-track { background: var(--scrollbar-track); }
 ::-webkit-scrollbar-thumb {
-    background: var(--scrollbar-face);
-    border-radius: var(--radius-md);
-    border: 1px solid var(--scrollbar-thumb-border);
-    box-shadow: inset 0 1px 0 var(--scrollbar-inset-top), var(--shadow-scroll-lift);
+    background-color: var(--scrollbar-thumb);
+    border: 3px solid transparent;
+    background-clip: padding-box;
+    border-radius: var(--radius-pill);
 }
-::-webkit-scrollbar-thumb:hover {
-    background: var(--scrollbar-hover);
-    border-color: var(--scrollbar-border-hover);
-    box-shadow: inset 0 1px 0 var(--scrollbar-inset-top-strong), 0 0 14px var(--accent-glow);
-}
+::-webkit-scrollbar-thumb:hover { background-color: var(--scrollbar-thumb-hover); }
 ::-webkit-scrollbar-corner { background: var(--scrollbar-track); }
 
 /* ==========================================================================
-   15. Menu de Configurações (Sticky Seguro)
+   15. Menu de Configurações (sticky)
    ========================================================================== */
 #settings_sections {
     position: sticky !important; top: 90px !important; align-self: flex-start !important;
     max-height: calc(100vh - 130px); overflow-y: auto; z-index: 90;
-    scrollbar-width: auto;
-    scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
 }
-#settings_sections::-webkit-scrollbar { width: var(--scrollbar-size); }
 
 /* ==========================================================================
-   16. Filtro de Pesquisa Moderno (Torrents Filter)
+   16. Filtro de Pesquisa (Torrents Filter)
    ========================================================================== */
 .box.filter_torrents {
-    background-color: var(--bg-card); border: 1px solid var(--details-outline);
-    border-radius: var(--radius-lg); box-shadow: var(--shadow-filter-torrents); margin-bottom: var(--space-block); 
-    overflow: visible !important; 
+    background-color: var(--bg-card); border: 1px solid var(--panel-border-strong);
+    border-radius: var(--radius-lg); box-shadow: var(--shadow-xl); margin-bottom: var(--space-block);
+    overflow: visible !important;
 }
 
 .box.filter_torrents .head {
     display: flex; justify-content: space-between; align-items: center; padding: 10px 16px;
-    background-color: var(--box-filter-head-bg); border-bottom: 1px solid var(--border-color);
-    color: var(--box-head-fg);
+    background-color: var(--filter-head-bg); border-bottom: 1px solid var(--line);
+    color: var(--head-fg);
 }
-.box.filter_torrents .head strong { font-size: 16px; letter-spacing: 0.5px; text-transform: uppercase; color: inherit; }
+.box.filter_torrents .head strong { font-size: var(--fs-lg); letter-spacing: 0.5px; text-transform: uppercase; color: inherit; }
 .box.filter_torrents #ft_container { padding: 16px; }
 
 .box.filter_torrents table.layout { width: 100%; background: transparent; }
 .box.filter_torrents table.layout td.label {
     width: 15%; min-width: 120px; text-align: right; padding: 10px 12px 10px 0;
-    color: var(--text-muted); font-size: 12px; text-transform: uppercase; font-weight: 700;
+    color: var(--text-muted); font-size: var(--fs); text-transform: uppercase; font-weight: 700;
     letter-spacing: 0.5px; background: transparent; border: none; vertical-align: middle;
 }
 .box.filter_torrents table.layout td { padding: 6px 0; border: none; vertical-align: middle; }
 
 .box.filter_torrents input[type="search"], .box.filter_torrents input[type="text"] {
-    width: 100%; max-width: 500px;     padding: 6px 12px; background-color: var(--overlay-30);
-    border: 1px solid var(--border-light); border-radius: var(--radius-md); color: var(--filter-input-fg);
-    font-size: 12px; transition: all var(--transition-snappy);
+    width: 100%; max-width: 500px; padding: 6px 12px; background-color: var(--field-bg);
+    border: 1px solid var(--line-strong); border-radius: var(--radius-md); color: var(--text-strong);
+    font-size: var(--fs); transition: all var(--transition-snappy);
 }
 .box.filter_torrents input[type="search"]:focus, .box.filter_torrents input[type="text"]:focus {
-    border-color: var(--accent-main); background-color: var(--overlay-60);
-    box-shadow: 0 0 0 3px var(--accent-a-15); outline: none;
+    border-color: var(--accent); background-color: var(--field-bg-focus);
+    box-shadow: 0 0 0 3px var(--accent-20); outline: none;
 }
 
 .box.filter_torrents select {
-    padding: 6px 12px; background-color: var(--overlay-30); border: 1px solid var(--border-light);
-    border-radius: var(--radius-md); color: var(--text-bright); font-size: 12px; cursor: pointer; transition: border-color var(--transition-snappy);
+    padding: 6px 12px; background-color: var(--field-bg); border: 1px solid var(--line-strong);
+    border-radius: var(--radius-md); color: var(--text-bright); font-size: var(--fs); cursor: pointer; transition: border-color var(--transition-snappy);
 }
 .box.filter_torrents select:hover { border-color: var(--text-muted); }
 
 .box.filter_torrents .table-list {
     display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 8px;
-    background: var(--overlay-15); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 12px; margin: 10px 0 16px 0;
+    background: var(--recess-1); border: 1px solid var(--line); border-radius: var(--radius-md); padding: 12px; margin: 10px 0 16px 0;
 }
 .box.filter_torrents .table-list li { display: flex; align-items: center; gap: 8px; padding: 2px 0; border: none; }
-.box.filter_torrents .table-list label { cursor: pointer; color: var(--text-main); font-size: 12px; font-weight: 500; transition: color var(--transition-snappy); user-select: none; }
-.box.filter_torrents .table-list li:hover label { color: var(--filter-label-hover-fg); }
+.box.filter_torrents .table-list label { cursor: pointer; color: var(--text-main); font-size: var(--fs); font-weight: 500; transition: color var(--transition-snappy); user-select: none; }
+.box.filter_torrents .table-list li:hover label { color: var(--text-strong); }
 
 .box.filter_torrents .cat_list, .box.filter_torrents .tabelaFixa {
-    background: var(--overlay-15); border: 1px solid var(--border-color) !important;
+    background: var(--recess-1); border: 1px solid var(--line) !important;
     border-radius: var(--radius-md); margin-bottom: 12px; display: block; width: 100%;
-    overflow: visible !important; 
+    overflow: visible !important;
 }
 .box.filter_torrents .cat_list tbody, .box.filter_torrents .tabelaFixa tbody { display: table; width: 100%; }
 
 .box.filter_torrents .labelFiltros, .box.filter_torrents .cat_list td[style*="text-align: center"] {
-    background-color: var(--overlay-30) !important; color: var(--text-muted); font-size: 12px;
-    text-transform: uppercase; font-weight: 700; letter-spacing: 0.5px; padding: 10px 12px; border-bottom: 1px solid var(--border-color); text-decoration: none;
+    background-color: var(--recess-2) !important; color: var(--text-muted); font-size: var(--fs);
+    text-transform: uppercase; font-weight: 700; letter-spacing: 0.5px; padding: 10px 12px; border-bottom: 1px solid var(--line); text-decoration: none;
 }
 
 .box.filter_torrents .campoFiltros, .box.filter_torrents .cat_list td:not([style*="text-align: center"]) {
@@ -1959,29 +1867,29 @@ ol.bjqs-markers li.active-marker a, ol.bjqs-markers li a:hover { background: var
 
 .box.filter_torrents .btn-group { display: block; width: 100%; margin-top: 6px; position: relative; }
 .box.filter_torrents .btn-group > .btn.multiselect {
-    width: 100%; background: var(--overlay-30); border: 1px solid var(--border-light); color: var(--text-bright);
+    width: 100%; background: var(--field-bg); border: 1px solid var(--line-strong); color: var(--text-bright);
     padding: 6px 12px; border-radius: var(--radius-md); text-align: left; display: flex; justify-content: space-between;
-    align-items: center; box-shadow: none; text-shadow: none; font-size: 12px; transition: all var(--transition-snappy);
+    align-items: center; box-shadow: none; text-shadow: none; font-size: var(--fs); transition: all var(--transition-snappy);
 }
-.box.filter_torrents .btn-group > .btn.multiselect:hover { border-color: var(--text-muted); background: var(--overlay-50); }
+.box.filter_torrents .btn-group > .btn.multiselect:hover { border-color: var(--text-muted); background: var(--field-bg-focus); }
 
 .box.filter_torrents .multiselect-container {
-    background-color: var(--bg-solid); border: 1px solid var(--border-color); border-radius: var(--radius-md);
+    background-color: var(--bg-solid); border: 1px solid var(--line); border-radius: var(--radius-md);
     box-shadow: var(--shadow-md); padding: 8px 0; width: 100%; max-height: 280px; overflow-y: auto; margin-top: 6px;
-    position: absolute !important; z-index: 99999 !important; 
+    position: absolute !important; z-index: 99999 !important;
 }
 .box.filter_torrents .multiselect-container > li > a { color: var(--text-bright); padding: 8px 16px; display: block; transition: background var(--transition-snappy); }
-.box.filter_torrents .multiselect-container > li > a:hover, .box.filter_torrents .multiselect-container > li.active > a { background-color: var(--list-hover-faint); color: var(--menu-link-hover-fg); }
+.box.filter_torrents .multiselect-container > li > a:hover, .box.filter_torrents .multiselect-container > li.active > a { background-color: var(--submenu-hover-bg); color: var(--submenu-hover-fg); }
 .box.filter_torrents .multiselect-container .checkbox { display: flex; align-items: center; gap: 8px; margin: 0; font-weight: 500; }
 .box.filter_torrents .multiselect-container .checkbox input[type="checkbox"] { margin: 0 !important; position: static !important; }
 
-.box.filter_torrents .ft_submit { margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--border-color); display: flex; justify-content: center; align-items: center; text-align: center; }
+.box.filter_torrents .ft_submit { margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--line); display: flex; justify-content: center; align-items: center; text-align: center; }
 .box.filter_torrents .ft_submit p { display: flex; align-items: center; justify-content: center; gap: 10px; flex-wrap: wrap; margin: 0; width: 100%; color: var(--text-muted); }
 .box.filter_torrents .ft_submit p br { display: none; }
-.box.filter_torrents .ft_submit input[value="Filtrar"] { background: var(--accent-gradient); border-color: transparent; color: white; font-weight: 700; font-size: 12px; padding: 12px 40px; border-radius: var(--radius-pill); box-shadow: 0 4px 12px var(--accent-a-20); transition: all var(--transition-smooth); }
-.box.filter_torrents .ft_submit input[value="Filtrar"]:hover { background: var(--accent-gradient-hover); box-shadow: var(--ft-submit-shadow-hover); transform: translateY(-2px); }
-.box.filter_torrents .ft_submit input[type="button"], .box.filter_torrents .ft_submit input[name="setdefault"] { background-color: transparent; border: 1px solid var(--border-light); color: var(--text-bright); padding: 10px 24px; border-radius: var(--radius-pill); font-weight: 500; }
-.box.filter_torrents .ft_submit input[type="button"]:hover, .box.filter_torrents .ft_submit input[name="setdefault"]:hover { background-color: rgba(255, 255, 255, 0.08); color: var(--text-white); border-color: var(--text-muted); }
+.box.filter_torrents .ft_submit input[value="Filtrar"] { background: var(--accent-gradient); border-color: transparent; color: var(--on-accent); font-weight: 700; font-size: var(--fs); padding: 12px 40px; border-radius: var(--radius-pill); box-shadow: 0 4px 12px var(--accent-20); transition: all var(--transition-smooth); }
+.box.filter_torrents .ft_submit input[value="Filtrar"]:hover { background: var(--accent-gradient-hover); box-shadow: 0 6px 20px var(--accent-40); transform: translateY(-2px); }
+.box.filter_torrents .ft_submit input[type="button"], .box.filter_torrents .ft_submit input[name="setdefault"] { background-color: transparent; border: 1px solid var(--line-strong); color: var(--text-bright); padding: 10px 24px; border-radius: var(--radius-pill); font-weight: 500; }
+.box.filter_torrents .ft_submit input[type="button"]:hover, .box.filter_torrents .ft_submit input[name="setdefault"]:hover { background-color: var(--fill-2); color: var(--text-strong); border-color: var(--text-muted); }
 
 /* ==========================================================================
    17. Responsividade
@@ -1989,14 +1897,14 @@ ol.bjqs-markers li.active-marker a, ol.bjqs-markers li a:hover { background: var
 @media screen and (max-width: 1024px) {
     #header > .thin,
     #header > div:not([id]) {
-        justify-content: center !important; 
+        justify-content: center !important;
         text-align: center; gap: 15px;
     }
     #logo { margin-right: 0 !important; }
     #userinfo { justify-content: center !important; }
     #userinfo ul { justify-content: center !important; }
     #menudrop > ul { justify-content: center !important; }
-    
+
     .sidebar { width: 100% !important; flex: 1 1 100% !important; order: 2 !important; position: static !important; }
     .main_column { width: 100% !important; order: 1 !important; }
     table.forum_post td.avatar { display: none; }
@@ -2005,25 +1913,25 @@ ol.bjqs-markers li.active-marker a, ol.bjqs-markers li a:hover { background: var
 @media screen and (max-width: 768px) {
     #searchbars input[type="text"] { width: 100%; }
     #searchbars input[type="text"]:focus { width: 100%; }
-    
+
     #menudrop ul ul {
         flex-direction: column;
         padding: 15px;
-        max-height: none !important; /* Em mobile o próprio body rola */
+        max-height: none !important; /* em mobile o próprio body rola */
     }
     #menudrop ul ul > li { max-width: 100%; flex: 1 1 100%; width: 100%; }
-    
+
     .torrent_table, table { display: block; overflow-x: auto; white-space: nowrap; -webkit-overflow-scrolling: touch; }
 }
 
 /* ==========================================================================
-   18. Header / Banner de Séries (Estilo Capa / Fundo de Tela)
+   18. Banner de Séries (estilo capa / fundo de tela)
    ========================================================================== */
-/* Alvo específico: A div que contém o #banner ou .groupbanner */
+/* Alvo: a div que contém o #banner ou .groupbanner */
 .header:has(#banner), .header:has(.groupbanner) {
     position: relative !important;
     width: 100% !important;
-    min-height: 350px !important; /* Altura considerável para a capa */
+    min-height: 350px !important;
     display: flex !important;
     flex-direction: column !important;
     justify-content: flex-end !important;
@@ -2031,14 +1939,14 @@ ol.bjqs-markers li.active-marker a, ol.bjqs-markers li a:hover { background: var
     padding: 30px !important;
     border-radius: var(--radius-md) !important;
     overflow: hidden !important;
-    box-shadow: var(--shadow-lg) !important;
+    box-shadow: var(--shadow-xl) !important;
     margin-bottom: 25px !important;
-    border: 1px solid var(--border-light) !important;
+    border: 1px solid var(--line-strong) !important;
     background-color: var(--bg-panel) !important;
-    z-index: 1; /* Novo contexto de empilhamento */
+    z-index: 1; /* novo contexto de empilhamento */
 }
 
-/* O wrapper da imagem que vem com style inline de 140px */
+/* Wrapper da imagem (vem com style inline de 140px) */
 .header:has(.groupbanner) > div:first-child {
     position: absolute !important;
     top: 0 !important;
@@ -2046,21 +1954,20 @@ ol.bjqs-markers li.active-marker a, ol.bjqs-markers li a:hover { background: var
     width: 100% !important;
     height: 100% !important;
     margin: 0 !important;
-    z-index: -1 !important; /* Fica atrás dos botões */
+    z-index: -1 !important; /* atrás dos botões */
 }
 
-/* A imagem em si */
+/* A imagem, com máscara de degradê para o fundo do tema */
 .header #banner, .header .groupbanner {
     width: 100% !important;
     height: 100% !important;
     object-fit: cover !important;
     object-position: center 20% !important;
-    /* Máscara de Degradê (Linear Gradient Fade) para o fundo do tema */
-    mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 30%, rgba(0,0,0,0) 100%) !important;
-    -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 30%, rgba(0,0,0,0) 100%) !important;
+    mask-image: linear-gradient(to bottom, #000 30%, transparent 100%) !important;
+    -webkit-mask-image: linear-gradient(to bottom, #000 30%, transparent 100%) !important;
 }
 
-/* Limpar a tag H2 que envolve a imagem */
+/* Limpa o H2 que envolve a imagem */
 .header:has(.groupbanner) h2 {
     margin: 0 !important;
     padding: 0 !important;
@@ -2068,7 +1975,7 @@ ol.bjqs-markers li.active-marker a, ol.bjqs-markers li a:hover { background: var
     height: 100% !important;
 }
 
-/* Container dos Botões na base */
+/* Container dos botões na base */
 .header:has(.groupbanner) .linkbox {
     position: relative !important;
     z-index: 2 !important;
@@ -2080,18 +1987,18 @@ ol.bjqs-markers li.active-marker a, ol.bjqs-markers li a:hover { background: var
     gap: 8px !important;
 }
 
-/* Estilo dos botões sobre o banner */
+/* Botões sobre o banner: favoritos em acento, demais em vidro escuro */
 .header:has(.groupbanner) .linkbox a.brackets {
-    background-color: var(--groupbanner-cta-bg) !important;
-    color: var(--on-accent-fg) !important;
-    border: 1px solid var(--groupbanner-btn-border) !important;
+    background-color: color-mix(in srgb, var(--accent) 90%, transparent) !important;
+    color: var(--on-accent) !important;
+    border: var(--line-w) solid color-mix(in srgb, var(--on-scrim) 20%, transparent) !important;
     padding: 8px 14px !important;
     border-radius: var(--radius-pill) !important;
-    font-size: 12px !important;
+    font-size: var(--fs) !important;
     font-weight: 700 !important;
     text-transform: uppercase !important;
     letter-spacing: 0.5px !important;
-    box-shadow: var(--shadow-groupbanner-primary) !important;
+    box-shadow: 0 4px 15px var(--accent-40) !important;
     backdrop-filter: blur(5px) !important;
     -webkit-backdrop-filter: blur(5px) !important;
     transition: all var(--transition-snappy) !important;
@@ -2101,19 +2008,19 @@ ol.bjqs-markers li.active-marker a, ol.bjqs-markers li a:hover { background: var
 .header:has(.groupbanner) .linkbox a.brackets:hover {
     transform: translateY(-3px) !important;
     background-color: var(--accent-hover) !important;
-    box-shadow: var(--shadow-groupbanner-primary-hover) !important;
+    box-shadow: 0 8px 25px color-mix(in srgb, var(--accent) 60%, transparent) !important;
 }
 
-/* Botão secundário (Logs, etc) pode ter estilo diferente se quisermos, mas o padrão tá ótimo */
 .header:has(.groupbanner) .linkbox a.brackets:not(.add_bookmark):not(.remove_bookmark) {
-    background-color: var(--overlay-60) !important;
-    box-shadow: var(--shadow-banner-secondary) !important;
+    background-color: color-mix(in srgb, var(--scrim) 60%, transparent) !important;
+    color: var(--on-scrim) !important;
+    box-shadow: 0 4px 15px color-mix(in srgb, var(--shade) 40%, transparent) !important;
 }
 .header:has(.groupbanner) .linkbox a.brackets:not(.add_bookmark):not(.remove_bookmark):hover {
-    background-color: var(--banner-secondary-hover-bg) !important;
+    background-color: color-mix(in srgb, var(--scrim) 40%, transparent) !important;
 }
 
-/* ── Substituição por ícone: deve vir DEPOIS das regras acima para sobrescrever font-size/padding ── */
+/* Troca por ícone: vem DEPOIS das regras acima para sobrescrever font-size/padding */
 .header:has(.groupbanner) .linkbox a.add_bookmark.brackets,
 .header:has(.groupbanner) .linkbox a.remove_bookmark.brackets,
 .header:has(.groupbanner) .linkbox a.brackets[href*="serieslog"] {
@@ -2130,31 +2037,30 @@ ol.bjqs-markers li.active-marker a, ol.bjqs-markers li a:hover { background: var
 /* Não favoritado: ícone outline (regular) */
 .header:has(.groupbanner) .linkbox a.add_bookmark.brackets::before {
     content: '\f02e';
-    font-family: 'Font Awesome 5 Free', 'Font Awesome 5 Pro', 'FontAwesome';
+    font-family: var(--font-icon);
     font-weight: 400;
-    font-size: 16px !important;
-    color: var(--groupbanner-icon-muted);
+    font-size: var(--fs-lg) !important;
+    color: color-mix(in srgb, var(--on-accent) 72%, transparent);
 }
 /* Já favoritado: ícone sólido dourado */
 .header:has(.groupbanner) .linkbox a.remove_bookmark.brackets::before {
     content: '\f02e';
-    font-family: 'Font Awesome 5 Free', 'Font Awesome 5 Pro', 'FontAwesome';
+    font-family: var(--font-icon);
     font-weight: 900;
-    font-size: 16px !important;
-    color: var(--color-warning);
+    font-size: var(--fs-lg) !important;
+    color: var(--warning);
 }
 .header:has(.groupbanner) .linkbox a.brackets[href*="serieslog"]::before {
     content: '\f1da';
-    font-family: 'Font Awesome 5 Free', 'Font Awesome 5 Pro', 'FontAwesome';
+    font-family: var(--font-icon);
     font-weight: 900;
-    font-size: 16px !important;
-    color: var(--on-accent-fg);
+    font-size: var(--fs-lg) !important;
+    color: var(--on-scrim);
 }
 
 /* ==========================================================================
-   19. Sistema de Votos / Avaliação (Lateral)
+   19. Sistema de Votos / Avaliação (lateral)
    ========================================================================== */
-/* Container Principal */
 .album_votes,
 .album_votes.body {
     font-size: 0 !important;
@@ -2166,12 +2072,12 @@ ol.bjqs-markers li.active-marker a, ol.bjqs-markers li a:hover { background: var
     justify-content: center !important;
     padding: 14px 14px !important;
     gap: 0 !important;
-    background: var(--gradient-album-votes) !important;
+    background: linear-gradient(180deg, var(--recess-1) 0%, transparent 100%) !important;
 }
 
 .album_votes br { display: none !important; }
 
-/* ── Número Total de Votos ── */
+/* Número total de votos */
 .album_votes #totalvotes {
     font-size: 40px !important;
     font-weight: 800 !important;
@@ -2180,18 +2086,18 @@ ol.bjqs-markers li.active-marker a, ol.bjqs-markers li a:hover { background: var
     flex: 0 0 100% !important;
     text-align: center !important;
     margin-bottom: 4px !important;
-    background: var(--album-votes-number-gradient);
+    background: linear-gradient(180deg, var(--text-strong) 20%, color-mix(in srgb, var(--text-strong) 45%, transparent) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
     letter-spacing: -1px;
 }
 
-/* Label "VOTOS" abaixo do número */
+/* Rótulo "VOTOS" abaixo do número */
 .album_votes #totalvotes::after {
     content: 'VOTOS';
     display: block;
-    font-size: 12px !important;
+    font-size: var(--fs) !important;
     font-weight: 700;
     color: var(--text-muted);
     -webkit-text-fill-color: var(--text-muted);
@@ -2200,57 +2106,44 @@ ol.bjqs-markers li.active-marker a, ol.bjqs-markers li a:hover { background: var
     margin-bottom: 16px;
 }
 
-/* ── Pills de Up/Down lado a lado ── */
-/* Usa [data-tooltip] em vez de :has() para compatibilidade máxima */
+/* Pílulas de Gostaram / Não Gostaram lado a lado ([data-tooltip] em vez de :has()) */
 .album_votes .favoritecount.tooltip[data-tooltip="Gostaram"],
 .album_votes .favoritecount.tooltip[data-tooltip="Não Gostaram"] {
+    --vote: var(--success);
     display: inline-flex !important;
     align-items: center !important;
     justify-content: center !important;
-    font-size: 12px !important;
+    font-size: var(--fs) !important;
     font-weight: 700 !important;
     padding: 8px 20px !important;
     border-radius: var(--radius-pill) !important;
     margin: 0 5px 14px 5px !important;
     gap: 6px !important;
     flex: 0 0 auto !important;
+    color: var(--vote) !important;
+    background: color-mix(in srgb, var(--vote) 8%, transparent) !important;
+    border: 1px solid color-mix(in srgb, var(--vote) 18%, transparent) !important;
     transition: all var(--transition-snappy) !important;
 }
-
-.album_votes .favoritecount.tooltip[data-tooltip="Gostaram"] {
-    background: rgba(34, 197, 94, 0.08) !important;
-    color: var(--color-success) !important;
-    border: 1px solid rgba(34, 197, 94, 0.15) !important;
-}
-.album_votes .favoritecount.tooltip[data-tooltip="Gostaram"]:hover {
-    background: rgba(34, 197, 94, 0.15) !important;
-    border-color: rgba(34, 197, 94, 0.3) !important;
-    box-shadow: 0 0 16px rgba(34, 197, 94, 0.1) !important;
-}
-
-.album_votes .favoritecount.tooltip[data-tooltip="Não Gostaram"] {
-    background: var(--ui-negative-soft-bg) !important;
-    color: var(--color-danger) !important;
-    border: 1px solid var(--ui-negative-soft-border) !important;
-}
-.album_votes .favoritecount.tooltip[data-tooltip="Não Gostaram"]:hover {
-    background: var(--ui-negative-hover-bg) !important;
-    border-color: var(--ui-negative-hover-border) !important;
-    box-shadow: var(--ui-negative-glow-soft) !important;
+.album_votes .favoritecount.tooltip[data-tooltip="Não Gostaram"] { --vote: var(--danger); }
+.album_votes .favoritecount.tooltip:is([data-tooltip="Gostaram"], [data-tooltip="Não Gostaram"]):hover {
+    background: color-mix(in srgb, var(--vote) 15%, transparent) !important;
+    border-color: color-mix(in srgb, var(--vote) 30%, transparent) !important;
+    box-shadow: 0 0 16px color-mix(in srgb, var(--vote) 12%, transparent) !important;
 }
 
 /* Remove os símbolos de texto ^ e v */
 .vote_album_up, .vote_album_down { display: none !important; }
 
-/* ── Pontuação e Porcentagem lado a lado ── */
+/* Pontuação e porcentagem lado a lado */
 .album_votes .tooltip_interactive,
 .album_votes > span.favoritecount:not([id]):not(.tooltip) {
     display: inline-flex !important;
     align-items: center !important;
     flex: 0 0 auto !important;
-    font-size: 12px !important;
-    background: var(--album-votes-meta-bg) !important;
-    border: 1px solid var(--album-votes-meta-border) !important;
+    font-size: var(--fs) !important;
+    background: var(--fill-1) !important;
+    border: 1px solid var(--line) !important;
     padding: 6px 14px !important;
     border-radius: var(--radius-pill) !important;
     color: var(--text-muted) !important;
@@ -2261,12 +2154,12 @@ ol.bjqs-markers li.active-marker a, ol.bjqs-markers li a:hover { background: var
 }
 .album_votes .tooltip_interactive:hover,
 .album_votes > span.favoritecount:not([id]):not(.tooltip):hover {
-    background: var(--album-votes-meta-bg-hover) !important;
-    border-color: var(--album-votes-meta-border-hover) !important;
+    background: var(--fill-2) !important;
+    border-color: var(--line-strong) !important;
     color: var(--text-bright) !important;
 }
 
-/* ── Separador antes dos botões ── */
+/* Separador antes dos botões */
 #vote_message {
     display: flex !important;
     justify-content: center !important;
@@ -2274,11 +2167,11 @@ ol.bjqs-markers li.active-marker a, ol.bjqs-markers li a:hover { background: var
     flex: 0 0 100% !important;
     padding-top: 20px !important;
     margin-top: 4px !important;
-    border-top: 1px solid rgba(255, 255, 255, 0.05) !important;
+    border-top: 1px solid var(--line-soft) !important;
     position: relative !important;
 }
 
-/* Linha decorativa vermelha no separador */
+/* Traço de acento no separador */
 #vote_message::before {
     content: '';
     position: absolute;
@@ -2291,28 +2184,22 @@ ol.bjqs-markers li.active-marker a, ol.bjqs-markers li a:hover { background: var
     border-radius: 1px;
 }
 
-/* ── Botões Gostei / Não Gostei ── */
+/* Botões Gostei / Não Gostei */
 #vote_message a {
+    --vote: var(--success);
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
     width: 56px !important;
     height: 56px !important;
     border-radius: 50% !important;
-    background: rgba(255, 255, 255, 0.03) !important;
-    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    background: color-mix(in srgb, var(--vote) 8%, transparent) !important;
+    border: 1px solid color-mix(in srgb, var(--vote) 28%, transparent) !important;
     transition: all var(--transition-bounce) !important;
     text-decoration: none !important;
     position: relative !important;
 }
-#vote_message a.upvote {
-    background: rgba(34, 197, 94, 0.08) !important;
-    border-color: rgba(34, 197, 94, 0.25) !important;
-}
-#vote_message a.downvote {
-    background: var(--ui-negative-idle-bg) !important;
-    border-color: var(--ui-negative-idle-border) !important;
-}
+#vote_message a.downvote { --vote: var(--danger); }
 
 /* Anel decorativo externo */
 #vote_message a::before {
@@ -2320,11 +2207,10 @@ ol.bjqs-markers li.active-marker a, ol.bjqs-markers li a:hover { background: var
     position: absolute !important;
     inset: -4px !important;
     border-radius: 50% !important;
-    border: 1px dashed rgba(255, 255, 255, 0.06) !important;
+    border: 1px dashed var(--line) !important;
     transition: all var(--transition-smooth) !important;
 }
 
-/* Ícones Like/Dislike */
 #vote_message a img {
     max-width: 22px !important;
     height: auto !important;
@@ -2332,41 +2218,26 @@ ol.bjqs-markers li.active-marker a, ol.bjqs-markers li a:hover { background: var
     transition: all var(--transition-snappy) !important;
 }
 
-/* Hover — Gostei */
-#vote_message a.upvote:hover {
-    background: linear-gradient(135deg, rgba(34, 197, 94, 0.9) 0%, rgba(22, 163, 74, 0.9) 100%) !important;
-    border-color: var(--color-success) !important;
-    box-shadow: 
-        0 0 0 4px rgba(34, 197, 94, 0.1),
-        0 0 28px rgba(34, 197, 94, 0.3),
-        0 8px 20px rgba(34, 197, 94, 0.15) !important;
+#vote_message a:hover {
+    background: linear-gradient(135deg, color-mix(in srgb, var(--vote) 90%, transparent) 0%, color-mix(in srgb, var(--vote) 90%, #000) 100%) !important;
+    border-color: var(--vote) !important;
+    box-shadow:
+        0 0 0 4px color-mix(in srgb, var(--vote) 10%, transparent),
+        0 0 28px color-mix(in srgb, var(--vote) 30%, transparent),
+        0 8px 20px color-mix(in srgb, var(--vote) 15%, transparent) !important;
     transform: translateY(-4px) scale(1.1) !important;
 }
-#vote_message a.upvote:hover::before {
-    border-color: rgba(34, 197, 94, 0.25) !important;
-    inset: -6px !important;
-}
-
-/* Hover — Não Gostei */
-#vote_message a.downvote:hover {
-    background: var(--accent-hero-gradient) !important;
-    border-color: var(--color-danger) !important;
-    box-shadow: var(--ui-negative-hover-shadow) !important;
-    transform: translateY(-4px) scale(1.1) !important;
-}
-#vote_message a.downvote:hover::before {
-    border-color: var(--ui-negative-ring) !important;
+#vote_message a:hover::before {
+    border-color: color-mix(in srgb, var(--vote) 28%, transparent) !important;
     inset: -6px !important;
 }
 
 #vote_message a:hover img {
-    filter: brightness(1.8) opacity(1) drop-shadow(0 0 4px rgba(255,255,255,0.4)) !important;
+    filter: brightness(1.8) opacity(1) drop-shadow(0 0 4px rgb(255 255 255 / 0.4)) !important;
 }
 
-/* ── Mensagens de já votado — ocultas por design ── */
-#upvoted, #downvoted {
-    display: none !important;
-}
+/* Mensagens de "já votado" — ocultas por design */
+#upvoted, #downvoted { display: none !important; }
 
 #unvote_message {
     display: block !important;
@@ -2375,70 +2246,46 @@ ol.bjqs-markers li.active-marker a, ol.bjqs-markers li a:hover { background: var
     margin-top: 15px !important;
 }
 #unvote_message a.brackets {
-    font-size: 12px !important;
+    font-size: var(--fs) !important;
     color: var(--text-muted) !important;
     text-transform: uppercase !important;
     letter-spacing: 0.8px !important;
     background: transparent !important;
-    border: 1px solid rgba(255, 255, 255, 0.06) !important;
+    border: 1px solid var(--line) !important;
     text-decoration: none !important;
     padding: 5px 14px !important;
     border-radius: var(--radius-pill) !important;
     transition: all var(--transition-snappy) !important;
 }
 #unvote_message a.brackets:hover {
-    color: var(--color-danger) !important;
-    background: var(--ui-negative-soft-bg) !important;
-    border-color: var(--ui-negative-ring) !important;
+    color: var(--danger) !important;
+    background: color-mix(in srgb, var(--danger) 8%, transparent) !important;
+    border-color: color-mix(in srgb, var(--danger) 28%, transparent) !important;
 }
 
 /* ==========================================================================
-   20. Polish Final — Efeitos Visuais Extras
+   20. Acessibilidade
    ========================================================================== */
-
-/* Smooth focus-visible para acessibilidade */
 a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible {
-    outline: 2px solid var(--accent-main);
+    outline: 2px solid var(--accent);
     outline-offset: 2px;
     border-radius: var(--radius-sm);
 }
 
-/* Transição suave para linhas das tabelas */
-tr td { transition: background-color var(--transition-snappy); }
-
-/* Efeito sutil no checkbox marcado */
-input[type="checkbox"]:checked, input[type="radio"]:checked {
-    box-shadow: 0 0 8px var(--accent-a-25) !important;
-}
-
-/* Logo com brilho vermelho sutil */
-#logo:hover { opacity: 1; filter: drop-shadow(0 0 12px var(--accent-a-12)); }
-
-/* Linkbox com hover melhorado */
-div.linkbox a {
-    transition: all var(--transition-snappy);
-}
-div.linkbox a:hover { 
-    background: var(--accent-gradient); color: #fff; border-color: transparent; 
-    box-shadow: 0 2px 8px var(--accent-a-20);
-}
-
-/* ── Overrides finais (última posição no arquivo = máxima prioridade de cascata) ── */
-
-/* Formulário de configurações: torna o <form> transparente ao flexbox do .thin,
-   para que .sidebar e .main_column sejam tratados como filhos diretos */
-.thin > form.edit_form {
-    display: contents;
-}
-/* display:contents faz os filhos participarem do flex do .thin visualmente,
-   mas seletores CSS > ainda usam o DOM real — regras explícitas necessárias */
+/* ==========================================================================
+   21. Ajustes finais (últimos no arquivo = prioridade de cascata)
+   ========================================================================== */
+/* Formulário de configurações: o <form> fica transparente ao flex do .thin,
+   para .sidebar e .main_column serem tratados como filhos diretos */
+.thin > form.edit_form { display: contents; }
+/* display:contents só muda a renderização; seletores ">" ainda usam o DOM real */
 form.edit_form > .sidebar {
     width: 260px !important;
     flex: 0 0 260px !important;
     order: 2 !important;
     position: sticky !important;
     top: 90px !important;
-    align-self: flex-start !important; /* obrigatório p/ sticky funcionar em flex */
+    align-self: flex-start !important; /* obrigatório para sticky em flex */
 }
 form.edit_form > .main_column {
     flex: 1 1 0% !important;
@@ -2446,25 +2293,20 @@ form.edit_form > .main_column {
     order: 1 !important;
 }
 
-/* Texto "Temporada X" na coluna lateral da tabela de detalhes */
-/* Especificidade (0,6,2) > (0,5,2) do seletor original do site */
+/* Texto "Temporada X" na coluna lateral da tabela de detalhes
+   (especificidade (0,6,2) > (0,5,2) do seletor de título da seção 9) */
 .torrent_table td[rowspan] a[href*="torrents.php?id="]:first-of-type:not([href*="action=download"]):not(.brackets) {
     white-space: nowrap !important;
-    font-size: 12px !important;
+    font-size: var(--fs) !important;
     font-weight: 500 !important;
     overflow: hidden !important;
     text-overflow: ellipsis !important;
 }
 
-/* ── Index: noticiários (toggle) — :has(> [id^=…]) falhava c/ anúncios aninhados/ AJAX.
-   #content .main_column .newsbody aplica a todos; colapso com +[style] pós bloco aberto. */
-#content .main_column .box:has(.newsbody) {
-    overflow: visible !important;
-}
-.newsbody {
-    transition: max-height 0.25s ease;
-}
-/* Todos os .newsbody na coluna principal: mesma rolagem (AJAX, índice >1, etc.) */
+/* Index: notícias com toggle. Todo .newsbody da coluna principal rola com a
+   mesma altura (AJAX, índice > 1, etc.); colapsado via style inline do site. */
+#content .main_column .box:has(.newsbody) { overflow: visible !important; }
+.newsbody { transition: max-height 0.25s ease; }
 #content .main_column .newsbody {
     box-sizing: border-box !important;
     min-height: 0 !important;
@@ -2473,30 +2315,8 @@ form.edit_form > .main_column {
     overflow-x: hidden !important;
     -webkit-overflow-scrolling: touch;
     scrollbar-gutter: stable;
-    scrollbar-width: auto;
-    scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
 }
-#content .main_column .newsbody::-webkit-scrollbar {
-    width: var(--scrollbar-size);
-    height: var(--scrollbar-size);
-}
-#content .main_column .newsbody::-webkit-scrollbar-track {
-    background: var(--scrollbar-track);
-    border-radius: var(--radius-sm);
-    border: 1px solid var(--border-color);
-}
-#content .main_column .newsbody::-webkit-scrollbar-thumb {
-    background: var(--scrollbar-face);
-    border-radius: var(--radius-md);
-    border: 1px solid var(--scrollbar-thumb-border);
-    box-shadow: inset 0 1px 0 var(--scrollbar-inset-top), var(--shadow-scroll-lift);
-}
-#content .main_column .newsbody::-webkit-scrollbar-thumb:hover {
-    background: var(--scrollbar-hover);
-    border-color: var(--scrollbar-border-hover);
-    box-shadow: inset 0 1px 0 var(--scrollbar-inset-top-strong), 0 0 14px var(--accent-glow);
-}
-/* Colapsado: ganha de div.pad… (mais atributo) + evita falso match em “display: none; …” fora de inline */
+/* Colapsado: vence div.pad… (mais atributo) */
 .newsbody[style*="display: none"],
 .newsbody[style*="display:none"],
 #content .main_column .newsbody[style*="display: none"],
@@ -2510,154 +2330,153 @@ form.edit_form > .main_column {
     border-width: 0 !important;
     scrollbar-gutter: auto;
 }
-/* .newsbody sem id=newsbody*: aberto = altura de animação; sem scroll forçada */
+/* .newsbody sem id=newsbody*: aberto = altura de animação, sem scroll forçado */
 .newsbody:not([id^="newsbody"]):not([style*="display: none"]):not([style*="display:none"]) {
     max-height: 5000px !important;
     overflow: visible;
 }
 
-/* --- bundled: bj-zerfeus-theme.css + bj-zerfeus-theme-solarized.css (generated; run build-theme-bundles.ps1 after edits) --- */
+/* ==========================================================================
+   22. Destaques (torrents.php?action=destaques)
+   Os botões de categoria são filhos diretos do .thin (viravam linhas inteiras) e
+   as capas vêm em float com padding inline. O filtro do site esconde itens com
+   style="display:none", por isso .destitems nunca recebe display aqui.
+   ========================================================================== */
+.thin:has(.destitems) { justify-content: center; }
+.thin:has(.destitems) > br { display: none; }
+.thin:has(.destitems) > button {
+    width: auto;
+    flex: 0 0 auto;
+    padding: 6px 14px;
+    border-radius: var(--radius-pill);
+}
+/* o site não marca o filtro ativo; o foco do último clique faz esse papel */
+.thin:has(.destitems) > button:focus {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: var(--on-accent);
+}
+
+.thin > div:has(> .destitems) {
+    display: flex !important;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+    padding: 0 !important;
+}
+.destitems {
+    float: none !important;
+    padding: 0 !important;
+    width: 182px;
+}
+.destitems a { display: block; }
+.destitems img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 182 / 252;
+    object-fit: cover;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-md);
+    transition: transform var(--transition-smooth), box-shadow var(--transition-smooth);
+}
+.destitems a:hover img {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-xl), 0 0 0 2px var(--accent);
+}
+
+/* ==========================================================================
+   23. Diálogos nativos do site (<dialog>: Pote de Gorjeta, resultado do envio)
+   Sem isto o reset tira a centralização (margin) e o fundo branco padrão do
+   navegador deixa os botões claros do tema invisíveis.
+   ========================================================================== */
+dialog {
+    margin: auto;
+    width: min(440px, calc(100vw - 32px));
+    padding: 20px 22px;
+    background: var(--bg-solid);
+    color: var(--text-main);
+    border: 1px solid var(--line-strong);
+    border-top: 2px solid var(--accent);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-xl);
+    font-family: var(--font-main);
+    font-size: var(--fs);
+}
+dialog::backdrop {
+    background: color-mix(in srgb, var(--scrim) 70%, transparent);
+    backdrop-filter: blur(4px);
+}
+dialog h2 {
+    margin-bottom: 10px;
+    color: var(--text-strong);
+    font-size: var(--fs-lg);
+}
+dialog label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-bright);
+    font-weight: 600;
+}
+dialog label input[type="text"] { flex: 1; }
+dialog menu {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    margin-top: 8px;
+}
+dialog button[value="confirm"],
+dialog button[value="ok"] {
+    background: var(--accent-gradient);
+    border-color: transparent;
+    color: var(--on-accent);
+    font-weight: 700;
+}
+dialog button[value="confirm"]:hover,
+dialog button[value="ok"]:hover {
+    background: var(--accent-gradient-hover);
+}
+
+/* --- bundle gerado: bj-zerfeus-theme.css + bj-zerfeus-theme-solarized.css - edite os fontes e rode build-theme-bundles.ps1 --- */
 
 :root {
     --bg-base: #002b36;
-    --bg-panel: rgba(7, 54, 66, 0.96);
-    --bg-card: rgba(0, 43, 54, 0.88);
-    --bg-card-hover: rgba(7, 54, 66, 0.95);
     --bg-solid: #073642;
+    --bg-panel: rgb(7 54 66 / 0.96);
+    --bg-card: rgb(0 43 54 / 0.88);
+    --bg-card-hover: rgb(7 54 66 / 0.95);
 
     --text-muted: #586e75;
     --text-main: #839496;
     --text-bright: #eee8d5;
-    --text-white: #fdf6e3;
+    --text-strong: #fdf6e3;
 
-    --accent-main: #268bd2;
-    --accent-glow: rgba(38, 139, 210, 0.35);
+    --ink: #93a1a1;
+    --scrim: #002b36;
+    --on-scrim: #fdf6e3;
+
+    --accent: #268bd2;
+    --accent-2: #2aa198;
     --accent-hover: #2aa198;
-    --accent-gradient: linear-gradient(135deg, #268bd2 0%, #2aa198 100%);
-    --accent-soft: rgba(38, 139, 210, 0.12);
-    --color-danger: #dc322f;
-    --color-success: #859900;
-    --color-warning: #b58900;
-    --color-info: #268bd2;
+    --on-accent: #fdf6e3;
 
-    --border-color: rgba(131, 148, 150, 0.15);
-    --border-light: rgba(238, 232, 213, 0.12);
-    --border-glow: rgba(38, 139, 210, 0.2);
+    --danger: #dc322f;
+    --success: #859900;
+    --warning: #b58900;
+    --info: #268bd2;
 
-    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.4);
-    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.45);
-    --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.5);
-
-    --scrollbar-track: #002b36;
-    --scrollbar-thumb: rgba(38, 139, 210, 0.35);
-    --scrollbar-thumb-border: rgba(147, 161, 161, 0.2);
-    --scrollbar-face: linear-gradient(180deg, rgba(42, 161, 152, 0.35) 0%, rgba(38, 139, 210, 0.25) 100%);
-    --scrollbar-hover: linear-gradient(180deg, rgba(38, 139, 210, 0.6) 0%, rgba(42, 161, 152, 0.5) 100%);
-    --scrollbar-inset-top: rgba(253, 246, 227, 0.08);
-    --scrollbar-inset-top-strong: rgba(253, 246, 227, 0.12);
-    --scrollbar-border-hover: rgba(42, 161, 152, 0.4);
-
-    --overlay-15: rgba(0, 0, 0, 0.2);
-    --overlay-20: rgba(0, 0, 0, 0.28);
-    --overlay-25: rgba(0, 0, 0, 0.32);
-    --overlay-30: rgba(7, 54, 66, 0.85);
-    --overlay-35: rgba(7, 54, 66, 0.9);
-    --overlay-40: rgba(7, 54, 66, 0.92);
-    --overlay-50: rgba(0, 43, 54, 0.88);
-    --overlay-60: rgba(0, 43, 54, 0.92);
-    --overlay-90: rgba(0, 43, 54, 0.95);
-
-    --shadow-header: 0 4px 20px rgba(0, 0, 0, 0.5);
-    --shadow-submenu: 0 8px 28px rgba(0, 0, 0, 0.55);
-    --shadow-box-default: var(--shadow-md);
-    --shadow-box-hover: var(--shadow-lg);
-
-    --header-bg-solid: var(--bg-base);
-    --header-border-bottom: rgba(147, 161, 161, 0.15);
-
-    --text-selection-bg: rgba(211, 54, 130, 0.35);
-    --text-selection-color: #fdf6e3;
-    --link-glow: rgba(38, 139, 210, 0.25);
-
-    --accent-a-06: rgba(38, 139, 210, 0.08);
-    --accent-a-08: rgba(38, 139, 210, 0.1);
-    --accent-a-10: rgba(38, 139, 210, 0.14);
-    --accent-a-12: rgba(38, 139, 210, 0.16);
-    --accent-a-15: rgba(38, 139, 210, 0.2);
-    --accent-a-20: rgba(38, 139, 210, 0.26);
-    --accent-a-25: rgba(38, 139, 210, 0.32);
-    --accent-a-35: rgba(38, 139, 210, 0.42);
-    --accent-a-40: rgba(38, 139, 210, 0.48);
-    --accent-gradient-hover: linear-gradient(135deg, #2aa198 0%, #268bd2 100%);
-    --accent-hero-gradient: linear-gradient(135deg, rgba(42, 161, 152, 0.92) 0%, rgba(38, 139, 210, 0.92) 100%);
-    --accent-noty-glow: rgba(38, 139, 210, 0.45);
-
-    --gradient-submenu: linear-gradient(180deg, rgba(7, 54, 66, 0.98) 0%, rgba(0, 43, 54, 0.98) 100%);
-    --gradient-footer: linear-gradient(180deg, #073642 0%, #002b36 100%);
-    --footer-top-border: rgba(147, 161, 161, 0.12);
-
-    --panel-head-gradient: linear-gradient(180deg, rgba(7, 54, 66, 0.95) 0%, rgba(0, 43, 54, 0.9) 100%);
-    --table-th-gradient: linear-gradient(180deg, #073642 0%, #002b36 100%);
-    --search-input-fill: rgba(238, 232, 213, 0.06);
-
-    --box-head-fg: var(--text-white);
-    --box-filter-head-bg: rgba(7, 54, 66, 0.92);
-    --filter-input-fg: var(--text-bright);
-    --filter-label-hover-fg: var(--text-white);
-
-    --header-menu-hover-bg: rgba(38, 139, 210, 0.12);
-    --header-menu-hover-color: var(--text-white);
-    --menu-link-hover-fg: #fdf6e3;
-    --submenu-border: rgba(147, 161, 161, 0.12);
-    --submenu-row-line: rgba(147, 161, 161, 0.08);
-    --menu-item-hover-bg: rgba(38, 139, 210, 0.1);
-    --logo-ambient-glow: rgba(38, 139, 210, 0.25);
-
-    --torrent-list-title-color: var(--text-white);
-    --torrent-title-shadow: rgba(0, 0, 0, 0.5);
-
-    --noty-message-color: var(--text-bright);
-    --noty-button-bg: rgba(38, 139, 210, 0.1);
-    --noty-button-border: rgba(42, 161, 152, 0.35);
-    --noty-button-fg: var(--text-bright);
-
-    --alert-strip-link: #2aa198;
-    --submenu-grid-item-hover-bg: rgba(38, 139, 210, 0.12);
-    --submenu-symbol-border: rgba(147, 161, 161, 0.12);
-
-    --torrent-group-header-bg: rgba(7, 54, 66, 0.95);
-    --torrent-group-header-border: rgba(147, 161, 161, 0.12);
-    --table-row-stripe: rgba(255, 255, 255, 0.02);
-    --list-hover-faint: rgba(38, 139, 210, 0.06);
-
-    --download-icon-svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23268bd2' stroke-width='2.5'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3' /%3E%3C/svg%3E");
-
-    --shadow-groupbanner-primary: 0 4px 18px rgba(38, 139, 210, 0.35);
-    --shadow-groupbanner-primary-hover: 0 8px 26px rgba(38, 139, 210, 0.45);
-    --groupbanner-cta-bg: rgba(38, 139, 210, 0.88);
-    --groupbanner-btn-border: rgba(253, 246, 227, 0.2);
-    --groupbanner-icon-muted: rgba(253, 246, 227, 0.65);
-
-    --album-votes-number-gradient: linear-gradient(180deg, #fdf6e3 18%, rgba(238, 232, 213, 0.4) 100%);
-    --album-votes-meta-bg: rgba(238, 232, 213, 0.05);
-    --album-votes-meta-border: rgba(147, 161, 161, 0.15);
-
-    --ui-negative-soft-bg: rgba(220, 50, 47, 0.1);
-    --ui-negative-soft-border: rgba(220, 50, 47, 0.25);
-    --stat-danger-glow: rgba(220, 50, 47, 0.25);
-    --torrent-inline-bad: #dc322f;
-
-    --download-btn-bg: rgba(38, 139, 210, 0.14);
-    --download-btn-border: rgba(42, 161, 152, 0.42);
-    --download-btn-hover-glow: 0 0 14px rgba(38, 139, 210, 0.4);
-    --download-icon-svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23268bd2' stroke-width='2.5'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3' /%3E%3C/svg%3E");
-    --download-icon-svg-on-accent: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23fdf6e3' stroke-width='2.5'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3' /%3E%3C/svg%3E");
-}
-
-#footer {
-    color: var(--text-muted);
-    background: var(--gradient-footer);
-}
-#footer a {
-    color: var(--text-bright);
+    --line: color-mix(in srgb, var(--ink) 15%, transparent);
+    --line-soft: color-mix(in srgb, var(--ink) 9%, transparent);
+    --line-strong: color-mix(in srgb, var(--ink) 22%, transparent);
+    --head-bg: linear-gradient(180deg, rgb(7 54 66 / 0.95) 0%, rgb(0 43 54 / 0.9) 100%);
+    --th-bg: linear-gradient(180deg, #073642 0%, #002b36 100%);
+    --filter-head-bg: rgb(7 54 66 / 0.92);
+    --group-bg: rgb(7 54 66 / 0.95);
+    --footer-bg: linear-gradient(180deg, #073642 0%, #002b36 100%);
+    --footer-link: var(--text-bright);
+    --menu-hover-bg: var(--accent-12);
+    --alert-link: #2aa198;
+    --selection-bg: rgb(211 54 130 / 0.35);
+    --scrollbar-thumb: color-mix(in srgb, var(--accent) 35%, transparent);
 }

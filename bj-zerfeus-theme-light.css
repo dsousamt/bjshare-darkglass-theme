@@ -1,205 +1,42 @@
 /*
- * BJ Zerfeus — variante Light (claro, limpo, pouco cinza)
+ * BJ Zerfeus — Light (fundo quase branco, cartões brancos, acento vermelho BJ)
  *
- * O @import resolve em relacao ao URL desta folha. Se o site injeta CSS inline,
- * ou o base nao esta na mesma pasta publica, o navegador pode NAO carregar
- * bj-zerfeus-theme.css — ficam so estes :root (sem layout/regras do base).
- *
- * Use entao: bj-zerfeus-theme-light.full.css (base+variante fundidos; um URL so),
- * ou publique base e variante na mesma pasta, ou troque a linha abaixo por URL
- * absoluto do teu base (como abaixo) se publicares a variante noutra pasta.
- *
- * Regenerar .full.css: .\build-theme-bundles.ps1
+ * Importa o tema base da mesma pasta (URL relativa). Se o @import não carregar (CSS
+ * injetado inline ou publicado noutra pasta), use bj-zerfeus-theme-light.full.css.
  */
-@import url('https://matheussousa.com/bj-zerfeus-theme.css');
+@import url('bj-zerfeus-theme.css');
 
 :root {
-    /* Fundo quase branco + cartões brancos (menos “chapa de cimento”) */
     --bg-base: #fbfbfc;
+    --bg-solid: #ffffff;
     --bg-panel: #ffffff;
     --bg-card: #ffffff;
     --bg-card-hover: #f4f6f9;
-    --bg-solid: #ffffff;
+    --header-bg: #ffffff;
 
     --text-muted: #7a8b9a;
     --text-main: #3a4a5c;
     --text-bright: #141c2c;
-    --text-white: #ffffff;
+    --text-strong: #0d1420;
 
-    --accent-main: #dc2626;
-    --accent-glow: rgba(220, 38, 38, 0.2);
+    /* Tinta azul-marinho com alfa baixo: sombras e rebaixos suaves */
+    --ink: #141c28;
+    --recess: rgb(20 28 40 / 0.16);
+    --shade: rgb(20 28 40 / 0.15);
+    --scrim: #141c28;
+
     --accent-hover: #e11d48;
-    --accent-gradient: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
-    --accent-soft: rgba(220, 38, 38, 0.09);
-    --color-danger: #dc2626;
-    --border-glow: rgba(220, 38, 38, 0.1);
-    --shadow-glow: 0 0 20px rgba(220, 38, 38, 0.12), 0 0 40px rgba(220, 38, 38, 0.06);
 
-    --border-color: rgba(20, 28, 40, 0.055);
-    --border-light: rgba(20, 28, 40, 0.09);
-
-    --shadow-sm: 0 1px 2px rgba(20, 28, 40, 0.04);
-    --shadow-md: 0 4px 16px rgba(20, 28, 40, 0.06);
-    --shadow-lg: 0 12px 40px rgba(20, 28, 40, 0.08);
-
+    --field-bg: #ffffff;
+    --field-bg-focus: #ffffff;
+    --head-bg: linear-gradient(180deg, #ffffff 0%, #f6f7f9 100%);
+    --th-bg: linear-gradient(180deg, #f5f6f8 0%, #eef1f5 100%);
+    --filter-head-bg: #f3f5f8;
+    --group-bg: linear-gradient(180deg, #fafbfc 0%, #f1f3f6 100%);
+    --footer-bg: linear-gradient(180deg, #ffffff 0%, #f6f7f9 100%);
+    --menu-hover-bg: var(--accent-08);
+    --alert-link: var(--accent);
+    --title-shadow: transparent;
+    --body-glow-1: color-mix(in srgb, var(--accent) 4%, transparent);
     --scrollbar-track: #f2f4f7;
-    --scrollbar-thumb: rgba(20, 28, 40, 0.22);
-    --scrollbar-thumb-border: rgba(20, 28, 40, 0.08);
-    --scrollbar-face: linear-gradient(180deg, rgba(20, 28, 40, 0.16) 0%, rgba(20, 28, 40, 0.09) 100%);
-    --scrollbar-hover: linear-gradient(180deg, rgba(220, 38, 38, 0.5) 0%, rgba(185, 28, 28, 0.42) 100%);
-    --scrollbar-inset-top: rgba(255, 255, 255, 0.45);
-    --scrollbar-inset-top-strong: rgba(255, 255, 255, 0.65);
-    --scrollbar-border-hover: rgba(20, 28, 40, 0.18);
-
-    --overlay-15: rgba(20, 28, 40, 0.03);
-    --overlay-20: rgba(20, 28, 40, 0.045);
-    --overlay-25: rgba(20, 28, 40, 0.06);
-    --overlay-30: rgba(255, 255, 255, 0.92);
-    --overlay-35: rgba(243, 245, 248, 0.98);
-    --overlay-40: rgba(255, 255, 255, 0.88);
-    --overlay-50: rgba(248, 249, 251, 0.97);
-    --overlay-60: rgba(236, 239, 244, 0.98);
-    --overlay-90: rgba(20, 28, 40, 0.78);
-
-    --shadow-header: 0 1px 0 rgba(255, 255, 255, 0.75), 0 8px 32px rgba(20, 28, 40, 0.05);
-    --shadow-submenu: 0 12px 40px rgba(20, 28, 40, 0.1), 0 0 0 1px rgba(20, 28, 40, 0.05);
-    --shadow-scroll-lift: 0 1px 3px rgba(20, 28, 40, 0.1);
-    --shadow-noty-1: var(--shadow-md);
-    --shadow-noty-2: 0 4px 20px rgba(20, 28, 40, 0.07), 0 12px 36px rgba(20, 28, 40, 0.06);
-    --shadow-noty-item: 0 4px 18px rgba(20, 28, 40, 0.07), 0 10px 28px rgba(20, 28, 40, 0.06);
-    --shadow-popdrop: 0 4px 14px rgba(20, 28, 40, 0.08);
-    --shadow-hero-torrent: 0 12px 40px rgba(20, 28, 40, 0.09);
-    --shadow-card-muted: 0 4px 16px rgba(20, 28, 40, 0.06), 0 8px 28px rgba(20, 28, 40, 0.05);
-    --shadow-filter-torrents: 0 12px 44px rgba(20, 28, 40, 0.09);
-    --shadow-banner-secondary: 0 4px 16px rgba(20, 28, 40, 0.08);
-    --shadow-box-default: 0 2px 12px rgba(20, 28, 40, 0.04), 0 8px 28px rgba(20, 28, 40, 0.05);
-    --shadow-box-hover: 0 4px 20px rgba(20, 28, 40, 0.07), 0 12px 36px rgba(20, 28, 40, 0.06);
-
-    /* Header / footer explícitos: branco + linha suave */
-    --header-bg-solid: #ffffff;
-    --header-border-bottom: rgba(20, 28, 40, 0.06);
-
-    --body-spot-accent: rgba(220, 38, 38, 0.04);
-    --body-spot-info: rgba(59, 130, 246, 0.03);
-
-    --text-selection-bg: rgba(220, 38, 38, 0.18);
-    --text-selection-color: #ffffff;
-    --link-glow: rgba(220, 38, 38, 0.1);
-
-    --accent-a-06: rgba(220, 38, 38, 0.06);
-    --accent-a-08: rgba(220, 38, 38, 0.09);
-    --accent-a-10: rgba(220, 38, 38, 0.11);
-    --accent-a-12: rgba(220, 38, 38, 0.14);
-    --accent-a-15: rgba(220, 38, 38, 0.18);
-    --accent-a-20: rgba(220, 38, 38, 0.22);
-    --accent-a-25: rgba(220, 38, 38, 0.28);
-    --accent-a-35: rgba(220, 38, 38, 0.34);
-    --accent-a-40: rgba(220, 38, 38, 0.4);
-    --accent-gradient-hover: linear-gradient(135deg, #ef4444 0%, #b91c1c 100%);
-    --accent-hero-gradient: linear-gradient(135deg, rgba(239, 68, 68, 0.92) 0%, rgba(220, 38, 38, 0.92) 100%);
-    --accent-noty-glow: rgba(220, 38, 38, 0.32);
-
-    --shadow-groupbanner-primary: 0 4px 18px rgba(220, 38, 38, 0.22);
-    --shadow-groupbanner-primary-hover: 0 8px 28px rgba(220, 38, 38, 0.32);
-    --groupbanner-cta-bg: rgba(220, 38, 38, 0.92);
-    --groupbanner-btn-border: rgba(20, 28, 40, 0.14);
-    --groupbanner-icon-muted: rgba(255, 255, 255, 0.78);
-    --ft-submit-shadow-hover: 0 6px 20px var(--accent-a-40);
-
-    /* Barra de aviso: fundo branco — link não pode ser branco */
-    --alert-strip-link: var(--accent-main);
-
-    /* Submenu / grelha: hovers visíveis em fundo claro */
-    --submenu-grid-item-hover-bg: rgba(220, 38, 38, 0.08);
-    --submenu-symbol-border: rgba(20, 28, 40, 0.08);
-
-    --userinfo-stat-label: var(--text-main);
-
-    /* Número grande “VOTOS” e pills meta — contraste em UI clara */
-    --album-votes-number-gradient: linear-gradient(180deg, var(--text-bright) 15%, rgba(20, 28, 40, 0.42) 100%);
-    --album-votes-meta-bg: rgba(20, 28, 40, 0.04);
-    --album-votes-meta-border: rgba(20, 28, 40, 0.08);
-    --album-votes-meta-bg-hover: rgba(20, 28, 40, 0.07);
-    --album-votes-meta-border-hover: rgba(20, 28, 40, 0.12);
-
-    --gradient-submenu: linear-gradient(180deg, #ffffff 0%, #fafbfc 100%);
-    --gradient-footer: linear-gradient(180deg, #ffffff 0%, #f6f7f9 100%);
-    --footer-top-border: rgba(20, 28, 40, 0.06);
-
-    --box-outline: rgba(20, 28, 40, 0.07);
-    --box-outline-hover: rgba(20, 28, 40, 0.11);
-    --details-outline: rgba(20, 28, 40, 0.1);
-
-    --panel-head-gradient: linear-gradient(180deg, #ffffff 0%, #f6f7f9 100%);
-    --table-th-gradient: linear-gradient(180deg, #f5f6f8 0%, #eef1f5 100%);
-    --search-input-fill: rgba(20, 28, 40, 0.035);
-
-    --box-head-fg: var(--text-bright);
-    --box-filter-head-bg: rgba(243, 245, 248, 0.98);
-    --filter-input-fg: var(--text-bright);
-    --filter-label-hover-fg: var(--text-bright);
-
-    /* Títulos na listagem: texto escuro, sombra mínima */
-    --torrent-list-title-color: #121a28;
-    --torrent-title-shadow: rgba(20, 28, 40, 0.06);
-
-    --gradient-banner-fade: linear-gradient(180deg, transparent 0%, var(--overlay-90) 100%);
-    --gradient-album-votes: linear-gradient(180deg, var(--overlay-15) 0%, transparent 100%);
-
-    /* Menu topo: hovers com tinta, não branco “lavado” */
-    --header-menu-hover-color: var(--text-bright);
-    --menu-link-hover-fg: var(--text-bright);
-    --header-menu-hover-bg: rgba(220, 38, 38, 0.07);
-    --submenu-border: rgba(20, 28, 40, 0.08);
-    --submenu-row-line: rgba(20, 28, 40, 0.06);
-    --menu-item-hover-bg: rgba(220, 38, 38, 0.06);
-    --logo-ambient-glow: rgba(220, 38, 38, 0.12);
-
-    --userinfo-stat-bg: rgba(20, 28, 40, 0.04);
-    --userinfo-stat-bg-hover: rgba(220, 38, 38, 0.09);
-    --userinfo-stat-border-hover: rgba(220, 38, 38, 0.18);
-
-    /* Grupos na browse: faixa clara, não cinza pesado */
-    --torrent-group-header-bg: linear-gradient(180deg, #fafbfc 0%, #f1f3f6 100%);
-    --torrent-group-header-border: rgba(20, 28, 40, 0.07);
-    --torrent-edition-row-bg: rgba(251, 251, 252, 0.95);
-    --torrent-group-title-bg: rgba(255, 255, 255, 0.92);
-    --torrent-group-title-bg-hover: #ffffff;
-
-    --table-row-stripe: rgba(246, 247, 249, 0.85);
-    --table-cell-divider: rgba(20, 28, 40, 0.06);
-    --table-row-zebra-torrent: rgba(250, 250, 252, 0.9);
-    --list-hover-faint: rgba(220, 38, 38, 0.05);
-
-    /* Noty: texto escuro no cartão claro; botões secundários visíveis */
-    --noty-message-color: var(--text-bright);
-    --noty-button-bg: rgba(20, 28, 40, 0.06);
-    --noty-button-border: rgba(20, 28, 40, 0.12);
-    --noty-button-fg: var(--text-main);
-
-    --btn-pill-bg: rgba(255, 255, 255, 0.92);
-    --btn-pill-fg: var(--text-bright);
-    --btn-pill-border: rgba(20, 28, 40, 0.12);
-    --btn-pill-hover-bg: rgba(220, 38, 38, 0.08);
-    --btn-pill-hover-border: rgba(220, 38, 38, 0.35);
-    --btn-disabled-bg: rgba(20, 28, 40, 0.06);
-    --btn-disabled-fg: var(--text-muted);
-    --btn-disabled-border: rgba(20, 28, 40, 0.1);
-    --btn-disabled-opacity: 1;
-
-    /* Download: vermelho BJ alinhado ao accent (nao herdado do base #c92a35) */
-    --download-btn-bg: rgba(220, 38, 38, 0.1);
-    --download-btn-border: rgba(220, 38, 38, 0.34);
-    --download-btn-hover-glow: 0 0 12px rgba(220, 38, 38, 0.28);
-    --download-icon-svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23dc2626' stroke-width='2.5'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3' /%3E%3C/svg%3E");
-    --download-icon-svg-on-accent: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23ffffff' stroke-width='2.5'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3' /%3E%3C/svg%3E");
-}
-
-/* Rodapé: texto um pouco mais legível que o corpo */
-#footer {
-    color: var(--text-muted);
-    background: var(--gradient-footer);
-}
-#footer a {
-    color: var(--text-main);
 }

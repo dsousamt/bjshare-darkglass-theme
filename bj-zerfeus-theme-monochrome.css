@@ -1,193 +1,41 @@
 /*
- * BJ Zerfeus — Monochrome (cinzentos puros, sem matiz; alto contraste leitura)
+ * BJ Zerfeus — Monochrome (cinzas puros, sem matiz)
+ *
+ * Importa o tema base da mesma pasta (URL relativa). Se o @import não carregar (CSS
+ * injetado inline ou publicado noutra pasta), use bj-zerfeus-theme-monochrome.full.css.
  */
-@import url('https://matheussousa.com/bj-zerfeus-theme.css');
+@import url('bj-zerfeus-theme.css');
 
 :root {
     --bg-base: #0c0c0c;
-    --bg-panel: rgba(18, 18, 18, 0.96);
-    --bg-card: rgba(24, 24, 24, 0.92);
-    --bg-card-hover: rgba(38, 38, 38, 0.95);
     --bg-solid: #141414;
+    --bg-panel: rgb(18 18 18 / 0.96);
+    --bg-card: rgb(24 24 24 / 0.92);
+    --bg-card-hover: rgb(38 38 38 / 0.95);
 
     --text-muted: #737373;
     --text-main: #a3a3a3;
     --text-bright: #e5e5e5;
-    --text-white: #fafafa;
+    --text-strong: #fafafa;
 
-    --accent-main: #f5f5f5;
-    --accent-glow: rgba(255, 255, 255, 0.12);
+    /* Fundo quase preto: rebaixos clareiam em vez de escurecer */
+    --recess: rgb(255 255 255 / 0.25);
+
+    --accent: #f5f5f5;
+    --accent-2: #a3a3a3;
     --accent-hover: #ffffff;
-    --accent-gradient: linear-gradient(135deg, #e5e5e5 0%, #a3a3a3 100%);
-    --accent-soft: rgba(255, 255, 255, 0.06);
-    --color-danger: #9ca3af;
-    --color-success: #d4d4d4;
-    --color-warning: #a1a1aa;
-    --color-info: #c4c4c4;
+    --on-accent: #0c0c0c;
 
-    --border-color: rgba(255, 255, 255, 0.08);
-    --border-light: rgba(255, 255, 255, 0.14);
-    --border-glow: rgba(255, 255, 255, 0.08);
+    --danger: #9ca3af;
+    --success: #d4d4d4;
+    --warning: #a1a1aa;
+    --info: #c4c4c4;
+    --bookmark: #d4d4d4;
 
-    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.5);
-    --shadow-md: 0 4px 14px rgba(0, 0, 0, 0.55);
-    --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.6);
-    --shadow-glow: 0 0 20px rgba(255, 255, 255, 0.06);
-
-    --scrollbar-track: #0c0c0c;
-    --scrollbar-thumb: rgba(255, 255, 255, 0.18);
-    --scrollbar-thumb-border: rgba(255, 255, 255, 0.1);
-    --scrollbar-face: linear-gradient(180deg, rgba(255, 255, 255, 0.22) 0%, rgba(255, 255, 255, 0.1) 100%);
-    --scrollbar-hover: linear-gradient(180deg, rgba(255, 255, 255, 0.45) 0%, rgba(200, 200, 200, 0.35) 100%);
-    --scrollbar-inset-top: rgba(255, 255, 255, 0.06);
-    --scrollbar-inset-top-strong: rgba(255, 255, 255, 0.1);
-    --scrollbar-border-hover: rgba(255, 255, 255, 0.22);
-
-    --overlay-15: rgba(255, 255, 255, 0.04);
-    --overlay-20: rgba(255, 255, 255, 0.06);
-    --overlay-25: rgba(255, 255, 255, 0.08);
-    --overlay-30: rgba(255, 255, 255, 0.06);
-    --overlay-35: rgba(255, 255, 255, 0.08);
-    --overlay-40: rgba(255, 255, 255, 0.1);
-    --overlay-50: rgba(255, 255, 255, 0.12);
-    --overlay-60: rgba(255, 255, 255, 0.14);
-    --overlay-90: rgba(0, 0, 0, 0.92);
-
-    --shadow-header: 0 4px 20px rgba(0, 0, 0, 0.55);
-    --shadow-submenu: 0 8px 28px rgba(0, 0, 0, 0.6);
-    --shadow-scroll-lift: 0 1px 3px rgba(0, 0, 0, 0.45);
-    --shadow-box-default: var(--shadow-md);
-    --shadow-box-hover: var(--shadow-lg);
-
-    --header-bg-solid: var(--bg-base);
-    --header-border-bottom: rgba(255, 255, 255, 0.1);
-
-    --body-spot-accent: rgba(255, 255, 255, 0.04);
-    --body-spot-info: rgba(255, 255, 255, 0.02);
-
-    --text-selection-bg: rgba(255, 255, 255, 0.22);
-    --text-selection-color: #0c0c0c;
-    --link-glow: rgba(255, 255, 255, 0.08);
-
-    --accent-a-06: rgba(255, 255, 255, 0.06);
-    --accent-a-08: rgba(255, 255, 255, 0.08);
-    --accent-a-10: rgba(255, 255, 255, 0.1);
-    --accent-a-12: rgba(255, 255, 255, 0.12);
-    --accent-a-15: rgba(255, 255, 255, 0.15);
-    --accent-a-20: rgba(255, 255, 255, 0.2);
-    --accent-a-25: rgba(255, 255, 255, 0.25);
-    --accent-a-35: rgba(255, 255, 255, 0.32);
-    --accent-a-40: rgba(255, 255, 255, 0.38);
-    --accent-gradient-hover: linear-gradient(135deg, #ffffff 0%, #d4d4d4 100%);
-    --accent-hero-gradient: linear-gradient(135deg, rgba(245, 245, 245, 0.95) 0%, rgba(163, 163, 163, 0.95) 100%);
-    --accent-noty-glow: rgba(255, 255, 255, 0.2);
-
-    --gradient-submenu: linear-gradient(180deg, #1a1a1a 0%, #121212 100%);
-    --gradient-footer: linear-gradient(180deg, #141414 0%, #0c0c0c 100%);
-    --footer-top-border: rgba(255, 255, 255, 0.08);
-
-    --panel-head-gradient: linear-gradient(180deg, #262626 0%, #171717 100%);
-    --table-th-gradient: linear-gradient(180deg, #1f1f1f 0%, #141414 100%);
-    --search-input-fill: rgba(255, 255, 255, 0.05);
-
-    --box-head-fg: var(--text-white);
-    --box-filter-head-bg: rgba(38, 38, 38, 0.95);
-    --filter-input-fg: var(--text-bright);
-    --filter-label-hover-fg: var(--text-white);
-
-    --box-outline: rgba(255, 255, 255, 0.08);
-    --box-outline-hover: rgba(255, 255, 255, 0.14);
-    --details-outline: rgba(255, 255, 255, 0.12);
-
-    --header-menu-hover-bg: rgba(255, 255, 255, 0.08);
-    --header-menu-hover-color: var(--text-white);
-    --menu-link-hover-fg: var(--text-white);
-    --submenu-border: rgba(255, 255, 255, 0.1);
-    --submenu-row-line: rgba(255, 255, 255, 0.05);
-    --menu-item-hover-bg: rgba(255, 255, 255, 0.06);
-    --submenu-grid-item-hover-bg: rgba(255, 255, 255, 0.08);
-    --submenu-symbol-border: rgba(255, 255, 255, 0.08);
-    --logo-ambient-glow: rgba(255, 255, 255, 0.1);
-
-    --header-search-text: var(--text-bright);
-    --header-search-placeholder: var(--text-muted);
-    --header-link-fg: var(--text-bright);
-    --header-link-hover-fg: var(--text-white);
-    --alert-strip-link: var(--text-white);
-
-    --userinfo-stat-bg: rgba(255, 255, 255, 0.05);
-    --userinfo-stat-bg-hover: rgba(255, 255, 255, 0.1);
-    --userinfo-stat-border-hover: rgba(255, 255, 255, 0.18);
-    --userinfo-stat-label: var(--text-muted);
-
-    --torrent-list-title-color: var(--text-white);
-    --torrent-title-shadow: rgba(0, 0, 0, 0.6);
-
-    --noty-message-color: var(--text-bright);
-    --noty-button-bg: rgba(255, 255, 255, 0.06);
-    --noty-button-border: rgba(255, 255, 255, 0.14);
-    --noty-button-fg: var(--text-bright);
-
-    --btn-pill-bg: rgba(255, 255, 255, 0.06);
-    --btn-pill-fg: var(--text-bright);
-    --btn-pill-border: rgba(255, 255, 255, 0.14);
-    --btn-pill-hover-bg: rgba(255, 255, 255, 0.1);
-    --btn-pill-hover-border: rgba(255, 255, 255, 0.28);
-    --btn-disabled-bg: rgba(255, 255, 255, 0.03);
-    --btn-disabled-fg: var(--text-muted);
-    --btn-disabled-border: rgba(255, 255, 255, 0.06);
-    --btn-disabled-opacity: 0.9;
-
-    --torrent-group-header-bg: rgba(28, 28, 28, 0.96);
-    --torrent-group-header-border: rgba(255, 255, 255, 0.08);
-    --torrent-edition-row-bg: rgba(255, 255, 255, 0.02);
-    --torrent-group-title-bg: rgba(255, 255, 255, 0.04);
-    --torrent-group-title-bg-hover: rgba(255, 255, 255, 0.08);
-    --table-row-stripe: rgba(255, 255, 255, 0.02);
-    --table-cell-divider: rgba(255, 255, 255, 0.05);
-    --list-hover-faint: rgba(255, 255, 255, 0.04);
-
-    --download-btn-bg: rgba(255, 255, 255, 0.08);
-    --download-btn-border: rgba(255, 255, 255, 0.22);
-    --download-btn-hover-glow: 0 0 14px rgba(255, 255, 255, 0.15);
-    --download-icon-svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23e5e5e5' stroke-width='2.5'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3' /%3E%3C/svg%3E");
-    --download-icon-svg-on-accent: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%230c0c0c' stroke-width='2.5'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3' /%3E%3C/svg%3E");
-
-    --shadow-groupbanner-primary: 0 4px 18px rgba(0, 0, 0, 0.45);
-    --shadow-groupbanner-primary-hover: 0 8px 26px rgba(0, 0, 0, 0.5);
-    --groupbanner-cta-bg: rgba(245, 245, 245, 0.88);
-    --groupbanner-btn-border: rgba(0, 0, 0, 0.2);
-    --groupbanner-icon-muted: rgba(0, 0, 0, 0.45);
-    --on-accent-fg: #0c0c0c;
-    --banner-secondary-hover-bg: rgba(255, 255, 255, 0.12);
-
-    --ui-negative-soft-bg: rgba(255, 255, 255, 0.06);
-    --ui-negative-soft-border: rgba(255, 255, 255, 0.12);
-    --ui-negative-hover-bg: rgba(255, 255, 255, 0.1);
-    --ui-negative-hover-border: rgba(255, 255, 255, 0.2);
-    --ui-negative-glow-soft: 0 0 12px rgba(255, 255, 255, 0.06);
-    --ui-negative-idle-bg: rgba(255, 255, 255, 0.05);
-    --ui-negative-idle-border: rgba(255, 255, 255, 0.14);
-    --ui-negative-hover-shadow: 0 0 0 3px rgba(255, 255, 255, 0.06), 0 0 20px rgba(0, 0, 0, 0.35);
-    --ui-negative-ring: rgba(255, 255, 255, 0.15);
-    --stat-danger-glow: rgba(200, 200, 200, 0.15);
-    --torrent-inline-bad: #a3a3a3;
-    --torrent-inline-bad-glow: rgba(255, 255, 255, 0.08);
-
-    --album-votes-number-gradient: linear-gradient(180deg, #fafafa 18%, rgba(163, 163, 163, 0.45) 100%);
-    --album-votes-meta-bg: rgba(255, 255, 255, 0.04);
-    --album-votes-meta-border: rgba(255, 255, 255, 0.1);
-    --album-votes-meta-bg-hover: rgba(255, 255, 255, 0.07);
-    --album-votes-meta-border-hover: rgba(255, 255, 255, 0.14);
-
-    --gradient-banner-fade: linear-gradient(180deg, transparent 0%, var(--overlay-90) 100%);
-    --gradient-album-votes: linear-gradient(180deg, var(--overlay-15) 0%, transparent 100%);
-}
-
-#footer {
-    color: var(--text-muted);
-    background: var(--gradient-footer);
-}
-#footer a {
-    color: var(--text-main);
+    --head-bg: linear-gradient(180deg, #262626 0%, #171717 100%);
+    --th-bg: linear-gradient(180deg, #1f1f1f 0%, #141414 100%);
+    --group-bg: rgb(28 28 28 / 0.96);
+    --footer-bg: linear-gradient(180deg, #141414 0%, #0c0c0c 100%);
+    --selection-bg: rgb(255 255 255 / 0.22);
+    --scrollbar-thumb-hover: rgb(255 255 255 / 0.45);
 }

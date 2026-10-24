@@ -1,148 +1,48 @@
 /*
- * BJ Zerfeus — Solarized Dark (Ethan Schoonover)
+ * BJ Zerfeus — Solarized Dark (paleta de Ethan Schoonover)
+ *
+ * Importa o tema base da mesma pasta (URL relativa). Se o @import não carregar (CSS
+ * injetado inline ou publicado noutra pasta), use bj-zerfeus-theme-solarized.full.css.
  */
-@import url('https://matheussousa.com/bj-zerfeus-theme.css');
+@import url('bj-zerfeus-theme.css');
 
 :root {
     --bg-base: #002b36;
-    --bg-panel: rgba(7, 54, 66, 0.96);
-    --bg-card: rgba(0, 43, 54, 0.88);
-    --bg-card-hover: rgba(7, 54, 66, 0.95);
     --bg-solid: #073642;
+    --bg-panel: rgb(7 54 66 / 0.96);
+    --bg-card: rgb(0 43 54 / 0.88);
+    --bg-card-hover: rgb(7 54 66 / 0.95);
 
     --text-muted: #586e75;
     --text-main: #839496;
     --text-bright: #eee8d5;
-    --text-white: #fdf6e3;
+    --text-strong: #fdf6e3;
 
-    --accent-main: #268bd2;
-    --accent-glow: rgba(38, 139, 210, 0.35);
+    --ink: #93a1a1;
+    --scrim: #002b36;
+    --on-scrim: #fdf6e3;
+
+    --accent: #268bd2;
+    --accent-2: #2aa198;
     --accent-hover: #2aa198;
-    --accent-gradient: linear-gradient(135deg, #268bd2 0%, #2aa198 100%);
-    --accent-soft: rgba(38, 139, 210, 0.12);
-    --color-danger: #dc322f;
-    --color-success: #859900;
-    --color-warning: #b58900;
-    --color-info: #268bd2;
+    --on-accent: #fdf6e3;
 
-    --border-color: rgba(131, 148, 150, 0.15);
-    --border-light: rgba(238, 232, 213, 0.12);
-    --border-glow: rgba(38, 139, 210, 0.2);
+    --danger: #dc322f;
+    --success: #859900;
+    --warning: #b58900;
+    --info: #268bd2;
 
-    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.4);
-    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.45);
-    --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.5);
-
-    --scrollbar-track: #002b36;
-    --scrollbar-thumb: rgba(38, 139, 210, 0.35);
-    --scrollbar-thumb-border: rgba(147, 161, 161, 0.2);
-    --scrollbar-face: linear-gradient(180deg, rgba(42, 161, 152, 0.35) 0%, rgba(38, 139, 210, 0.25) 100%);
-    --scrollbar-hover: linear-gradient(180deg, rgba(38, 139, 210, 0.6) 0%, rgba(42, 161, 152, 0.5) 100%);
-    --scrollbar-inset-top: rgba(253, 246, 227, 0.08);
-    --scrollbar-inset-top-strong: rgba(253, 246, 227, 0.12);
-    --scrollbar-border-hover: rgba(42, 161, 152, 0.4);
-
-    --overlay-15: rgba(0, 0, 0, 0.2);
-    --overlay-20: rgba(0, 0, 0, 0.28);
-    --overlay-25: rgba(0, 0, 0, 0.32);
-    --overlay-30: rgba(7, 54, 66, 0.85);
-    --overlay-35: rgba(7, 54, 66, 0.9);
-    --overlay-40: rgba(7, 54, 66, 0.92);
-    --overlay-50: rgba(0, 43, 54, 0.88);
-    --overlay-60: rgba(0, 43, 54, 0.92);
-    --overlay-90: rgba(0, 43, 54, 0.95);
-
-    --shadow-header: 0 4px 20px rgba(0, 0, 0, 0.5);
-    --shadow-submenu: 0 8px 28px rgba(0, 0, 0, 0.55);
-    --shadow-box-default: var(--shadow-md);
-    --shadow-box-hover: var(--shadow-lg);
-
-    --header-bg-solid: var(--bg-base);
-    --header-border-bottom: rgba(147, 161, 161, 0.15);
-
-    --text-selection-bg: rgba(211, 54, 130, 0.35);
-    --text-selection-color: #fdf6e3;
-    --link-glow: rgba(38, 139, 210, 0.25);
-
-    --accent-a-06: rgba(38, 139, 210, 0.08);
-    --accent-a-08: rgba(38, 139, 210, 0.1);
-    --accent-a-10: rgba(38, 139, 210, 0.14);
-    --accent-a-12: rgba(38, 139, 210, 0.16);
-    --accent-a-15: rgba(38, 139, 210, 0.2);
-    --accent-a-20: rgba(38, 139, 210, 0.26);
-    --accent-a-25: rgba(38, 139, 210, 0.32);
-    --accent-a-35: rgba(38, 139, 210, 0.42);
-    --accent-a-40: rgba(38, 139, 210, 0.48);
-    --accent-gradient-hover: linear-gradient(135deg, #2aa198 0%, #268bd2 100%);
-    --accent-hero-gradient: linear-gradient(135deg, rgba(42, 161, 152, 0.92) 0%, rgba(38, 139, 210, 0.92) 100%);
-    --accent-noty-glow: rgba(38, 139, 210, 0.45);
-
-    --gradient-submenu: linear-gradient(180deg, rgba(7, 54, 66, 0.98) 0%, rgba(0, 43, 54, 0.98) 100%);
-    --gradient-footer: linear-gradient(180deg, #073642 0%, #002b36 100%);
-    --footer-top-border: rgba(147, 161, 161, 0.12);
-
-    --panel-head-gradient: linear-gradient(180deg, rgba(7, 54, 66, 0.95) 0%, rgba(0, 43, 54, 0.9) 100%);
-    --table-th-gradient: linear-gradient(180deg, #073642 0%, #002b36 100%);
-    --search-input-fill: rgba(238, 232, 213, 0.06);
-
-    --box-head-fg: var(--text-white);
-    --box-filter-head-bg: rgba(7, 54, 66, 0.92);
-    --filter-input-fg: var(--text-bright);
-    --filter-label-hover-fg: var(--text-white);
-
-    --header-menu-hover-bg: rgba(38, 139, 210, 0.12);
-    --header-menu-hover-color: var(--text-white);
-    --menu-link-hover-fg: #fdf6e3;
-    --submenu-border: rgba(147, 161, 161, 0.12);
-    --submenu-row-line: rgba(147, 161, 161, 0.08);
-    --menu-item-hover-bg: rgba(38, 139, 210, 0.1);
-    --logo-ambient-glow: rgba(38, 139, 210, 0.25);
-
-    --torrent-list-title-color: var(--text-white);
-    --torrent-title-shadow: rgba(0, 0, 0, 0.5);
-
-    --noty-message-color: var(--text-bright);
-    --noty-button-bg: rgba(38, 139, 210, 0.1);
-    --noty-button-border: rgba(42, 161, 152, 0.35);
-    --noty-button-fg: var(--text-bright);
-
-    --alert-strip-link: #2aa198;
-    --submenu-grid-item-hover-bg: rgba(38, 139, 210, 0.12);
-    --submenu-symbol-border: rgba(147, 161, 161, 0.12);
-
-    --torrent-group-header-bg: rgba(7, 54, 66, 0.95);
-    --torrent-group-header-border: rgba(147, 161, 161, 0.12);
-    --table-row-stripe: rgba(255, 255, 255, 0.02);
-    --list-hover-faint: rgba(38, 139, 210, 0.06);
-
-    --download-icon-svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23268bd2' stroke-width='2.5'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3' /%3E%3C/svg%3E");
-
-    --shadow-groupbanner-primary: 0 4px 18px rgba(38, 139, 210, 0.35);
-    --shadow-groupbanner-primary-hover: 0 8px 26px rgba(38, 139, 210, 0.45);
-    --groupbanner-cta-bg: rgba(38, 139, 210, 0.88);
-    --groupbanner-btn-border: rgba(253, 246, 227, 0.2);
-    --groupbanner-icon-muted: rgba(253, 246, 227, 0.65);
-
-    --album-votes-number-gradient: linear-gradient(180deg, #fdf6e3 18%, rgba(238, 232, 213, 0.4) 100%);
-    --album-votes-meta-bg: rgba(238, 232, 213, 0.05);
-    --album-votes-meta-border: rgba(147, 161, 161, 0.15);
-
-    --ui-negative-soft-bg: rgba(220, 50, 47, 0.1);
-    --ui-negative-soft-border: rgba(220, 50, 47, 0.25);
-    --stat-danger-glow: rgba(220, 50, 47, 0.25);
-    --torrent-inline-bad: #dc322f;
-
-    --download-btn-bg: rgba(38, 139, 210, 0.14);
-    --download-btn-border: rgba(42, 161, 152, 0.42);
-    --download-btn-hover-glow: 0 0 14px rgba(38, 139, 210, 0.4);
-    --download-icon-svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23268bd2' stroke-width='2.5'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3' /%3E%3C/svg%3E");
-    --download-icon-svg-on-accent: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23fdf6e3' stroke-width='2.5'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3' /%3E%3C/svg%3E");
-}
-
-#footer {
-    color: var(--text-muted);
-    background: var(--gradient-footer);
-}
-#footer a {
-    color: var(--text-bright);
+    --line: color-mix(in srgb, var(--ink) 15%, transparent);
+    --line-soft: color-mix(in srgb, var(--ink) 9%, transparent);
+    --line-strong: color-mix(in srgb, var(--ink) 22%, transparent);
+    --head-bg: linear-gradient(180deg, rgb(7 54 66 / 0.95) 0%, rgb(0 43 54 / 0.9) 100%);
+    --th-bg: linear-gradient(180deg, #073642 0%, #002b36 100%);
+    --filter-head-bg: rgb(7 54 66 / 0.92);
+    --group-bg: rgb(7 54 66 / 0.95);
+    --footer-bg: linear-gradient(180deg, #073642 0%, #002b36 100%);
+    --footer-link: var(--text-bright);
+    --menu-hover-bg: var(--accent-12);
+    --alert-link: #2aa198;
+    --selection-bg: rgb(211 54 130 / 0.35);
+    --scrollbar-thumb: color-mix(in srgb, var(--accent) 35%, transparent);
 }

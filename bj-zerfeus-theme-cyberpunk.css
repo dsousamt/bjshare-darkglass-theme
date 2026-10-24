@@ -1,236 +1,114 @@
 /*
  * BJ Zerfeus — Cyberpunk 2077 (amarelo #FCEE0A, preto Night City, HUD #00F0FF, alerta #FF003C)
- * Tipografia: Rajdhani. Cantos chanfrados, scanlines, glow e micro-glitch em hovers.
+ * Tipografia: Rajdhani. Cantos chanfrados, scanlines, glow e micro-glitch nos hovers.
+ *
+ * Importa o tema base da mesma pasta (URL relativa). Se o @import não carregar (CSS
+ * injetado inline ou publicado noutra pasta), use bj-zerfeus-theme-cyberpunk.full.css.
  */
 @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&display=swap');
-@import url('https://matheussousa.com/bj-zerfeus-theme.css');
+@import url('bj-zerfeus-theme.css');
 
 :root {
-    /* CP2077 core */
-    --cp-yellow: #FCEE0A;
-    --cp-black: #000000;
-    --cp-surface: #05070A;
-    --cp-hud: #00F0FF;
-    --cp-glitch-red: #FF003C;
+    --cp-yellow: #fcee0a;
+    --cp-hud: #00f0ff;
+    --cp-red: #ff003c;
+    --cp-chamfer: 12px; /* cantos chanfrados (clip-path) dos painéis */
 
     --font-main: 'Rajdhani', 'Segoe UI', system-ui, sans-serif;
-
     --radius-sm: 0;
     --radius-md: 0;
     --radius-lg: 0;
     --radius-pill: 0;
+    --line-w: 2px;
 
-    --bg-base: var(--cp-surface);
-    --bg-panel: rgba(5, 7, 10, 0.92);
-    --bg-card: rgba(0, 0, 0, 0.78);
-    --bg-card-hover: rgba(0, 0, 0, 0.88);
-    --bg-solid: var(--cp-black);
+    --bg-base: #05070a;
+    --bg-solid: #000000;
+    --bg-panel: rgb(5 7 10 / 0.92);
+    --bg-card: rgb(0 0 0 / 0.78);
+    --bg-card-hover: rgb(0 0 0 / 0.88);
+    --header-bg: #000000;
 
-    --text-muted: rgba(0, 240, 255, 0.55);
-    --text-main: rgba(252, 238, 10, 0.82);
+    --text-muted: rgb(0 240 255 / 0.55);
+    --text-main: rgb(252 238 10 / 0.82);
     --text-bright: var(--cp-yellow);
-    --text-white: #ffffff;
+    --text-strong: #ffffff;
 
-    --accent-main: var(--cp-yellow);
-    --accent-glow: rgba(252, 238, 10, 0.45);
+    --accent: var(--cp-yellow);
+    --accent-2: #d4cb08;
     --accent-hover: var(--cp-hud);
-    --accent-gradient: linear-gradient(135deg, var(--cp-yellow) 0%, #d4cb08 100%);
-    --accent-soft: rgba(252, 238, 10, 0.12);
-    --color-danger: var(--cp-glitch-red);
-    --color-success: #00ff9d;
-    --color-warning: var(--cp-yellow);
-    --color-info: var(--cp-hud);
+    --on-accent: #000000;
 
-    --border-color: rgba(0, 240, 255, 0.22);
-    --border-light: rgba(252, 238, 10, 0.35);
-    --border-glow: rgba(252, 238, 10, 0.25);
+    --danger: var(--cp-red);
+    --success: #00ff9d;
+    --warning: var(--cp-yellow);
+    --info: var(--cp-hud);
 
-    --shadow-sm: 0 0 12px rgba(0, 240, 255, 0.08), 0 2px 8px rgba(0, 0, 0, 0.6);
-    --shadow-md: 0 0 20px rgba(252, 238, 10, 0.12), 0 4px 16px rgba(0, 0, 0, 0.65);
-    --shadow-lg: 0 0 32px rgba(0, 240, 255, 0.15), 0 8px 28px rgba(0, 0, 0, 0.7);
-    --shadow-glow: 0 0 24px rgba(252, 238, 10, 0.35), 0 0 40px rgba(0, 240, 255, 0.12);
+    --line: rgb(0 240 255 / 0.22);
+    --line-soft: rgb(252 238 10 / 0.08);
+    --line-strong: rgb(252 238 10 / 0.35);
+    --panel-border: rgb(0 240 255 / 0.35);
+    --panel-border-hover: rgb(252 238 10 / 0.55);
+    --panel-border-strong: rgb(0 240 255 / 0.4);
 
-    --scrollbar-track: var(--cp-black);
-    --scrollbar-thumb: rgba(252, 238, 10, 0.35);
-    --scrollbar-thumb-border: rgba(0, 240, 255, 0.25);
-    --scrollbar-face: linear-gradient(180deg, rgba(252, 238, 10, 0.4) 0%, rgba(0, 240, 255, 0.2) 100%);
-    --scrollbar-hover: linear-gradient(180deg, rgba(0, 240, 255, 0.5) 0%, rgba(252, 238, 10, 0.35) 100%);
-    --scrollbar-inset-top: rgba(255, 255, 255, 0.1);
-    --scrollbar-inset-top-strong: rgba(255, 255, 255, 0.16);
-    --scrollbar-border-hover: var(--cp-hud);
+    /* Sombras com brilho HUD */
+    --shadow-sm: 0 0 12px rgb(0 240 255 / 0.08), 0 2px 8px rgb(0 0 0 / 0.6);
+    --shadow-md: 0 0 20px rgb(252 238 10 / 0.12), 0 4px 16px rgb(0 0 0 / 0.65);
+    --shadow-lg: 0 0 32px rgb(0 240 255 / 0.15), 0 8px 28px rgb(0 0 0 / 0.7);
+    --shadow-xl: var(--shadow-lg);
+    --shadow-header: 0 0 24px rgb(252 238 10 / 0.15), 0 4px 20px rgb(0 0 0 / 0.75);
+    --shadow-menu: 0 0 28px rgb(0 240 255 / 0.18), 0 8px 24px rgb(0 0 0 / 0.75);
+    --shadow-glow: 0 0 24px rgb(252 238 10 / 0.35), 0 0 40px rgb(0 240 255 / 0.12);
+    --link-glow: rgb(0 240 255 / 0.65);
 
-    --overlay-15: rgba(0, 0, 0, 0.35);
-    --overlay-20: rgba(0, 0, 0, 0.45);
-    --overlay-25: rgba(0, 0, 0, 0.5);
-    --overlay-30: rgba(0, 0, 0, 0.55);
-    --overlay-35: rgba(0, 0, 0, 0.6);
-    --overlay-40: rgba(0, 0, 0, 0.65);
-    --overlay-50: rgba(0, 0, 0, 0.72);
-    --overlay-60: rgba(0, 0, 0, 0.78);
-    --overlay-90: rgba(0, 0, 0, 0.88);
-
-    --shadow-header: 0 0 24px rgba(252, 238, 10, 0.15), 0 4px 20px rgba(0, 0, 0, 0.75);
-    --shadow-submenu: 0 0 28px rgba(0, 240, 255, 0.18), 0 8px 24px rgba(0, 0, 0, 0.75);
-    --shadow-scroll-lift: 0 0 10px rgba(0, 240, 255, 0.12);
-    --shadow-box-default: var(--shadow-md);
-    --shadow-box-hover: var(--shadow-lg);
-
-    --header-bg-solid: var(--cp-black);
-    --header-border-bottom: var(--cp-hud);
-
-    --body-spot-accent: rgba(252, 238, 10, 0.04);
-    --body-spot-info: rgba(0, 240, 255, 0.03);
-
-    --text-selection-bg: rgba(0, 240, 255, 0.4);
-    --text-selection-color: var(--cp-black);
-    --link-glow: rgba(0, 240, 255, 0.35);
-
-    --accent-a-06: rgba(252, 238, 10, 0.08);
-    --accent-a-08: rgba(252, 238, 10, 0.1);
-    --accent-a-10: rgba(252, 238, 10, 0.14);
-    --accent-a-12: rgba(252, 238, 10, 0.16);
-    --accent-a-15: rgba(252, 238, 10, 0.2);
-    --accent-a-20: rgba(252, 238, 10, 0.26);
-    --accent-a-25: rgba(252, 238, 10, 0.32);
-    --accent-a-35: rgba(252, 238, 10, 0.42);
-    --accent-a-40: rgba(252, 238, 10, 0.48);
-    --accent-gradient-hover: linear-gradient(135deg, #fffef0 0%, var(--cp-yellow) 100%);
-    --accent-hero-gradient: linear-gradient(135deg, rgba(252, 238, 10, 0.95) 0%, rgba(212, 203, 8, 0.95) 100%);
-    --accent-noty-glow: rgba(0, 240, 255, 0.4);
-
-    --gradient-submenu: linear-gradient(180deg, rgba(5, 7, 10, 0.98) 0%, rgba(0, 0, 0, 0.98) 100%);
-    --gradient-footer: linear-gradient(180deg, #05070a 0%, #000000 100%);
-    --footer-top-border: 2px solid rgba(252, 238, 10, 0.35);
-
-    --panel-head-gradient: linear-gradient(90deg, rgba(0, 0, 0, 0.95) 0%, rgba(5, 10, 14, 0.98) 50%, rgba(0, 0, 0, 0.95) 100%);
-    --table-th-gradient: linear-gradient(180deg, #0a0e12 0%, #05070a 100%);
-    --search-input-fill: rgba(0, 0, 0, 0.55);
-
-    --box-head-fg: var(--cp-yellow);
-    --box-filter-head-bg: rgba(0, 0, 0, 0.85);
-    --filter-input-fg: var(--cp-yellow);
-    --filter-label-hover-fg: var(--cp-hud);
-
-    --box-outline: rgba(0, 240, 255, 0.35);
-    --box-outline-hover: rgba(252, 238, 10, 0.55);
-    --details-outline: rgba(0, 240, 255, 0.4);
-
-    --header-menu-hover-bg: var(--cp-yellow);
-    --header-menu-hover-color: var(--cp-black);
-    --menu-link-hover-fg: var(--cp-black);
-    --submenu-border: 2px solid var(--cp-hud);
-    --submenu-row-line: rgba(0, 240, 255, 0.12);
-    --menu-item-hover-bg: rgba(0, 240, 255, 0.12);
-    --submenu-grid-item-hover-bg: rgba(252, 238, 10, 0.1);
-    --submenu-symbol-border: rgba(252, 238, 10, 0.25);
-    --logo-ambient-glow: rgba(252, 238, 10, 0.4);
-
-    --header-search-text: var(--cp-yellow);
-    --header-search-placeholder: rgba(0, 240, 255, 0.45);
-    --header-link-fg: var(--cp-yellow);
-    --header-link-hover-fg: var(--cp-hud);
-    --alert-strip-link: var(--cp-hud);
-
-    --userinfo-stat-bg: rgba(0, 0, 0, 0.55);
-    --userinfo-stat-bg-hover: rgba(252, 238, 10, 0.12);
-    --userinfo-stat-border-hover: var(--cp-hud);
-    --userinfo-stat-label: var(--text-muted);
-
-    --torrent-list-title-color: var(--cp-yellow);
-    --torrent-title-shadow: rgba(0, 240, 255, 0.35);
-
-    --noty-message-color: var(--cp-yellow);
-    --noty-button-bg: rgba(0, 0, 0, 0.65);
-    --noty-button-border: 2px solid var(--cp-hud);
-    --noty-button-fg: var(--cp-hud);
-
-    --btn-pill-bg: rgba(0, 0, 0, 0.6);
-    --btn-pill-fg: var(--cp-yellow);
-    --btn-pill-border: 2px solid var(--cp-yellow);
-    --btn-pill-hover-bg: var(--cp-yellow);
-    --btn-pill-hover-border: var(--cp-yellow);
-    --btn-disabled-bg: rgba(0, 0, 0, 0.45);
-    --btn-disabled-fg: rgba(252, 238, 10, 0.35);
-    --btn-disabled-border: rgba(255, 0, 60, 0.35);
-    --btn-disabled-opacity: 0.75;
-
-    --torrent-group-header-bg: rgba(0, 0, 0, 0.88);
-    --torrent-group-header-border: 2px solid rgba(0, 240, 255, 0.25);
-    --torrent-edition-row-bg: rgba(0, 240, 255, 0.04);
-    --torrent-group-title-bg: rgba(252, 238, 10, 0.08);
-    --torrent-group-title-bg-hover: rgba(0, 240, 255, 0.1);
-    --table-row-stripe: rgba(0, 240, 255, 0.03);
-    --table-cell-divider: rgba(252, 238, 10, 0.08);
-    --list-hover-faint: rgba(252, 238, 10, 0.06);
-
-    --download-btn-bg: rgba(252, 238, 10, 0.14);
-    --download-btn-border: 2px solid var(--cp-yellow);
-    --download-btn-hover-glow: 0 0 20px rgba(252, 238, 10, 0.55), 0 0 28px rgba(0, 240, 255, 0.25);
-    --download-icon-svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23FCEE0A' stroke-width='2.5'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3' /%3E%3C/svg%3E");
-    --download-icon-svg-on-accent: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23000000' stroke-width='2.5'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3' /%3E%3C/svg%3E");
-
-    --shadow-groupbanner-primary: 0 0 28px rgba(252, 238, 10, 0.3);
-    --shadow-groupbanner-primary-hover: 0 0 40px rgba(0, 240, 255, 0.25);
-    --groupbanner-cta-bg: var(--cp-yellow);
-    --groupbanner-btn-border: 2px solid var(--cp-black);
-    --groupbanner-icon-muted: rgba(0, 0, 0, 0.55);
-    --on-accent-fg: var(--cp-black);
-    --banner-secondary-hover-bg: rgba(0, 240, 255, 0.25);
-
-    --ui-negative-soft-bg: rgba(255, 0, 60, 0.12);
-    --ui-negative-soft-border: rgba(255, 0, 60, 0.4);
-    --ui-negative-hover-bg: rgba(255, 0, 60, 0.2);
-    --ui-negative-hover-border: var(--cp-glitch-red);
-    --ui-negative-glow-soft: 0 0 18px rgba(255, 0, 60, 0.25);
-    --ui-negative-idle-bg: rgba(255, 0, 60, 0.1);
-    --ui-negative-idle-border: rgba(255, 0, 60, 0.45);
-    --ui-negative-hover-shadow: 0 0 0 2px rgba(255, 0, 60, 0.3), 0 0 24px rgba(255, 0, 60, 0.35);
-    --ui-negative-ring: rgba(255, 0, 60, 0.45);
-    --stat-danger-glow: rgba(255, 0, 60, 0.4);
-    --torrent-inline-bad: var(--cp-glitch-red);
-    --torrent-inline-bad-glow: rgba(255, 0, 60, 0.45);
-
-    --album-votes-number-gradient: linear-gradient(180deg, var(--cp-yellow) 10%, var(--cp-hud) 100%);
-    --album-votes-meta-bg: rgba(0, 0, 0, 0.5);
-    --album-votes-meta-border: rgba(0, 240, 255, 0.3);
-    --album-votes-meta-bg-hover: rgba(252, 238, 10, 0.08);
-    --album-votes-meta-border-hover: rgba(252, 238, 10, 0.45);
-
-    --gradient-banner-fade: linear-gradient(180deg, transparent 0%, var(--overlay-90) 100%);
-    --gradient-album-votes: linear-gradient(180deg, var(--overlay-15) 0%, transparent 100%);
-
-    --ft-submit-shadow-hover: 0 0 28px rgba(252, 238, 10, 0.45);
-
-    /* Cantos chanfrados (clip-path) — valor unico para paineis */
-    --cp-chamfer: 12px;
+    --header-line: var(--cp-hud);
+    --header-link: var(--cp-yellow);
+    --header-link-hover: var(--cp-hud);
+    --menu-hover-bg: var(--accent);
+    --menu-hover-fg: var(--on-accent);
+    --submenu-hover-bg: var(--accent);
+    --submenu-hover-fg: var(--on-accent);
+    --head-bg: linear-gradient(90deg, rgb(0 0 0 / 0.95) 0%, rgb(5 10 14 / 0.98) 50%, rgb(0 0 0 / 0.95) 100%);
+    --head-fg: var(--cp-yellow);
+    --th-bg: linear-gradient(180deg, #0a0e12 0%, #05070a 100%);
+    --filter-head-bg: rgb(0 0 0 / 0.85);
+    --group-bg: rgb(0 0 0 / 0.88);
+    --title-fg: var(--cp-yellow);
+    --title-shadow: rgb(0 240 255 / 0.35);
+    --btn-bg: rgb(0 0 0 / 0.6);
+    --btn-fg: var(--cp-yellow);
+    --btn-border: var(--cp-yellow);
+    --btn-hover-bg: var(--cp-yellow);
+    --btn-hover-fg: #000000;
+    --btn-hover-border: var(--cp-yellow);
+    --footer-bg: linear-gradient(180deg, #05070a 0%, #000000 100%);
+    --footer-line: rgb(0 240 255 / 0.3);
+    --footer-link: var(--cp-hud);
+    --alert-link: var(--cp-hud);
+    --selection-bg: rgb(0 240 255 / 0.4);
+    --selection-fg: #000000;
+    --body-glow-1: rgb(252 238 10 / 0.04);
+    --body-glow-2: rgb(0 240 255 / 0.03);
+    --scrollbar-track: #000000;
+    --scrollbar-thumb: rgb(252 238 10 / 0.35);
+    --scrollbar-thumb-hover: rgb(0 240 255 / 0.5);
 }
 
 /* Scanlines HUD — z-index abaixo do header (999999) para não cobrir o submenu */
 body::after {
     content: '';
     position: fixed;
-    left: 0;
-    top: 0;
-    right: 0;
-    bottom: 0;
+    inset: 0;
     pointer-events: none;
     z-index: 100;
-    background: repeating-linear-gradient(
-        to bottom,
-        transparent 0,
-        transparent 2px,
-        rgba(0, 0, 0, 0.05) 2px,
-        rgba(0, 0, 0, 0.05) 3px
-    );
+    background: repeating-linear-gradient(to bottom, transparent 0, transparent 2px, rgb(0 0 0 / 0.05) 2px, rgb(0 0 0 / 0.05) 3px);
 }
 
-/* Painéis: sem border-radius + chanfro + glow */
+/* Painéis: chanfro + contorno HUD */
 .box,
 .torrent_details,
 .news_post,
 table.forum_post,
 .box.filter_torrents {
-    border-radius: 0 !important;
     clip-path: polygon(
         var(--cp-chamfer) 0,
         calc(100% - var(--cp-chamfer)) 0,
@@ -241,40 +119,20 @@ table.forum_post,
         0 calc(100% - var(--cp-chamfer)),
         0 var(--cp-chamfer)
     );
-    box-shadow:
-        0 0 0 1px rgba(0, 240, 255, 0.25),
-        0 0 20px rgba(252, 238, 10, 0.06),
-        var(--shadow-box-default) !important;
+    box-shadow: 0 0 0 1px rgb(0 240 255 / 0.25), 0 0 20px rgb(252 238 10 / 0.06), var(--shadow-md) !important;
 }
-
 .box .head,
 .head2,
 .colhead,
 .colhead_dark,
 .headTitulos {
-    border-radius: 0 !important;
-    text-shadow: 0 0 12px rgba(252, 238, 10, 0.35);
-    box-shadow: inset 0 -2px 0 rgba(0, 240, 255, 0.35);
+    text-shadow: 0 0 12px rgb(252 238 10 / 0.35);
+    box-shadow: inset 0 -2px 0 rgb(0 240 255 / 0.35);
 }
 
-/* Header + cadeia do menu: overflow visível (tracker / flex pode esconder dropdowns) */
+/* Header e cadeia do menu: overflow visível para o chanfro não recortar dropdowns */
 html body #wrapper,
-#wrapper {
-    overflow: visible !important;
-}
-
-html body #wrapper #header,
-html body #header,
-#header {
-    border-radius: 0 !important;
-    overflow: visible !important;
-    clip-path: none !important;
-    box-shadow:
-        0 0 0 1px rgba(252, 238, 10, 0.2),
-        0 4px 24px rgba(0, 0, 0, 0.75) !important;
-    border-bottom: 2px solid var(--cp-hud) !important;
-}
-
+#wrapper,
 #menu,
 #centertopmenu,
 #menudrop,
@@ -282,88 +140,58 @@ html body #header,
 #menudrop > ul > li {
     overflow: visible !important;
 }
-
-/* Se o header tiver classe .box, o bloco chanfrado não pode recortar o menu */
-#header.box {
+html body #wrapper #header,
+html body #header,
+#header {
+    overflow: visible !important;
     clip-path: none !important;
+    box-shadow: 0 0 0 1px rgb(252 238 10 / 0.2), 0 4px 24px rgb(0 0 0 / 0.75) !important;
+    border-bottom: 2px solid var(--cp-hud) !important;
 }
-
 #menudrop ul ul,
 #menudrop ul ul ul {
     z-index: 10000000 !important;
 }
 
-/* Links: glow ciano no hover */
-a:hover,
-a:focus {
-    text-shadow: 0 0 12px rgba(0, 240, 255, 0.65);
-}
-
-/* Botões principais: bloco amarelo + texto preto */
+/* Botões principais: bloco amarelo + texto preto, hover ciano */
 input[type="submit"],
-button[type="submit"] {
+button[type="submit"],
+.box.filter_torrents .ft_submit input[value="Filtrar"] {
     background: var(--cp-yellow) !important;
-    color: var(--cp-black) !important;
+    color: #000000 !important;
     border: 2px solid var(--cp-yellow) !important;
-    border-radius: 0 !important;
     font-family: var(--font-main) !important;
     font-weight: 700 !important;
     text-transform: uppercase;
     letter-spacing: 0.08em;
-    box-shadow: 0 0 16px rgba(252, 238, 10, 0.35) !important;
+    box-shadow: 0 0 16px rgb(252 238 10 / 0.35) !important;
 }
-
 input[type="submit"]:hover,
-button[type="submit"]:hover {
-    background: var(--cp-hud) !important;
-    color: var(--cp-black) !important;
-    border-color: var(--cp-hud) !important;
-    box-shadow: 0 0 24px rgba(0, 240, 255, 0.45) !important;
-}
-
-.box.filter_torrents .ft_submit input[value="Filtrar"] {
-    background: var(--cp-yellow) !important;
-    color: var(--cp-black) !important;
-    border: 2px solid var(--cp-black) !important;
-    border-radius: 0 !important;
-    font-weight: 700 !important;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-}
-
+button[type="submit"]:hover,
 .box.filter_torrents .ft_submit input[value="Filtrar"]:hover {
     background: var(--cp-hud) !important;
     border-color: var(--cp-hud) !important;
+    box-shadow: 0 0 24px rgb(0 240 255 / 0.45) !important;
 }
 
-/* Micro-glitch em hovers de botão nativo */
+/* Micro-glitch nos hovers de botão */
 @keyframes cp-glitch-flicker {
     0%, 100% { transform: translate(0, 0); filter: none; opacity: 1; }
     25% { transform: translate(-1px, 0); filter: hue-rotate(3deg); }
     50% { transform: translate(1px, 1px); }
     75% { transform: translate(0, -1px); }
 }
-
 .box .center button[type="button"]:not(:disabled):hover,
 .box .pad button[type="button"]:not(:disabled):hover,
-.box .post_return button[type="button"]:not(:disabled):hover {
+.box .post_return button[type="button"]:not(:disabled):hover,
+.noty_buttons a.brackets:hover {
     animation: cp-glitch-flicker 0.28s ease-in-out 1;
 }
 
-.noty_buttons a.brackets:hover {
-    animation: cp-glitch-flicker 0.25s ease-in-out 1;
-}
-
 #footer {
-    color: var(--text-muted);
-    background: var(--gradient-footer);
-    border-top: 2px solid rgba(0, 240, 255, 0.3);
-    text-shadow: 0 0 8px rgba(0, 240, 255, 0.2);
-}
-#footer a {
-    color: var(--cp-hud);
+    text-shadow: 0 0 8px rgb(0 240 255 / 0.2);
 }
 #footer a:hover {
     color: var(--cp-yellow);
-    text-shadow: 0 0 14px rgba(252, 238, 10, 0.5);
+    text-shadow: 0 0 14px rgb(252 238 10 / 0.5);
 }

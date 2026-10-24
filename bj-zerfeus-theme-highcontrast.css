@@ -1,159 +1,76 @@
 /*
- * BJ Zerfeus — Alto contraste (fundo preto, texto claro, acentos vivos)
+ * BJ Zerfeus — Alto Contraste (preto puro, bordas brancas, acento amarelo)
+ *
+ * Importa o tema base da mesma pasta (URL relativa). Se o @import não carregar (CSS
+ * injetado inline ou publicado noutra pasta), use bj-zerfeus-theme-highcontrast.full.css.
  */
-@import url('https://matheussousa.com/bj-zerfeus-theme.css');
+@import url('bj-zerfeus-theme.css');
 
 :root {
+    --radius-sm: 2px;
+    --radius-md: 2px;
+    --radius-lg: 2px;
+    --glass-blur: none;
+
     --bg-base: #000000;
+    --bg-solid: #000000;
     --bg-panel: #000000;
     --bg-card: #0a0a0a;
     --bg-card-hover: #141414;
-    --bg-solid: #000000;
-
-    --glass-blur: none;
+    --header-bg: #000000;
 
     --text-muted: #cccccc;
     --text-main: #ffffff;
     --text-bright: #ffffff;
-    --text-white: #ffffff;
+    --text-strong: #ffffff;
 
-    --accent-main: #ffff00;
-    --accent-glow: rgba(255, 255, 0, 0.45);
+    /* Fundo preto: rebaixos clareiam em vez de escurecer */
+    --recess: rgb(255 255 255 / 0.4);
+
+    --accent: #ffff00;
+    --accent-2: #ffcc00;
     --accent-hover: #ffff99;
-    --accent-gradient: linear-gradient(135deg, #ffff00 0%, #ffcc00 100%);
-    --accent-soft: rgba(255, 255, 0, 0.15);
-    --color-danger: #ff6666;
-    --color-success: #66ff66;
-    --color-warning: #ffaa00;
-    --color-info: #66ccff;
+    --on-accent: #000000;
 
-    --border-color: #ffffff;
-    --border-light: #ffffff;
-    --border-glow: rgba(255, 255, 0, 0.3);
+    --danger: #ff6666;
+    --success: #66ff66;
+    --warning: #ffaa00;
+    --info: #66ccff;
+
+    --line: #ffffff;
+    --line-soft: rgb(255 255 255 / 0.5);
+    --line-strong: #ffffff;
+    --panel-border: #ffffff;
+    --panel-border-hover: #ffff00;
+    --panel-border-strong: #ffff00;
+    --btn-border: #ffffff;
 
     --shadow-sm: 0 0 0 1px #ffffff;
     --shadow-md: 0 0 0 2px #ffffff;
-    --shadow-lg: 0 0 0 2px #ffffff, 0 4px 20px rgba(255, 255, 0, 0.15);
-    --shadow-glow: 0 0 24px rgba(255, 255, 0, 0.35);
-
-    --scrollbar-track: #000000;
-    --scrollbar-thumb: #ffff00;
-    --scrollbar-thumb-border: #ffffff;
-    --scrollbar-face: linear-gradient(180deg, #ffff00 0%, #cccc00 100%);
-    --scrollbar-hover: linear-gradient(180deg, #ffff99 0%, #ffff00 100%);
-    --scrollbar-inset-top: rgba(255, 255, 255, 0.3);
-    --scrollbar-inset-top-strong: rgba(255, 255, 255, 0.5);
-    --scrollbar-border-hover: #ffffff;
-
-    --overlay-15: rgba(255, 255, 255, 0.12);
-    --overlay-20: rgba(255, 255, 255, 0.18);
-    --overlay-25: rgba(255, 255, 255, 0.22);
-    --overlay-30: rgba(255, 255, 255, 0.08);
-    --overlay-35: rgba(255, 255, 255, 0.1);
-    --overlay-40: rgba(255, 255, 255, 0.12);
-    --overlay-50: rgba(255, 255, 255, 0.14);
-    --overlay-60: rgba(255, 255, 255, 0.18);
-    --overlay-90: rgba(0, 0, 0, 0.95);
-
+    --shadow-lg: 0 0 0 2px #ffffff, 0 4px 20px rgb(255 255 0 / 0.15);
+    --shadow-xl: var(--shadow-lg);
     --shadow-header: 0 0 0 2px #ffffff;
-    --shadow-submenu: 0 0 0 2px #ffff00;
-    --shadow-scroll-lift: none;
-    --shadow-box-default: var(--shadow-md);
-    --shadow-box-hover: var(--shadow-lg);
+    --shadow-menu: 0 0 0 2px #ffff00;
 
-    --header-bg-solid: #000000;
-    --header-border-bottom: #ffff00;
-
-    --body-spot-accent: rgba(255, 255, 0, 0.08);
-    --body-spot-info: rgba(102, 204, 255, 0.06);
-
-    --text-selection-bg: #ffff00;
-    --text-selection-color: #000000;
-    --link-glow: rgba(255, 255, 0, 0.4);
-
-    --accent-a-06: rgba(255, 255, 0, 0.12);
-    --accent-a-08: rgba(255, 255, 0, 0.16);
-    --accent-a-10: rgba(255, 255, 0, 0.2);
-    --accent-a-12: rgba(255, 255, 0, 0.24);
-    --accent-a-15: rgba(255, 255, 0, 0.28);
-    --accent-a-20: rgba(255, 255, 0, 0.32);
-    --accent-a-25: rgba(255, 255, 0, 0.38);
-    --accent-a-35: rgba(255, 255, 0, 0.48);
-    --accent-a-40: rgba(255, 255, 0, 0.55);
-    --accent-gradient-hover: linear-gradient(135deg, #ffff99 0%, #ffff00 100%);
-    --accent-hero-gradient: linear-gradient(135deg, rgba(255, 255, 0, 0.95) 0%, rgba(255, 204, 0, 0.95) 100%);
-    --accent-noty-glow: rgba(255, 255, 0, 0.6);
-
-    --gradient-submenu: linear-gradient(180deg, #0a0a0a 0%, #000000 100%);
-    --gradient-footer: linear-gradient(180deg, #000000 0%, #050505 100%);
-    --footer-top-border: #ffff00;
-
-    --panel-head-gradient: linear-gradient(180deg, #1a1a00 0%, #000000 100%);
-    --table-th-gradient: linear-gradient(180deg, #0d0d0d 0%, #000000 100%);
-    --search-input-fill: rgba(255, 255, 0, 0.08);
-
-    --box-head-fg: #ffff00;
-    --box-filter-head-bg: #000000;
-    --filter-input-fg: #ffffff;
-    --filter-label-hover-fg: #ffff00;
-
-    --box-outline: #ffffff;
-    --box-outline-hover: #ffff00;
-    --details-outline: #ffff00;
-
-    --header-menu-hover-color: #000000;
-    --menu-link-hover-fg: #000000;
-    --header-menu-hover-bg: #ffff00;
-    --submenu-border: #ffff00;
-    --submenu-row-line: rgba(255, 255, 0, 0.35);
-    --menu-item-hover-bg: rgba(255, 255, 0, 0.2);
-    --submenu-grid-item-hover-bg: rgba(255, 255, 0, 0.25);
-    --submenu-symbol-border: rgba(255, 255, 0, 0.4);
-    --logo-ambient-glow: rgba(255, 255, 0, 0.5);
-
-    --header-search-text: #ffffff;
-    --header-search-placeholder: #cccccc;
-    --header-link-fg: #ffffff;
-    --header-link-hover-fg: #ffff00;
-
-    --torrent-list-title-color: #ffffff;
-    --torrent-title-shadow: rgba(255, 255, 0, 0.25);
-
-    --noty-message-color: #ffffff;
-    --noty-button-bg: rgba(255, 255, 0, 0.12);
-    --noty-button-border: #ffff00;
-    --noty-button-fg: #ffff00;
-
-    --alert-strip-link: #ffff00;
-    --on-accent-fg: #000000;
-    --userinfo-stat-label: #ffffff;
-
-    --torrent-group-header-bg: #000000;
-    --torrent-group-header-border: #ffff00;
-    --table-row-stripe: rgba(255, 255, 0, 0.06);
-    --list-hover-faint: rgba(255, 255, 0, 0.1);
-
-    --download-btn-bg: rgba(255, 255, 0, 0.14);
-    --download-btn-border: #ffff00;
-    --download-btn-hover-glow: 0 0 14px rgba(255, 255, 0, 0.55);
-    --download-icon-svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23ffff00' stroke-width='2.5'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3' /%3E%3C/svg%3E");
-    --download-icon-svg-on-accent: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23000000' stroke-width='2.5'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3' /%3E%3C/svg%3E");
-
-    --ui-negative-soft-bg: rgba(255, 102, 102, 0.15);
-    --ui-negative-soft-border: #ff6666;
-    --stat-danger-glow: rgba(255, 102, 102, 0.4);
-    --torrent-inline-bad: #ff6666;
-
-    --radius-sm: 2px;
-    --radius-md: 2px;
-    --radius-lg: 2px;
-}
-
-#footer {
-    color: var(--text-muted);
-    background: var(--gradient-footer);
-    border-top-color: #ffff00;
-}
-#footer a {
-    color: #ffff00;
+    --header-line: #ffff00;
+    --header-link: #ffffff;
+    --header-link-hover: #ffff00;
+    --menu-hover-bg: var(--accent);
+    --menu-hover-fg: var(--on-accent);
+    --submenu-hover-bg: var(--accent);
+    --submenu-hover-fg: var(--on-accent);
+    --head-bg: linear-gradient(180deg, #1a1a00 0%, #000000 100%);
+    --head-fg: #ffff00;
+    --th-bg: linear-gradient(180deg, #0d0d0d 0%, #000000 100%);
+    --filter-head-bg: #000000;
+    --group-bg: #000000;
+    --footer-bg: #000000;
+    --footer-line: #ffff00;
+    --footer-link: #ffff00;
+    --alert-link: #ffff00;
+    --selection-bg: #ffff00;
+    --selection-fg: #000000;
+    --link-glow: rgb(255 255 0 / 0.4);
+    --scrollbar-thumb: #ffff00;
+    --scrollbar-thumb-hover: #ffff99;
 }

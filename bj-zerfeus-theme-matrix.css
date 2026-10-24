@@ -1,149 +1,69 @@
 /*
- * BJ Zerfeus — Matrix (terminal verde, monospace)
+ * BJ Zerfeus — Matrix (verde fósforo sobre preto, fonte monoespaçada)
+ *
+ * Importa o tema base da mesma pasta (URL relativa). Se o @import não carregar (CSS
+ * injetado inline ou publicado noutra pasta), use bj-zerfeus-theme-matrix.full.css.
  */
-@import url('https://matheussousa.com/bj-zerfeus-theme.css');
+@import url('bj-zerfeus-theme.css');
 
 :root {
     --font-main: ui-monospace, 'Cascadia Code', 'Consolas', 'Courier New', monospace;
+    --radius-sm: 2px;
+    --radius-md: 4px;
+    --radius-lg: 4px;
 
     --bg-base: #020805;
-    --bg-panel: rgba(3, 15, 8, 0.96);
-    --bg-card: rgba(0, 20, 8, 0.85);
-    --bg-card-hover: rgba(0, 35, 12, 0.92);
     --bg-solid: #010a04;
+    --bg-panel: rgb(3 15 8 / 0.96);
+    --bg-card: rgb(0 20 8 / 0.85);
+    --bg-card-hover: rgb(0 35 12 / 0.92);
 
     --text-muted: #008f11;
     --text-main: #00b41e;
     --text-bright: #00ff41;
-    --text-white: #c8ffc8;
+    --text-strong: #c8ffc8;
 
-    --accent-main: #00ff41;
-    --accent-glow: rgba(0, 255, 65, 0.35);
+    --ink: #00ff41;
+
+    --accent: #00ff41;
+    --accent-2: #00cc33;
     --accent-hover: #39ff14;
-    --accent-gradient: linear-gradient(135deg, #00ff41 0%, #00cc33 100%);
-    --accent-soft: rgba(0, 255, 65, 0.1);
-    --color-danger: #ff3333;
-    --color-success: #00ff41;
-    --color-warning: #ccff00;
-    --color-info: #00ffcc;
+    --on-accent: #001800;
 
-    --border-color: rgba(0, 255, 65, 0.18);
-    --border-light: rgba(0, 255, 65, 0.28);
-    --border-glow: rgba(0, 255, 65, 0.25);
+    --danger: #ff3333;
+    --success: #00ff41;
+    --warning: #ccff00;
+    --info: #00ffcc;
 
-    --shadow-sm: 0 0 8px rgba(0, 255, 65, 0.12);
-    --shadow-md: 0 0 16px rgba(0, 255, 65, 0.15), 0 4px 20px rgba(0, 0, 0, 0.6);
-    --shadow-lg: 0 0 28px rgba(0, 255, 65, 0.18), 0 8px 32px rgba(0, 0, 0, 0.7);
+    --line: color-mix(in srgb, var(--ink) 18%, transparent);
+    --line-soft: color-mix(in srgb, var(--ink) 10%, transparent);
+    --line-strong: color-mix(in srgb, var(--ink) 28%, transparent);
+    --panel-border: var(--line);
+    --panel-border-hover: var(--line-strong);
+    --panel-border-strong: var(--line-strong);
 
-    --scrollbar-track: #020805;
-    --scrollbar-thumb: rgba(0, 255, 65, 0.25);
-    --scrollbar-thumb-border: rgba(0, 255, 65, 0.2);
-    --scrollbar-face: linear-gradient(180deg, rgba(0, 255, 65, 0.35) 0%, rgba(0, 180, 40, 0.2) 100%);
-    --scrollbar-hover: linear-gradient(180deg, rgba(57, 255, 20, 0.55) 0%, rgba(0, 255, 65, 0.45) 100%);
-    --scrollbar-inset-top: rgba(200, 255, 200, 0.08);
-    --scrollbar-border-hover: rgba(0, 255, 65, 0.45);
+    /* Sombras com brilho verde */
+    --shadow-sm: 0 0 8px rgb(0 255 65 / 0.12);
+    --shadow-md: 0 0 16px rgb(0 255 65 / 0.15), 0 4px 20px rgb(0 0 0 / 0.6);
+    --shadow-lg: 0 0 28px rgb(0 255 65 / 0.18), 0 8px 32px rgb(0 0 0 / 0.7);
+    --shadow-xl: var(--shadow-lg);
+    --shadow-header: 0 0 20px rgb(0 255 65 / 0.12), 0 4px 24px rgb(0 0 0 / 0.8);
+    --shadow-menu: 0 0 24px rgb(0 255 65 / 0.15), 0 8px 28px rgb(0 0 0 / 0.85);
 
-    --overlay-15: rgba(0, 255, 65, 0.04);
-    --overlay-20: rgba(0, 0, 0, 0.35);
-    --overlay-25: rgba(0, 0, 0, 0.42);
-    --overlay-30: rgba(0, 25, 10, 0.88);
-    --overlay-35: rgba(0, 30, 12, 0.9);
-    --overlay-40: rgba(0, 35, 14, 0.92);
-    --overlay-50: rgba(0, 40, 16, 0.88);
-    --overlay-60: rgba(0, 45, 18, 0.9);
-    --overlay-90: rgba(0, 10, 4, 0.94);
-
-    --shadow-header: 0 0 20px rgba(0, 255, 65, 0.12), 0 4px 24px rgba(0, 0, 0, 0.8);
-    --shadow-submenu: 0 0 24px rgba(0, 255, 65, 0.15), 0 8px 28px rgba(0, 0, 0, 0.85);
-    --shadow-box-default: var(--shadow-md);
-    --shadow-box-hover: var(--shadow-lg);
-
-    --header-bg-solid: #020805;
-    --header-border-bottom: rgba(0, 255, 65, 0.25);
-
-    --body-spot-accent: rgba(0, 255, 65, 0.06);
-    --body-spot-info: rgba(0, 255, 200, 0.03);
-
-    --text-selection-bg: rgba(0, 255, 65, 0.35);
-    --text-selection-color: #001a00;
-    --link-glow: rgba(0, 255, 65, 0.35);
-
-    --accent-a-06: rgba(0, 255, 65, 0.08);
-    --accent-a-08: rgba(0, 255, 65, 0.1);
-    --accent-a-10: rgba(0, 255, 65, 0.14);
-    --accent-a-12: rgba(0, 255, 65, 0.16);
-    --accent-a-15: rgba(0, 255, 65, 0.2);
-    --accent-a-20: rgba(0, 255, 65, 0.26);
-    --accent-a-25: rgba(0, 255, 65, 0.32);
-    --accent-a-35: rgba(0, 255, 65, 0.42);
-    --accent-a-40: rgba(0, 255, 65, 0.48);
-    --accent-gradient-hover: linear-gradient(135deg, #39ff14 0%, #00ff41 100%);
-    --accent-noty-glow: rgba(0, 255, 65, 0.45);
-
-    --gradient-submenu: linear-gradient(180deg, rgba(0, 25, 10, 0.98) 0%, rgba(2, 8, 5, 0.98) 100%);
-    --gradient-footer: linear-gradient(180deg, #03100a 0%, #020805 100%);
-    --footer-top-border: rgba(0, 255, 65, 0.2);
-
-    --panel-head-gradient: linear-gradient(180deg, rgba(0, 40, 15, 0.95) 0%, rgba(0, 20, 8, 0.92) 100%);
-    --table-th-gradient: linear-gradient(180deg, rgba(0, 35, 12, 0.95) 0%, rgba(0, 15, 6, 0.95) 100%);
-    --search-input-fill: rgba(0, 255, 65, 0.06);
-
-    --box-head-fg: var(--text-bright);
-    --box-filter-head-bg: rgba(0, 30, 12, 0.92);
-    --filter-input-fg: var(--text-bright);
-    --filter-label-hover-fg: var(--text-white);
-
-    --header-menu-hover-bg: rgba(0, 255, 65, 0.12);
-    --header-menu-hover-color: #001800;
-    --menu-link-hover-fg: #001800;
-    --menu-item-hover-bg: rgba(0, 255, 65, 0.15);
-    --submenu-grid-item-hover-bg: rgba(0, 255, 65, 0.12);
-    --submenu-symbol-border: rgba(0, 255, 65, 0.2);
-    --on-accent-fg: #001800;
-
-    --header-search-text: var(--text-bright);
-    --header-search-placeholder: var(--text-muted);
-    --header-link-fg: var(--text-bright);
-    --header-link-hover-fg: var(--accent-hover);
-
-    --torrent-list-title-color: var(--text-white);
-    --torrent-title-shadow: rgba(0, 255, 65, 0.35);
-
-    --noty-message-color: var(--text-bright);
-    --noty-button-bg: rgba(0, 255, 65, 0.08);
-    --noty-button-border: rgba(0, 255, 65, 0.35);
-    --noty-button-fg: var(--text-bright);
-
-    --alert-strip-link: var(--accent-hover);
-    --torrent-group-header-bg: rgba(0, 25, 10, 0.95);
-    --torrent-group-header-border: rgba(0, 255, 65, 0.15);
-    --table-row-stripe: rgba(0, 255, 65, 0.03);
-    --list-hover-faint: rgba(0, 255, 65, 0.06);
-
-    --download-btn-bg: rgba(0, 255, 65, 0.1);
-    --download-btn-border: rgba(0, 255, 65, 0.38);
-    --download-btn-hover-glow: 0 0 14px rgba(0, 255, 65, 0.42);
-    --download-icon-svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2300ff41' stroke-width='2.5'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3' /%3E%3C/svg%3E");
-    --download-icon-svg-on-accent: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23001800' stroke-width='2.5'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3' /%3E%3C/svg%3E");
-
-    --shadow-groupbanner-primary: 0 0 24px rgba(0, 255, 65, 0.25);
-    --groupbanner-cta-bg: rgba(0, 255, 65, 0.75);
-    --groupbanner-btn-border: rgba(0, 255, 65, 0.4);
-    --groupbanner-icon-muted: rgba(200, 255, 200, 0.7);
-
-    --album-votes-number-gradient: linear-gradient(180deg, #00ff41 15%, rgba(0, 180, 50, 0.45) 100%);
-    --album-votes-meta-bg: rgba(0, 255, 65, 0.05);
-    --album-votes-meta-border: rgba(0, 255, 65, 0.15);
-
-    --radius-sm: 2px;
-    --radius-md: 4px;
-    --radius-lg: 4px;
-}
-
-#footer {
-    color: var(--text-muted);
-    background: var(--gradient-footer);
-}
-#footer a {
-    color: var(--text-bright);
+    --head-bg: linear-gradient(180deg, rgb(0 40 15 / 0.95) 0%, rgb(0 20 8 / 0.92) 100%);
+    --head-fg: var(--text-bright);
+    --th-bg: linear-gradient(180deg, rgb(0 35 12 / 0.95) 0%, rgb(0 15 6 / 0.95) 100%);
+    --group-bg: rgb(0 25 10 / 0.95);
+    --footer-bg: linear-gradient(180deg, #03100a 0%, #020805 100%);
+    --footer-link: var(--text-bright);
+    --menu-hover-bg: var(--accent);
+    --menu-hover-fg: var(--on-accent);
+    --submenu-hover-bg: var(--accent);
+    --submenu-hover-fg: var(--on-accent);
+    --title-shadow: rgb(0 255 65 / 0.35);
+    --link-glow: rgb(0 255 65 / 0.35);
+    --alert-link: var(--accent-hover);
+    --selection-bg: rgb(0 255 65 / 0.35);
+    --selection-fg: #001a00;
+    --scrollbar-thumb: color-mix(in srgb, var(--accent) 30%, transparent);
 }
