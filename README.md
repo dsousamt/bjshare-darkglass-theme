@@ -1,41 +1,86 @@
 # BJ-Share DarkGlass (Zerfeus)
 
-Tema para o BJ-Share, aplicado em **Configurações → Folha de estilo externa**.
+Temas para o BJ-Share, em 11 versões.
 
-Os arquivos são servidos direto deste repositório pelo GitHub Pages
-(atualiza cerca de 1 minuto após cada push na `main`):
+**Guia para usuários, com prévias e links prontos para copiar:**
+**https://dsousamt.github.io/bjshare-darkglass-theme/**
 
-| Tema | URL |
+## Como aplicar
+
+1. No BJ-Share, abra o menu com seu nome de usuário e clique em **Configurações**.
+2. Em **Aparência do Site**, cole o link do tema no campo **URL de Estilo Externa**.
+3. Clique em **Salvar Configurações**, no fim da página.
+
+Para voltar ao visual normal, apague o link desse campo e salve.
+
+## Temas
+
+| | |
 | --- | --- |
-| DarkGlass (base) | `https://dsousamt.github.io/bjshare-darkglass-theme/bj-zerfeus-theme.css` |
-| Variantes | `https://dsousamt.github.io/bjshare-darkglass-theme/bj-zerfeus-theme-<nome>.css` |
+| **DarkGlass** (padrão)<br>`https://dsousamt.github.io/bjshare-darkglass-theme/bj-zerfeus-theme.css`<br><img src="assets/previews/darkglass.webp" width="420" alt="DarkGlass"> | **Light**<br>`https://dsousamt.github.io/bjshare-darkglass-theme/bj-zerfeus-theme-light.css`<br><img src="assets/previews/light.webp" width="420" alt="Light"> |
+| **Dracula**<br>`https://dsousamt.github.io/bjshare-darkglass-theme/bj-zerfeus-theme-dracula.css`<br><img src="assets/previews/dracula.webp" width="420" alt="Dracula"> | **OLED**<br>`https://dsousamt.github.io/bjshare-darkglass-theme/bj-zerfeus-theme-oled.css`<br><img src="assets/previews/oled.webp" width="420" alt="OLED"> |
+| **Monochrome**<br>`https://dsousamt.github.io/bjshare-darkglass-theme/bj-zerfeus-theme-monochrome.css`<br><img src="assets/previews/monochrome.webp" width="420" alt="Monochrome"> | **Solarized**<br>`https://dsousamt.github.io/bjshare-darkglass-theme/bj-zerfeus-theme-solarized.css`<br><img src="assets/previews/solarized.webp" width="420" alt="Solarized"> |
+| **Sépia**<br>`https://dsousamt.github.io/bjshare-darkglass-theme/bj-zerfeus-theme-sepia.css`<br><img src="assets/previews/sepia.webp" width="420" alt="Sépia"> | **Alto Contraste**<br>`https://dsousamt.github.io/bjshare-darkglass-theme/bj-zerfeus-theme-highcontrast.css`<br><img src="assets/previews/highcontrast.webp" width="420" alt="Alto Contraste"> |
+| **Matrix**<br>`https://dsousamt.github.io/bjshare-darkglass-theme/bj-zerfeus-theme-matrix.css`<br><img src="assets/previews/matrix.webp" width="420" alt="Matrix"> | **Cyberpunk**<br>`https://dsousamt.github.io/bjshare-darkglass-theme/bj-zerfeus-theme-cyberpunk.css`<br><img src="assets/previews/cyberpunk.webp" width="420" alt="Cyberpunk"> |
+| **Windows 95**<br>`https://dsousamt.github.io/bjshare-darkglass-theme/bj-zerfeus-theme-win95.css`<br><img src="assets/previews/win95.webp" width="420" alt="Windows 95"> | |
 
-Variantes: `light`, `dracula`, `sepia`, `highcontrast`, `oled`, `solarized`, `matrix`, `win95`, `monochrome`, `cyberpunk`.
+Se a página ficar sem estilo, use a versão "arquivo único" do tema: troque `.css` por
+`.full.css` no fim do link (ex.: `bj-zerfeus-theme-dracula.full.css`).
 
-Cada variante faz `@import` do base pela URL relativa (mesma pasta). Se o import
-não carregar, use o bundle `bj-zerfeus-theme-<nome>.full.css` (base + variante num arquivo só).
+## Para quem mexe no código
 
-Alternativa sem Pages: `https://cdn.jsdelivr.net/gh/dsousamt/bjshare-darkglass-theme@main/<arquivo>.css`
-(o jsDelivr pode manter cache por até 12 h). Não use `raw.githubusercontent.com`: ele serve
-os arquivos como `text/plain` e o navegador não aplica o CSS.
+### Hospedagem
 
-## Como o tema é organizado
+O GitHub Pages serve este repositório direto da `main`, e cada push chega ao site em cerca de
+1 minuto. Cada variante importa o base por URL relativa (mesma pasta), então os arquivos
+funcionam em qualquer host. Alternativa sem Pages:
+`https://cdn.jsdelivr.net/gh/dsousamt/bjshare-darkglass-theme@main/<arquivo>.css`, que pode
+manter cache por até 12 h. Não use `raw.githubusercontent.com`: ele serve os arquivos como
+`text/plain`, e o navegador não aplica o CSS.
+
+### Arquivos
+
+| Arquivo | O que é |
+| --- | --- |
+| `bj-zerfeus-theme.css` | Tema base (DarkGlass): variáveis e todas as regras |
+| `bj-zerfeus-theme-<nome>.css` | Variantes: só redefinem variáveis (e, no win95/cyberpunk, algumas regras) |
+| `bj-zerfeus-theme-<nome>.full.css` | Bundles gerados (base + variante); não edite à mão |
+| `build-theme-bundles.ps1` | Gera os bundles |
+| `index.html` | Guia publicado no GitHub Pages |
+| `preview/demo.html` | Página de demonstração com a marcação do BJ e dados fictícios (`?tema=<nome>`) |
+| `tools/gerar-previews.py` | Gera `assets/previews/*.webp` a partir da demonstração |
+
+### Como o tema é organizado
 
 `bj-zerfeus-theme.css` começa com dois blocos de variáveis:
 
-- **1a. Sementes** — fundos, textos, acento, cores de estado, fontes e raios.
+- **1a. Sementes**: fundos, textos, acento, cores de estado, fontes e raios.
   É o que uma variante redefine.
-- **1b. Derivados** — linhas, preenchimentos, rebaixos, sombras e tons do acento,
+- **1b. Derivados**: linhas, preenchimentos, rebaixos, sombras e tons do acento,
   calculados das sementes com `color-mix()`. Só redefina se o derivado não servir.
 
 Três sementes controlam quase todos os tons sutis, e o alfa delas regula a intensidade:
 
 - `--ink`: linhas finas e preenchimentos (branco em temas escuros, tinta escura em temas claros)
-- `--recess`: áreas rebaixadas como cabeçalhos e campos (preto; branco translúcido em OLED)
+- `--recess`: áreas rebaixadas, como cabeçalhos e campos (preto; branco translúcido no OLED)
 - `--shade`: sombras (preto; azul-marinho com alfa baixo no tema claro)
 
-## Criar uma variante
+O BJ substitui o CSS do próprio site pela folha externa. Por isso, elementos nativos
+(lightbox, `<dialog>` da gorjeta, etc.) precisam de estilo no tema, senão aparecem quebrados.
 
-1. Copie `bj-zerfeus-theme-dracula.css` para `bj-zerfeus-theme-<nome>.css`.
-2. Troque as sementes no `:root`.
-3. Rode `.\build-theme-bundles.ps1`, que gera o `.full.css` de todas as variantes.
+### Depois de editar
+
+1. `.\build-theme-bundles.ps1` para regenerar os `.full.css`.
+2. `python tools/gerar-previews.py` se mudou algo visual. Requer
+   `pip install playwright pillow` e o Chrome instalado (ou `python -m playwright install chromium`).
+3. Commit e push na `main`.
+
+### Criar uma variante
+
+1. Copie `bj-zerfeus-theme-dracula.css` para `bj-zerfeus-theme-<nome>.css` e troque as sementes no `:root`.
+2. Rode os passos de "Depois de editar".
+3. Adicione o tema à lista `TEMAS` no `index.html` e à tabela deste README.
+
+As páginas salvas do BJ (Ctrl+S) contêm o token `auth=` da sua conta. O `.gitignore`
+ignora todo `.html`, exceto `index.html` e `preview/demo.html`. Não salve páginas do BJ
+com esses nomes.

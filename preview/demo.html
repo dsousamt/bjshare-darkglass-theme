@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Demonstração do tema</title>
+<!--
+  Página de demonstração: reproduz a marcação do BJ-Share (cabeçalho, menu, listagem)
+  com dados fictícios. ?tema=<nome> escolhe a variante; sem parâmetro usa o base.
+  Usada pelo guia (index.html, "ver ao vivo") e por tools/gerar-previews.py.
+-->
+<link id="tema" rel="stylesheet" href="../bj-zerfeus-theme.css">
+<script>
+  (function () {
+    var tema = new URLSearchParams(location.search).get('tema');
+    if (tema && /^[a-z0-9]+$/.test(tema)) {
+      document.getElementById('tema').href = '../bj-zerfeus-theme-' + tema + '.css';
+    }
+  })();
+</script>
+<style>
+  /* Só da demo: o logo real vem de outro domínio; aqui um texto ocupa o lugar */
+  #logo { background-image: none !important; display: flex !important; align-items: center; }
+  #logo span { font-weight: 800; font-size: 22px; letter-spacing: -0.5px; color: var(--text-strong); }
+  #logo span b { color: var(--accent); }
+</style>
+</head>
+<body>
+<div id="wrapper">
+  <div id="header">
+    <a href="#"><div id="logo"><span>BJ<b>·</b>Share</span></div></a>
+    <div id="userinfo">
+      <ul id="userinfo_stats">
+        <li id="stats_seeding"><a href="#">Up</a>: <span class="stat">2.48 TiB</span></li>
+        <li id="stats_leeching"><a href="#">Down</a>: <span class="stat">312.60 GiB</span> <span class="stat">(3)</span></li>
+        <li id="stats_ratio">Ratio: <span class="stat"><span class="r50">8,12</span></span></li>
+        <li id="stats_bjpontos"><a href="#">BJ-Pontos</a>: <span class="stat">128.400</span></li>
+      </ul>
+    </div>
+    <div id="menu">
+      <div id="centertopmenu">
+        <div id="menudrop">
+          <ul>
+            <li id="nav_index"><a href="#">Home &nbsp;▾</a>
+              <ul>
+                <li><a href="#">Regras</a></li>
+                <li><a href="#">Ajuda</a></li>
+                <li><a href="#">Loja</a></li>
+              </ul>
+            </li>
+            <li id="nav_torrents"><a href="#">Torrents &nbsp;▾</a>
+              <ul>
+                <li><a href="#">Categorias</a><a class="symbol">▸</a>
+                  <ul>
+                    <li><a href="#">Animes</a></li>
+                    <li><a href="#">Filmes</a></li>
+                    <li><a href="#">Jogos</a></li>
+                    <li><a href="#">Seriados</a></li>
+                  </ul>
+                </li>
+                <li><a href="#">Destaques</a></li>
+                <li><a href="#">Lançados hoje</a></li>
+                <li><a href="#">Pedidos</a></li>
+                <li><a href="#">Top 10</a></li>
+              </ul>
+            </li>
+            <li id="nav_forums"><a href="#">Fórum</a></li>
+            <li id="nav_top10"><a href="#">Top 10</a></li>
+            <li id="nav_user"><a href="#">Usuário &nbsp;▾</a>
+              <ul>
+                <li><a href="#">Mensagens</a></li>
+                <li><a href="#">Favoritos</a></li>
+                <li><a href="#">Configurações</a></li>
+                <li><a href="#">Sair</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div id="searchbars">
+      <ul>
+        <li><form class="search_form"><input type="text" placeholder="Torrents"></form></li>
+        <li><form class="search_form"><input type="text" placeholder="Pedidos"></form></li>
+        <li><form class="search_form"><input type="text" placeholder="Fórum"></form></li>
+        <li><form class="search_form"><input type="text" placeholder="Logs"></form></li>
+        <li><form class="search_form"><input type="text" placeholder="Usuários"></form></li>
+      </ul>
+    </div>
+  </div>
+
+  <div id="content">
+    <div class="thin widethin">
+      <div class="box filter_torrents">
+        <div class="head"><strong>Pesquisa</strong> <button type="button">Mostrar</button></div>
+      </div>
+
+      <table class="torrent_table cats grouping" id="torrent_table">
+        <tbody>
+          <tr class="colhead">
+            <td class="small"></td><td class="small cats_col"></td>
+            <td>Nome</td><td>Uploader</td><td>Lançado há</td><td>Tamanho</td>
+            <td class="center">↻</td><td class="center">↑</td><td class="center">↓</td>
+          </tr>
+          <!-- linhas geradas abaixo -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div id="footer">
+    <p>BJ-Share © 2026 · demonstração do tema DarkGlass com dados fictícios</p>
+  </div>
+</div>
+
+<script>
+  // Ícone de categoria: azulejo SVG simples (os ícones reais ficam no servidor do BJ)
+  function catIcon(label, color) {
+    var svg = "<svg xmlns='http://www.w3.org/2000/svg' width='50' height='50'>" +
+      "<rect width='50' height='50' rx='10' fill='" + color + "'/>" +
+      "<text x='25' y='30' font-family='Arial' font-size='10' font-weight='700' fill='white' text-anchor='middle'>" + label + "</text></svg>";
+    return 'data:image/svg+xml,' + encodeURIComponent(svg);
+  }
+
+  var linhas = [
+    ['FILME', '#2563eb', 'Nosferatu', 1922, 'Blu-ray / 1080p / H.264 / Legendado', ['green:Free'], 'terror, classico, mudo', 'Cinemateca', '2 horas atrás', '8.21 GiB', [142, 37, 2], true],
+    ['FILME', '#2563eb', 'Metrópolis', 1927, 'Blu-ray / 4K / H.265 / HDR10 / Dual Áudio', ['red:Legendado', 'orange:INTERNAL'], 'ficcao.cientifica, drama', 'Arquivo', '5 horas atrás', '41.70 GiB', [88, 21, 4], false],
+    ['ANIME', '#db2777', 'Big Buck Bunny', 2008, 'WEB-DL / 1080p / H.264 / Dublado', ['green:Free'], 'animacao, comedia, familia', 'OpenMovie', '9 horas atrás', '1.12 GiB', [530, 96, 0], false],
+    ['FILME', '#2563eb', 'Sintel', 2010, 'WEB-DL / 4K / AV1 / Legendado', [], 'animacao, fantasia, aventura', 'OpenMovie', '1 dia atrás', '6.48 GiB', [301, 54, 1], false],
+    ['FILME', '#2563eb', 'A Noite dos Mortos-Vivos', 1968, 'DVD / SD / MPEG-2 / Dual Áudio', ['orange:INTERNAL'], 'terror, suspense', 'Cinemateca', '2 dias atrás', '4.37 GiB', [77, 12, 0], false],
+  ];
+
+  var tbody = document.querySelector('#torrent_table tbody');
+  linhas.forEach(function (l, i) {
+    var labels = l[5].map(function (s) {
+      var p = s.split(':');
+      return ' / <strong style="color:' + p[0] + '">' + p[1] + '</strong>';
+    }).join('');
+    var tags = l[6].split(', ').map(function (t) { return '<a href="#">' + t + '</a>'; }).join(' ');
+    var id = 900100 + i;
+    var bm = l[11]
+      ? '<span class="remove_bookmark float_right"><a href="#" title="Remover dos Favoritos"></a></span>'
+      : '<span class="add_bookmark float_right"><a href="#" title="Adicionar aos Favoritos"></a></span>';
+    var tr = document.createElement('tr');
+    tr.className = 'torrent';
+    tr.innerHTML =
+      '<td></td>' +
+      '<td class="center cats_col"><a href="#"><img width="50" height="50" class="brackets" alt="" src="' + catIcon(l[0], l[1]) + '"></a></td>' +
+      '<td class="big_info"><div class="group_info clear">' +
+        '<span>' + bm + '<span class="download_torrent float_right"><a href="torrents.php?action=download&amp;id=' + id + '" title="Baixar"></a></span></span>' +
+        '<a href="torrents.php?id=' + id + '">' + l[2] + '</a> [' + l[3] + ']' +
+        '<div class="torrent_info">[' + l[4] + labels + ']</div>' +
+        '<div class="tags">' + tags + '</div>' +
+      '</div></td>' +
+      '<td><a href="#">' + l[7] + '</a></td>' +
+      '<td class="number_column nobr">' + l[8] + '</td>' +
+      '<td class="number_column nobr">' + l[9] + '</td>' +
+      '<td class="number_column">' + l[10][0] + '</td>' +
+      '<td class="number_column">' + l[10][1] + '</td>' +
+      '<td class="number_column">' + l[10][2] + '</td>';
+    tbody.appendChild(tr);
+  });
+</script>
+</body>
+</html>

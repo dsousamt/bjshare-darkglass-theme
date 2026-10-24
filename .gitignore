@@ -1,3 +1,7 @@
+# Páginas salvas do BJ (Ctrl+S) contêm tokens auth= da sua conta: nunca versionar.
 *.html
-/home_files
 *_files/
+/home_files
+# Exceções: o guia publicado no GitHub Pages e a página de demonstração
+!/index.html
+!/preview/demo.html
