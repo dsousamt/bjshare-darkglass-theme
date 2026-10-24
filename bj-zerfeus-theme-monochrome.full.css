@@ -1361,7 +1361,7 @@ tr.season_header td a[onclick*="toggleSeason"]:hover {
 tr.season_header td a[onclick*="toggleSeason"]:hover::before { color: var(--text-strong); }
 
 /* Favoritos e Logs na linkbox */
-.linkbox a.add_bookmark.brackets,
+.linkbox a:is(.add_bookmark, .remove_bookmark).brackets,
 .linkbox a.brackets[href*="serieslog"] {
     font-size: 0 !important;
     width: 40px !important;
@@ -1372,7 +1372,7 @@ tr.season_header td a[onclick*="toggleSeason"]:hover::before { color: var(--text
     padding: 0 !important;
 }
 /* Especificidade alta para vencer .header:has(.groupbanner) .linkbox a.brackets */
-.header .linkbox a.add_bookmark.brackets,
+.header .linkbox a:is(.add_bookmark, .remove_bookmark).brackets,
 .header .linkbox a.brackets[href*="serieslog"] {
     font-size: 0 !important;
     padding: 0 !important;
@@ -1382,12 +1382,24 @@ tr.season_header td a[onclick*="toggleSeason"]:hover::before { color: var(--text
     align-items: center !important;
     justify-content: center !important;
 }
+/* Estado do favorito: contorno = não favoritado, sólido dourado = favoritado.
+   Ao clicar, o JS do site (Bookmark/Unbookmark) troca add_bookmark/remove_bookmark só
+   no elemento PAI e remove o onclick do link. Aqui a classe está no próprio <a>, então
+   a falta do onclick é o que indica que o estado mudou sem recarregar a página. */
 .linkbox a.add_bookmark.brackets::before,
-.header .linkbox a.add_bookmark.brackets::before {
+.linkbox a.remove_bookmark.brackets:not([onclick])::before {
+    content: '\f02e';
+    font-family: var(--font-icon);
+    font-weight: 400;
+    font-size: var(--fs);
+}
+.linkbox a.remove_bookmark.brackets[onclick]::before,
+.linkbox a.add_bookmark.brackets:not([onclick])::before {
     content: '\f02e';
     font-family: var(--font-icon);
     font-weight: 900;
     font-size: var(--fs);
+    color: var(--warning);
 }
 .linkbox a.brackets[href*="serieslog"]::before,
 .header .linkbox a.brackets[href*="serieslog"]::before {
@@ -2106,8 +2118,10 @@ ol.bjqs-markers li.active-marker a, ol.bjqs-markers li a:hover { background: var
     letter-spacing: 0 !important;
     text-transform: none !important;
 }
-/* Não favoritado: ícone outline (regular) */
-.header:has(.groupbanner) .linkbox a.add_bookmark.brackets::before {
+/* Não favoritado: ícone outline (regular). Estado lido pela classe + onclick, como em
+   "Troca de rótulos de texto por ícones". */
+.header:has(.groupbanner) .linkbox a.add_bookmark.brackets::before,
+.header:has(.groupbanner) .linkbox a.remove_bookmark.brackets:not([onclick])::before {
     content: '\f02e';
     font-family: var(--font-icon);
     font-weight: 400;
@@ -2115,7 +2129,8 @@ ol.bjqs-markers li.active-marker a, ol.bjqs-markers li a:hover { background: var
     color: color-mix(in srgb, var(--on-accent) 72%, transparent);
 }
 /* Já favoritado: ícone sólido dourado */
-.header:has(.groupbanner) .linkbox a.remove_bookmark.brackets::before {
+.header:has(.groupbanner) .linkbox a.remove_bookmark.brackets[onclick]::before,
+.header:has(.groupbanner) .linkbox a.add_bookmark.brackets:not([onclick])::before {
     content: '\f02e';
     font-family: var(--font-icon);
     font-weight: 900;
