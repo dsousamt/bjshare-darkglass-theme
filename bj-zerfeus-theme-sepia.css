@@ -34,6 +34,7 @@
     --success: #2d6a2d;
     --warning: #b8860b;
     --info: #4a6fa5;
+    --vote-ink: #ffffff;
     --bookmark: var(--warning);
 
     --line: color-mix(in srgb, var(--ink) 12%, transparent);
