@@ -1997,16 +1997,16 @@ ol.bjqs-markers li.active-marker a, ol.bjqs-markers li a:hover { background: var
 /* ==========================================================================
    18. Banner de Séries (estilo capa / fundo de tela)
    ========================================================================== */
-/* Alvo: a div que contém o #banner ou .groupbanner */
+/* O banner ocupa a largura toda na proporção da própria imagem (os do BJ são ~5,4:1).
+   Antes era fundo de uma área de 350px com object-fit: cover, que cortava as laterais:
+   em telas largas sumia o começo do título ("CONFINADA" virava "INADA"). */
 .header:has(#banner), .header:has(.groupbanner) {
     position: relative !important;
     width: 100% !important;
-    min-height: 350px !important;
     display: flex !important;
     flex-direction: column !important;
-    justify-content: flex-end !important;
-    align-items: flex-start !important;
-    padding: 30px !important;
+    align-items: stretch !important;
+    padding: 0 0 22px !important;
     border-radius: var(--radius-md) !important;
     overflow: hidden !important;
     box-shadow: var(--shadow-xl) !important;
@@ -2016,25 +2016,23 @@ ol.bjqs-markers li.active-marker a, ol.bjqs-markers li a:hover { background: var
     z-index: 1; /* novo contexto de empilhamento */
 }
 
-/* Wrapper da imagem (vem com style inline de 140px) */
+/* Wrapper da imagem (vem com style inline de 140px x 758px) */
 .header:has(.groupbanner) > div:first-child {
-    position: absolute !important;
-    top: 0 !important;
-    left: 0 !important;
+    position: relative !important;
     width: 100% !important;
-    height: 100% !important;
+    height: auto !important;
     margin: 0 !important;
-    z-index: -1 !important; /* atrás dos botões */
+    z-index: 0 !important;
 }
 
-/* A imagem, com máscara de degradê para o fundo do tema */
+/* A imagem inteira, com degradê só no rodapé (onde ficam os botões) */
 .header #banner, .header .groupbanner {
+    display: block !important;
     width: 100% !important;
-    height: 100% !important;
-    object-fit: cover !important;
-    object-position: center 20% !important;
-    mask-image: linear-gradient(to bottom, #000 30%, transparent 100%) !important;
-    -webkit-mask-image: linear-gradient(to bottom, #000 30%, transparent 100%) !important;
+    height: auto !important;
+    object-fit: contain !important;
+    mask-image: linear-gradient(to bottom, #000 72%, transparent 100%) !important;
+    -webkit-mask-image: linear-gradient(to bottom, #000 72%, transparent 100%) !important;
 }
 
 /* Limpa o H2 que envolve a imagem */
@@ -2042,19 +2040,23 @@ ol.bjqs-markers li.active-marker a, ol.bjqs-markers li a:hover { background: var
     margin: 0 !important;
     padding: 0 !important;
     width: 100% !important;
-    height: 100% !important;
+    height: auto !important;
 }
 
-/* Container dos botões na base */
+/* Botões: sobem só sobre a faixa em degradê, sem cobrir a arte */
 .header:has(.groupbanner) .linkbox {
     position: relative !important;
     z-index: 2 !important;
-    margin: 0 !important;
+    margin: -34px 24px 0 !important;
     padding: 0 !important;
     text-align: left !important;
     display: flex !important;
     flex-wrap: wrap !important;
     gap: 8px !important;
+}
+@media screen and (max-width: 768px) {
+    /* banner baixo demais para sobrepor: botões logo abaixo da imagem */
+    .header:has(.groupbanner) .linkbox { margin: 12px 16px 0 !important; }
 }
 
 /* Botões sobre o banner: favoritos em acento, demais em vidro escuro */
