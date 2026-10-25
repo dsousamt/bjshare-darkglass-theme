@@ -3216,8 +3216,35 @@ table.forum_post,
         0 calc(100% - var(--cp-chamfer)),
         0 var(--cp-chamfer)
     );
-    box-shadow: 0 0 0 1px rgb(0 240 255 / 0.25), 0 0 20px rgb(252 238 10 / 0.06), var(--shadow-md) !important;
+    /* sombra externa seria cortada pelo clip-path: brilho por dentro */
+    box-shadow: inset 0 0 24px rgb(0 240 255 / 0.07) !important;
 }
+table.forum_post { position: relative; }
+/* A borda é reta e o clip-path cortava as pontas dela: os cantos ficavam abertos.
+   Esta camada desenha a diagonal de cada canto, sobre o corte, na cor da borda. */
+.box::after,
+.torrent_details::after,
+.news_post::after,
+table.forum_post::after {
+    --cp-edge: var(--panel-border);
+    --cp-line: transparent 50%, var(--cp-edge) 50%, var(--cp-edge) calc(50% + 1.5px), transparent calc(50% + 1.5px);
+    content: '';
+    position: absolute;
+    inset: -1px; /* caixa da borda, que é a que o clip-path recorta */
+    z-index: 3;
+    pointer-events: none;
+    background:
+        linear-gradient(to bottom right, var(--cp-line)) top left,
+        linear-gradient(to bottom left, var(--cp-line)) top right,
+        linear-gradient(to top right, var(--cp-line)) bottom left,
+        linear-gradient(to top left, var(--cp-line)) bottom right;
+    background-size: var(--cp-chamfer) var(--cp-chamfer);
+    background-repeat: no-repeat;
+}
+.box:hover::after,
+.news_post:hover::after,
+table.forum_post:hover::after { --cp-edge: var(--panel-border-hover); }
+.box.filter_torrents::after { --cp-edge: var(--panel-border-strong); }
 .box .head,
 .head2,
 .colhead,
