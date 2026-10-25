@@ -1088,6 +1088,9 @@ div.linkbox a:hover { background: var(--accent-gradient); color: var(--on-accent
     color: var(--text-muted); font-weight: 500; transition: all var(--transition-snappy);
 }
 .brackets:hover { background: var(--fill-3); color: var(--text-bright); border-color: var(--line-strong); }
+/* Ícones de categoria vêm com a classe brackets (de botão) em várias páginas: sem padding,
+   borda nem fundo de botão (na Morrendo o ícone encolhia para 29x21px) */
+img.brackets, img.brackets:hover { padding: 0; margin: 0; border: none; background: none; border-radius: var(--radius-sm); }
 
 /* ==========================================================================
    9. Tabelas e Listagem de Torrents
@@ -1116,6 +1119,28 @@ table.layout td.label { width: 25%; font-weight: 600; text-align: right; backgro
     border-spacing: 0;
     overflow: hidden;
     margin-bottom: var(--space-block);
+}
+
+/* Tabelas soltas no conteúdo, sem classe (Morrendo, Coleções…): mesmo cartão das listagens */
+.thin > table:not([class]) {
+    background-color: var(--bg-panel);
+    border: 1px solid var(--panel-border);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-lg);
+    border-collapse: separate;
+    border-spacing: 0;
+    overflow: hidden;
+    margin-bottom: var(--space-block);
+}
+.thin > table:not([class]) tr:last-child td { border-bottom: none; }
+/* Coluna do ícone de categoria nessas tabelas (a da listagem principal fica com 72px) */
+table:not(.torrent_table) td:has(> a > img.brackets) { width: 1%; padding: 6px 10px; }
+table:not(.torrent_table) td > a > img.brackets {
+    display: block;
+    width: 48px !important;
+    height: 48px !important;
+    max-width: none;
+    object-fit: contain;
 }
 
 /* A última linha não conflita com a borda externa */
@@ -1238,17 +1263,22 @@ tr.torrent td { background-color: transparent; }
 
 /* Cores das informações inline (listagem e detalhes) — o site injeta style="color:…" */
 .torrent_table strong[style*="color:red"], .torrent_table strong[style*="color: red"],
-table:has(tr.torrent_row) strong[style*="color:red"], table:has(tr.torrent_row) strong[style*="color: red"] {
+table:has(tr.torrent_row) strong[style*="color:red"], table:has(tr.torrent_row) strong[style*="color: red"],
+#content table:not(.forum_post) strong[style*="color:red"], #content table:not(.forum_post) strong[style*="color: red"] {
     color: var(--danger) !important; text-shadow: 0 0 8px color-mix(in srgb, var(--danger) 30%, transparent) !important;
 }
 .torrent_table strong[style*="color:green"], .torrent_table strong[style*="color: green"], .torrent_table .free,
+#content table:not(.forum_post) strong[style*="color:green"], #content table:not(.forum_post) strong[style*="color: green"], #content table:not(.forum_post) .free,
 table:has(tr.torrent_row) strong[style*="color:green"], table:has(tr.torrent_row) strong[style*="color: green"], table:has(tr.torrent_row) .free {
     color: var(--success) !important; text-shadow: 0 0 8px color-mix(in srgb, var(--success) 30%, transparent) !important;
 }
 .torrent_table strong[style*="color:orange"], .torrent_table strong[style*="color: orange"], .torrent_table .internalbox,
+#content table:not(.forum_post) strong[style*="color:orange"], #content table:not(.forum_post) strong[style*="color: orange"], #content table:not(.forum_post) .internalbox,
 table:has(tr.torrent_row) strong[style*="color:orange"], table:has(tr.torrent_row) strong[style*="color: orange"], table:has(tr.torrent_row) .internalbox {
     color: var(--orange) !important; text-shadow: 0 0 8px color-mix(in srgb, var(--orange) 30%, transparent) !important;
 }
+/* As cores acima valiam só nas tabelas de torrents; agora valem em qualquer tabela do
+   conteúdo (Morrendo, Coleções…), menos posts do fórum, onde a cor é escolha de quem escreve */
 .torrentinfo_release { color: color-mix(in oklab, var(--info) 75%, var(--text-strong)) !important; font-weight: 700 !important; }
 
 /* --------------------------------------------------------------------------
