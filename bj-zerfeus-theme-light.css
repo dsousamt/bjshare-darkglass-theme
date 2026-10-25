@@ -1,5 +1,6 @@
 /*
- * BJ Zerfeus — Light (fundo quase branco, cartões brancos, acento vermelho BJ)
+ * BJ Zerfeus — Light (vidro claro: cartões brancos translúcidos e desfocados sobre um fundo
+ * com manchas de luz, acento vermelho BJ)
  *
  * Importa o tema base da mesma pasta (URL relativa). Se o @import não carregar (CSS
  * injetado inline ou publicado noutra pasta), use bj-zerfeus-theme-light.full.css.
@@ -8,14 +9,15 @@
 
 :root {
     --color-scheme: light;
-    --bg-base: #fbfbfc;
+    /* fundo levemente azulado: o vidro branco precisa de algo atrás para aparecer */
+    --bg-base: #e8edf4;
     --bg-solid: #ffffff;
-    --bg-panel: #ffffff;
-    --bg-card: #ffffff;
-    --bg-card-hover: #f4f6f9;
-    --header-bg: #ffffff;
+    --bg-panel: rgb(255 255 255 / 0.68);
+    --bg-card: rgb(255 255 255 / 0.58);
+    --bg-card-hover: rgb(255 255 255 / 0.82);
+    --header-bg: rgb(255 255 255 / 0.62);
 
-    --text-muted: #7a8b9a;
+    --text-muted: #6b7c8e;
     --text-main: #3a4a5c;
     --text-bright: #141c2c;
     --text-strong: #0d1420;
@@ -28,16 +30,28 @@
 
     --accent-hover: #e11d48;
 
-    --field-bg: #ffffff;
+    /* vidro claro: borda e reflexo brancos (o base usa a tinta, pensada para o escuro) */
+    --panel-border: rgb(255 255 255 / 0.75);
+    --panel-border-hover: rgb(255 255 255 / 0.95);
+    --panel-border-strong: rgb(255 255 255 / 0.85);
+    --glass-sheen: linear-gradient(180deg, rgb(255 255 255 / 0.55) 0%, transparent 40%);
+    --glass-edge: inset 0 1px 0 rgb(255 255 255 / 0.9);
+
+    /* manchas de luz atrás do vidro */
+    --body-glow-1: color-mix(in srgb, var(--accent) 16%, transparent);
+    --body-glow-2: color-mix(in srgb, var(--info) 18%, transparent);
+    --body-glow-3: rgb(168 85 247 / 0.12);
+
+    --field-bg: rgb(255 255 255 / 0.8);
     --field-bg-focus: #ffffff;
-    --head-bg: linear-gradient(180deg, #ffffff 0%, #f6f7f9 100%);
-    --th-bg: linear-gradient(180deg, #f5f6f8 0%, #eef1f5 100%);
-    --filter-head-bg: #f3f5f8;
-    --group-bg: linear-gradient(180deg, #fafbfc 0%, #f1f3f6 100%);
-    --footer-bg: linear-gradient(180deg, #ffffff 0%, #f6f7f9 100%);
+    --head-bg: linear-gradient(180deg, rgb(255 255 255 / 0.6) 0%, rgb(255 255 255 / 0.25) 100%);
+    --th-bg: linear-gradient(180deg, rgb(255 255 255 / 0.55) 0%, rgb(236 240 246 / 0.45) 100%);
+    --filter-head-bg: rgb(255 255 255 / 0.45);
+    --group-bg: rgb(255 255 255 / 0.45);
+    --footer-bg: rgb(255 255 255 / 0.55);
+    --submenu-bg: rgb(255 255 255 / 0.72);
     --menu-hover-bg: var(--accent-08);
     --alert-link: var(--accent);
     --title-shadow: transparent;
-    --body-glow-1: color-mix(in srgb, var(--accent) 4%, transparent);
-    --scrollbar-track: #f2f4f7;
+    --scrollbar-track: #e3e9f1;
 }

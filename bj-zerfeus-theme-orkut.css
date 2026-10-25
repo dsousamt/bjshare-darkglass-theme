@@ -8,6 +8,7 @@
 @import url('bj-zerfeus-theme.css');
 
 :root {
+    --glass: initial; /* sem o vidro do DarkGlass/Light */
     --color-scheme: light;
     --ok-blue: #315c99;      /* links */
     --ok-blue-dark: #1f3f74; /* títulos das caixas */

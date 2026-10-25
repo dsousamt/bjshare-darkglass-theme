@@ -25,16 +25,19 @@ Bundles (*.full.css, base + variante num arquivo só): .\build-theme-bundles.ps1
     --radius-lg: 18px;
     --radius-pill: 9999px;
     --line-w: 1px;   /* espessura das bordas de componentes (menus, botões, rodapé) */
-    --glass-blur: blur(20px);
+    /* Vidro: a essência do DarkGlass (e do Light). Interruptor: vazio = ligado; temas
+       chapados desligam com "--glass: initial;" e voltam aos valores sem vidro abaixo. */
+    --glass: ;
+    --glass-blur: var(--g-blur, blur(20px));
     --color-scheme: dark; /* controles nativos (lista do <select>, datas): dark ou light */
 
     /* Superfícies */
     --bg-base: #0b0d10;
     --bg-solid: #12141a;               /* dropdowns e fundos opacos */
-    --bg-panel: rgb(13 15 19 / 0.94);  /* tabelas, notificações, banner */
-    --bg-card: rgb(18 21 27 / 0.78);   /* caixas (.box) */
-    --bg-card-hover: rgb(35 39 50 / 0.88);
-    --header-bg: var(--bg-base);
+    --bg-panel: rgb(13 15 19 / 0.72);  /* tabelas, notificações, banner (translúcidos: vidro) */
+    --bg-card: rgb(17 20 26 / 0.56);   /* caixas (.box) */
+    --bg-card-hover: rgb(40 45 58 / 0.62);
+    --header-bg: var(--g-header, var(--bg-base));
 
     /* Texto (do mais apagado ao mais forte) */
     --text-muted: #6b7280;
@@ -118,8 +121,9 @@ Bundles (*.full.css, base + variante num arquivo só): .\build-theme-bundles.ps1
     --link-glow: color-mix(in srgb, var(--accent) 15%, transparent);
 
     /* Componentes */
-    --body-glow-1: color-mix(in srgb, var(--accent) 7%, transparent);
-    --body-glow-2: color-mix(in srgb, var(--info) 2%, transparent);
+    --body-glow-1: var(--g-glow-1, color-mix(in srgb, var(--accent) 7%, transparent));
+    --body-glow-2: var(--g-glow-2, color-mix(in srgb, var(--info) 2%, transparent));
+    --body-glow-3: var(--g-glow-3, transparent);
     --selection-bg: var(--accent-30);
     --selection-fg: var(--text-strong);
     --header-line: var(--line-strong);
@@ -130,10 +134,24 @@ Bundles (*.full.css, base + variante num arquivo só): .\build-theme-bundles.ps1
     --alert-link: var(--text-strong);
     --menu-hover-bg: var(--fill-2);
     --menu-hover-fg: var(--text-strong);
-    --submenu-bg: color-mix(in srgb, var(--bg-solid) 92%, transparent);
+    --submenu-bg: var(--g-submenu, color-mix(in srgb, var(--bg-solid) 92%, transparent));
     /* Desfoque atrás dos submenus, separado do das caixas (--glass-blur): temas sem vidro
        nas caixas (MSN) ainda têm menu fosco. Temas chapados usam fundo opaco e "none". */
     --menu-blur: blur(18px) saturate(1.3);
+    --header-blur: var(--g-header-blur, none);
+
+    /* Valores com vidro ligado (var(--glass) vazio). Com "--glass: initial" cada um fica
+       inválido e o token acima usa o valor de fallback, sem vidro. */
+    --g-blur: var(--glass) blur(24px) saturate(1.6);
+    --g-header: var(--glass) color-mix(in srgb, var(--bg-base) 68%, transparent);
+    --g-header-blur: var(--glass) blur(20px) saturate(1.5);
+    --g-submenu: var(--glass) color-mix(in srgb, var(--bg-solid) 74%, transparent);
+    --g-glow-1: var(--glass) color-mix(in srgb, var(--accent) 18%, transparent);
+    --g-glow-2: var(--glass) color-mix(in srgb, var(--info) 12%, transparent);
+    --g-glow-3: var(--glass) color-mix(in srgb, color-mix(in oklab, var(--accent), var(--info)) 10%, transparent);
+    /* reflexo no topo das caixas e linha de luz na borda superior */
+    --glass-sheen: var(--glass) linear-gradient(180deg, color-mix(in srgb, var(--ink) 6%, transparent) 0%, transparent 38%);
+    --glass-edge: var(--glass) inset 0 1px 0 color-mix(in srgb, var(--ink) 9%, transparent);
     --submenu-hover-bg: var(--accent-08);
     --submenu-hover-fg: var(--text-strong);
     --panel-border: color-mix(in srgb, var(--ink) 8%, transparent);
@@ -218,7 +236,8 @@ html, body {
 body {
     background-image:
         radial-gradient(ellipse 80% 50% at 50% -20%, var(--body-glow-1) 0%, transparent 60%),
-        radial-gradient(ellipse 60% 40% at 80% 50%, var(--body-glow-2) 0%, transparent 50%);
+        radial-gradient(ellipse 60% 40% at 80% 50%, var(--body-glow-2) 0%, transparent 50%),
+        radial-gradient(ellipse 70% 45% at 10% 100%, var(--body-glow-3) 0%, transparent 60%);
     background-attachment: fixed;
     max-width: 100vw;
 }
@@ -289,8 +308,8 @@ html body #header,
        background-image: none à parte, --header-bg pode ser degradê (MSN) */
     background: var(--header-bg) !important;
     opacity: 1 !important;
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
+    backdrop-filter: var(--header-blur) !important;
+    -webkit-backdrop-filter: var(--header-blur) !important;
     border-bottom: 1px solid var(--header-line) !important;
     position: relative !important;
     top: 0 !important;
@@ -930,15 +949,16 @@ body.bj-sticky-menu:has(#noteAlertMsg:not([style*="display: none"])):has(#noteAl
    ========================================================================== */
 .box, .torrent_details, .news_post {
     background-color: var(--bg-card); backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
+    background-image: var(--glass-sheen, none);
     border: 1px solid var(--panel-border); border-radius: var(--radius-md);
-    box-shadow: var(--shadow-md);
+    box-shadow: var(--glass-edge, 0 0 transparent), var(--shadow-md);
     margin-bottom: var(--space-block); overflow: hidden; transform: translateZ(0);
     transition: border-color var(--transition-smooth), box-shadow var(--transition-smooth);
 }
 
 .box:hover, .news_post:hover {
     border-color: var(--panel-border-hover);
-    box-shadow: var(--shadow-lg);
+    box-shadow: var(--glass-edge, 0 0 transparent), var(--shadow-lg);
 }
 
 .box .head, .head2, .colhead, .colhead_dark, .headTitulos {
@@ -1125,9 +1145,11 @@ table.layout td.label { width: 25%; font-weight: 600; text-align: right; backgro
 /* Tabelas principais (borda e sombra fortes) */
 .torrent_table {
     background-color: var(--bg-panel);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
     border-radius: var(--radius-md);
     border: 1px solid var(--panel-border);
-    box-shadow: var(--shadow-lg);
+    box-shadow: var(--glass-edge, 0 0 transparent), var(--shadow-lg);
     border-collapse: separate;
     border-spacing: 0;
     overflow: hidden;
@@ -1509,6 +1531,8 @@ table:has(tr.audio_header),
 table:has(tr.resolution_header),
 table:has(tr.season_header) {
     background-color: var(--bg-panel) !important;
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
     border-radius: var(--radius-md) !important;
     overflow: hidden !important;
     border: 1px solid var(--panel-border-strong) !important;
@@ -3108,6 +3132,7 @@ ul.collage_images img {
 /* --- bundle gerado: bj-zerfeus-theme.css + bj-zerfeus-theme-dracula.css - edite os fontes e rode build-theme-bundles.ps1 --- */
 
 :root {
+    --glass: initial; /* sem o vidro do DarkGlass/Light */
     --bg-base: #282a36;
     --bg-solid: #21222c;
     --bg-panel: rgb(40 42 54 / 0.94);
