@@ -1428,7 +1428,7 @@ div.browse_rating a::before {
 
 /* Máscaras dos ícones (download e favoritos, listagem e detalhes) */
 .torrent_table :is(a[href*="action=download"], a[title="Download"], a[title="Baixar"])::before,
-tr.torrent_row td:first-child > span a[href*="action=download"]::before,
+tr.torrent_row:not(.torrent) td:first-child > span a[href*="action=download"]::before,
 .torrent_table :is(.add_bookmark, .remove_bookmark) a::before {
     content: '' !important;
     display: block !important;
@@ -1441,7 +1441,7 @@ tr.torrent_row td:first-child > span a[href*="action=download"]::before,
     transition: background-color var(--transition-snappy);
 }
 .torrent_table :is(a[href*="action=download"], a[title="Download"], a[title="Baixar"]):hover::before,
-tr.torrent_row td:first-child > span a[href*="action=download"]:hover::before,
+tr.torrent_row:not(.torrent) td:first-child > span a[href*="action=download"]:hover::before,
 .torrent_table :is(.add_bookmark, .remove_bookmark) a:hover::before {
     background-color: var(--on-accent);
 }
@@ -1765,8 +1765,9 @@ tr.torrent td.big_info {
     min-width: 0 !important;
 }
 
-/* Uploader e demais colunas sem classe: compactar */
-tr.torrent td:not(.big_info):not(.number_column):not(.cats_col) {
+/* Uploader e demais colunas sem classe: compactar. A do título sem classe (Favoritos)
+   fica de fora: é a que tem as tags, e sem quebrar linha esticava a tabela. */
+tr.torrent td:not(.big_info):not(.number_column):not(.cats_col):not(:has(> .tags)) {
     width: 1% !important;
     white-space: nowrap !important;
 }
@@ -1808,17 +1809,17 @@ table:has(tr.torrent_row) td[rowspan] a:hover { color: var(--accent) !important;
 /* Coluna principal das releases (pílula + botões) */
 /* padding-right = largura dos botões de ação (absolutos à direita): 3 × 32px + 2 × 6px
    de espaço + 12px de margem + folga; com 4 botões, mais 38px */
-tr.torrent_row td:first-child {
+tr.torrent_row:not(.torrent) td:first-child {
     padding-left: 12px !important;
     font-size: 0 !important;
     position: relative !important;
     padding-right: 132px !important;
 }
-tr.torrent_row td:first-child:has(> span > a:nth-of-type(4)) { padding-right: 170px !important; }
+tr.torrent_row:not(.torrent) td:first-child:has(> span > a:nth-of-type(4)) { padding-right: 170px !important; }
 
 /* Pílula com o nome/características da release. inline-block (não inline-flex) para o
    texto quebrar linha em vez de passar por baixo dos botões em releases de nome longo. */
-tr.torrent_row td:first-child > a:not(.tooltip),
+tr.torrent_row:not(.torrent) td:first-child > a:not(.tooltip),
 tr.group_torrent.torrent_row td:first-child > a:not(.tooltip) {
     display: inline-block !important;
     max-width: 100%;
@@ -1836,14 +1837,14 @@ tr.group_torrent.torrent_row td:first-child > a:not(.tooltip) {
     font-weight: 500 !important;
     box-shadow: none !important;
 }
-tr.torrent_row td:first-child > a:not(.tooltip):hover {
+tr.torrent_row:not(.torrent) td:first-child > a:not(.tooltip):hover {
     background: var(--fill-3) !important;
     color: var(--text-strong) !important;
     transform: none !important; /* estabilidade da página de detalhes */
 }
 
 /* Botões de ação à direita (download, report, link) */
-tr.torrent_row td:first-child > span {
+tr.torrent_row:not(.torrent) td:first-child > span {
     position: absolute !important;
     right: 12px !important;
     top: 50% !important;
@@ -1854,9 +1855,9 @@ tr.torrent_row td:first-child > span {
 }
 /* Espaço só entre os links: o site escreve "[ … | … ]" entre eles, e com gap cada
    separador escondido virava um item a mais (132px em vez de 108px) */
-tr.torrent_row td:first-child > span a + a { margin-left: 6px !important; }
+tr.torrent_row:not(.torrent) td:first-child > span a + a { margin-left: 6px !important; }
 
-tr.torrent_row td:first-child > span a {
+tr.torrent_row:not(.torrent) td:first-child > span a {
     display: flex !important;
     align-items: center;
     justify-content: center;
@@ -1874,23 +1875,23 @@ tr.torrent_row td:first-child > span a {
     text-decoration: none !important;
 }
 
-tr.torrent_row td:first-child > span a i { display: block !important; }
+tr.torrent_row:not(.torrent) td:first-child > span a i { display: block !important; }
 
 /* Download nos detalhes: mesmo visual da listagem (máscara definida em 9.2) */
-tr.torrent_row td:first-child > span a[href*="action=download"] {
+tr.torrent_row:not(.torrent) td:first-child > span a[href*="action=download"] {
     color: transparent !important;
     background-color: color-mix(in srgb, var(--download) 15%, transparent) !important;
     border: var(--line-w) solid color-mix(in srgb, var(--download) 35%, transparent) !important;
 }
-tr.torrent_row td:first-child > span a[href*="action=download"] i { display: none !important; }
-tr.torrent_row td:first-child > span a[href*="action=download"]:hover {
+tr.torrent_row:not(.torrent) td:first-child > span a[href*="action=download"] i { display: none !important; }
+tr.torrent_row:not(.torrent) td:first-child > span a[href*="action=download"]:hover {
     background-color: var(--download) !important;
     border-color: var(--download) !important;
     transform: scale(1.15) !important;
     box-shadow: 0 0 14px color-mix(in srgb, var(--download) 45%, transparent) !important;
 }
 
-tr.torrent_row td:first-child > span a:not([href*="action=download"]):hover {
+tr.torrent_row:not(.torrent) td:first-child > span a:not([href*="action=download"]):hover {
     background-color: var(--fill-4) !important;
     color: var(--text-strong) !important;
     border-color: color-mix(in srgb, var(--ink) 30%, transparent) !important;
@@ -2888,3 +2889,147 @@ dialog button[value="ok"]:hover {
     color: var(--accent-hover);
 }
 .voting-wrapper #series_v2_user_msg:empty { display: none; }
+
+/* ==========================================================================
+   27. Favoritos (bookmarks.php)
+   As linhas da lista têm "torrent" (listagem) E "torrent_row" (detalhes); as regras
+   de detalhe ficam só para torrent_row sem torrent (veja :not(.torrent) na seção 9.3).
+   Aqui: botões DL/RP em linha, "Remove bookmark" no fluxo, ícones de categoria e
+   o botão de expandir/recolher grupo (o site deixa o desenho de tudo isso para o tema).
+   ========================================================================== */
+/* DL / RP: escondidos os colchetes e a barra, viram dois botões redondos antes do título */
+.torrent_table tr.torrent.torrent_row td > span:first-child {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-right: 8px;
+    vertical-align: middle;
+    font-size: 0;
+}
+.torrent_table tr.torrent.torrent_row td > span:first-child a {
+    position: static !important;
+    transform: none !important;
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    width: 28px !important;
+    height: 28px !important;
+    margin: 0 !important;
+    font-size: 0 !important;
+    color: transparent !important;
+    border-radius: var(--radius-pill) !important;
+}
+.torrent_table tr.torrent.torrent_row td > span:first-child a[href*="action=download"]:hover {
+    transform: scale(1.1) !important;
+}
+.torrent_table tr.torrent.torrent_row td > span:first-child a[href*="reportsv2"] {
+    background: var(--fill-2);
+    border: 1px solid var(--line-strong);
+}
+.torrent_table tr.torrent.torrent_row td > span:first-child a[href*="reportsv2"]::before {
+    content: '\f071';
+    font-family: var(--font-icon);
+    font-weight: 900;
+    font-size: var(--fs);
+    color: var(--text-muted);
+}
+.torrent_table tr.torrent.torrent_row td > span:first-child a[href*="reportsv2"]:hover {
+    background: var(--fill-4);
+}
+.torrent_table tr.torrent.torrent_row td > span:first-child a[href*="reportsv2"]:hover::before { color: var(--text-strong); }
+
+/* "Remove bookmark" aqui é o próprio link com a classe (na listagem é um <span> em volta
+   do botão redondo): volta a ser um botão comum, no fluxo, e não um ícone absoluto */
+.torrent_table a.remove_bookmark.brackets,
+.torrent_table a.add_bookmark.brackets {
+    position: static !important;
+    transform: none !important;
+    display: inline-block !important;
+    height: auto !important;
+    margin: 0 0 4px !important;
+    padding: 3px 10px !important;
+    font-size: var(--fs) !important;
+}
+
+/* Categoria: <div class="cats_xxx"> vazio, desenhado pelo tema nativo. Ícones do próprio
+   BJ (mesmos das listagens); Jogos e HQs não têm ícone genérico e usam Font Awesome. */
+.torrent_table td > div[class*="cats_"] {
+    width: 48px;
+    height: 48px;
+    margin: 0 auto;
+    /* propriedades separadas: o atalho "background" zeraria a imagem de cada .cats_* */
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    border-radius: var(--radius-sm);
+}
+.cats_filmes { background-image: url('https://bj-share.info/static/common/newcaticons3/filme.svg'); }
+.cats_seriados { background-image: url('https://bj-share.info/static/common/newcaticons3/seriadob4.svg'); }
+.cats_animes { background-image: url('https://bj-share.info/static/common/newcaticons3/animeb.svg'); }
+.cats_aplicativos { background-image: url('https://bj-share.info/static/common/newcaticons3/softwareb.svg'); }
+.cats_cursos { background-image: url('https://bj-share.info/static/common/newcaticons3/cursos.svg'); }
+.cats_ebooks { background-image: url('https://bj-share.info/static/common/newcaticons3/e-booksb.svg'); }
+.cats_revistas { background-image: url('https://bj-share.info/static/common/newcaticons3/revistasb.svg'); }
+.cats_jornais { background-image: url('https://bj-share.info/static/common/newcaticons3/jornaisb.svg'); }
+.cats_esportes { background-image: url('https://bj-share.info/static/common/newcaticons3/esporteb.svg'); }
+.cats_audiobook, .cats_audiobooks { background-image: url('https://bj-share.info/static/common/newcaticons3/audiobook.svg'); }
+.cats_mangás, .cats_mangas { background-image: url('https://bj-share.info/static/common/newcaticons3/manga.svg'); }
+.cats_standupcomedy { background-image: url('https://bj-share.info/static/common/newcaticons3/standupb.svg'); }
+.cats_outros { background-image: url('https://bj-share.info/static/common/newcaticons3/outrosb.svg'); }
+.cats_jogos, .cats_hqs, .cats_históriasemquadrinhos {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--fill-2);
+    border: 1px solid var(--line-strong);
+}
+.cats_jogos::before, .cats_hqs::before, .cats_históriasemquadrinhos::before {
+    content: '\f11b'; /* gamepad */
+    font-family: var(--font-icon);
+    font-weight: 900;
+    font-size: 20px;
+    color: var(--text-bright);
+}
+.cats_hqs::before, .cats_históriasemquadrinhos::before { content: '\f5da'; } /* book-open */
+
+/* Linhas de versão dos grupos (detalhe): o RP aqui é texto, sem o <i> da página do torrent */
+.torrent_table tr.torrent_row:not(.torrent) td:first-child > span a[href*="reportsv2"]:not(:has(i)) {
+    font-size: 0 !important;
+}
+.torrent_table tr.torrent_row:not(.torrent) td:first-child > span a[href*="reportsv2"]:not(:has(i))::before {
+    content: '\f071';
+    font-family: var(--font-icon);
+    font-weight: 900;
+    font-size: var(--fs);
+}
+
+/* Expandir/recolher grupo: link vazio, o ícone vinha do tema nativo */
+.torrent_table .show_torrents_link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius-sm);
+    color: var(--text-muted);
+}
+.torrent_table .show_torrents_link::before {
+    content: '\f067'; /* + */
+    font-family: var(--font-icon);
+    font-weight: 900;
+    font-size: var(--fs);
+}
+.torrent_table .hide_torrents .show_torrents_link::before { content: '\f068'; } /* − (grupo aberto) */
+.torrent_table .show_torrents_link:hover { color: var(--text-strong); background: var(--fill-2); }
+
+/* Cabeçalho "Torrents" da tabela (colhead_dark só aqui; no fórum é o cabeçalho do post) */
+.torrent_table tr.colhead_dark > td {
+    background: var(--th-bg);
+    color: var(--text-strong);
+    font-size: var(--fs);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+}
+.torrent_table tr.colhead_dark > td strong { font-size: inherit; }
