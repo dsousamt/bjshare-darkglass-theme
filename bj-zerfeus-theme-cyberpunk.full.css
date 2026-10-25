@@ -883,6 +883,13 @@ body.bj-sticky-menu:has(#noteAlertMsg:not([style*="display: none"])):has(#noteAl
     overflow-y: auto !important;
     overflow-x: hidden !important;
     scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track) !important;
+    /* O overflow (para rolar com muitos avisos) recortava a sombra dos avisos rente à
+       borda. Folga interna de 20px para a sombra caber, com margem negativa para os
+       avisos ficarem no mesmo lugar (o script fixa 310px a 20px dos cantos).
+       content-box: a folga não sai dos 310px. */
+    box-sizing: content-box !important;
+    padding: 0 20px 20px !important;
+    margin: 0 -20px -20px 0 !important;
 }
 
 #noty_bottomRight_layout_container li {
