@@ -11,6 +11,8 @@
     --radius-md: 2px;
     --radius-lg: 2px;
     --glass-blur: none;
+    --menu-blur: none;
+    --submenu-bg: var(--bg-solid); /* menus opacos, sem transparência */
 
     --bg-base: #000000;
     --bg-solid: #000000;

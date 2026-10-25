@@ -14,6 +14,8 @@
     --radius-lg: 0;
     --radius-pill: 0;
     --glass-blur: none;
+    --menu-blur: none;
+    --submenu-bg: var(--bg-solid); /* menus opacos, sem transparência */
     --transition-snappy: 0.05s linear;
     --transition-smooth: 0.08s linear;
 

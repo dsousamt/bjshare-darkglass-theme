@@ -130,7 +130,10 @@ Bundles (*.full.css, base + variante num arquivo só): .\build-theme-bundles.ps1
     --alert-link: var(--text-strong);
     --menu-hover-bg: var(--fill-2);
     --menu-hover-fg: var(--text-strong);
-    --submenu-bg: color-mix(in srgb, var(--bg-solid) 97%, transparent);
+    --submenu-bg: color-mix(in srgb, var(--bg-solid) 92%, transparent);
+    /* Desfoque atrás dos submenus, separado do das caixas (--glass-blur): temas sem vidro
+       nas caixas (MSN) ainda têm menu fosco. Temas chapados usam fundo opaco e "none". */
+    --menu-blur: blur(18px) saturate(1.3);
     --submenu-hover-bg: var(--accent-08);
     --submenu-hover-fg: var(--text-strong);
     --panel-border: color-mix(in srgb, var(--ink) 8%, transparent);
@@ -442,7 +445,7 @@ html body #header::after {
     box-shadow: var(--shadow-menu);
     padding: 6px 0;
     margin-top: 0 !important;
-    backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
+    backdrop-filter: var(--menu-blur); -webkit-backdrop-filter: var(--menu-blur);
     transition: var(--dropdown-hide);
 }
 /* ponte invisível para o mouse não "cair" entre o item e o submenu */
@@ -3112,6 +3115,8 @@ ul.collage_images img {
     --radius-lg: 0;
     --radius-pill: 0;
     --glass-blur: none;
+    --menu-blur: none;
+    --submenu-bg: var(--bg-solid); /* menus opacos, sem transparência */
     --transition-snappy: 0.05s linear;
     --transition-smooth: 0.08s linear;
 
