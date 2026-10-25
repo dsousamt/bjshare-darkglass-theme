@@ -1997,8 +1997,10 @@ li.bjqs-slide { position: absolute !important; inset: 0; display: none; }
 li.bjqs-slide:first-child { display: list-item; } /* antes do script rodar */
 ul.bjqs li a { display: block !important; width: 100% !important; height: 100% !important; }
 
+/* max-width: o CSS do site limita ".sidebar img" a 220px, e o box tem 234px: sobrava
+   uma faixa à direita da imagem */
 ul.bjqs li img {
-    width: 100% !important; height: 100% !important; object-fit: cover !important;
+    width: 100% !important; height: 100% !important; max-width: none !important; object-fit: cover !important;
     display: block !important; border-radius: var(--radius-md) !important; margin: 0 !important;
 }
 
@@ -3033,3 +3035,53 @@ dialog button[value="ok"]:hover {
     letter-spacing: 0.8px;
 }
 .torrent_table tr.colhead_dark > td strong { font-size: inherit; }
+
+/* Cover art (Favoritos e coleções): grade que ocupa a largura do box, capas do mesmo
+   tamanho em formato de pôster. O global.css do site fixa a lista em 590px e cada capa
+   em 118x118px, deixando sobra à direita e imagens distorcidas. */
+ul.bookmarks_images,
+ul.collage_images {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+    gap: 10px;
+    width: auto !important;
+    padding: 12px !important;
+    margin: 0 !important;
+}
+ul.bookmarks_images > li,
+ul.collage_images > li {
+    float: none !important;
+    width: auto !important;
+    height: auto !important;
+    margin: 0 !important;
+    aspect-ratio: 2 / 3;
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    background: var(--fill-2);
+    box-shadow: var(--shadow-sm);
+    transition: transform var(--transition-snappy), box-shadow var(--transition-snappy);
+}
+ul.bookmarks_images > li:hover,
+ul.collage_images > li:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md), 0 0 0 2px var(--accent);
+}
+ul.bookmarks_images > li > a,
+ul.collage_images > li > a {
+    display: block;
+    width: 100%;
+    height: 100% !important;
+}
+ul.bookmarks_images img,
+ul.collage_images img {
+    display: block;
+    width: 100% !important;
+    height: 100% !important;
+    max-width: none !important;
+    max-height: none !important;
+    margin: 0 !important;
+    object-fit: cover;
+    /* capa quebrada: o texto alternativo aparece pequeno, dentro do quadro */
+    font-size: var(--fs);
+    color: var(--text-muted);
+}
