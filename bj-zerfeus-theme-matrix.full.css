@@ -1927,12 +1927,19 @@ blockquote::before {
 #container {
     position: relative; width: 100%; border-radius: var(--radius-md);
     overflow: hidden; box-shadow: var(--shadow-md); background: transparent;
-    border: none; margin-bottom: 12px;
+    border: none; margin-bottom: 0;
     aspect-ratio: 5 / 7;
 }
+/* Espaço vazio que o site põe embaixo do slider (<div>&nbsp;</div>) */
+#container + div { display: none; }
 
 #banner-fade, ul.bjqs, li.bjqs-slide { width: 100% !important; max-width: 100% !important; height: 100% !important; margin: 0 !important; padding: 0 !important; }
-ul.bjqs { list-style: none !important; overflow: hidden !important; }
+ul.bjqs { position: relative !important; list-style: none !important; overflow: hidden !important; }
+/* O script do slider (bjqs, modo fade) só faz fadeOut/fadeIn: quem empilha os slides
+   e esconde os inativos é o CSS dele, que vinha do tema nativo. Sem isto os slides
+   ficavam um embaixo do outro e "pulavam" a cada troca. */
+li.bjqs-slide { position: absolute !important; inset: 0; display: none; }
+li.bjqs-slide:first-child { display: list-item; } /* antes do script rodar */
 ul.bjqs li a { display: block !important; width: 100% !important; height: 100% !important; }
 
 ul.bjqs li img {
