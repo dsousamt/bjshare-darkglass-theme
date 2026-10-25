@@ -304,12 +304,12 @@ html body #header,
     align-items: center !important;
     justify-content: flex-start !important;
     padding: 8px 16px !important;
-    /* o atalho "background" já substitui a imagem do tema nativo; sem um
-       background-image: none à parte, --header-bg pode ser degradê (MSN) */
-    background: var(--header-bg) !important;
+    /* transparente: o fundo (--header-bg, pode ser degradê) e o vidro ficam no ::before
+       abaixo; o atalho "background" também anula a imagem do tema nativo */
+    background: transparent !important;
     opacity: 1 !important;
-    backdrop-filter: var(--header-blur) !important;
-    -webkit-backdrop-filter: var(--header-blur) !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
     border-bottom: 1px solid var(--header-line) !important;
     position: relative !important;
     top: 0 !important;
@@ -376,6 +376,24 @@ html body #header::after {
     display: none !important;
     background: none !important;
     opacity: 0 !important;
+}
+
+/* Fundo e vidro do header numa camada própria. Com backdrop-filter no próprio #header ele
+   vira "raiz" do desfoque dos filhos, e os menus (dentro dele) só desfocariam o header,
+   não a página: o mega-menu ficava transparente e nítido por trás. Vem depois da regra
+   acima, com a mesma especificidade, para reativar só o ::before. */
+html body #wrapper #header::before,
+html body #header::before {
+    content: '' !important;
+    display: block !important;
+    position: absolute !important;
+    inset: 0 !important;
+    z-index: -1 !important;
+    opacity: 1 !important;
+    background: var(--header-bg) !important;
+    backdrop-filter: var(--header-blur) !important;
+    -webkit-backdrop-filter: var(--header-blur) !important;
+    pointer-events: none !important;
 }
 
 @media screen and (min-width: 1320px) {
