@@ -28,9 +28,11 @@
     --bg-card-hover: rgb(0 0 0 / 0.88);
     --header-bg: #000000;
 
-    --text-muted: rgb(0 240 255 / 0.55);
-    --text-main: rgb(252 238 10 / 0.82);
-    --text-bright: var(--cp-yellow);
+    /* Texto de leitura em branco; amarelo fica para títulos, nomes de torrent, botões e
+       destaques (tudo amarelo cansava a vista); ciano para hover e texto secundário */
+    --text-muted: rgb(0 240 255 / 0.6);
+    --text-main: #c9d1d9;
+    --text-bright: #eef2f5;
     --text-strong: #ffffff;
 
     --accent: var(--cp-yellow);
@@ -61,7 +63,7 @@
     --link-glow: rgb(0 240 255 / 0.65);
 
     --header-line: var(--cp-hud);
-    --header-link: var(--cp-yellow);
+    --header-link: var(--text-bright);
     --header-link-hover: var(--cp-hud);
     --menu-hover-bg: var(--accent);
     --menu-hover-fg: var(--on-accent);
