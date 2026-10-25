@@ -247,7 +247,9 @@ ul, ol, li, ul.nobullet, ul.stats { list-style: none; margin: 0; padding: 0; }
 /* ==========================================================================
    3. Layout & Grid
    ========================================================================== */
-#wrapper { display: flex; flex-direction: column; min-height: 100vh; width: 100%; flex: 1; }
+/* flex 1 0 auto: com "flex: 1" o #wrapper encolhia até a altura da janela e o conteúdo
+   transbordava; o header fixo (cadeado) se soltava depois de rolar uma tela */
+#wrapper { display: flex; flex-direction: column; min-height: 100vh; width: 100%; flex: 1 0 auto; }
 #content { flex: 1; padding: var(--space-y-page) 0; width: 100%; }
 
 .thin, .widethin {
@@ -1880,7 +1882,10 @@ tr.torrent_row:not(.torrent) td:first-child > span a {
 tr.torrent_row:not(.torrent) td:first-child > span a i { display: block !important; }
 
 /* Download nos detalhes: mesmo visual da listagem (máscara definida em 9.2) */
+/* font-size 0: nos Favoritos o link traz o texto "DL" (aqui é um <i>), que mesmo
+   transparente ocupava espaço e empurrava o ícone para a esquerda */
 tr.torrent_row:not(.torrent) td:first-child > span a[href*="action=download"] {
+    font-size: 0 !important;
     color: transparent !important;
     background-color: color-mix(in srgb, var(--download) 15%, transparent) !important;
     border: var(--line-w) solid color-mix(in srgb, var(--download) 35%, transparent) !important;
@@ -2121,9 +2126,19 @@ ol.bjqs-markers li.active-marker a, ol.bjqs-markers li a:hover { background: var
 /* ==========================================================================
    15. Menu de Configurações (sticky)
    ========================================================================== */
+/* Distância do topo para o card "Opções" ficar preso: abaixo do header quando ele está
+   travado (cadeado), e abaixo da barra de aviso fixa (28px) quando ela aparece */
+body { --settings-top: 16px; }
+body:has(#noteAlertMsg:not([style*="display: none"])):has(#noteAlertMsg:not(.hidden)) { --settings-top: 44px; }
+body.bj-sticky-menu { --settings-top: 142px; }
+body.bj-sticky-menu:has(#noteAlertMsg:not([style*="display: none"])):has(#noteAlertMsg:not(.hidden)) { --settings-top: 170px; }
+@media screen and (max-width: 1279px) { /* o header quebra em mais linhas */
+    body.bj-sticky-menu { --settings-top: 169px; }
+    body.bj-sticky-menu:has(#noteAlertMsg:not([style*="display: none"])):has(#noteAlertMsg:not(.hidden)) { --settings-top: 197px; }
+}
 #settings_sections {
-    position: sticky !important; top: 90px !important; align-self: flex-start !important;
-    max-height: calc(100vh - 130px); overflow-y: auto; z-index: 90;
+    position: sticky !important; top: var(--settings-top) !important; align-self: flex-start !important;
+    max-height: calc(100vh - var(--settings-top) - 16px); overflow-y: auto; z-index: 90;
 }
 
 /* ==========================================================================
@@ -2622,7 +2637,7 @@ form.edit_form > .sidebar {
     flex: 0 0 260px !important;
     order: 2 !important;
     position: sticky !important;
-    top: 90px !important;
+    top: var(--settings-top) !important;
     align-self: flex-start !important; /* obrigatório para sticky em flex */
 }
 form.edit_form > .main_column {
