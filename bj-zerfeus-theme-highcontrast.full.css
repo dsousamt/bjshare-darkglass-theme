@@ -1121,8 +1121,11 @@ table.layout td.label { width: 25%; font-weight: 600; text-align: right; backgro
     margin-bottom: var(--space-block);
 }
 
-/* Tabelas soltas no conteúdo, sem classe (Morrendo, Coleções…): mesmo cartão das listagens */
-.thin > table:not([class]) {
+/* Tabelas soltas no conteúdo: mesmo cartão das listagens. Sem classe (Morrendo), lista de
+   coleções (o global.css do site pinta .collage_table de #3d3d3d fixo) e busca de coleções. */
+.thin > table:not([class]),
+table.collage_table,
+.thin > div > form > table.layout {
     background-color: var(--bg-panel);
     border: 1px solid var(--panel-border);
     border-radius: var(--radius-md);
@@ -1132,7 +1135,21 @@ table.layout td.label { width: 25%; font-weight: 600; text-align: right; backgro
     overflow: hidden;
     margin-bottom: var(--space-block);
 }
-.thin > table:not([class]) tr:last-child td { border-bottom: none; }
+table.collage_table { width: 100%; margin: 0 0 var(--space-block); }
+.thin > table:not([class]) tr:last-child td,
+table.collage_table tr:last-child td,
+.thin > div > form > table.layout tr:last-child td { border-bottom: none; }
+
+/* Cabeçalho de tabela feito com <tr class="colhead"><td> (listagens, coleções): mesmo
+   estilo do <th>, e não o de título de caixa (.colhead em div), que é 16px */
+table tr.colhead > td {
+    background: var(--th-bg);
+    color: var(--text-strong);
+    font-size: var(--fs);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+}
 /* Coluna do ícone de categoria nessas tabelas (a da listagem principal fica com 72px) */
 table:not(.torrent_table) td:has(> a > img.brackets) { width: 1%; padding: 6px 10px; }
 table:not(.torrent_table) td > a > img.brackets {
