@@ -282,8 +282,9 @@ html body #header,
     align-items: center !important;
     justify-content: flex-start !important;
     padding: 8px 16px !important;
+    /* o atalho "background" já substitui a imagem do tema nativo; sem um
+       background-image: none à parte, --header-bg pode ser degradê (MSN) */
     background: var(--header-bg) !important;
-    background-image: none !important; /* anula imagem/gradiente nativos */
     opacity: 1 !important;
     backdrop-filter: none !important;
     -webkit-backdrop-filter: none !important;
