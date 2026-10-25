@@ -1,6 +1,6 @@
 # BJ-Share DarkGlass (Zerfeus)
 
-Temas para o BJ-Share, em 11 versões.
+Temas para o BJ-Share, em 13 versões.
 
 **Guia para usuários, com prévias e links prontos para copiar:**
 **https://dsousamt.github.io/bjshare-darkglass-theme/**
@@ -22,7 +22,8 @@ Para voltar ao visual normal, apague o link desse campo e salve.
 | **Monochrome**<br>`https://dsousamt.github.io/bjshare-darkglass-theme/bj-zerfeus-theme-monochrome.css`<br><img src="assets/previews/monochrome.webp" width="420" alt="Monochrome"> | **Solarized**<br>`https://dsousamt.github.io/bjshare-darkglass-theme/bj-zerfeus-theme-solarized.css`<br><img src="assets/previews/solarized.webp" width="420" alt="Solarized"> |
 | **Sépia**<br>`https://dsousamt.github.io/bjshare-darkglass-theme/bj-zerfeus-theme-sepia.css`<br><img src="assets/previews/sepia.webp" width="420" alt="Sépia"> | **Alto Contraste**<br>`https://dsousamt.github.io/bjshare-darkglass-theme/bj-zerfeus-theme-highcontrast.css`<br><img src="assets/previews/highcontrast.webp" width="420" alt="Alto Contraste"> |
 | **Matrix**<br>`https://dsousamt.github.io/bjshare-darkglass-theme/bj-zerfeus-theme-matrix.css`<br><img src="assets/previews/matrix.webp" width="420" alt="Matrix"> | **Cyberpunk**<br>`https://dsousamt.github.io/bjshare-darkglass-theme/bj-zerfeus-theme-cyberpunk.css`<br><img src="assets/previews/cyberpunk.webp" width="420" alt="Cyberpunk"> |
-| **Windows 95**<br>`https://dsousamt.github.io/bjshare-darkglass-theme/bj-zerfeus-theme-win95.css`<br><img src="assets/previews/win95.webp" width="420" alt="Windows 95"> | |
+| **Windows 95**<br>`https://dsousamt.github.io/bjshare-darkglass-theme/bj-zerfeus-theme-win95.css`<br><img src="assets/previews/win95.webp" width="420" alt="Windows 95"> | **Orkut**<br>`https://dsousamt.github.io/bjshare-darkglass-theme/bj-zerfeus-theme-orkut.css`<br><img src="assets/previews/orkut.webp" width="420" alt="Orkut"> |
+| **MSN**<br>`https://dsousamt.github.io/bjshare-darkglass-theme/bj-zerfeus-theme-msn.css`<br><img src="assets/previews/msn.webp" width="420" alt="MSN"> | |
 
 Se a página ficar sem estilo, use a versão "arquivo único" do tema: troque `.css` por
 `.full.css` no fim do link (ex.: `bj-zerfeus-theme-dracula.full.css`).
@@ -53,7 +54,7 @@ manter cache por até 12 h. Não use `raw.githubusercontent.com`: ele serve os a
 | Arquivo | O que é |
 | --- | --- |
 | `bj-zerfeus-theme.css` | Tema base (DarkGlass): variáveis e todas as regras |
-| `bj-zerfeus-theme-<nome>.css` | Variantes: só redefinem variáveis (e, no win95/cyberpunk, algumas regras) |
+| `bj-zerfeus-theme-<nome>.css` | Variantes: só redefinem variáveis (e, no win95, cyberpunk, orkut e msn, algumas regras) |
 | `bj-zerfeus-theme-<nome>.full.css` | Bundles gerados (base + variante); não edite à mão |
 | `build-theme-bundles.ps1` | Gera os bundles |
 | `index.html` | Guia publicado no GitHub Pages |

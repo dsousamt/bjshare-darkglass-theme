@@ -24,6 +24,7 @@ NOMES = {
     "darkglass": "DarkGlass (padrão)", "light": "Light", "dracula": "Dracula", "oled": "OLED",
     "monochrome": "Monochrome", "solarized": "Solarized", "sepia": "Sépia",
     "highcontrast": "Alto Contraste", "matrix": "Matrix", "cyberpunk": "Cyberpunk", "win95": "Windows 95",
+    "orkut": "Orkut", "msn": "MSN",
 }
 
 MOSAICO_HTML = """<!doctype html><html><head><meta charset="utf-8">

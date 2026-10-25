@@ -1,0 +1,133 @@
+/*
+ * BJ Zerfeus — Orkut (homenagem ao visual clássico de 2004–2008: fundo azul-claro, caixas
+ * brancas com barra de título azul, links azuis e o rosa do logo como destaque)
+ *
+ * Importa o tema base da mesma pasta (URL relativa). Se o @import não carregar (CSS
+ * injetado inline ou publicado noutra pasta), use bj-zerfeus-theme-orkut.full.css.
+ */
+@import url('bj-zerfeus-theme.css');
+
+:root {
+    --color-scheme: light;
+    --ok-blue: #315c99;      /* links */
+    --ok-blue-dark: #1f3f74; /* títulos das caixas */
+    --ok-pink: #d81b74;      /* rosa do logo */
+    --ok-sky: #c9d7f1;       /* barras de título */
+
+    --font-main: Verdana, Tahoma, 'Segoe UI', sans-serif;
+    --radius-sm: 4px;
+    --radius-md: 6px;
+    --radius-lg: 8px;
+    --glass-blur: none;
+
+    --bg-base: #d4dded;
+    --bg-solid: #ffffff;
+    --bg-panel: #ffffff;
+    --bg-card: #ffffff;
+    --bg-card-hover: #eef3fb;
+    --header-bg: #ffffff;
+
+    --text-muted: #6b7a90;
+    --text-main: #333333;
+    --text-bright: #1a1a1a;
+    --text-strong: #000000;
+
+    --ink: #1f3f74;
+    --recess: rgb(49 92 153 / 0.18);
+    --shade: rgb(31 63 116 / 0.18);
+    --scrim: #1f3f74;
+
+    --accent: var(--ok-pink);
+    --accent-2: #b8135f;
+    --accent-hover: #e8177d;
+    --on-accent: #ffffff;
+
+    --success: #2b8a3e;
+    --danger: #c92a2a;
+    --warning: #b7791f;
+    --info: var(--ok-blue);
+    --download: var(--ok-blue);
+    --bookmark: #e8a317;
+    --vote-ink: #ffffff;
+
+    --line: rgb(49 92 153 / 0.16);
+    --line-soft: rgb(49 92 153 / 0.1);
+    --line-strong: #bfd0ea;
+    --panel-border: #bfd0ea;
+    --panel-border-hover: #9fb6dc;
+    --panel-border-strong: #9fb6dc;
+
+    /* sombras discretas, como no Orkut */
+    --shadow-sm: 0 1px 2px rgb(31 63 116 / 0.1);
+    --shadow-md: 0 1px 3px rgb(31 63 116 / 0.12);
+    --shadow-lg: 0 2px 6px rgb(31 63 116 / 0.14);
+    --shadow-xl: 0 3px 10px rgb(31 63 116 / 0.16);
+    --shadow-header: 0 1px 0 #bfd0ea;
+    --shadow-menu: 0 3px 10px rgb(31 63 116 / 0.18);
+    --shadow-glow: none;
+    --link-glow: transparent;
+    --body-glow-1: transparent;
+    --body-glow-2: transparent;
+
+    --header-line: #bfd0ea;
+    --header-link: var(--ok-blue);
+    --header-link-hover: var(--ok-pink);
+    --menu-hover-bg: #e5ecf8;
+    --menu-hover-fg: var(--ok-blue-dark);
+    --submenu-hover-bg: #e5ecf8;
+    --submenu-hover-fg: var(--ok-blue-dark);
+    --head-bg: linear-gradient(180deg, #e3ebf8 0%, var(--ok-sky) 100%);
+    --head-fg: var(--ok-blue-dark);
+    --th-bg: linear-gradient(180deg, #e3ebf8 0%, var(--ok-sky) 100%);
+    --filter-head-bg: var(--ok-sky);
+    --group-bg: #e8eef8;
+    --title-fg: var(--ok-blue);
+    --title-shadow: transparent;
+    --field-bg: #ffffff;
+    --field-bg-focus: #ffffff;
+    --btn-bg: linear-gradient(180deg, #ffffff 0%, #e6edf7 100%);
+    --btn-fg: var(--ok-blue-dark);
+    --btn-border: #9fb6dc;
+    --btn-hover-bg: #dbe5f5;
+    --btn-hover-fg: var(--ok-blue-dark);
+    --btn-hover-border: var(--ok-blue);
+    --footer-bg: #ffffff;
+    --footer-line: #bfd0ea;
+    --footer-link: var(--ok-blue);
+    --alert-link: var(--ok-pink);
+    --selection-bg: rgb(216 27 116 / 0.2);
+    --scrollbar-track: #e3ebf8;
+    --scrollbar-thumb: #9fb6dc;
+    --scrollbar-thumb-hover: var(--ok-blue);
+    --logo-mark: var(--ok-pink);
+    --logo-text: var(--ok-blue);
+}
+
+/* Links azuis, como no Orkut (o base usa a cor de texto para links) */
+#content a:not(.brackets):not([style*="color"]),
+#footer a {
+    color: var(--ok-blue);
+}
+#content a:not(.brackets):not([style*="color"]):hover,
+#footer a:hover {
+    color: var(--ok-pink);
+    text-decoration: underline;
+    text-shadow: none;
+}
+
+/* Títulos das caixas em negrito, no tamanho de texto (as barras do Orkut eram discretas) */
+.box .head,
+.head2,
+.headTitulos {
+    font-size: var(--fs) !important;
+    font-weight: 700;
+    border-bottom: 1px solid #bfd0ea;
+}
+.box .head a { font-weight: 700; }
+
+/* A Verdana é larga: botões dos avisos mais compactos para não quebrar em duas linhas */
+.noty_buttons a.brackets {
+    padding: 5px 9px !important;
+    margin-left: 6px !important;
+    letter-spacing: 0 !important;
+}

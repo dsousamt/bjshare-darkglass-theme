@@ -1,0 +1,150 @@
+/*
+ * BJ Zerfeus — MSN (homenagem ao Windows Live Messenger de 2008–2009: céu azul, barras de
+ * título "aero" com brilho, botões azuis lustrosos e as cores de status online/ausente/ocupado)
+ *
+ * Importa o tema base da mesma pasta (URL relativa). Se o @import não carregar (CSS
+ * injetado inline ou publicado noutra pasta), use bj-zerfeus-theme-msn.full.css.
+ */
+@import url('bj-zerfeus-theme.css');
+
+:root {
+    --color-scheme: light;
+    --msn-blue: #1e78d0;
+    --msn-blue-dark: #1e4e86;
+    --msn-green: #4caf3f;   /* status online / boneco do MSN */
+    --msn-orange: #e8890c;  /* ausente */
+    --msn-red: #d32f2f;     /* ocupado */
+    /* barra "aero": brilho em cima, divisão de vidro no meio */
+    --msn-gloss: linear-gradient(180deg, #f6fbff 0%, #e2effc 49%, #cfe3f8 50%, #dcebfb 100%);
+
+    --font-main: 'Segoe UI', Tahoma, Verdana, sans-serif;
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --radius-lg: 10px;
+    --glass-blur: none;
+
+    --bg-base: #d6e8f8;
+    --bg-solid: #ffffff;
+    --bg-panel: #ffffff;
+    --bg-card: rgb(255 255 255 / 0.92);
+    --bg-card-hover: #eef6fe;
+    --header-bg: var(--msn-gloss);
+
+    --text-muted: #5f7894;
+    --text-main: #2b3a4a;
+    --text-bright: #16283c;
+    --text-strong: #0b1a2b;
+
+    --ink: #1e4e86;
+    --recess: rgb(30 120 208 / 0.16);
+    --shade: rgb(30 78 134 / 0.22);
+    --scrim: #10365f;
+
+    --accent: var(--msn-blue);
+    --accent-2: #1a5fa8;
+    --accent-hover: #2a8ae6;
+    --on-accent: #ffffff;
+
+    --success: var(--msn-green);
+    --danger: var(--msn-red);
+    --warning: var(--msn-orange);
+    --info: var(--msn-blue);
+    --download: var(--msn-green);
+    --bookmark: var(--msn-orange);
+    --vote-ink: #ffffff;
+
+    --line: rgb(30 78 134 / 0.14);
+    --line-soft: rgb(30 78 134 / 0.08);
+    --line-strong: #a7c7e7;
+    --panel-border: #a7c7e7;
+    --panel-border-hover: #7fb0e0;
+    --panel-border-strong: #7fb0e0;
+
+    --shadow-sm: 0 1px 2px rgb(30 78 134 / 0.12);
+    --shadow-md: 0 2px 8px rgb(30 78 134 / 0.14);
+    --shadow-lg: 0 4px 14px rgb(30 78 134 / 0.18);
+    --shadow-xl: 0 6px 20px rgb(30 78 134 / 0.2);
+    --shadow-header: 0 1px 0 #a7c7e7, 0 2px 10px rgb(30 78 134 / 0.12);
+    --shadow-menu: 0 6px 18px rgb(30 78 134 / 0.22);
+    --shadow-glow: 0 0 12px rgb(30 120 208 / 0.3);
+    --link-glow: transparent;
+    /* céu: brilho claro no alto da página */
+    --body-glow-1: rgb(255 255 255 / 0.85);
+    --body-glow-2: rgb(76 175 63 / 0.06);
+
+    --header-line: #a7c7e7;
+    --header-link: var(--msn-blue-dark);
+    --header-link-hover: var(--msn-blue);
+    --menu-hover-bg: #d5e7fa;
+    --menu-hover-fg: var(--msn-blue-dark);
+    --submenu-hover-bg: #ddebfb;
+    --submenu-hover-fg: var(--msn-blue-dark);
+    --head-bg: var(--msn-gloss);
+    --head-fg: var(--msn-blue-dark);
+    --th-bg: var(--msn-gloss);
+    --filter-head-bg: #dcebfb;
+    --group-bg: #eaf3fd;
+    --title-fg: var(--msn-blue-dark);
+    --title-shadow: transparent;
+    --field-bg: #ffffff;
+    --field-bg-focus: #ffffff;
+    --btn-bg: var(--msn-gloss);
+    --btn-fg: var(--msn-blue-dark);
+    --btn-border: #8db8e3;
+    --btn-hover-bg: linear-gradient(180deg, #ffffff 0%, #d9ebfc 49%, #bcd9f6 50%, #d2e7fb 100%);
+    --btn-hover-fg: var(--msn-blue-dark);
+    --btn-hover-border: var(--msn-blue);
+    --footer-bg: var(--msn-gloss);
+    --footer-line: #a7c7e7;
+    --footer-link: var(--msn-blue);
+    --alert-link: var(--msn-blue);
+    --selection-bg: rgb(30 120 208 / 0.22);
+    --scrollbar-track: #e3effb;
+    --scrollbar-thumb: #8db8e3;
+    --scrollbar-thumb-hover: var(--msn-blue);
+    --logo-mark: var(--msn-green);
+    --logo-text: var(--msn-blue);
+}
+
+/* Fundo de céu: azul mais forte no alto, clareando para baixo */
+body {
+    background-image: linear-gradient(180deg, #b9d9f5 0%, #d6e8f8 320px, #e7f1fb 100%) !important;
+}
+
+/* Botão principal (enviar, filtrar): azul lustroso, como os do Messenger */
+input[type="submit"],
+.box.filter_torrents .ft_submit input[value="Filtrar"] {
+    background: linear-gradient(180deg, #5aa7ef 0%, #2e86de 49%, #1e70c8 50%, #2a83dc 100%) !important;
+    border: 1px solid #1a5fa8 !important;
+    color: #ffffff !important;
+    text-shadow: 0 1px 0 rgb(0 0 0 / 0.25);
+    box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.45), 0 1px 3px rgb(30 78 134 / 0.25) !important;
+}
+input[type="submit"]:hover,
+.box.filter_torrents .ft_submit input[value="Filtrar"]:hover {
+    background: linear-gradient(180deg, #74b8f5 0%, #3c95e8 49%, #2a80d6 50%, #3992e6 100%) !important;
+}
+
+/* Estatísticas do topo como "status": bolinha verde/laranja/vermelha antes do rótulo */
+#stats_seeding,
+#stats_leeching,
+#stats_ratio,
+#stats_bjpontos {
+    background: #ffffff !important;
+}
+#stats_seeding::before,
+#stats_leeching::before,
+#stats_ratio::before,
+#stats_bjpontos::before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--msn-green);
+    box-shadow: inset 0 1px 1px rgb(255 255 255 / 0.6), 0 0 0 1px rgb(0 0 0 / 0.12);
+}
+#stats_leeching::before { background: var(--msn-red); }
+#stats_ratio::before { background: var(--msn-blue); }
+#stats_bjpontos::before { background: var(--msn-orange); }
+
+.box .head a { font-weight: 700; }

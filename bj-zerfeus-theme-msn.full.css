@@ -1,0 +1,3246 @@
+/*
+BJ-Share (DarkGlass Moderno & Responsivo - Edição Ultimate V63)
+Banners de capa imersivos (degradê) e sistema de avaliação (votos) modernizado.
+
+Produção: https://dsousamt.github.io/bjshare-darkglass-theme/bj-zerfeus-theme.css (GitHub Pages;
+este arquivo = tema base "DarkGlass"). Repositório: https://github.com/dsousamt/bjshare-darkglass-theme
+Variantes (bj-zerfeus-theme-<nome>.css) importam este arquivo e redefinem só as
+sementes da seção 1a; os tons da seção 1b são derivados delas com color-mix().
+Bundles (*.full.css, base + variante num arquivo só): .\build-theme-bundles.ps1
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+/* ==========================================================================
+   1a. Sementes — o que cada variante redefine
+   ========================================================================== */
+:root {
+    /* Tipografia e forma */
+    --font-main: 'Inter', system-ui, -apple-system, sans-serif;
+    --font-icon: 'Font Awesome 5 Free', 'Font Awesome 5 Pro', 'FontAwesome';
+    --fs: 12px;      /* tamanho único de texto (múltiplos de 4px, mínimo 12) */
+    --fs-lg: 16px;   /* títulos de caixa e destaques */
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 18px;
+    --radius-pill: 9999px;
+    --line-w: 1px;   /* espessura das bordas de componentes (menus, botões, rodapé) */
+    --glass-blur: blur(20px);
+    --color-scheme: dark; /* controles nativos (lista do <select>, datas): dark ou light */
+
+    /* Superfícies */
+    --bg-base: #0b0d10;
+    --bg-solid: #12141a;               /* dropdowns e fundos opacos */
+    --bg-panel: rgb(13 15 19 / 0.94);  /* tabelas, notificações, banner */
+    --bg-card: rgb(18 21 27 / 0.78);   /* caixas (.box) */
+    --bg-card-hover: rgb(35 39 50 / 0.88);
+    --header-bg: var(--bg-base);
+
+    /* Texto (do mais apagado ao mais forte) */
+    --text-muted: #6b7280;
+    --text-main: #9ca3af;
+    --text-bright: #e5e7eb;
+    --text-strong: #f9fafb;
+
+    /* Materiais: cores-base dos tons derivados. O alfa regula a intensidade
+       (ex.: tema claro usa --shade com alfa baixo para sombras suaves). */
+    --ink: #ffffff;    /* linhas finas e preenchimentos sutis sobre a superfície */
+    --recess: #000000; /* áreas rebaixadas: cabeçalhos, campos, colunas laterais */
+    --shade: #000000;  /* sombras */
+    --scrim: #000000;  /* véu sobre imagens (banner, slider) */
+    --on-scrim: #ffffff;
+
+    /* Acento */
+    --accent: #dc2626;
+    --accent-2: #b91c1c;   /* fim do gradiente */
+    --accent-hover: #ef4444;
+    --on-accent: #ffffff;  /* texto/ícone sobre fundo de acento */
+
+    /* Estados */
+    --success: #22c55e;
+    --danger: #ef4444;
+    --warning: #eab308;
+    --info: #3b82f6;
+    --download: var(--accent);
+    --bookmark: #f59e0b;
+    --imdb: #f5c518;
+
+    /* Densidade (padding/gap) — valores baixos = UI mais adensada */
+    --space-y-page: 12px;
+    --space-x-shell: 16px;
+    --gap-col: 12px;
+    --pad-inset: 10px 12px;
+    --pad-head: 10px 14px;
+    --space-block: 16px;
+    --pad-cell: 7px 10px;
+
+    --transition-snappy: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-smooth: 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    --transition-bounce: 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* ==========================================================================
+   1b. Tons derivados — redefina numa variante só quando o derivado não servir
+   ========================================================================== */
+:root {
+    --line: color-mix(in srgb, var(--ink) 6%, transparent);
+    --line-soft: color-mix(in srgb, var(--ink) 4%, transparent);
+    --line-strong: color-mix(in srgb, var(--ink) 10%, transparent);
+    --fill-1: color-mix(in srgb, var(--ink) 4%, transparent);
+    --fill-2: color-mix(in srgb, var(--ink) 7%, transparent);
+    --fill-3: color-mix(in srgb, var(--ink) 11%, transparent);
+    --fill-4: color-mix(in srgb, var(--ink) 16%, transparent);
+    --row-stripe: color-mix(in srgb, var(--ink) 2%, transparent);
+
+    --recess-1: color-mix(in srgb, var(--recess) 18%, transparent);
+    --recess-2: color-mix(in srgb, var(--recess) 28%, transparent);
+    --recess-3: color-mix(in srgb, var(--recess) 40%, transparent);
+    --recess-4: color-mix(in srgb, var(--recess) 55%, transparent);
+    --field-bg: var(--recess-2);
+    --field-bg-focus: var(--recess-4);
+
+    --accent-08: color-mix(in srgb, var(--accent) 8%, transparent);
+    --accent-12: color-mix(in srgb, var(--accent) 12%, transparent);
+    --accent-20: color-mix(in srgb, var(--accent) 20%, transparent);
+    --accent-30: color-mix(in srgb, var(--accent) 30%, transparent);
+    --accent-40: color-mix(in srgb, var(--accent) 40%, transparent);
+    --accent-gradient: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%);
+    --accent-gradient-hover: linear-gradient(135deg, var(--accent-hover) 0%, var(--accent) 100%);
+    --orange: color-mix(in oklab, var(--warning), var(--danger));
+
+    --shadow-sm: 0 1px 3px color-mix(in srgb, var(--shade) 30%, transparent), 0 1px 2px color-mix(in srgb, var(--shade) 20%, transparent);
+    --shadow-md: 0 4px 16px color-mix(in srgb, var(--shade) 40%, transparent), 0 8px 32px color-mix(in srgb, var(--shade) 30%, transparent);
+    --shadow-lg: 0 4px 16px color-mix(in srgb, var(--shade) 40%, transparent), 0 12px 40px color-mix(in srgb, var(--shade) 45%, transparent);
+    --shadow-xl: 0 10px 40px color-mix(in srgb, var(--shade) 60%, transparent);
+    --shadow-header: 0 4px 20px color-mix(in srgb, var(--shade) 50%, transparent);
+    --shadow-menu: 0 8px 30px color-mix(in srgb, var(--shade) 60%, transparent), 0 0 0 1px color-mix(in srgb, var(--shade) 30%, transparent);
+    --shadow-glow: 0 0 20px color-mix(in srgb, var(--accent) 25%, transparent), 0 0 40px color-mix(in srgb, var(--accent) 10%, transparent);
+    --link-glow: color-mix(in srgb, var(--accent) 15%, transparent);
+
+    /* Componentes */
+    --body-glow-1: color-mix(in srgb, var(--accent) 7%, transparent);
+    --body-glow-2: color-mix(in srgb, var(--info) 2%, transparent);
+    --selection-bg: var(--accent-30);
+    --selection-fg: var(--text-strong);
+    --header-line: var(--line-strong);
+    --header-link: var(--text-bright);
+    --header-link-hover: var(--accent-hover);
+    --logo-mark: var(--accent);      /* "bj" do logo */
+    --logo-text: var(--text-strong); /* "share" do logo */
+    --alert-link: var(--text-strong);
+    --menu-hover-bg: var(--fill-2);
+    --menu-hover-fg: var(--text-strong);
+    --submenu-bg: color-mix(in srgb, var(--bg-solid) 97%, transparent);
+    --submenu-hover-bg: var(--accent-08);
+    --submenu-hover-fg: var(--text-strong);
+    --panel-border: color-mix(in srgb, var(--ink) 8%, transparent);
+    --panel-border-hover: color-mix(in srgb, var(--ink) 12%, transparent);
+    --panel-border-strong: color-mix(in srgb, var(--ink) 15%, transparent);
+    --head-bg: linear-gradient(180deg, color-mix(in srgb, var(--recess) 35%, transparent) 0%, color-mix(in srgb, var(--recess) 25%, transparent) 100%);
+    --head-fg: var(--text-strong);
+    --th-bg: linear-gradient(180deg, color-mix(in srgb, var(--recess) 45%, transparent) 0%, color-mix(in srgb, var(--recess) 35%, transparent) 100%);
+    --filter-head-bg: var(--recess-3);
+    --group-bg: var(--bg-solid);
+    --title-fg: var(--text-strong);
+    --title-shadow: color-mix(in srgb, var(--shade) 80%, transparent);
+    --btn-bg: var(--recess-2);
+    --btn-fg: var(--text-bright);
+    --btn-border: var(--line-strong);
+    --btn-hover-bg: var(--accent-12);
+    --btn-hover-fg: var(--text-strong);
+    --btn-hover-border: var(--accent);
+    --footer-bg: var(--bg-panel);
+    --footer-line: var(--line);
+    --footer-link: var(--text-main);
+    --scrollbar-track: var(--bg-base);
+    --scrollbar-thumb: color-mix(in srgb, var(--ink) 18%, transparent);
+    --scrollbar-thumb-hover: color-mix(in srgb, var(--accent) 60%, transparent);
+    /* Ícone do voto sobre o fundo cheio no hover: tom bem escuro da cor do voto.
+       Temas com cores de voto escuras (win95, sépia) usam #fff. */
+    --vote-ink: #000000;
+
+    /* Variáveis do global.css do site (editor BBCode), pensadas para fundo branco:
+       ícones #404040 e hover #ddd. Só o editor usa estas variáveis. */
+    --global-color: var(--text-main);
+    --global-onHover-color-input: var(--fill-3);
+    --global-border-box: 1px solid var(--line-strong);
+    --global-borderRadius: var(--radius-sm);
+    --BBCodeToolbar-button-onActive-border: 1px solid var(--line-strong);
+    --ProgressBarBorder-border: 2px solid var(--accent);
+
+    /* Ícones (máscaras: a cor vem de background-color) */
+    --icon-download: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='black' stroke-width='2.5'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3'/%3E%3C/svg%3E");
+    --icon-bookmark: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='black' stroke-width='2'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z'/%3E%3C/svg%3E");
+    --icon-bookmark-filled: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='black' viewBox='0 0 24 24' stroke='black' stroke-width='2'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z'/%3E%3C/svg%3E");
+    /* Logo (logos/mask-bj.png e logos/mask-share.png embutidos: máscara de outro domínio exige CORS) */
+    --logo-mask-bj: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAjIAAABpCAQAAACKEwHPAAAF/ElEQVR42u2d0XXiOBhGv+HwLBowFaQfVwAF7KaAnS2ACnAF9JMK7AZGDcw+AGPMBluSLUWK730GFDhHN7/+T5J//JaMjIxeY2VlBQAQwFaSUaNqVDIHdWgGAEIlIxntR2oZq4tqNAMAIWxulUo7ohCjvS6qRpdUAAAjkul0HK1T0AwAzJCMZNWO1jJoBgBmSWZ6yYRmACCIH797iVS6jDaAJasP1eo0HXsP30UEDoBkHDXTqdaHrKqJ2HsoGSJwACTjqBmrVrU6GV305ljL9PUPAKyOzZMOXHMmTfZwhu/Z08sBQDL3SsWlAWxkVXto5kzLGADJ3DVzWFwzJFMASGawZKodNNNIDq9EMwBIJlgze2myh4NmAJBMsGbOqqTJHs5z/YNkAJCMyJkAILJkyJkAILJkyJkAILpk3BrAaAYAgiTjG2eTMwGAp2T84mxyJgDwloxLztTH2eRMAOAtGXImAIgsGXImAAhmeJ/MmBJc7s1rVcvKTL5y+I4SL7TyuRnw/l25HxCQzAKa+VAtq7fbXuDvqRkjo71OnpLpdODiLlgjW4//xJ3qCc1c27kfatU6/qe/5kx1YZJp9OZdyYiFIayTjcdryZnuf++bdy+JxRIgGefFzbpzJqNKZ++/1arVAckAknGbLmvOmVz6Up8rhmeJA5LxWDKt9TwTigFIIBk/zUjvzhM4d82gGIBEkvHRzF4nj0mc93kmo8ZTMVbd7YlTKAZWjPs+mecpN70Xxt5e6c79+ZQ5KsZ978/1u1u1eldLqgRrZxv4PuuwFyakKvlHdaa/1F9q9cvj90EwALMqmdAexZS4cl1c+B4jYF8MwGzJLK0ZWqQASCaiZh4VYwK27PvWF/HGoJ4BWFAy/g3RV/QtX6MqUspk1d323cYb4/PxAFbMdvZEcj8MOfUp9xrjevxw+Snf6meEZd70eACrZrPAZHI/DPl6Oh7+KCbOccnhcqxJohg6TAALSabzOAw5Nf1Djh+6jXL8M0aKU9/9eABI5ks186yYS7Q6po2ssVfLPwAks5BmjoGSOSZRzCHyGK+WfwBI5ktHH1YYl8jdmHSKoRsDsLhkjPedt88N3wbFACCZ14rZz7oEIV4z9r4cQzEABUsmpJmaKlO6LsdQDMCXsZ39CaGXOT1GvD9l1Y68ehe03e+x4dsQWwOUKZnw++IeI96/R9+/U6VmRl2RamcMsTXA4pIJV8xjxGsn7tiTzrMUk2pnDLE1wCfM68mELEP8Oheh3ZTH/TccIgAotJIJXYb8q53za3c6Bynmceky3u+5jxN+yBPFAIyQ/mY8K+txjWXI5B9OepebY3Yzrn5AMQBRJJMmFE4z6ed9l3wvPwfIgrCezHdSzLyuDZkSQATJ5KuYkL0qcwJuMiWASJJpslWMb10xJ+CmGwMQRTJptralqSvm1GQoBiCKZNJsbUtTV6AYgOwkQ6aEYgAiSuY7NXznfReOQgJEkEzeivFv+BJbA2QlmdwVcyC2BihdMjnH1v7dGGJrgKwkk3dsTcMXoHDJEFujGICIkiG27scjUwJYXDIo5nE8MiUAb7ZFKsbeMp60p63JlAAiSKbJUjGtjmon7gb+/3eZF1vTjQFYXDI5ZkphNQyxNUCGksktU7pe22n17l3DkCkBfCGvr980alRlJZl3/ZL1FgyKAchWMiarpVKIXuYqhht8ASIul2yyqeWms1DlhT1Upa9jiK0BIkkmnVp2OkWsmcKfqERsDVCoZK566dWyy2xh1iuGbgxAcZIxMtrrJJOpWlAMQMGSuQtmn7VeUAxAkZIpRzAoBqBAyRhVtwMKpoDfhNPWAIVJJuerOz+vY4itARZjE32E8hRDbA1QkGTKUwzdGICCJINiAJAMikExAGVKpizFkCkBFCaZ8hRDpgRQkGRKVAyZEkAxkilRMXRjAIqSTINiACCWZPJ9pC2KAfgmkjmhGACIJZnS6hhia4DiJHMitgaAmJIxHIUEgJ7t4lO3K6aOObBUAojP6+cuff9KxqIYgPIkAwAwYMNPAABIBgCQDAAAkgGA5PwHQqlnUqyh/SQAAAAASUVORK5CYII=");
+    --logo-mask-share: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAjIAAABpCAQAAACKEwHPAAAH+0lEQVR42u2dwXHjNhSG/83sKQd4JskkOYgVuB9VQFXgBnYL2GwBZgXqxxVIDQgNbA6yJJK2RQIPACH5+467IwmEwQ947wHkl18CAMjHb3QBACAZAEAyAABIBgCQDAAgGQAAJAMASAYAkAwAgI2vdMGd4OTkrvy/l5enmwDJQLxkOq2uSqbVHs0AkgGLZporaxmvrdZoBspDTuZe8Hq6KhCnRlutroZUAEgGrkhmpx2aASQDOTXTztBMh2QAyUCsZPZaz9BMg2agJF94aNVd4bTSdiIBvDsngKfK3v1PUQAHJAPBmllNlL2HoRiVKUAy8KqZR20n9swcNeO01eOstUx//QMQBDmZ+2N+nUmTqeLxJ8jmAJIBza0zbeXkJ1PFaAaQDLwjmXl1pk7SXpuZQRCaASQDwZpppMngaiwmJANIBmZr5jkoM8M+G0AyMNLMJnFm5iQmNANIBjS/zkQCGJAMRGuGOhMgGcgcMs2vM6EZQDKQTTONQsvZ1JkAyUCAZo51ph11JkAyEKeZTeKDBtSZAMnAQDPUmQDJQGbNUGcCJAOZQybqTIBkoALNUGcCJANZNUOdCZAMmDRDnQmQDGTVDHUmQDKQWTPUmQDJQOaQaZ1FMySAAclAkGbCH89JAhiQDJw1MyWPmMdzkgAGJANnzUzL4ySN7zO/k8wMIBkYaGZeArjRj9nfSWYGkAwMQqb1TM2gDYiG19R+bqbfnB0ehPE6W2AlA0GrGRQDrGRueiXhKghFGnVaJZFMq70Ohs/72XUsV1UI917Ly7Vx+Os19Y2Xl//Kfb6oXh70Y/EB4fUz2Xf9Z1CM5PWkw4Rq6um34XqwXayN/V93cmoq6huvVntWMsvq5aGCWce/tqqOee/wuh7yH/RcU02/fRQkOq3UFWzjXmu9yJ97p6mqb160ZiVTXjFlh+CcFh1nQy3eIienlbw6rd+RzLHnmuoCpbeKKVmPO+13qrN3nJwckind5Y2eKywJe7XylbTsuNN4GDLV3HObs2LKt9Jrp1ZeklOnxzq3GiCZ0muY2uaa01B9kde6kj0xTj8Ga5m6e253VkzpVl5WUVWfG0MyJRWzrXImPs2Gx/NM2+paWGvP9dcRS7Syr5iVnqtUDNUlbhR57bTR7jU48TrokKSYbW3V02I5jpibXK/hynKKqVrCSOazK2aYtHzQQwXtOuiw2PogVjGlw5VTLqjeHjq3EcmgmP6aoYZF92WfzO0opnTP9WtKcT103C4wl5ha6DlfhWRy85f+Dh4GYQMgfqC2C5Zep/McNzBHL5iNudSU4hSz02b2GHvQSl10G5FMlYoJGQApVgxxN8pQhWn2/fRXCOE3UIycTXN0tGLGLQ1phb2mFHbGzEl6tvwCkqlNMcdZ8qXoIcM4xfRVGDPXTSmmKSBn4xwdrZhhS0NaYa8phSombmz0fgHJ5OPPSMXskp2Kni+ZzjSMYua660FI+A0UdwJ8FfBArvdEGKuYYS5sfu/Za0rD9k+vnx4iNhf2g0kkk1Ux/0RG6j+zx/fjU7uNUTFpchIXvcbNnptgxdivvIu6zTfRuTBrTWmsyG6GZJx1mkQyefgjWjHWk8xzBkH/zHDMont8m3SJFGNL+LrJHT5judpWS3EZkeEtGKoYW03JvgoLCyaRTFbF/Bv9B3QzbhYbez2ZI+7+bdIkUkx8wvekusPklbfGVPfGWLYe34Ih13r6rKVsvSmgmDdBK5LJwe+Fd3/GzqSximkT762xJXznynm8irHINU025vRvcz993HKwMpStd+UVg2RyUPNhNWtlJFc2Jj7hW/LK2wyKaQNK195Ytm6XUAySyaGYWg+r2dOWNSZ8y2Qj0teU3q6uco6u/CedrlT3eJB4esXUu0vVmrbMsc+1xA7f1HK115TKji57xst0fUjmsyompqZkzUksM/zHcrSWre01pSUV02TT+IfXh2Q+h2Lsq5BxwrdLrpgmm2KGcnw2rt/sNaWyoyt/xmvi+sjJpORbQK0glrgzQilqSqkfbDDOc9Sb8E1fU4qRjLWmlG+Efvzod0m8dyntSib/gxcfZu3SnLqd66gpnZ6y/xkTvuFj61HbiP1T47+cyyTyqwlsVjJpuzo34WdtqCktqZh0Cd8URyH9Mu/2JCdzW2ulxjiTUlMq9/m3wUrZbEw1Lw1mJXMrgdIxWHo2KoaaUsks1LIJX+l71oepzn6pMJJJoZiYPEmcZFzhQCfH8/g/U03JupKw9XnOo7bjV/MimcyKuZXn0C6Rk7h2+1JTmh5d8eu8nEdtvXb6Rk4GxaRUTLqw5lYSvm0VimluYGwhGRQTqYg8r/wonfC95ZrS8U2aN68YwqV7VMzpnZB70zNf7DmJqdu3o6Y0I+Bxt64YJLNUvJx3EFzeCRmriPw1paaIYm61plQnb6cvJJNdMrXNM+8NgjprSvkSvhtjwb6GmtLlu/aJXjWTamw9DaYvJFOk230lmjm+x8e/GQS11pS22c8C33JN6fJtrZqItwVUJBiJs0vWnExXjWSedHhne5RTp1XwjdL2ZvOtHs2FUC+vF7XaR7cppuXWK49ppQ8PJm5glPl4wSCZ+wmYPtp96aLejzjM53QJQqX+IM3Xa8OWW6/cRb5h2t/dKDNeFZKB/EPcL3U0D2oAyQBAVtiMBwBIBgCQDAAAkgEAJAMASAYAAMkAAJIBACQDAIBkAADJAACSAQBAMgCAZAAAkAwAIBkAQDIAAJP8DwG6vGHuD0ZQAAAAAElFTkSuQmCC");
+    --icon-lock: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='black' stroke-width='2'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z'/%3E%3C/svg%3E");
+    --icon-chevron-up: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='black' stroke-width='2.5'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M4.5 15.75l7.5-7.5 7.5 7.5'/%3E%3C/svg%3E");
+    --icon-chevron-down: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='black' stroke-width='2.5'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M19.5 8.25l-7.5 7.5-7.5-7.5'/%3E%3C/svg%3E");
+    --icon-lock-open: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='black' stroke-width='2'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M13.5 10.5V6.75a4.5 4.5 0 119 0v3.75M3.75 21.75h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H3.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z'/%3E%3C/svg%3E");
+
+    /* Dropdowns: abrem rápido (0.12s evita abrir só de passar pela barra) e fecham com
+       tolerância de 0.4s, para o mouse poder cortar caminho na diagonal. Enquanto o
+       visibility não vira hidden, o submenu continua recebendo o mouse (por isso os
+       submenus fechados não usam pointer-events: none). */
+    --dropdown-hide: opacity 0.15s ease 0.25s, transform 0.15s ease 0.25s, visibility 0s linear 0.4s;
+    --dropdown-show: opacity 0.12s ease 0.12s, transform 0.12s ease 0.12s, visibility 0s linear 0.12s;
+}
+
+/* ==========================================================================
+   2. Reset Moderno & Base
+   ========================================================================== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+    color-scheme: var(--color-scheme);
+    scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+}
+
+html, body {
+    width: 100%; min-width: 100%; min-height: 100vh;
+    background-color: var(--bg-base);
+    color: var(--text-main);
+    font-family: var(--font-main);
+    font-size: var(--fs);
+    line-height: 1.45;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    display: flex;
+    flex-direction: column;
+}
+
+body {
+    background-image:
+        radial-gradient(ellipse 80% 50% at 50% -20%, var(--body-glow-1) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 40% at 80% 50%, var(--body-glow-2) 0%, transparent 50%);
+    background-attachment: fixed;
+    max-width: 100vw;
+}
+
+::selection {
+    background-color: var(--selection-bg);
+    color: var(--selection-fg);
+}
+
+a { color: var(--text-bright); text-decoration: none; font-weight: 500; transition: color var(--transition-snappy), text-shadow var(--transition-snappy); }
+a:hover, a:focus { color: var(--accent-hover); text-shadow: 0 0 12px var(--link-glow); }
+
+/* Nomes de usuário vêm com a cor da classe inline. A de membro comum (#575757) tem
+   contraste 2,7:1 no fundo escuro e quase some; vira o texto do tema. As outras cores
+   de classe (verde, azul, laranja, rosa, #948B8B) passam de 4:1 e ficam como estão. */
+[style*="color: #575757"],
+[style*="color:#575757"] { color: var(--text-bright) !important; }
+a[style*="color: #575757"]:hover,
+a[style*="color:#575757"]:hover { color: var(--accent-hover) !important; }
+img, video { max-width: 100%; height: auto; }
+
+/* Ocultar lixo nativo e banner do Telegram indesejado */
+.hidden:not(.newsbody), span.hidden, h1.hidden { display: none !important; }
+.alertbar, #alerts { display: none !important; opacity: 0 !important; visibility: hidden !important; pointer-events: none !important; }
+ul, ol, li, ul.nobullet, ul.stats { list-style: none; margin: 0; padding: 0; }
+
+/* ==========================================================================
+   3. Layout & Grid
+   ========================================================================== */
+/* flex 1 0 auto: com "flex: 1" o #wrapper encolhia até a altura da janela e o conteúdo
+   transbordava; o header fixo (cadeado) se soltava depois de rolar uma tela */
+#wrapper { display: flex; flex-direction: column; min-height: 100vh; width: 100%; flex: 1 0 auto; }
+#content { flex: 1; padding: var(--space-y-page) 0; width: 100%; }
+
+.thin, .widethin {
+    width: 100%; max-width: 1280px; margin: 0 auto; padding: 0 var(--space-x-shell);
+    display: flex; flex-wrap: wrap; gap: var(--gap-col);
+    align-items: flex-start;
+}
+
+.thin > *, .widethin > * { width: 100%; }
+
+/* sem sticky: com sticky, a sidebar permanecia "colada" até o fim do .thin, que
+   acompanha a coluna de torrents — parecia rolar tudo a listagem para "soltar" destaques */
+.thin > .sidebar, .widethin > .sidebar {
+    width: 260px;
+    flex: 0 0 260px;
+    order: 2;
+    position: static;
+}
+
+.thin > .main_column, .widethin > .main_column {
+    flex: 1 1 0%; min-width: 0; width: calc(100% - 272px); order: 1; /* 260 sidebar + gap */
+}
+
+/* ==========================================================================
+   4. Topbar & Menu
+   ========================================================================== */
+html body #wrapper #header,
+html body #header,
+#header {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    padding: 8px 16px !important;
+    background: var(--header-bg) !important;
+    background-image: none !important; /* anula imagem/gradiente nativos */
+    opacity: 1 !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    border-bottom: 1px solid var(--header-line) !important;
+    position: relative !important;
+    top: 0 !important;
+    z-index: 999999 !important;
+    order: -1 !important;
+    box-shadow: var(--shadow-header) !important;
+    width: 100% !important;
+    margin: 0 !important;
+    color: var(--text-bright) !important;
+}
+
+/* Menu fixo no topo: o cadeado do BJ (#bj-sticky-menu-lock, criado pelo sticky.js do
+   site) liga body.bj-sticky-menu e lembra a escolha. Destravado, o header rola junto. */
+html body.bj-sticky-menu #wrapper #header,
+html body.bj-sticky-menu #header {
+    position: sticky !important;
+}
+
+/* O script põe o cadeado em position:absolute no canto do #menu (que aqui só tem a
+   largura dos itens) e caía em cima do último item; aqui ele entra no fluxo. */
+#bj-sticky-menu-lock {
+    position: static !important;
+    transform: none !important;
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    padding: 0 !important;
+    border-radius: var(--radius-sm) !important;
+    background: transparent !important;
+    font-size: 0 !important;
+    color: transparent;
+    cursor: pointer;
+    transition: background-color var(--transition-snappy);
+}
+#bj-sticky-menu-lock::before {
+    content: '';
+    width: 16px;
+    height: 16px;
+    background-color: var(--text-muted);
+    -webkit-mask: var(--icon-lock-open) center / contain no-repeat;
+    mask: var(--icon-lock-open) center / contain no-repeat;
+    transition: background-color var(--transition-snappy);
+}
+#bj-sticky-menu-lock[aria-pressed="true"]::before {
+    background-color: var(--accent);
+    -webkit-mask-image: var(--icon-lock);
+    mask-image: var(--icon-lock);
+}
+#bj-sticky-menu-lock:hover,
+#bj-sticky-menu-lock:focus-visible { background: var(--menu-hover-bg) !important; }
+#bj-sticky-menu-lock:hover::before { background-color: var(--menu-hover-fg); }
+
+#header a { color: var(--header-link); }
+#header a:hover,
+#header a:focus { color: var(--header-link-hover); }
+
+/* Prevenir overlays transparentes nativos */
+html body #wrapper #header::before,
+html body #wrapper #header::after,
+html body #header::before,
+html body #header::after {
+    display: none !important;
+    background: none !important;
+    opacity: 0 !important;
+}
+
+@media screen and (min-width: 1320px) {
+    html body #wrapper #header,
+    html body #header,
+    #header {
+        padding-left: calc((100% - 1280px) / 2) !important;
+        padding-right: calc((100% - 1280px) / 2) !important;
+    }
+}
+
+/* Logo — extrema esquerda. Desenhado com duas máscaras ("bj" e "share") pintadas
+   com as cores do tema; os PNGs originais estão em logos/. */
+#logo {
+    position: relative;
+    order: 1;
+    flex: 0 0 auto;
+    height: 52px; width: 187px; margin: 0 20px 0 0 !important;
+    background: none !important;
+    display: block;
+    transition: filter var(--transition-smooth), opacity var(--transition-smooth); opacity: 0.9;
+}
+#logo::before,
+#logo::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-color: var(--logo-mark);
+    -webkit-mask: var(--logo-mask-bj) left center / contain no-repeat;
+    mask: var(--logo-mask-bj) left center / contain no-repeat;
+    pointer-events: none;
+}
+#logo::after {
+    background-color: var(--logo-text);
+    -webkit-mask-image: var(--logo-mask-share);
+    mask-image: var(--logo-mask-share);
+}
+#logo a { display: block; width: 100%; height: 100%; }
+#logo:hover { opacity: 1; filter: drop-shadow(0 0 12px var(--accent-12)); }
+
+/* Menu principal */
+#menu {
+    order: 2;
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin: 0 !important; border: none !important; background: transparent !important;
+    width: auto !important;
+}
+#centertopmenu { padding: 0 !important; margin: 0 !important; width: auto !important; }
+
+#menudrop { position: relative; z-index: 1000; }
+#menudrop > ul { display: flex !important; flex-wrap: wrap; align-items: center; gap: 4px; justify-content: flex-start !important; }
+#menudrop > ul > li { position: relative; } /* âncora para o nível 1 */
+
+#menudrop > ul > li > a {
+    display: block; padding: 8px 10px;
+    color: var(--text-bright);
+    font-weight: 600; font-size: var(--fs); text-transform: uppercase;
+    letter-spacing: 0.6px; border-radius: var(--radius-sm); transition: all var(--transition-snappy);
+    position: relative;
+}
+#menudrop > ul > li > a:hover { background-color: var(--menu-hover-bg); color: var(--menu-hover-fg); }
+#menudrop > ul > li > a::after {
+    content: ''; position: absolute; bottom: 6px; left: 50%; width: 0; height: 2px;
+    background: var(--accent-gradient); border-radius: 1px;
+    transform: translateX(-50%); transition: width var(--transition-smooth);
+}
+#menudrop > ul > li:hover > a::after { width: 60%; }
+
+/* Submenu — nível 1 (Torrents, Fórum, etc.) */
+#menudrop ul ul {
+    visibility: hidden;
+    opacity: 0;
+    transform: translateY(-4px);
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: auto;
+    min-width: 240px;
+    background: var(--submenu-bg);
+    border: var(--line-w) solid var(--line-strong);
+    border-top: 2px solid var(--accent);
+    border-radius: 0 0 var(--radius-md) var(--radius-md);
+    box-shadow: var(--shadow-menu);
+    padding: 6px 0;
+    margin-top: 0 !important;
+    backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
+    transition: var(--dropdown-hide);
+}
+/* ponte invisível para o mouse não "cair" entre o item e o submenu */
+#menudrop ul ul::before { content: ''; position: absolute; top: -20px; left: 0; width: 100%; height: 20px; background: transparent; }
+#menudrop ul li:hover > ul {
+    visibility: visible;
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+    transition: var(--dropdown-show);
+}
+
+#menudrop ul ul li { border-bottom: 1px solid var(--line-soft); position: relative; }
+#menudrop ul ul li:last-child { border-bottom: none; }
+#menudrop ul ul a {
+    display: flex; justify-content: space-between;
+    padding: 8px 22px 8px 14px;
+    color: var(--text-bright); font-size: var(--fs); font-weight: 500; border-radius: 0;
+    transition: all var(--transition-snappy);
+}
+#menudrop ul ul a:hover { background-color: var(--submenu-hover-bg); color: var(--submenu-hover-fg); padding-left: 18px; }
+
+/* Submenus nível 2+ — padrão: 1 coluna para listas curtas */
+#menudrop ul ul ul {
+    visibility: hidden;
+    opacity: 0;
+    transform: translateX(-4px);
+    position: absolute;
+    top: -10px;
+    left: 100%;
+    right: auto;
+    width: 200px !important;
+    background-color: var(--bg-solid);
+    border: var(--line-w) solid var(--line-strong);
+    border-top: 2px solid var(--accent);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-xl);
+    padding: 8px 0 !important;
+    margin-left: 2px;
+    z-index: 10001;
+    transition: var(--dropdown-hide);
+}
+
+#menudrop ul ul li:hover > ul {
+    visibility: visible !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    transform: translateX(0) !important;
+    transition: var(--dropdown-show) !important;
+}
+
+#menudrop ul ul ul li { border-bottom: 1px solid var(--line-soft) !important; }
+#menudrop ul ul ul li:last-child { border-bottom: none !important; }
+
+#menudrop ul ul ul a {
+    padding: 12px 20px !important;
+    border-radius: 0 !important;
+    font-size: var(--fs) !important;
+}
+#menudrop ul ul ul a:hover {
+    background-color: var(--submenu-hover-bg) !important;
+    padding-left: 24px !important;
+    color: var(--submenu-hover-fg) !important;
+}
+
+/* Grade só para submenus de GÊNEROS longos (nível 4, 7+ itens: Seriados, Filmes...) */
+#menudrop ul ul ul ul:has(li:nth-child(7)) {
+    width: 540px !important;
+    padding: 18px !important;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+    max-height: calc(100vh - 80px) !important;
+    overflow-y: auto !important;
+    top: 0 !important;
+}
+
+#menudrop ul ul ul li:hover > ul:has(li:nth-child(7)) { display: grid !important; }
+
+#menudrop ul ul ul ul:has(li:nth-child(7)) li { border-bottom: none !important; }
+
+#menudrop ul ul ul ul:has(li:nth-child(7)) a {
+    padding: 10px 14px !important;
+    border-radius: var(--radius-sm) !important;
+    font-size: var(--fs) !important;
+}
+#menudrop ul ul ul ul:has(li:nth-child(7)) a:hover {
+    background-color: var(--submenu-hover-bg) !important;
+    padding-left: 18px !important;
+}
+
+/* Nível 3 longo (Categorias): 2 colunas — permite o nível 4 escapar para a direita */
+#menudrop ul ul ul:has(li:nth-child(7)) {
+    top: 0 !important;
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr);
+    width: 380px !important;
+    padding: 8px !important;
+    gap: 2px;
+}
+#menudrop ul ul ul:has(li:nth-child(7)) li { border-bottom: none !important; }
+#menudrop ul ul ul:has(li:nth-child(7)) > li > a {
+    padding: 8px 12px !important;
+    border-radius: var(--radius-sm) !important;
+    display: block;
+}
+
+/* Setinhas indicadoras (nível 1) */
+#menudrop ul ul a.symbol {
+    position: absolute; right: 0; top: 0; width: 35px; height: 100%;
+    border-left: 1px solid var(--line-soft); display: flex; align-items: center; justify-content: center;
+    color: var(--text-muted); padding: 0 !important; font-size: var(--fs) !important;
+}
+#menudrop ul ul a.symbol:hover { background: var(--accent); color: var(--on-accent); }
+
+/* Setinha do nível 2 para o nível 3 */
+#menudrop ul ul ul a.symbol {
+    display: flex !important;
+    border-left: none !important;
+    width: 25px;
+    background: transparent !important;
+    opacity: 0.6;
+}
+#menudrop ul ul ul a.symbol:hover {
+    color: var(--submenu-hover-fg) !important;
+    opacity: 1;
+}
+
+/* Submenu nível 3 (subcategorias, ex.: Jogos -> PS2) */
+#menudrop ul ul ul ul {
+    top: -8px !important; /* compensação para listas curtas */
+    margin-left: 2px !important;
+    z-index: 10002;
+}
+
+/* Se o pai for uma grade, o ajuste de altura do filho é diferente */
+#menudrop ul ul ul ul:has(li:nth-child(7)) ul {
+    top: -18px !important;
+    margin-left: 8px !important;
+}
+
+/* --------------------------------------------------------------------------
+   Mega-menu do Torrents (telas a partir de 1100px)
+   Um painel só: atalhos | categorias | gêneros ou plataformas da categoria sob o
+   mouse. Tira o hover em "Categorias", nada abre para fora da tela, e o caminho da
+   categoria até os gêneros é uma reta (sem cruzar outros itens).
+   Seletores com dois IDs para vencer as regras !important do menu clássico.
+   -------------------------------------------------------------------------- */
+@media screen and (min-width: 1100px) {
+    #menudrop #nav_torrents > ul {
+        display: grid !important;
+        grid-template-columns: 190px minmax(0, 1fr);
+        /* linhas explícitas terminando em 1fr: a coluna de categorias (mais alta) não
+           espaça os atalhos; comporta até 12 atalhos */
+        grid-template-rows: repeat(12, min-content) 1fr;
+        column-gap: 10px;
+        width: min(900px, calc(100vw - 340px)) !important;
+        min-width: 0 !important;
+        padding: 10px !important;
+    }
+    #menudrop #nav_torrents > ul > li { grid-column: 1; border-bottom: none !important; }
+    #menudrop #nav_torrents > ul > li > a { padding: 8px 12px; border-radius: var(--radius-sm); }
+    #menudrop #nav_torrents > ul > li > a:hover { padding-left: 12px; }
+
+    /* "Categorias": ocupa o resto do painel e fica sempre aberta */
+    #menudrop #nav_torrents > ul > li:has(> ul) {
+        grid-column: 2;
+        grid-row: 1 / -1;
+        position: relative !important;
+        display: grid;
+        grid-template-columns: 200px minmax(0, 1fr);
+        grid-template-rows: auto 1fr;
+        column-gap: 10px;
+        min-height: 100%;
+        padding-left: 10px;
+        border-left: 1px solid var(--line);
+    }
+    #menudrop #nav_torrents > ul > li:has(> ul) > a:not(.symbol) {
+        grid-column: 1 / -1;
+        pointer-events: none;
+        padding: 4px 12px 8px !important;
+        background: none !important;
+        color: var(--text-muted) !important;
+        font-size: var(--fs) !important;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+    }
+    #menudrop #nav_torrents > ul > li > a.symbol,
+    #menudrop #nav_torrents > ul > li > ul > li > a.symbol { display: none !important; }
+
+    /* Lista de categorias: coluna fixa, visível junto com o painel */
+    #menudrop #nav_torrents > ul > li > ul {
+        position: static !important;
+        grid-column: 1;
+        grid-row: 2;
+        display: block !important;
+        visibility: inherit !important;
+        opacity: 1 !important;
+        transform: none !important;
+        width: auto !important;
+        min-width: 0 !important; /* o menu clássico dá 240px aos submenus */
+        margin: 0 !important;
+        padding: 0 !important;
+        border: none !important;
+        border-radius: 0 !important;
+        background: none !important;
+        box-shadow: none !important;
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+        transition: none !important;
+    }
+    #menudrop #nav_torrents > ul > li > ul::before { display: none; }
+    #menudrop #nav_torrents > ul > li > ul > li { position: static !important; border-bottom: none !important; }
+    #menudrop #nav_torrents > ul > li > ul > li > a:not(.symbol) {
+        display: flex;
+        padding: 7px 12px !important;
+        border-radius: var(--radius-sm) !important;
+    }
+    /* categoria com gêneros: seta no fim; fica destacada enquanto o painel dela está aberto */
+    #menudrop #nav_torrents > ul > li > ul > li:has(> ul) > a:not(.symbol)::after {
+        content: '›';
+        margin-left: auto;
+        color: var(--text-muted);
+    }
+    #menudrop #nav_torrents > ul > li > ul > li:hover > a:not(.symbol) {
+        background-color: var(--submenu-hover-bg) !important;
+        color: var(--submenu-hover-fg) !important;
+    }
+
+    /* Painel de gêneros/plataformas: à direita das categorias, dentro do mega-menu */
+    #menudrop #nav_torrents > ul > li > ul > li > ul {
+        position: absolute !important;
+        top: 0 !important;
+        bottom: 0;
+        left: 220px !important; /* 10px de recuo + coluna de 200px + 10px de espaço */
+        right: 0 !important;
+        z-index: 1 !important;
+        display: grid !important;
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+        align-content: start;
+        gap: 2px !important;
+        width: auto !important;
+        min-width: 0 !important;
+        max-height: none !important;
+        overflow: visible !important;
+        margin: 0 !important;
+        padding: 0 0 0 10px !important;
+        border: none !important;
+        border-left: 1px solid var(--line) !important;
+        border-radius: 0 !important;
+        background: var(--bg-solid) !important;
+        box-shadow: none !important;
+        transform: none !important;
+    }
+    /* o painel sob o mouse fica por cima do que ainda está sumindo */
+    #menudrop #nav_torrents > ul > li > ul > li:hover > ul { z-index: 2 !important; }
+    #menudrop #nav_torrents > ul > li > ul > li > ul > li { border-bottom: none !important; }
+    #menudrop #nav_torrents > ul > li > ul > li > ul > li > a,
+    #menudrop #nav_torrents > ul > li > ul > li > ul > li > a:hover {
+        padding: 7px 12px !important;
+        border-radius: var(--radius-sm) !important;
+    }
+
+    /* Dica no espaço dos gêneros enquanto nenhuma categoria com subitens está aberta */
+    #menudrop #nav_torrents > ul > li:has(> ul)::after {
+        content: 'Passe o mouse numa categoria com › para ver gêneros e plataformas';
+        position: absolute;
+        top: 50%;
+        left: 240px;
+        right: 20px;
+        transform: translateY(-50%);
+        color: var(--text-muted);
+        font-size: var(--fs);
+        text-align: center;
+        pointer-events: none;
+    }
+}
+
+/* Teclado: Tab pelos itens abre os submenus (todos os menus) */
+#menudrop li:focus-within > ul,
+#userinfo ul li:focus-within > ul {
+    visibility: visible !important;
+    opacity: 1 !important;
+    transform: none !important;
+}
+
+/* ==========================================================================
+   Menu do Perfil (UserInfo)
+   ========================================================================== */
+#userinfo {
+    order: 3;
+    flex: 1 1 auto;
+    margin: 0 !important; padding: 0 !important; border: none !important;
+    background: transparent !important; display: flex; align-items: center; justify-content: flex-end !important;
+}
+#userinfo ul {
+    display: flex;
+    flex-wrap: wrap !important;
+    gap: 4px; align-items: center; justify-content: flex-end !important; margin: 0;
+}
+
+/* Ocultação do UserInfo minor (doações, pedidos duplicados, etc.) */
+#nav_donations, #nav_requests, #userinfo_minor { display: none !important; }
+
+#userinfo_stats li {
+    background: var(--fill-1); padding: 4px 10px;
+    border-radius: var(--radius-pill); border: 1px solid var(--line);
+    display: flex; align-items: center; gap: 5px; font-size: var(--fs) !important;
+    color: var(--text-muted);
+    transition: all var(--transition-snappy);
+}
+#userinfo_stats li:hover {
+    background: var(--accent-12);
+    border-color: var(--accent-30);
+}
+
+#stats_seeding .stat { color: var(--success); font-weight: 700; text-shadow: 0 0 8px color-mix(in srgb, var(--success) 20%, transparent); }
+#stats_leeching .stat { color: var(--danger); font-weight: 700; text-shadow: 0 0 8px color-mix(in srgb, var(--danger) 20%, transparent); }
+#stats_ratio .stat { font-weight: 700; color: var(--text-bright); }
+#stats_bjpontos .stat { color: var(--warning); font-weight: 700; text-shadow: 0 0 8px color-mix(in srgb, var(--warning) 20%, transparent); }
+#userinfo_minor.highlite a { color: var(--text-strong); font-weight: 700; }
+
+/* Dropdown do perfil */
+#userinfo ul li { position: relative; }
+#userinfo ul ul {
+    visibility: hidden;
+    opacity: 0;
+    transform: translateY(-4px);
+    position: absolute; top: 100%; right: 0; left: auto;
+    min-width: 180px; background-color: var(--bg-solid);
+    border: var(--line-w) solid var(--line-strong); border-top: 2px solid var(--accent); border-radius: 0 0 var(--radius-md) var(--radius-md);
+    box-shadow: var(--shadow-menu); padding: 6px 0; z-index: 1001; margin-top: 0;
+    transition: var(--dropdown-hide);
+}
+#userinfo ul ul::before { content: ''; position: absolute; top: -20px; left: 0; width: 100%; height: 20px; background: transparent; }
+#userinfo ul li:hover > ul {
+    visibility: visible;
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+    transition: var(--dropdown-show);
+}
+#userinfo ul ul li { display: block; width: 100%; border: none; background: transparent; padding: 0; position: relative; }
+#userinfo ul ul li a {
+    display: block; padding: 10px 16px;
+    color: var(--text-bright);
+    font-size: var(--fs); font-weight: 500; text-align: left; border-radius: 0;
+}
+#userinfo ul ul li a:hover { background-color: var(--submenu-hover-bg); color: var(--submenu-hover-fg); padding-left: 20px; }
+
+/* Setinha no perfil para opções com submenu */
+#userinfo ul ul li:has(ul) > a::after {
+    content: '▸'; float: right; color: var(--text-muted); font-size: var(--fs); margin-top: 2px; opacity: 0.7;
+}
+
+/* Nível 3 do perfil (ex.: Mensagens -> Recebidas) abre para a ESQUERDA */
+#userinfo ul ul ul {
+    visibility: hidden;
+    opacity: 0;
+    transform: translateX(4px);
+    position: absolute;
+    top: -10px;
+    right: 100%;
+    left: auto;
+    min-width: 160px;
+    background-color: var(--bg-solid);
+    border: var(--line-w) solid var(--line-strong);
+    border-top: 2px solid var(--accent);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-xl);
+    padding: 6px 0;
+    z-index: 1002;
+    margin-right: 2px;
+    transition: var(--dropdown-hide);
+}
+#userinfo ul ul li:hover > ul {
+    visibility: visible;
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateX(0);
+    transition: var(--dropdown-show);
+}
+
+/* Barras de pesquisa */
+#searchbars {
+    order: 4;
+    flex: 0 0 100%;
+    margin: 10px 0 0 0 !important; padding: 12px 0 0 0 !important;
+    border-top: 1px solid var(--line) !important; border-bottom: none !important;
+    background: transparent !important; width: 100%;
+    display: flex; justify-content: center;
+}
+#searchbars ul { display: flex !important; flex-wrap: wrap; justify-content: center; gap: 6px; align-items: center; }
+#searchbars form { display: flex; margin: 0; padding: 0; }
+
+#searchbars input[type="text"] {
+    width: 160px; padding: 8px 16px; background-color: var(--fill-1);
+    border: 1px solid var(--line); border-radius: var(--radius-pill); color: var(--text-bright);
+    text-align: center; font-size: var(--fs); transition: all var(--transition-smooth);
+}
+#searchbars input[type="text"]::placeholder {
+    color: var(--text-muted);
+    opacity: 0.9;
+}
+#searchbars input[type="text"]:focus {
+    width: 240px; border-color: var(--accent);
+    background-color: var(--field-bg-focus); outline: none;
+    box-shadow: 0 0 0 3px var(--accent-12);
+}
+#searchbars input[type="text"]:-webkit-autofill,
+#searchbars input[type="text"]:-webkit-autofill:hover,
+#searchbars input[type="text"]:-webkit-autofill:focus {
+    -webkit-text-fill-color: var(--text-bright) !important;
+    caret-color: var(--text-bright);
+    box-shadow: 0 0 0 1000px var(--bg-solid) inset !important;
+    transition: background-color 99999s ease-out;
+}
+
+/* ==========================================================================
+   5. Alertas & Notificações
+   ========================================================================== */
+#noteAlertMsg {
+    position: fixed !important; top: 0 !important; left: 0 !important;
+    width: 100% !important; height: 28px !important;
+    display: flex !important; align-items: center !important; justify-content: center !important;
+    background-color: var(--bg-solid) !important; color: var(--text-bright) !important;
+    font-size: var(--fs) !important; font-weight: 500 !important;
+    z-index: 100000 !important; padding: 0 !important; margin: 0 !important;
+    border: none !important; border-bottom: 1px solid var(--line) !important;
+}
+#noteAlertMsg a { color: var(--alert-link) !important; text-decoration: underline !important; margin-left: 8px; font-weight: 600; }
+
+body:has(#noteAlertMsg:not([style*="display: none"])):has(#noteAlertMsg:not(.hidden)) { padding-top: 28px !important; }
+body.bj-sticky-menu:has(#noteAlertMsg:not([style*="display: none"])):has(#noteAlertMsg:not(.hidden)) #header { top: 28px !important; }
+
+/* Noty (toasts do canto inferior) */
+#noty_bottomRight_layout_container {
+    max-height: calc(100vh - 60px) !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track) !important;
+    /* O overflow (para rolar com muitos avisos) recortava a sombra dos avisos rente à
+       borda. Folga interna de 20px para a sombra caber, com margem negativa para os
+       avisos ficarem no mesmo lugar (o script fixa 310px a 20px dos cantos).
+       content-box: a folga não sai dos 310px. */
+    box-sizing: content-box !important;
+    padding: 0 20px 20px !important;
+    margin: 0 -20px -20px 0 !important;
+}
+
+#noty_bottomRight_layout_container li {
+    background: var(--bg-panel) !important;
+    background-image: none !important;
+    border: 1px solid var(--line-strong) !important;
+    border-radius: var(--radius-md) !important;
+    box-shadow: var(--shadow-md) !important;
+    color: var(--text-bright) !important;
+    margin-top: 12px !important;
+    backdrop-filter: var(--glass-blur) !important;
+    -webkit-backdrop-filter: var(--glass-blur) !important;
+}
+.noty_bar { background: transparent !important; border: none !important; outline: none !important; }
+.noty_message,
+.noty_message .noty_text,
+#noty_bottomRight_layout_container .noty_text {
+    color: var(--text-bright) !important;
+    font-family: var(--font-main) !important;
+    font-size: var(--fs) !important;
+}
+.noty_message { padding: 8px 12px !important; }
+.noty_buttons { background-color: var(--recess-2) !important; border-top: 1px solid var(--line) !important; padding: 6px 10px !important; text-align: right !important; }
+
+.noty_buttons a.brackets {
+    display: inline-block !important; background: var(--btn-bg) !important; border: var(--line-w) solid var(--btn-border) !important;
+    border-radius: var(--radius-sm) !important; color: var(--btn-fg) !important; padding: 5px 12px !important; font-size: var(--fs) !important;
+    font-weight: 600 !important; margin-left: 8px !important; text-transform: uppercase; letter-spacing: 0.5px; transition: all var(--transition-snappy) !important; text-decoration: none !important;
+}
+.noty_buttons a.brackets:hover { background: var(--accent) !important; border-color: var(--accent) !important; color: var(--on-accent) !important; box-shadow: 0 0 10px var(--accent-40) !important; }
+
+/* ==========================================================================
+   6. Caixas e Painéis
+   ========================================================================== */
+.box, .torrent_details, .news_post {
+    background-color: var(--bg-card); backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--panel-border); border-radius: var(--radius-md);
+    box-shadow: var(--shadow-md);
+    margin-bottom: var(--space-block); overflow: hidden; transform: translateZ(0);
+    transition: border-color var(--transition-smooth), box-shadow var(--transition-smooth);
+}
+
+.box:hover, .news_post:hover {
+    border-color: var(--panel-border-hover);
+    box-shadow: var(--shadow-lg);
+}
+
+.box .head, .head2, .colhead, .colhead_dark, .headTitulos {
+    background: var(--head-bg);
+    border-bottom: 1px solid var(--line);
+    padding: var(--pad-head); font-weight: 600; color: var(--head-fg); font-size: var(--fs-lg); margin-bottom: 0;
+    letter-spacing: 0.3px;
+}
+.box .head a, .head2 a, .colhead a, .headTitulos a { color: inherit; }
+.box .head a:hover, .head2 a:hover, .colhead a:hover, .headTitulos a:hover { color: var(--accent-hover); }
+
+.pad, .body { padding: var(--pad-inset); }
+
+.sidebar .box > .body, .sidebar .box > .pad, .sidebar .box > ul.stats,
+.sidebar .box > ul.nobullet, .sidebar .box > div:not(.head) { padding: var(--pad-inset); }
+
+.sidebar .box ul.stats li, .sidebar .box ul.nobullet li { padding: 4px 0; border-bottom: 1px solid var(--line); }
+.sidebar .box ul.stats li:last-child, .sidebar .box ul.nobullet li:last-child { border-bottom: none; padding-bottom: 0; }
+
+/* Index: Anúncios Oficiais / Últimas do Fórum. O site põe fórum ou data num <span>
+   dentro do link (no estilo original era tooltip); aqui vira uma 2ª linha discreta. */
+a.BJinfoBox {
+    display: inline-block;
+    vertical-align: top;
+    max-width: calc(100% - 1.5em);
+}
+a.BJinfoBox span {
+    display: block !important;
+    position: static !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    margin-top: 2px;
+    font-size: var(--fs);
+    font-weight: 400;
+    color: var(--text-muted);
+    background: none !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+}
+
+.center { text-align: center; }
+.right { text-align: right; }
+
+/* Botões nativos em caixas (Lançamentos: Geral / XXX / …, paginação em .post_return) */
+.box .center button[type="button"],
+.box .pad button[type="button"],
+.box .post_return button[type="button"] {
+    font-family: var(--font-main);
+    font-size: var(--fs);
+    font-weight: 600;
+    padding: 8px 14px;
+    margin: 2px 2px;
+    border-radius: var(--radius-sm);
+    border: var(--line-w) solid var(--btn-border);
+    background: var(--btn-bg);
+    color: var(--btn-fg);
+    cursor: pointer;
+    transition: border-color var(--transition-snappy), background-color var(--transition-snappy), color var(--transition-snappy);
+    vertical-align: middle;
+}
+.box .center button[type="button"]:not(:disabled):hover,
+.box .pad button[type="button"]:not(:disabled):hover,
+.box .post_return button[type="button"]:not(:disabled):hover {
+    background: var(--btn-hover-bg);
+    border-color: var(--btn-hover-border);
+    color: var(--btn-hover-fg);
+}
+.box .center button[type="button"]:disabled,
+.box .pad button[type="button"]:disabled,
+.box .post_return button[type="button"]:disabled {
+    cursor: not-allowed;
+    opacity: 0.85;
+    background: var(--fill-1) !important;
+    color: var(--text-muted) !important;
+    border-color: var(--line) !important;
+}
+.box .center button[type="button"] img,
+.box .pad button[type="button"] img,
+.box .post_return button[type="button"] img {
+    vertical-align: middle;
+    display: inline-block;
+}
+
+/* ==========================================================================
+   7. Inputs & Checkboxes
+   ========================================================================== */
+input[type="text"], input[type="password"], textarea, select {
+    max-width: 100%; padding: 6px 10px; background-color: var(--field-bg);
+    border: 1px solid var(--line); border-radius: var(--radius-sm); color: var(--text-bright);
+    font-family: var(--font-main);
+    font-size: var(--fs);
+    transition: all var(--transition-snappy);
+}
+input:focus, textarea:focus, select:focus { border-color: var(--accent); background-color: var(--field-bg-focus); outline: none; box-shadow: 0 0 0 3px var(--accent-08); }
+/* Lista aberta do <select>: o navegador desenha com o color-scheme; as cores das opções
+   vêm daqui para não herdar texto claro sobre o fundo claro padrão */
+select option, select optgroup { background-color: var(--bg-solid); color: var(--text-bright); }
+
+input[type="checkbox"], input[type="radio"] {
+    appearance: none !important; -webkit-appearance: none !important;
+    width: 18px !important; min-width: 18px !important; height: 18px !important;
+    border: 2px solid var(--line-strong) !important; border-radius: 4px !important;
+    background-color: var(--recess-3) !important; cursor: pointer !important;
+    position: relative !important; transition: all var(--transition-snappy) !important;
+    margin: 0 !important; display: inline-block !important; vertical-align: middle !important;
+}
+input[type="radio"] { border-radius: 50% !important; }
+
+input[type="checkbox"]:checked, input[type="radio"]:checked {
+    background-color: var(--accent) !important; border-color: var(--accent) !important;
+    box-shadow: 0 0 8px var(--accent-30) !important;
+}
+input[type="checkbox"]:checked::after {
+    content: '✔' !important; position: absolute !important; top: 50% !important; left: 50% !important;
+    transform: translate(-50%, -50%) !important; color: var(--on-accent) !important; font-size: var(--fs) !important;
+}
+input[type="radio"]:checked::after {
+    content: '' !important; position: absolute !important; top: 50% !important; left: 50% !important;
+    transform: translate(-50%, -50%) !important; width: 8px !important; height: 8px !important;
+    background-color: var(--on-accent) !important; border-radius: 50% !important;
+}
+
+/* ==========================================================================
+   8. Botões, Linkbox, Tags e Brackets
+   ========================================================================== */
+input[type="button"], input[type="submit"], button {
+    display: inline-flex; align-items: center; justify-content: center; padding: 6px 14px;
+    background-color: var(--fill-2); color: var(--text-strong);
+    border: 1px solid var(--line); border-radius: var(--radius-sm);
+    font-weight: 500; font-size: var(--fs); cursor: pointer; transition: all var(--transition-snappy);
+    letter-spacing: 0.2px;
+}
+input[type="submit"] { background: var(--accent-gradient); border-color: transparent; color: var(--on-accent); box-shadow: 0 2px 8px var(--accent-20); }
+input[type="button"]:hover, button:hover { background-color: var(--fill-3); border-color: var(--line-strong); }
+input[type="submit"]:hover { background: var(--accent-gradient-hover); box-shadow: 0 4px 14px var(--accent-30); transform: translateY(-1px); }
+
+div.linkbox { text-align: center; padding: 6px 8px; margin: 6px 0; }
+div.linkbox a {
+    display: inline-block; padding: 5px 12px; margin: 0 4px 4px 0;
+    background: var(--fill-1); border: 1px solid var(--line);
+    border-radius: var(--radius-sm); color: var(--text-main); font-size: var(--fs);
+    transition: all var(--transition-snappy);
+}
+div.linkbox a:hover { background: var(--accent-gradient); color: var(--on-accent); border-color: transparent; box-shadow: 0 2px 8px var(--accent-20); }
+
+/* Tags de gênero/categoria */
+.tags a {
+    display: inline-block; padding: 3px 10px; margin: 2px 4px 2px 0;
+    background: var(--fill-1); border: 1px solid var(--panel-border);
+    border-radius: var(--radius-pill); color: var(--text-muted); font-size: var(--fs);
+    font-weight: 600; text-transform: uppercase; letter-spacing: 0.6px;
+    transition: all var(--transition-snappy); white-space: nowrap;
+}
+.tags a:hover { background: var(--accent-12); color: var(--accent-hover); border-color: var(--accent-20); text-shadow: none; }
+
+.brackets {
+    display: inline-block; padding: 4px 8px; margin: 0 4px; background: transparent;
+    border: 1px solid var(--line); border-radius: var(--radius-sm); font-size: var(--fs);
+    color: var(--text-muted); font-weight: 500; transition: all var(--transition-snappy);
+}
+.brackets:hover { background: var(--fill-3); color: var(--text-bright); border-color: var(--line-strong); }
+/* Ícones de categoria vêm com a classe brackets (de botão) em várias páginas: sem padding,
+   borda nem fundo de botão (na Morrendo o ícone encolhia para 29x21px) */
+img.brackets, img.brackets:hover { padding: 0; margin: 0; border: none; background: none; border-radius: var(--radius-sm); }
+
+/* ==========================================================================
+   9. Tabelas e Listagem de Torrents
+   ========================================================================== */
+table { width: 100%; border-collapse: collapse; margin-bottom: 0; }
+th, td { padding: var(--pad-cell); text-align: left; border-bottom: 1px solid var(--line); vertical-align: middle; }
+th {
+    background: var(--th-bg);
+    font-weight: 600; color: var(--text-strong); font-size: var(--fs); text-transform: uppercase;
+    letter-spacing: 0.8px; border-top: none;
+}
+
+tr:nth-child(even) td { background-color: var(--row-stripe); }
+tr td { transition: background-color var(--transition-snappy); }
+
+table.layout { width: 100%; }
+table.layout td.label { width: 25%; font-weight: 600; text-align: right; background: var(--recess-2); color: var(--text-bright); }
+
+/* Tabelas principais (borda e sombra fortes) */
+.torrent_table {
+    background-color: var(--bg-panel);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--panel-border);
+    box-shadow: var(--shadow-lg);
+    border-collapse: separate;
+    border-spacing: 0;
+    overflow: hidden;
+    margin-bottom: var(--space-block);
+}
+
+/* Tabelas soltas no conteúdo: mesmo cartão das listagens. Sem classe (Morrendo), lista de
+   coleções (o global.css do site pinta .collage_table de #3d3d3d fixo) e busca de coleções. */
+.thin > table:not([class]),
+table.collage_table,
+.thin > div > form > table.layout {
+    background-color: var(--bg-panel);
+    border: 1px solid var(--panel-border);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-lg);
+    border-collapse: separate;
+    border-spacing: 0;
+    overflow: hidden;
+    margin-bottom: var(--space-block);
+}
+table.collage_table { width: 100%; margin: 0 0 var(--space-block); }
+.thin > table:not([class]) tr:last-child td,
+table.collage_table tr:last-child td,
+.thin > div > form > table.layout tr:last-child td { border-bottom: none; }
+
+/* Cabeçalho de tabela feito com <tr class="colhead"><td> (listagens, coleções): mesmo
+   estilo do <th>, e não o de título de caixa (.colhead em div), que é 16px */
+table tr.colhead > td {
+    background: var(--th-bg);
+    color: var(--text-strong);
+    font-size: var(--fs);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+}
+/* Coluna do ícone de categoria nessas tabelas (a da listagem principal fica com 72px) */
+table:not(.torrent_table) td:has(> a > img.brackets) { width: 1%; padding: 6px 10px; }
+table:not(.torrent_table) td > a > img.brackets {
+    display: block;
+    width: 48px !important;
+    height: 48px !important;
+    max-width: none;
+    object-fit: contain;
+}
+
+/* A última linha não conflita com a borda externa */
+.torrent_table tr:last-child td,
+table:has(tr.torrent_row) tr:last-child td,
+table:has(tr.audio_header) tr:last-child td,
+table:has(tr.season_header) tr:last-child td,
+table:has(tr.resolution_header) tr:last-child td {
+    border-bottom: none !important;
+}
+
+/* --------------------------------------------------------------------------
+   9.1. Hierarquia visual (grupos e edições — só na listagem principal)
+   -------------------------------------------------------------------------- */
+tr.group td {
+    background: var(--group-bg) !important;
+    border-top: var(--line-w) solid var(--line-strong);
+    font-weight: 700;
+}
+
+/* Exclusão estrita: as regras abaixo valem só para a lista PRINCIPAL, não para as tabelas de detalhes */
+tr.group_torrent:not(.audio_header):not(.season_header):not(.torrent_row) td {
+    background-color: var(--row-stripe) !important;
+}
+
+.torrent_table tr.group_torrent:not(.audio_header):not(.season_header):not(.torrent_row) td:first-child {
+    padding-left: 85px !important;
+    font-size: 0 !important;
+    vertical-align: middle;
+}
+
+.torrent_table tr.group_torrent:not(.audio_header):not(.season_header):not(.torrent_row) td:first-child * {
+    font-size: var(--fs);
+    text-decoration: none !important;
+}
+
+.torrent_table tr.group_torrent:not(.audio_header):not(.season_header):not(.torrent_row) td:first-child > a {
+    display: inline-flex;
+    align-items: center;
+    background: var(--fill-2);
+    border-left: 3px solid var(--accent);
+    color: var(--title-fg) !important;
+    padding: 5px 14px;
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    transition: all var(--transition-snappy);
+    vertical-align: middle;
+}
+
+.torrent_table tr.group_torrent:not(.audio_header):not(.season_header):not(.torrent_row) td:first-child > a:hover {
+    background: var(--fill-3);
+    color: var(--title-fg) !important;
+    transform: translateX(4px);
+    box-shadow: var(--shadow-sm);
+}
+
+.torrent_table tr.group_torrent:not(.audio_header):not(.season_header):not(.torrent_row):not(.edition_0) td:first-child span {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.torrent_table tr.group_torrent:not(.audio_header):not(.season_header):not(.torrent_row):not(.edition_0) td:first-child span :is(a[href*="action=download"], a[title="Baixar"]) {
+    position: static !important;
+    transform: none !important;
+    margin: 0 12px 0 0 !important;
+    box-shadow: none !important;
+}
+
+/* Botão de download nas linhas edition_0: à direita, como nas tr.torrent */
+.torrent_table tr.group_torrent.edition_0 td[colspan] {
+    position: relative !important;
+    padding-right: 50px !important;
+}
+.torrent_table tr.group_torrent.edition_0 td[colspan] > span:first-child {
+    position: absolute !important;
+    right: 8px !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    margin: 0 !important;
+}
+
+tr.torrent td { background-color: transparent; }
+
+.torrent_table tr:not(.colhead):not(.group):hover td { background-color: var(--bg-card-hover); }
+
+/* Linha lateral de seleção (só na listagem principal) */
+.torrent_table tr.torrent:hover td:first-child, .torrent_table tr.group_torrent:not(.audio_header):not(.season_header):not(.torrent_row):hover td:first-child { position: relative; }
+.torrent_table tr.torrent:hover td:first-child::before, .torrent_table tr.group_torrent:not(.audio_header):not(.season_header):not(.torrent_row):hover td:first-child::before {
+    content: ''; position: absolute; left: 0; top: 0; height: 100%; width: 3px; background-color: var(--accent);
+}
+
+/* Imagens das categorias — listagem geral (inclui filtro por categoria: sem tr[data-categoryid]) */
+.torrent_table td.cats_col a {
+    display: inline-block;
+    line-height: 0;
+}
+.torrent_table td.cats_col img {
+    width: 72px !important;
+    max-width: 72px !important;
+    height: auto !important;
+    object-fit: contain !important;
+    border-radius: var(--radius-md) !important;
+    box-shadow: var(--shadow-sm) !important;
+    display: block !important;
+    margin: 0 auto !important;
+}
+
+/* Nome da release em destaque */
+.torrent_table td a[href*="torrents.php?id="]:first-of-type:not([href*="action=download"]):not(.brackets) {
+    font-size: var(--fs) !important; font-weight: 700 !important; color: var(--title-fg) !important;
+    letter-spacing: 0.2px; display: inline-block; margin-bottom: 4px;
+    text-shadow: 0 2px 4px var(--title-shadow); transition: color var(--transition-snappy);
+}
+.torrent_table td a[href*="torrents.php?id="]:first-of-type:not([href*="action=download"]):not(.brackets):hover {
+    color: var(--accent) !important;
+}
+
+/* Cores das informações inline (listagem e detalhes) — o site injeta style="color:…" */
+.torrent_table strong[style*="color:red"], .torrent_table strong[style*="color: red"],
+table:has(tr.torrent_row) strong[style*="color:red"], table:has(tr.torrent_row) strong[style*="color: red"],
+#content table:not(.forum_post) strong[style*="color:red"], #content table:not(.forum_post) strong[style*="color: red"] {
+    color: var(--danger) !important; text-shadow: 0 0 8px color-mix(in srgb, var(--danger) 30%, transparent) !important;
+}
+.torrent_table strong[style*="color:green"], .torrent_table strong[style*="color: green"], .torrent_table .free,
+#content table:not(.forum_post) strong[style*="color:green"], #content table:not(.forum_post) strong[style*="color: green"], #content table:not(.forum_post) .free,
+table:has(tr.torrent_row) strong[style*="color:green"], table:has(tr.torrent_row) strong[style*="color: green"], table:has(tr.torrent_row) .free {
+    color: var(--success) !important; text-shadow: 0 0 8px color-mix(in srgb, var(--success) 30%, transparent) !important;
+}
+.torrent_table strong[style*="color:orange"], .torrent_table strong[style*="color: orange"], .torrent_table .internalbox,
+#content table:not(.forum_post) strong[style*="color:orange"], #content table:not(.forum_post) strong[style*="color: orange"], #content table:not(.forum_post) .internalbox,
+table:has(tr.torrent_row) strong[style*="color:orange"], table:has(tr.torrent_row) strong[style*="color: orange"], table:has(tr.torrent_row) .internalbox {
+    color: var(--orange) !important; text-shadow: 0 0 8px color-mix(in srgb, var(--orange) 30%, transparent) !important;
+}
+/* As cores acima valiam só nas tabelas de torrents; agora valem em qualquer tabela do
+   conteúdo (Morrendo, Coleções…), menos posts do fórum, onde a cor é escolha de quem escreve */
+.torrentinfo_release { color: color-mix(in oklab, var(--info) 75%, var(--text-strong)) !important; font-weight: 700 !important; }
+
+/* --------------------------------------------------------------------------
+   9.2. Capas, IMDb, Download e Favoritos
+   -------------------------------------------------------------------------- */
+/* Capa do torrent (proteção contra overflow na sidebar) */
+.sidebar .box_albumart img,
+.sidebar #covers img {
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+    border-radius: var(--radius-md) !important;
+    box-shadow: var(--shadow-sm) !important;
+    display: block !important;
+    margin: 0 auto !important;
+    box-sizing: border-box !important;
+}
+
+.sidebar #covers .pad {
+    padding: 12px !important;
+    overflow: hidden !important;
+}
+
+/* Ícones nativos do IMDb */
+img[src*="imdb.png"],
+img[src*="imdb.gif"] {
+    height: 15px !important;
+    max-height: 15px !important;
+    width: auto !important;
+    max-width: 40px !important;
+    display: inline-block !important;
+    vertical-align: text-bottom !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+}
+
+a:has(> img[src*="imdb.png"]),
+a:has(> img[src*="imdb.gif"]) {
+    display: inline-block !important;
+    background: transparent !important;
+    border: none !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+    margin: 0 !important;
+}
+
+/* Chip de nota IMDb (amarelo oficial, independente do tema) */
+div.browse_rating {
+    display: inline-block !important;
+    margin-left: 8px !important;
+    vertical-align: middle !important;
+    margin-bottom: 4px !important;
+    background: transparent !important;
+    border: none !important;
+    padding: 0 !important;
+}
+
+div.browse_rating a,
+.group_info a[href*="imdb.com/title/"] {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background-color: var(--imdb) !important;
+    background-image: none !important;
+    border: none !important;
+    color: #000000 !important;
+    font-family: var(--font-main) !important;
+    font-weight: 800 !important;
+    font-size: var(--fs) !important;
+    padding: 3px 10px !important;
+    border-radius: var(--radius-pill) !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+    transition: all var(--transition-snappy) !important;
+    text-shadow: none !important;
+    box-shadow: 0 2px 4px rgb(0 0 0 / 0.5) !important;
+    text-decoration: none !important;
+    margin-top: 4px !important;
+}
+
+div.browse_rating a:hover,
+.group_info a[href*="imdb.com/title/"]:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 4px 10px color-mix(in srgb, var(--imdb) 40%, transparent) !important;
+    background-color: color-mix(in srgb, var(--imdb) 92%, #000000) !important;
+    color: #000000 !important;
+}
+
+div.browse_rating a::before {
+    content: '★';
+    margin-right: 4px;
+    font-size: var(--fs);
+    color: #000000 !important;
+}
+
+/* Âncora para os botões de download e favoritos (browse) */
+.torrent_table .group_info {
+    position: relative !important; padding-right: 90px !important;
+    display: block !important; min-height: 36px;
+}
+
+/* Botão de download (browse). O ícone é uma máscara pintada com a cor do tema. */
+.torrent_table :is(a[href*="action=download"], a[title="Download"], a[title="Baixar"]) {
+    position: absolute !important; right: 5px !important; top: 50% !important; transform: translateY(-50%) !important;
+    display: inline-flex !important; float: none !important; margin: 0 !important; align-items: center; justify-content: center;
+    width: 32px !important; height: 32px !important;
+    background: color-mix(in srgb, var(--download) 15%, transparent) !important;
+    border: var(--line-w) solid color-mix(in srgb, var(--download) 35%, transparent) !important;
+    border-radius: var(--radius-pill) !important; color: transparent !important;
+    transition: all var(--transition-snappy) !important; z-index: 10 !important;
+}
+.torrent_table :is(a[href*="action=download"], a[title="Download"], a[title="Baixar"]):hover {
+    background: var(--download) !important; border-color: var(--download) !important;
+    transform: translateY(-50%) scale(1.15) !important;
+    box-shadow: 0 0 14px color-mix(in srgb, var(--download) 45%, transparent) !important;
+}
+.torrent_table :is(a[href*="action=download"], a[title="Download"], a[title="Baixar"])::after { display: none !important; }
+/* FA/Duotone: a máscara substitui o <i>; senão o glifo nativo fica por cima */
+.torrent_table :is(a[href*="action=download"], a[title="Download"], a[title="Baixar"]) i { display: none !important; }
+
+/* Máscaras dos ícones (download e favoritos, listagem e detalhes) */
+.torrent_table :is(a[href*="action=download"], a[title="Download"], a[title="Baixar"])::before,
+tr.torrent_row:not(.torrent) td:first-child > span a[href*="action=download"]::before,
+.torrent_table :is(.add_bookmark, .remove_bookmark) a::before {
+    content: '' !important;
+    display: block !important;
+    flex: none;
+    width: 16px;
+    height: 16px;
+    background-color: var(--download);
+    -webkit-mask: var(--icon-download) center / contain no-repeat;
+    mask: var(--icon-download) center / contain no-repeat;
+    transition: background-color var(--transition-snappy);
+}
+.torrent_table :is(a[href*="action=download"], a[title="Download"], a[title="Baixar"]):hover::before,
+tr.torrent_row:not(.torrent) td:first-child > span a[href*="action=download"]:hover::before,
+.torrent_table :is(.add_bookmark, .remove_bookmark) a:hover::before {
+    background-color: var(--on-accent);
+}
+
+/* Botão de favoritos (bookmark) */
+.torrent_table .add_bookmark,
+.torrent_table .remove_bookmark {
+    position: absolute !important;
+    right: 45px !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    z-index: 10 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    height: 32px !important;
+}
+
+.torrent_table .add_bookmark a,
+.torrent_table .remove_bookmark a {
+    display: inline-flex !important; align-items: center; justify-content: center;
+    width: 32px !important; height: 32px !important;
+    background: color-mix(in srgb, var(--bookmark) 15%, transparent) !important;
+    border: var(--line-w) solid color-mix(in srgb, var(--bookmark) 30%, transparent) !important;
+    border-radius: var(--radius-pill) !important; color: transparent !important; transition: all var(--transition-snappy) !important;
+    margin: 0 !important;
+}
+.torrent_table :is(.add_bookmark, .remove_bookmark) a::before {
+    width: 15px;
+    height: 15px;
+    background-color: var(--bookmark);
+    -webkit-mask-image: var(--icon-bookmark);
+    mask-image: var(--icon-bookmark);
+}
+.torrent_table .remove_bookmark a::before {
+    -webkit-mask-image: var(--icon-bookmark-filled);
+    mask-image: var(--icon-bookmark-filled);
+}
+
+.torrent_table .add_bookmark a:hover,
+.torrent_table .remove_bookmark a:hover {
+    background: var(--bookmark) !important; border-color: var(--bookmark) !important; transform: scale(1.15) !important;
+    box-shadow: 0 0 10px color-mix(in srgb, var(--bookmark) 40%, transparent) !important;
+}
+
+.torrent_table .add_bookmark a i,
+.torrent_table .remove_bookmark a i,
+.torrent_table .remove_bookmark a img { display: none !important; }
+
+/* --------------------------------------------------------------------------
+   9.3. Página de detalhes (lista de releases/edições em cascata)
+   -------------------------------------------------------------------------- */
+/* O site divide as qualidades em várias tabelas avulsas; todas ganham o mesmo estilo */
+.torrent_table.details,
+table:has(tr.torrent_row),
+table:has(tr.audio_header),
+table:has(tr.resolution_header),
+table:has(tr.season_header) {
+    background-color: var(--bg-panel) !important;
+    border-radius: var(--radius-md) !important;
+    overflow: hidden !important;
+    border: 1px solid var(--panel-border-strong) !important;
+    box-shadow: var(--shadow-xl) !important;
+    margin-bottom: var(--space-block) !important;
+    width: 100% !important;
+    border-collapse: separate !important; /* exigido para o radius funcionar */
+    border-spacing: 0 !important;
+}
+
+/* Nível 1: cabeçalhos principais (séries e temporadas) */
+tr.season_header td {
+    background-color: var(--recess-3) !important;
+    color: var(--text-strong) !important;
+    font-size: var(--fs) !important;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 10px 12px !important;
+    border-top: none !important;
+    border-bottom: 1px solid var(--line) !important;
+    border-left: none !important;
+    text-align: left !important;
+}
+
+/* Sobrescreve o width: 500px inline que o site injeta no td colspan */
+tr.season_header td[colspan] { width: auto !important; }
+
+/* Troca "Tamanho" por ícone de HDD — é o único td sem classe e sem colspan */
+tr.season_header td:not([colspan]):not(.center) {
+    text-align: center !important;
+    padding: 10px 6px !important;
+}
+tr.season_header td:not([colspan]):not(.center) strong {
+    font-size: 0 !important;
+    display: block !important;
+}
+tr.season_header td:not([colspan]):not(.center) strong::before {
+    content: '\f0a0';
+    font-family: var(--font-icon);
+    font-weight: 900;
+    font-size: var(--fs) !important;
+    color: var(--text-strong);
+    display: block;
+}
+
+/* ==========================================================================
+   Troca de rótulos de texto por ícones (Font Awesome)
+   ========================================================================== */
+/* Link "(esconder)" nas season headers */
+tr.season_header td a {
+    color: var(--text-muted) !important;
+    text-transform: none !important;
+    letter-spacing: normal !important;
+    transition: color var(--transition-snappy);
+    float: right;
+}
+tr.season_header td a:hover { color: var(--text-strong) !important; }
+
+tr.season_header td a[onclick*="toggleSeason"] {
+    font-size: 0 !important;
+    width: 24px !important;
+    height: 24px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 0 !important;
+    border: 1px solid var(--line-strong) !important;
+    border-radius: var(--radius-sm) !important;
+    float: right;
+}
+tr.season_header td a[onclick*="toggleSeason"]::before {
+    content: '\f070';
+    font-family: var(--font-icon);
+    font-weight: 900;
+    font-size: var(--fs);
+    color: var(--text-muted);
+}
+tr.season_header td a[onclick*="toggleSeason"]:hover {
+    background: var(--fill-2) !important;
+    border-color: var(--fill-4) !important;
+}
+tr.season_header td a[onclick*="toggleSeason"]:hover::before { color: var(--text-strong); }
+
+/* Favoritos e Logs na linkbox */
+.linkbox a:is(.add_bookmark, .remove_bookmark).brackets,
+.linkbox a.brackets[href*="serieslog"] {
+    font-size: 0 !important;
+    width: 40px !important;
+    height: 40px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 0 !important;
+}
+/* Especificidade alta para vencer .header:has(.groupbanner) .linkbox a.brackets */
+.header .linkbox a:is(.add_bookmark, .remove_bookmark).brackets,
+.header .linkbox a.brackets[href*="serieslog"] {
+    font-size: 0 !important;
+    padding: 0 !important;
+    width: 44px !important;
+    height: 44px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+/* Estado do favorito: contorno = não favoritado, sólido dourado = favoritado.
+   Ao clicar, o JS do site (Bookmark/Unbookmark) troca add_bookmark/remove_bookmark só
+   no elemento PAI e remove o onclick do link. Aqui a classe está no próprio <a>, então
+   a falta do onclick é o que indica que o estado mudou sem recarregar a página. */
+.linkbox a.add_bookmark.brackets::before,
+.linkbox a.remove_bookmark.brackets:not([onclick])::before {
+    content: '\f02e';
+    font-family: var(--font-icon);
+    font-weight: 400;
+    font-size: var(--fs);
+}
+.linkbox a.remove_bookmark.brackets[onclick]::before,
+.linkbox a.add_bookmark.brackets:not([onclick])::before {
+    content: '\f02e';
+    font-family: var(--font-icon);
+    font-weight: 900;
+    font-size: var(--fs);
+    color: var(--warning);
+}
+.linkbox a.brackets[href*="serieslog"]::before,
+.header .linkbox a.brackets[href*="serieslog"]::before {
+    content: '\f1da';
+    font-family: var(--font-icon);
+    font-weight: 900;
+    font-size: var(--fs);
+}
+
+/* Citar nos comentários */
+a.brackets[onclick*="Quote"] {
+    font-size: 0 !important;
+    width: 28px !important;
+    height: 28px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 0 !important;
+}
+a.brackets[onclick*="Quote"]::before {
+    content: '\f10e';
+    font-family: var(--font-icon);
+    font-weight: 900;
+    font-size: var(--fs);
+    color: var(--text-muted);
+}
+a.brackets[onclick*="Quote"]:hover::before { color: var(--text-strong); }
+
+/* Denunciar nos comentários */
+a.brackets[href*="reports.php"],
+a.brackets[href="#quickreplypreview"] {
+    font-size: 0 !important;
+    width: 28px !important;
+    height: 28px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 0 !important;
+}
+a.brackets[href*="reports.php"]::before,
+a.brackets[href="#quickreplypreview"]::before {
+    content: '\f024';
+    font-family: var(--font-icon);
+    font-weight: 900;
+    font-size: var(--fs);
+    color: var(--text-muted);
+}
+a.brackets[href*="reports.php"]:hover::before,
+a.brackets[href="#quickreplypreview"]:hover::before {
+    color: var(--danger);
+}
+
+/* Nível 2: cabeçalho de áudio (neutro, suave) */
+tr.audio_header td, td.audio_header {
+    background-color: transparent !important;
+    border-bottom: 1px solid var(--panel-border) !important;
+    color: var(--text-strong) !important;
+    font-size: var(--fs) !important;
+    font-weight: 700 !important;
+    padding: 10px 10px !important;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-left: none !important;
+}
+
+tr.audio_header td:first-child,
+td.audio_header.edition_info {
+    font-size: var(--fs) !important;
+    padding-left: 14px !important;
+    text-align: left !important;
+    border-left: none !important;
+}
+
+td.audio_header i { color: var(--text-muted) !important; }
+
+/* Nível 3: cabeçalho de resolução (alinhado à esquerda, neutro) */
+tr.resolution_header td {
+    background-color: var(--recess-2) !important;
+    border-bottom: 1px solid var(--line-soft) !important;
+    border-left: none !important;
+    color: var(--text-strong) !important;
+    text-align: left !important;
+    padding: 10px 12px 10px 14px !important;
+}
+
+tr.resolution_header td b {
+    color: var(--text-strong) !important;
+    font-size: var(--fs-lg) !important;
+    font-weight: 700 !important;
+    text-align: left !important;
+    display: block;
+}
+
+/* Nível 4: linhas das edições/releases */
+tr.torrent_row td {
+    background-color: var(--row-stripe) !important;
+    padding: 5px 6px !important;
+    border-bottom: 1px solid var(--line-soft) !important;
+    border-left: none !important;
+    vertical-align: middle !important;
+    transition: background var(--transition-snappy);
+}
+
+/* Colunas numéricas: largura mínima fixa, a principal preenche o resto
+   (tr.torrent = listagem | tr.torrent_row = detalhes) */
+tr.torrent td.number_column,
+tr.torrent_row td.number_column {
+    width: 1% !important;
+    white-space: nowrap !important;
+    text-align: center !important;
+    font-size: var(--fs) !important;
+    color: var(--text-muted) !important;
+    font-variant-numeric: tabular-nums !important;
+    min-width: 48px !important;
+}
+tr.torrent td.number_column.nobr,
+tr.torrent_row td.number_column.nobr {
+    min-width: 50px !important;
+    color: var(--text-bright) !important;
+    font-size: var(--fs) !important;
+    font-weight: 600 !important;
+}
+
+/* Coluna de categoria: min-width evita sumir o ícone quando .big_info não usa 99% */
+.torrent_table tr.torrent td.cats_col,
+.torrent_table tr.group_torrent td.cats_col {
+    width: 1% !important;
+    min-width: 64px !important;
+    padding: 4px 6px !important;
+    vertical-align: middle !important;
+    box-sizing: border-box !important;
+}
+
+/* Coluna principal (99% esmagava cats_col nas listagens com 1ª coluna vazia + filtro) */
+tr.torrent td.big_info {
+    width: auto !important;
+    min-width: 0 !important;
+}
+
+/* Uploader e demais colunas sem classe: compactar. A do título sem classe (Favoritos)
+   fica de fora: é a que tem as tags, e sem quebrar linha esticava a tabela. */
+tr.torrent td:not(.big_info):not(.number_column):not(.cats_col):not(:has(> .tags)) {
+    width: 1% !important;
+    white-space: nowrap !important;
+}
+tr.torrent_row:hover td { background-color: var(--fill-1) !important; }
+
+/* Coluna lateral de temporada/episódio (quando existe) */
+table:has(tr.torrent_row) td[rowspan] {
+    background-color: var(--recess-1) !important;
+    border-right: 1px solid var(--line) !important;
+    padding: 8px 6px !important;
+    vertical-align: middle !important;
+    text-align: left !important;
+    width: 70px !important;
+}
+table:has(tr.torrent_row) td[rowspan] .year {
+    background: var(--fill-2) !important;
+    padding: 1px 4px !important;
+    border-radius: var(--radius-sm) !important;
+    font-size: var(--fs) !important;
+    color: var(--text-muted) !important;
+    float: none !important;
+    display: inline-block !important;
+    margin-bottom: 4px !important;
+    font-weight: 600 !important;
+}
+table:has(tr.torrent_row) td[rowspan] a {
+    display: block !important;
+    font-size: var(--fs) !important;
+    font-weight: 600 !important;
+    color: var(--text-bright) !important;
+    transition: color var(--transition-snappy) !important;
+    white-space: nowrap !important;
+    line-height: 1.3 !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+}
+table:has(tr.torrent_row) td[rowspan] a:hover { color: var(--accent) !important; }
+
+/* Coluna principal das releases (pílula + botões) */
+/* padding-right = largura dos botões de ação (absolutos à direita): 3 × 32px + 2 × 6px
+   de espaço + 12px de margem + folga; com 4 botões, mais 38px */
+tr.torrent_row:not(.torrent) td:first-child {
+    padding-left: 12px !important;
+    font-size: 0 !important;
+    position: relative !important;
+    padding-right: 132px !important;
+}
+tr.torrent_row:not(.torrent) td:first-child:has(> span > a:nth-of-type(4)) { padding-right: 170px !important; }
+
+/* Pílula com o nome/características da release. inline-block (não inline-flex) para o
+   texto quebrar linha em vez de passar por baixo dos botões em releases de nome longo. */
+tr.torrent_row:not(.torrent) td:first-child > a:not(.tooltip),
+tr.group_torrent.torrent_row td:first-child > a:not(.tooltip) {
+    display: inline-block !important;
+    max-width: 100%;
+    line-height: 1.45;
+    font-size: var(--fs) !important;
+    background: var(--fill-2) !important;
+    border: none !important;
+    border-left: none !important;
+    padding: 6px 12px !important;
+    border-radius: var(--radius-pill) !important;
+    color: var(--text-bright) !important;
+    text-decoration: none !important;
+    vertical-align: middle;
+    transition: all var(--transition-snappy) !important;
+    font-weight: 500 !important;
+    box-shadow: none !important;
+}
+tr.torrent_row:not(.torrent) td:first-child > a:not(.tooltip):hover {
+    background: var(--fill-3) !important;
+    color: var(--text-strong) !important;
+    transform: none !important; /* estabilidade da página de detalhes */
+}
+
+/* Botões de ação à direita (download, report, link) */
+tr.torrent_row:not(.torrent) td:first-child > span {
+    position: absolute !important;
+    right: 12px !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    display: inline-flex !important;
+    align-items: center;
+    font-size: 0 !important;
+}
+/* Espaço só entre os links: o site escreve "[ … | … ]" entre eles, e com gap cada
+   separador escondido virava um item a mais (132px em vez de 108px) */
+tr.torrent_row:not(.torrent) td:first-child > span a + a { margin-left: 6px !important; }
+
+tr.torrent_row:not(.torrent) td:first-child > span a {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    width: 32px !important;
+    height: 32px !important;
+    font-size: var(--fs) !important;
+    background-color: var(--fill-2) !important;
+    border: 1px solid var(--line-strong) !important;
+    border-radius: var(--radius-pill) !important;
+    color: var(--text-muted) !important;
+    transition: all var(--transition-snappy) !important;
+    position: static !important;
+    transform: none !important;
+    background-image: none !important;
+    text-decoration: none !important;
+}
+
+tr.torrent_row:not(.torrent) td:first-child > span a i { display: block !important; }
+
+/* Download nos detalhes: mesmo visual da listagem (máscara definida em 9.2) */
+/* font-size 0: nos Favoritos o link traz o texto "DL" (aqui é um <i>), que mesmo
+   transparente ocupava espaço e empurrava o ícone para a esquerda */
+tr.torrent_row:not(.torrent) td:first-child > span a[href*="action=download"] {
+    font-size: 0 !important;
+    color: transparent !important;
+    background-color: color-mix(in srgb, var(--download) 15%, transparent) !important;
+    border: var(--line-w) solid color-mix(in srgb, var(--download) 35%, transparent) !important;
+}
+tr.torrent_row:not(.torrent) td:first-child > span a[href*="action=download"] i { display: none !important; }
+tr.torrent_row:not(.torrent) td:first-child > span a[href*="action=download"]:hover {
+    background-color: var(--download) !important;
+    border-color: var(--download) !important;
+    transform: scale(1.15) !important;
+    box-shadow: 0 0 14px color-mix(in srgb, var(--download) 45%, transparent) !important;
+}
+
+tr.torrent_row:not(.torrent) td:first-child > span a:not([href*="action=download"]):hover {
+    background-color: var(--fill-4) !important;
+    color: var(--text-strong) !important;
+    border-color: color-mix(in srgb, var(--ink) 30%, transparent) !important;
+    transform: scale(1.15) !important;
+}
+
+/* ==========================================================================
+   10. Fórum e Comentários
+   ========================================================================== */
+table.forum_post {
+    background-color: var(--bg-card) !important;
+    backdrop-filter: var(--glass-blur) !important;
+    -webkit-backdrop-filter: var(--glass-blur) !important;
+    border: 1px solid var(--panel-border) !important;
+    border-radius: var(--radius-lg) !important;
+    box-shadow: var(--shadow-md) !important;
+    margin-bottom: var(--space-block) !important;
+    border-collapse: separate !important;
+    border-spacing: 0 !important;
+    overflow: hidden !important;
+    width: 100% !important;
+    transition: border-color var(--transition-smooth) !important;
+}
+table.forum_post:hover { border-color: var(--panel-border-hover) !important; }
+
+/* Cabeçalho do comentário (nick e data) */
+table.forum_post tr.colhead_dark td {
+    background-color: var(--recess-4) !important;
+    padding: 10px 14px !important;
+    border-bottom: 1px solid var(--panel-border) !important;
+    font-size: var(--fs) !important;
+}
+
+table.forum_post td.avatar {
+    width: 150px !important;
+    background-color: var(--recess-1) !important;
+    text-align: center !important;
+    border-right: 1px solid var(--line-soft) !important;
+    padding: 12px 10px !important;
+    vertical-align: top !important;
+}
+
+table.forum_post td.avatar img {
+    border-radius: var(--radius-sm) !important;
+    box-shadow: var(--shadow-sm) !important;
+    max-width: 100% !important;
+    height: auto !important;
+}
+
+table.forum_post td.body {
+    padding: 16px 20px !important;
+    vertical-align: top !important;
+}
+
+/* Texto padronizado (fórum e torrents iguais) */
+table.forum_post td.body > div,
+.comment_content {
+    font-size: var(--fs) !important;
+    line-height: 1.5 !important;
+    color: var(--text-bright) !important;
+}
+
+blockquote {
+    background-color: var(--recess-2) !important;
+    border-left: 3px solid var(--accent) !important;
+    padding: 12px 14px !important;
+    margin: 12px 0 !important;
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0 !important;
+    color: var(--text-main) !important;
+    font-style: italic !important;
+    font-size: var(--fs) !important;
+    position: relative !important;
+}
+blockquote::before {
+    content: '“';
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    font-size: 24px;
+    color: var(--accent-20);
+    font-style: normal;
+    line-height: 1;
+}
+
+/* ==========================================================================
+   11. Slider de Imagens
+   ========================================================================== */
+#container {
+    position: relative; width: 100%; border-radius: var(--radius-md);
+    overflow: hidden; box-shadow: var(--shadow-md); background: transparent;
+    border: none; margin-bottom: 0;
+    aspect-ratio: 5 / 7;
+}
+/* Espaço vazio que o site põe embaixo do slider (<div>&nbsp;</div>) */
+#container + div { display: none; }
+
+#banner-fade, ul.bjqs, li.bjqs-slide { width: 100% !important; max-width: 100% !important; height: 100% !important; margin: 0 !important; padding: 0 !important; }
+ul.bjqs { position: relative !important; list-style: none !important; overflow: hidden !important; }
+/* O script do slider (bjqs, modo fade) só faz fadeOut/fadeIn: quem empilha os slides
+   e esconde os inativos é o CSS dele, que vinha do tema nativo. Sem isto os slides
+   ficavam um embaixo do outro e "pulavam" a cada troca. */
+li.bjqs-slide { position: absolute !important; inset: 0; display: none; }
+li.bjqs-slide:first-child { display: list-item; } /* antes do script rodar */
+ul.bjqs li a { display: block !important; width: 100% !important; height: 100% !important; }
+
+/* max-width: o CSS do site limita ".sidebar img" a 220px, e o box tem 234px: sobrava
+   uma faixa à direita da imagem */
+ul.bjqs li img {
+    width: 100% !important; height: 100% !important; max-width: none !important; object-fit: cover !important;
+    display: block !important; border-radius: var(--radius-md) !important; margin: 0 !important;
+}
+
+p.bjqs-caption {
+    background: linear-gradient(180deg, transparent 0%, color-mix(in srgb, var(--scrim) 90%, transparent) 100%);
+    color: var(--on-scrim); padding: 20px 20px 14px; position: absolute; bottom: 0; left: 0; right: 0;
+    margin: 0; font-weight: 600; font-size: var(--fs); text-align: center;
+    letter-spacing: 0.3px;
+}
+
+ul.bjqs-controls {
+    list-style: none; margin: 0; padding: 0; z-index: 9999 !important; position: absolute; width: 100%; top: 0; height: 100%; pointer-events: none;
+    opacity: 0; visibility: hidden; transition: all var(--transition-smooth);
+}
+#container:hover ul.bjqs-controls { opacity: 1; visibility: visible; }
+
+ul.bjqs-controls.v-centered li a {
+    pointer-events: auto; position: absolute; top: 50%; transform: translateY(-50%);
+    background: color-mix(in srgb, var(--scrim) 70%, transparent) !important; color: transparent !important;
+    width: 44px !important; height: 44px !important; display: flex !important; align-items: center !important; justify-content: center !important;
+    border-radius: 50% !important; text-decoration: none !important; font-size: 0 !important; font-weight: bold !important;
+    border: 1px solid color-mix(in srgb, var(--on-scrim) 20%, transparent) !important;
+    transition: all var(--transition-snappy) !important; overflow: hidden !important; z-index: 10000 !important;
+}
+ul.bjqs-controls.v-centered li a::after { font-size: var(--fs-lg) !important; color: var(--on-scrim) !important; display: block !important; line-height: 1 !important; }
+ul.bjqs-controls.v-centered li a:hover { background: var(--accent) !important; border-color: var(--accent) !important; transform: translateY(-50%) scale(1.1) !important; }
+ul.bjqs-controls.v-centered li.bjqs-next a { right: 15px !important; }
+ul.bjqs-controls.v-centered li.bjqs-next a::after { content: '❯' !important; margin-left: 2px !important; }
+ul.bjqs-controls.v-centered li.bjqs-prev a { left: 15px !important; }
+ul.bjqs-controls.v-centered li.bjqs-prev a::after { content: '❮' !important; margin-right: 2px !important; }
+
+ol.bjqs-markers {
+    position: absolute; top: 12px; right: 12px; background: color-mix(in srgb, var(--scrim) 50%, transparent); padding: 5px 8px; border-radius: var(--radius-pill);
+    list-style: none; margin: 0; z-index: 100; display: flex; align-items: center; gap: 6px;
+}
+ol.bjqs-markers li { display: inline; margin: 0; }
+ol.bjqs-markers li a {
+    display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: color-mix(in srgb, var(--on-scrim) 30%, transparent);
+    color: transparent; overflow: hidden; transition: background var(--transition-snappy);
+}
+ol.bjqs-markers li.active-marker a, ol.bjqs-markers li a:hover { background: var(--accent); }
+
+/* Lightbox nativo do Gazelle (capa do torrent, imagens dos comentários). O CSS do
+   site não posiciona #lightbox/#curtain; sem isto a imagem abre no fim da página.
+   Abertura/fechamento: o JS do site tira/põe .hidden (ver seção 2). */
+#curtain.curtain {
+    position: fixed !important;
+    inset: 0 !important;
+    background: color-mix(in srgb, var(--scrim) 80%, transparent) !important;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    z-index: 2147483646 !important; /* acima de header e toasts do Noty */
+    cursor: zoom-out;
+}
+#lightbox.lightbox {
+    position: fixed !important;
+    inset: 0 !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 32px;
+    margin: 0 !important;
+    z-index: 2147483647 !important;
+    cursor: zoom-out;
+}
+#lightbox.lightbox img {
+    max-width: 100% !important;
+    max-height: 100% !important;
+    width: auto !important;
+    height: auto !important;
+    object-fit: contain;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-xl);
+}
+
+/* ==========================================================================
+   12. Cores de Ratio
+   ========================================================================== */
+.r00 { color: var(--danger); font-weight: 700; }
+.r01, .r02, .r03, .r04 { color: var(--orange); font-weight: 700; }
+.r05, .r06, .r07, .r08 { color: var(--warning); font-weight: 700; }
+.r09 { color: color-mix(in oklab, var(--warning), var(--success) 35%); font-weight: 700; }
+.r10, .r20, .r99 { color: var(--success); font-weight: 700; }
+.r50 { color: var(--info); font-weight: 700; }
+
+/* ==========================================================================
+   13. Rodapé
+   ========================================================================== */
+#footer {
+    width: 100%;
+    background: var(--footer-bg);
+    backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
+    border-top: var(--line-w) solid var(--footer-line);
+    padding: 30px 20px; text-align: center; margin-top: auto; color: var(--text-muted);
+}
+#footer p { margin: 6px 0; font-size: var(--fs); letter-spacing: 0.3px; }
+#footer a { color: var(--footer-link); font-weight: 600; transition: color var(--transition-snappy); }
+#footer a:hover { color: var(--accent-hover); text-shadow: 0 0 12px var(--link-glow); }
+
+/* ==========================================================================
+   14. Scrollbars
+   Chrome/Edge/Firefox usam scrollbar-color (definido em html e herdado);
+   os pseudo-elementos abaixo só valem no Safari.
+   ========================================================================== */
+::-webkit-scrollbar { width: 12px; height: 12px; }
+::-webkit-scrollbar-track { background: var(--scrollbar-track); }
+::-webkit-scrollbar-thumb {
+    background-color: var(--scrollbar-thumb);
+    border: 3px solid transparent;
+    background-clip: padding-box;
+    border-radius: var(--radius-pill);
+}
+::-webkit-scrollbar-thumb:hover { background-color: var(--scrollbar-thumb-hover); }
+::-webkit-scrollbar-corner { background: var(--scrollbar-track); }
+
+/* ==========================================================================
+   15. Menu de Configurações (sticky)
+   ========================================================================== */
+/* Distância do topo para o card "Opções" ficar preso: abaixo do header quando ele está
+   travado (cadeado), e abaixo da barra de aviso fixa (28px) quando ela aparece */
+body { --settings-top: 16px; }
+body:has(#noteAlertMsg:not([style*="display: none"])):has(#noteAlertMsg:not(.hidden)) { --settings-top: 44px; }
+body.bj-sticky-menu { --settings-top: 142px; }
+body.bj-sticky-menu:has(#noteAlertMsg:not([style*="display: none"])):has(#noteAlertMsg:not(.hidden)) { --settings-top: 170px; }
+@media screen and (max-width: 1279px) { /* o header quebra em mais linhas */
+    body.bj-sticky-menu { --settings-top: 169px; }
+    body.bj-sticky-menu:has(#noteAlertMsg:not([style*="display: none"])):has(#noteAlertMsg:not(.hidden)) { --settings-top: 197px; }
+}
+#settings_sections {
+    position: sticky !important; top: var(--settings-top) !important; align-self: flex-start !important;
+    max-height: calc(100vh - var(--settings-top) - 16px); overflow-y: auto; z-index: 90;
+}
+
+/* ==========================================================================
+   16. Filtro de Pesquisa (Torrents Filter)
+   ========================================================================== */
+.box.filter_torrents {
+    background-color: var(--bg-card); border: 1px solid var(--panel-border-strong);
+    border-radius: var(--radius-lg); box-shadow: var(--shadow-xl); margin-bottom: var(--space-block);
+    overflow: visible !important;
+}
+
+.box.filter_torrents .head {
+    display: flex; justify-content: space-between; align-items: center; padding: 10px 16px;
+    background-color: var(--filter-head-bg); border-bottom: 1px solid var(--line);
+    color: var(--head-fg);
+}
+.box.filter_torrents .head strong { font-size: var(--fs-lg); letter-spacing: 0.5px; text-transform: uppercase; color: inherit; }
+.box.filter_torrents #ft_container { padding: 16px; }
+
+.box.filter_torrents table.layout { width: 100%; background: transparent; }
+.box.filter_torrents table.layout td.label {
+    width: 15%; min-width: 120px; text-align: right; padding: 10px 12px 10px 0;
+    color: var(--text-muted); font-size: var(--fs); text-transform: uppercase; font-weight: 700;
+    letter-spacing: 0.5px; background: transparent; border: none; vertical-align: middle;
+}
+.box.filter_torrents table.layout td { padding: 6px 0; border: none; vertical-align: middle; }
+
+.box.filter_torrents input[type="search"], .box.filter_torrents input[type="text"] {
+    width: 100%; max-width: 500px; padding: 6px 12px; background-color: var(--field-bg);
+    border: 1px solid var(--line-strong); border-radius: var(--radius-md); color: var(--text-strong);
+    font-size: var(--fs); transition: all var(--transition-snappy);
+}
+.box.filter_torrents input[type="search"]:focus, .box.filter_torrents input[type="text"]:focus {
+    border-color: var(--accent); background-color: var(--field-bg-focus);
+    box-shadow: 0 0 0 3px var(--accent-20); outline: none;
+}
+
+.box.filter_torrents select {
+    padding: 6px 12px; background-color: var(--field-bg); border: 1px solid var(--line-strong);
+    border-radius: var(--radius-md); color: var(--text-bright); font-size: var(--fs); cursor: pointer; transition: border-color var(--transition-snappy);
+}
+.box.filter_torrents select:hover { border-color: var(--text-muted); }
+
+.box.filter_torrents .table-list {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 8px;
+    background: var(--recess-1); border: 1px solid var(--line); border-radius: var(--radius-md); padding: 12px; margin: 10px 0 16px 0;
+}
+.box.filter_torrents .table-list li { display: flex; align-items: center; gap: 8px; padding: 2px 0; border: none; }
+.box.filter_torrents .table-list label { cursor: pointer; color: var(--text-main); font-size: var(--fs); font-weight: 500; transition: color var(--transition-snappy); user-select: none; }
+.box.filter_torrents .table-list li:hover label { color: var(--text-strong); }
+
+.box.filter_torrents .cat_list, .box.filter_torrents .tabelaFixa {
+    background: var(--recess-1); border: 1px solid var(--line) !important;
+    border-radius: var(--radius-md); margin-bottom: 12px; display: block; width: 100%;
+    overflow: visible !important;
+}
+.box.filter_torrents .cat_list tbody, .box.filter_torrents .tabelaFixa tbody { display: table; width: 100%; }
+
+.box.filter_torrents .labelFiltros, .box.filter_torrents .cat_list td[style*="text-align: center"] {
+    background-color: var(--recess-2) !important; color: var(--text-muted); font-size: var(--fs);
+    text-transform: uppercase; font-weight: 700; letter-spacing: 0.5px; padding: 10px 12px; border-bottom: 1px solid var(--line); text-decoration: none;
+}
+
+.box.filter_torrents .campoFiltros, .box.filter_torrents .cat_list td:not([style*="text-align: center"]) {
+    padding: 12px; vertical-align: top; border: none;
+}
+.box.filter_torrents .cat_list label { margin-left: 8px; cursor: pointer; color: var(--text-bright); font-weight: 500; }
+
+.box.filter_torrents .btn-group { display: block; width: 100%; margin-top: 6px; position: relative; }
+.box.filter_torrents .btn-group > .btn.multiselect {
+    width: 100%; background: var(--field-bg); border: 1px solid var(--line-strong); color: var(--text-bright);
+    padding: 6px 12px; border-radius: var(--radius-md); text-align: left; display: flex; justify-content: space-between;
+    align-items: center; box-shadow: none; text-shadow: none; font-size: var(--fs); transition: all var(--transition-snappy);
+}
+.box.filter_torrents .btn-group > .btn.multiselect:hover { border-color: var(--text-muted); background: var(--field-bg-focus); }
+
+.box.filter_torrents .multiselect-container {
+    background-color: var(--bg-solid); border: 1px solid var(--line); border-radius: var(--radius-md);
+    box-shadow: var(--shadow-md); padding: 8px 0; width: 100%; max-height: 280px; overflow-y: auto; margin-top: 6px;
+    position: absolute !important; z-index: 99999 !important;
+}
+.box.filter_torrents .multiselect-container > li > a { color: var(--text-bright); padding: 8px 16px; display: block; transition: background var(--transition-snappy); }
+.box.filter_torrents .multiselect-container > li > a:hover, .box.filter_torrents .multiselect-container > li.active > a { background-color: var(--submenu-hover-bg); color: var(--submenu-hover-fg); }
+.box.filter_torrents .multiselect-container .checkbox { display: flex; align-items: center; gap: 8px; margin: 0; font-weight: 500; }
+.box.filter_torrents .multiselect-container .checkbox input[type="checkbox"] { margin: 0 !important; position: static !important; }
+
+.box.filter_torrents .ft_submit { margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--line); display: flex; justify-content: center; align-items: center; text-align: center; }
+.box.filter_torrents .ft_submit p { display: flex; align-items: center; justify-content: center; gap: 10px; flex-wrap: wrap; margin: 0; width: 100%; color: var(--text-muted); }
+.box.filter_torrents .ft_submit p br { display: none; }
+.box.filter_torrents .ft_submit input[value="Filtrar"] { background: var(--accent-gradient); border-color: transparent; color: var(--on-accent); font-weight: 700; font-size: var(--fs); padding: 12px 40px; border-radius: var(--radius-pill); box-shadow: 0 4px 12px var(--accent-20); transition: all var(--transition-smooth); }
+.box.filter_torrents .ft_submit input[value="Filtrar"]:hover { background: var(--accent-gradient-hover); box-shadow: 0 6px 20px var(--accent-40); transform: translateY(-2px); }
+.box.filter_torrents .ft_submit input[type="button"], .box.filter_torrents .ft_submit input[name="setdefault"] { background-color: transparent; border: 1px solid var(--line-strong); color: var(--text-bright); padding: 10px 24px; border-radius: var(--radius-pill); font-weight: 500; }
+.box.filter_torrents .ft_submit input[type="button"]:hover, .box.filter_torrents .ft_submit input[name="setdefault"]:hover { background-color: var(--fill-2); color: var(--text-strong); border-color: var(--text-muted); }
+
+/* ==========================================================================
+   17. Responsividade
+   ========================================================================== */
+@media screen and (max-width: 1024px) {
+    #header > .thin,
+    #header > div:not([id]) {
+        justify-content: center !important;
+        text-align: center; gap: 15px;
+    }
+    #logo { margin-right: 0 !important; }
+    #userinfo { justify-content: center !important; }
+    #userinfo ul { justify-content: center !important; }
+    #menudrop > ul { justify-content: center !important; }
+
+    .sidebar { width: 100% !important; flex: 1 1 100% !important; order: 2 !important; position: static !important; }
+    .main_column { width: 100% !important; order: 1 !important; }
+    table.forum_post td.avatar { display: none; }
+}
+
+@media screen and (max-width: 768px) {
+    #searchbars input[type="text"] { width: 100%; }
+    #searchbars input[type="text"]:focus { width: 100%; }
+
+    #menudrop ul ul {
+        flex-direction: column;
+        padding: 15px;
+        max-height: none !important; /* em mobile o próprio body rola */
+    }
+    #menudrop ul ul > li { max-width: 100%; flex: 1 1 100%; width: 100%; }
+
+    .torrent_table, table { display: block; overflow-x: auto; white-space: nowrap; -webkit-overflow-scrolling: touch; }
+}
+
+/* ==========================================================================
+   18. Banner de Séries (estilo capa / fundo de tela)
+   ========================================================================== */
+/* O banner ocupa a largura toda na proporção da própria imagem (os do BJ são ~5,4:1).
+   Antes era fundo de uma área de 350px com object-fit: cover, que cortava as laterais:
+   em telas largas sumia o começo do título ("CONFINADA" virava "INADA"). */
+.header:has(#banner), .header:has(.groupbanner) {
+    position: relative !important;
+    width: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    padding: 0 0 22px !important;
+    border-radius: var(--radius-md) !important;
+    overflow: hidden !important;
+    box-shadow: var(--shadow-xl) !important;
+    margin-bottom: 25px !important;
+    border: 1px solid var(--line-strong) !important;
+    background-color: var(--bg-panel) !important;
+    z-index: 1; /* novo contexto de empilhamento */
+}
+
+/* Wrapper da imagem (vem com style inline de 140px x 758px) */
+.header:has(.groupbanner) > div:first-child {
+    position: relative !important;
+    width: 100% !important;
+    height: auto !important;
+    margin: 0 !important;
+    z-index: 0 !important;
+}
+
+/* A imagem inteira, com degradê só no rodapé (onde ficam os botões) */
+.header #banner, .header .groupbanner {
+    display: block !important;
+    width: 100% !important;
+    height: auto !important;
+    object-fit: contain !important;
+    mask-image: linear-gradient(to bottom, #000 72%, transparent 100%) !important;
+    -webkit-mask-image: linear-gradient(to bottom, #000 72%, transparent 100%) !important;
+}
+
+/* Limpa o H2 que envolve a imagem */
+.header:has(.groupbanner) h2 {
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+    height: auto !important;
+}
+
+/* Botões: sobem só sobre a faixa em degradê, sem cobrir a arte */
+.header:has(.groupbanner) .linkbox {
+    position: relative !important;
+    z-index: 2 !important;
+    margin: -34px 24px 0 !important;
+    padding: 0 !important;
+    text-align: left !important;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 8px !important;
+}
+@media screen and (max-width: 768px) {
+    /* banner baixo demais para sobrepor: botões logo abaixo da imagem */
+    .header:has(.groupbanner) .linkbox { margin: 12px 16px 0 !important; }
+}
+
+/* Botões sobre o banner: favoritos em acento, demais em vidro escuro */
+.header:has(.groupbanner) .linkbox a.brackets {
+    background-color: color-mix(in srgb, var(--accent) 90%, transparent) !important;
+    color: var(--on-accent) !important;
+    border: var(--line-w) solid color-mix(in srgb, var(--on-scrim) 20%, transparent) !important;
+    padding: 8px 14px !important;
+    border-radius: var(--radius-pill) !important;
+    font-size: var(--fs) !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+    box-shadow: 0 4px 15px var(--accent-40) !important;
+    backdrop-filter: blur(5px) !important;
+    -webkit-backdrop-filter: blur(5px) !important;
+    transition: all var(--transition-snappy) !important;
+    text-decoration: none !important;
+}
+
+.header:has(.groupbanner) .linkbox a.brackets:hover {
+    transform: translateY(-3px) !important;
+    background-color: var(--accent-hover) !important;
+    box-shadow: 0 8px 25px color-mix(in srgb, var(--accent) 60%, transparent) !important;
+}
+
+.header:has(.groupbanner) .linkbox a.brackets:not(.add_bookmark):not(.remove_bookmark) {
+    background-color: color-mix(in srgb, var(--scrim) 60%, transparent) !important;
+    color: var(--on-scrim) !important;
+    box-shadow: 0 4px 15px color-mix(in srgb, var(--shade) 40%, transparent) !important;
+}
+.header:has(.groupbanner) .linkbox a.brackets:not(.add_bookmark):not(.remove_bookmark):hover {
+    background-color: color-mix(in srgb, var(--scrim) 40%, transparent) !important;
+}
+
+/* Troca por ícone: vem DEPOIS das regras acima para sobrescrever font-size/padding */
+.header:has(.groupbanner) .linkbox a.add_bookmark.brackets,
+.header:has(.groupbanner) .linkbox a.remove_bookmark.brackets,
+.header:has(.groupbanner) .linkbox a.brackets[href*="serieslog"] {
+    font-size: 0 !important;
+    padding: 0 !important;
+    width: 48px !important;
+    height: 48px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    letter-spacing: 0 !important;
+    text-transform: none !important;
+}
+/* Não favoritado: ícone outline (regular). Estado lido pela classe + onclick, como em
+   "Troca de rótulos de texto por ícones". */
+.header:has(.groupbanner) .linkbox a.add_bookmark.brackets::before,
+.header:has(.groupbanner) .linkbox a.remove_bookmark.brackets:not([onclick])::before {
+    content: '\f02e';
+    font-family: var(--font-icon);
+    font-weight: 400;
+    font-size: var(--fs-lg) !important;
+    color: color-mix(in srgb, var(--on-accent) 72%, transparent);
+}
+/* Já favoritado: ícone sólido dourado */
+.header:has(.groupbanner) .linkbox a.remove_bookmark.brackets[onclick]::before,
+.header:has(.groupbanner) .linkbox a.add_bookmark.brackets:not([onclick])::before {
+    content: '\f02e';
+    font-family: var(--font-icon);
+    font-weight: 900;
+    font-size: var(--fs-lg) !important;
+    color: var(--warning);
+}
+.header:has(.groupbanner) .linkbox a.brackets[href*="serieslog"]::before {
+    content: '\f1da';
+    font-family: var(--font-icon);
+    font-weight: 900;
+    font-size: var(--fs-lg) !important;
+    color: var(--on-scrim);
+}
+
+/* ==========================================================================
+   19. Sistema de Votos / Avaliação (lateral)
+   ========================================================================== */
+.album_votes,
+.album_votes.body {
+    font-size: 0 !important;
+    text-align: center !important;
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 14px 14px !important;
+    gap: 0 !important;
+    background: linear-gradient(180deg, var(--recess-1) 0%, transparent 100%) !important;
+}
+
+.album_votes br { display: none !important; }
+
+/* Número total de votos */
+.album_votes #totalvotes {
+    font-size: 40px !important;
+    font-weight: 800 !important;
+    line-height: 1 !important;
+    display: block !important;
+    flex: 0 0 100% !important;
+    text-align: center !important;
+    margin-bottom: 4px !important;
+    background: linear-gradient(180deg, var(--text-strong) 20%, color-mix(in srgb, var(--text-strong) 45%, transparent) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: -1px;
+}
+
+/* Rótulo "VOTOS" abaixo do número */
+.album_votes #totalvotes::after {
+    content: 'VOTOS';
+    display: block;
+    font-size: var(--fs) !important;
+    font-weight: 700;
+    color: var(--text-muted);
+    -webkit-text-fill-color: var(--text-muted);
+    letter-spacing: 3px;
+    margin-top: 6px;
+    margin-bottom: 16px;
+}
+
+/* Pílulas de Gostaram / Não Gostaram lado a lado ([data-tooltip] em vez de :has()) */
+.album_votes .favoritecount.tooltip[data-tooltip="Gostaram"],
+.album_votes .favoritecount.tooltip[data-tooltip="Não Gostaram"] {
+    --vote: var(--success);
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: var(--fs) !important;
+    font-weight: 700 !important;
+    padding: 8px 20px !important;
+    border-radius: var(--radius-pill) !important;
+    margin: 0 5px 14px 5px !important;
+    gap: 6px !important;
+    flex: 0 0 auto !important;
+    color: var(--vote) !important;
+    background: color-mix(in srgb, var(--vote) 8%, transparent) !important;
+    border: 1px solid color-mix(in srgb, var(--vote) 18%, transparent) !important;
+    transition: all var(--transition-snappy) !important;
+}
+.album_votes .favoritecount.tooltip[data-tooltip="Não Gostaram"] { --vote: var(--danger); }
+.album_votes .favoritecount.tooltip:is([data-tooltip="Gostaram"], [data-tooltip="Não Gostaram"]):hover {
+    background: color-mix(in srgb, var(--vote) 15%, transparent) !important;
+    border-color: color-mix(in srgb, var(--vote) 30%, transparent) !important;
+    box-shadow: 0 0 16px color-mix(in srgb, var(--vote) 12%, transparent) !important;
+}
+
+/* Remove os símbolos de texto ^ e v */
+.vote_album_up, .vote_album_down { display: none !important; }
+
+/* Pontuação e porcentagem lado a lado */
+.album_votes .tooltip_interactive,
+.album_votes > span.favoritecount:not([id]):not(.tooltip) {
+    display: inline-flex !important;
+    align-items: center !important;
+    flex: 0 0 auto !important;
+    font-size: var(--fs) !important;
+    background: var(--fill-1) !important;
+    border: 1px solid var(--line) !important;
+    padding: 6px 14px !important;
+    border-radius: var(--radius-pill) !important;
+    color: var(--text-muted) !important;
+    margin: 0 4px 18px 4px !important;
+    font-weight: 500 !important;
+    letter-spacing: 0.2px !important;
+    transition: all var(--transition-snappy) !important;
+}
+.album_votes .tooltip_interactive:hover,
+.album_votes > span.favoritecount:not([id]):not(.tooltip):hover {
+    background: var(--fill-2) !important;
+    border-color: var(--line-strong) !important;
+    color: var(--text-bright) !important;
+}
+
+/* Separador antes dos botões */
+#vote_message {
+    display: flex !important;
+    justify-content: center !important;
+    gap: 24px !important;
+    flex: 0 0 100% !important;
+    padding-top: 20px !important;
+    margin-top: 4px !important;
+    border-top: 1px solid var(--line-soft) !important;
+    position: relative !important;
+}
+
+/* Traço de acento no separador */
+#vote_message::before {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 2px;
+    background: var(--accent-gradient);
+    border-radius: 1px;
+}
+
+/* Botões Gostei / Não Gostei */
+#vote_message a {
+    --vote: var(--success);
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 56px !important;
+    height: 56px !important;
+    border-radius: 50% !important;
+    background: color-mix(in srgb, var(--vote) 8%, transparent) !important;
+    border: 1px solid color-mix(in srgb, var(--vote) 28%, transparent) !important;
+    transition: all var(--transition-bounce) !important;
+    text-decoration: none !important;
+    position: relative !important;
+}
+#vote_message a.downvote { --vote: var(--danger); }
+
+/* Anel decorativo externo */
+#vote_message a::before {
+    content: '' !important;
+    position: absolute !important;
+    inset: -4px !important;
+    border-radius: 50% !important;
+    border: 1px dashed var(--line) !important;
+    transition: all var(--transition-smooth) !important;
+}
+
+/* Ícones: os PNGs do site (like.png/dislike.png) têm cor fixa e somem sobre o fundo do
+   voto; no lugar, polegares do Font Awesome pintados com a cor do voto. Parado, a cor é
+   puxada para o texto forte (mais contraste em tema claro ou escuro). */
+#vote_message a img { display: none !important; }
+#vote_message a::after {
+    content: '\f164';
+    font-family: var(--font-icon);
+    font-weight: 900;
+    font-size: 22px;
+    line-height: 1;
+    color: color-mix(in oklab, var(--vote) 80%, var(--text-strong));
+    transition: color var(--transition-snappy);
+}
+#vote_message a.downvote::after { content: '\f165'; }
+#vote_message a:hover::after { color: color-mix(in oklab, var(--vote) 22%, var(--vote-ink)); }
+
+#vote_message a:hover {
+    background: linear-gradient(135deg, color-mix(in srgb, var(--vote) 90%, transparent) 0%, color-mix(in srgb, var(--vote) 90%, #000) 100%) !important;
+    border-color: var(--vote) !important;
+    box-shadow:
+        0 0 0 4px color-mix(in srgb, var(--vote) 10%, transparent),
+        0 0 28px color-mix(in srgb, var(--vote) 30%, transparent),
+        0 8px 20px color-mix(in srgb, var(--vote) 15%, transparent) !important;
+    transform: translateY(-4px) scale(1.1) !important;
+}
+#vote_message a:hover::before {
+    border-color: color-mix(in srgb, var(--vote) 28%, transparent) !important;
+    inset: -6px !important;
+}
+
+
+/* Mensagens de "já votado" — ocultas por design */
+#upvoted, #downvoted { display: none !important; }
+
+#unvote_message {
+    display: block !important;
+    flex: 0 0 100% !important;
+    text-align: center !important;
+    margin-top: 15px !important;
+}
+#unvote_message a.brackets {
+    font-size: var(--fs) !important;
+    color: var(--text-muted) !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.8px !important;
+    background: transparent !important;
+    border: 1px solid var(--line) !important;
+    text-decoration: none !important;
+    padding: 5px 14px !important;
+    border-radius: var(--radius-pill) !important;
+    transition: all var(--transition-snappy) !important;
+}
+#unvote_message a.brackets:hover {
+    color: var(--danger) !important;
+    background: color-mix(in srgb, var(--danger) 8%, transparent) !important;
+    border-color: color-mix(in srgb, var(--danger) 28%, transparent) !important;
+}
+
+/* ==========================================================================
+   20. Acessibilidade
+   ========================================================================== */
+a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+    border-radius: var(--radius-sm);
+}
+
+/* ==========================================================================
+   21. Ajustes finais (últimos no arquivo = prioridade de cascata)
+   ========================================================================== */
+/* Formulário de configurações: o <form> fica transparente ao flex do .thin,
+   para .sidebar e .main_column serem tratados como filhos diretos */
+.thin > form.edit_form { display: contents; }
+/* display:contents só muda a renderização; seletores ">" ainda usam o DOM real */
+form.edit_form > .sidebar {
+    width: 260px !important;
+    flex: 0 0 260px !important;
+    order: 2 !important;
+    position: sticky !important;
+    top: var(--settings-top) !important;
+    align-self: flex-start !important; /* obrigatório para sticky em flex */
+}
+form.edit_form > .main_column {
+    flex: 1 1 0% !important;
+    min-width: 0 !important;
+    order: 1 !important;
+}
+
+/* Texto "Temporada X" na coluna lateral da tabela de detalhes
+   (especificidade (0,6,2) > (0,5,2) do seletor de título da seção 9) */
+.torrent_table td[rowspan] a[href*="torrents.php?id="]:first-of-type:not([href*="action=download"]):not(.brackets) {
+    white-space: nowrap !important;
+    font-size: var(--fs) !important;
+    font-weight: 500 !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+}
+
+/* Index: notícias com toggle. Todo .newsbody da coluna principal rola com a
+   mesma altura (AJAX, índice > 1, etc.); colapsado via style inline do site. */
+#content .main_column .box:has(.newsbody) { overflow: visible !important; }
+.newsbody { transition: max-height 0.25s ease; }
+#content .main_column .newsbody {
+    box-sizing: border-box !important;
+    min-height: 0 !important;
+    max-height: min(32.5vh, 240px) !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-gutter: stable;
+}
+/* Colapsado: vence div.pad… (mais atributo) */
+.newsbody[style*="display: none"],
+.newsbody[style*="display:none"],
+#content .main_column .newsbody[style*="display: none"],
+#content .main_column .newsbody[style*="display:none"] {
+    max-height: 0 !important;
+    overflow: hidden !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    border-width: 0 !important;
+    scrollbar-gutter: auto;
+}
+/* .newsbody sem id=newsbody*: aberto = altura de animação, sem scroll forçado */
+.newsbody:not([id^="newsbody"]):not([style*="display: none"]):not([style*="display:none"]) {
+    max-height: 5000px !important;
+    overflow: visible;
+}
+
+/* ==========================================================================
+   22. Destaques (torrents.php?action=destaques)
+   Os botões de categoria são filhos diretos do .thin (viravam linhas inteiras) e
+   as capas vêm em float com padding inline. O filtro do site esconde itens com
+   style="display:none", por isso .destitems nunca recebe display aqui.
+   ========================================================================== */
+.thin:has(.destitems) { justify-content: center; }
+.thin:has(.destitems) > br { display: none; }
+.thin:has(.destitems) > button {
+    width: auto;
+    flex: 0 0 auto;
+    padding: 6px 14px;
+    border-radius: var(--radius-pill);
+}
+/* o site não marca o filtro ativo; o foco do último clique faz esse papel */
+.thin:has(.destitems) > button:focus {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: var(--on-accent);
+}
+
+.thin > div:has(> .destitems) {
+    display: flex !important;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+    padding: 0 !important;
+}
+.destitems {
+    float: none !important;
+    padding: 0 !important;
+    width: 182px;
+}
+.destitems a { display: block; }
+.destitems img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 182 / 252;
+    object-fit: cover;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-md);
+    transition: transform var(--transition-smooth), box-shadow var(--transition-smooth);
+}
+.destitems a:hover img {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-xl), 0 0 0 2px var(--accent);
+}
+
+/* ==========================================================================
+   23. Diálogos nativos do site (<dialog>: Pote de Gorjeta, resultado do envio)
+   Sem isto o reset tira a centralização (margin) e o fundo branco padrão do
+   navegador deixa os botões claros do tema invisíveis.
+   ========================================================================== */
+dialog {
+    margin: auto;
+    width: min(440px, calc(100vw - 32px));
+    padding: 20px 22px;
+    background: var(--bg-solid);
+    color: var(--text-main);
+    border: 1px solid var(--line-strong);
+    border-top: 2px solid var(--accent);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-xl);
+    font-family: var(--font-main);
+    font-size: var(--fs);
+}
+dialog::backdrop {
+    background: color-mix(in srgb, var(--scrim) 70%, transparent);
+    backdrop-filter: blur(4px);
+}
+dialog h2 {
+    margin-bottom: 10px;
+    color: var(--text-strong);
+    font-size: var(--fs-lg);
+}
+dialog label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-bright);
+    font-weight: 600;
+}
+dialog label input[type="text"] { flex: 1; }
+dialog menu {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    margin-top: 8px;
+}
+dialog button[value="confirm"],
+dialog button[value="ok"] {
+    background: var(--accent-gradient);
+    border-color: transparent;
+    color: var(--on-accent);
+    font-weight: 700;
+}
+dialog button[value="confirm"]:hover,
+dialog button[value="ok"]:hover {
+    background: var(--accent-gradient-hover);
+}
+
+/* ==========================================================================
+   24. Editor BBCode (caixa de resposta e comentários)
+   As cores vêm das variáveis --global-* redefinidas na seção 1b.
+   ========================================================================== */
+.BBCodeToolbar-button { border-radius: var(--radius-sm); }
+.BBCodeToolbar-button:hover:not(:disabled) .BBCodeToolbar-icon { fill: var(--text-strong); }
+
+/* ==========================================================================
+   25. Atalhos "Ir para o topo" / "Ir para o final" (#irtopo, #irfinal)
+   O JS do site mostra/esconde com fade (style inline), então display fica com ele.
+   Ficam à esquerda: o canto direito é dos toasts de notificação (Noty).
+   ========================================================================== */
+#irtopo,
+#irfinal {
+    position: fixed !important;
+    left: 16px;
+    z-index: 1000;
+    width: 42px;
+    height: 42px;
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius-pill);
+    background: var(--bg-solid);
+    box-shadow: var(--shadow-md);
+    color: transparent !important;
+    font-size: 0 !important;
+    text-indent: -9999px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: background-color var(--transition-snappy), border-color var(--transition-snappy), transform var(--transition-snappy);
+}
+#irtopo { bottom: 66px; }
+#irfinal { bottom: 16px; }
+#irtopo span,
+#irfinal span {
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    width: 18px;
+    height: 18px;
+    border: 0;
+    background-color: var(--text-bright);
+    -webkit-mask: var(--icon-chevron-up) center / contain no-repeat;
+    mask: var(--icon-chevron-up) center / contain no-repeat;
+}
+#irfinal span {
+    -webkit-mask-image: var(--icon-chevron-down);
+    mask-image: var(--icon-chevron-down);
+}
+#irtopo:hover,
+#irfinal:hover {
+    background: var(--accent);
+    border-color: var(--accent);
+    transform: translateY(-2px);
+}
+#irtopo:hover span,
+#irfinal:hover span { background-color: var(--on-accent); }
+
+/* ==========================================================================
+   26. Avaliações por chamas (séries: box "Avaliações")
+   O site reaproveita .album_votes, cujo font-size: 0 (seção 19) escondia a média e
+   o total; e fixa 270px de largura, mais que a sidebar. Layout no padrão dos votos:
+   média grande, "N VOTOS" e as 5 chamas (clique na metade esquerda/direita).
+   ========================================================================== */
+.album_votes.voting-wrapper {
+    width: auto !important;
+    min-height: 0 !important;
+    padding: 16px 14px 18px !important;
+}
+.voting-wrapper #series_v2_avg {
+    flex: 0 0 100%;
+    display: block;
+    text-align: center;
+    font-size: 40px;
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -1px;
+    background: linear-gradient(180deg, var(--text-strong) 20%, color-mix(in srgb, var(--text-strong) 45%, transparent) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+.voting-wrapper #series_v2_avg::after {
+    content: ' / 5';
+    font-size: var(--fs-lg);
+    font-weight: 600;
+    letter-spacing: 0;
+    -webkit-text-fill-color: var(--text-muted);
+}
+.voting-wrapper #series_v2_total,
+.voting-wrapper #series_v2_votes_word {
+    margin-top: 6px;
+    font-size: var(--fs);
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+}
+.voting-wrapper #series_v2_total { margin-right: 6px; }
+.voting-wrapper .rating-flame-row {
+    flex: 0 0 100%;
+    gap: 8px;
+    margin: 16px 0 0;
+}
+/* 5 x 40px + 4 x 8px = 232px: cabe na sidebar (o site usa 46px, que estourava) */
+.voting-wrapper .rating-flame {
+    width: 40px;
+    height: 23px;
+}
+.voting-wrapper #series_v2_user_msg {
+    flex: 0 0 100%;
+    margin-top: 12px;
+    text-align: center;
+    font-size: var(--fs);
+    font-weight: 600;
+    color: var(--accent-hover);
+}
+.voting-wrapper #series_v2_user_msg:empty { display: none; }
+
+/* ==========================================================================
+   27. Favoritos (bookmarks.php)
+   As linhas da lista têm "torrent" (listagem) E "torrent_row" (detalhes); as regras
+   de detalhe ficam só para torrent_row sem torrent (veja :not(.torrent) na seção 9.3).
+   Aqui: botões DL/RP em linha, "Remove bookmark" no fluxo, ícones de categoria e
+   o botão de expandir/recolher grupo (o site deixa o desenho de tudo isso para o tema).
+   ========================================================================== */
+/* DL / RP: escondidos os colchetes e a barra, viram dois botões redondos antes do título */
+.torrent_table tr.torrent.torrent_row td > span:first-child {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-right: 8px;
+    vertical-align: middle;
+    font-size: 0;
+}
+.torrent_table tr.torrent.torrent_row td > span:first-child a {
+    position: static !important;
+    transform: none !important;
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    width: 28px !important;
+    height: 28px !important;
+    margin: 0 !important;
+    font-size: 0 !important;
+    color: transparent !important;
+    border-radius: var(--radius-pill) !important;
+}
+.torrent_table tr.torrent.torrent_row td > span:first-child a[href*="action=download"]:hover {
+    transform: scale(1.1) !important;
+}
+.torrent_table tr.torrent.torrent_row td > span:first-child a[href*="reportsv2"] {
+    background: var(--fill-2);
+    border: 1px solid var(--line-strong);
+}
+.torrent_table tr.torrent.torrent_row td > span:first-child a[href*="reportsv2"]::before {
+    content: '\f071';
+    font-family: var(--font-icon);
+    font-weight: 900;
+    font-size: var(--fs);
+    color: var(--text-muted);
+}
+.torrent_table tr.torrent.torrent_row td > span:first-child a[href*="reportsv2"]:hover {
+    background: var(--fill-4);
+}
+.torrent_table tr.torrent.torrent_row td > span:first-child a[href*="reportsv2"]:hover::before { color: var(--text-strong); }
+
+/* "Remove bookmark" aqui é o próprio link com a classe (na listagem é um <span> em volta
+   do botão redondo): volta a ser um botão comum, no fluxo, e não um ícone absoluto */
+.torrent_table a.remove_bookmark.brackets,
+.torrent_table a.add_bookmark.brackets {
+    position: static !important;
+    transform: none !important;
+    display: inline-block !important;
+    height: auto !important;
+    margin: 0 0 4px !important;
+    padding: 3px 10px !important;
+    font-size: var(--fs) !important;
+}
+
+/* Categoria: <div class="cats_xxx"> vazio, desenhado pelo tema nativo. Ícones do próprio
+   BJ (mesmos das listagens); Jogos e HQs não têm ícone genérico e usam Font Awesome. */
+.torrent_table td > div[class*="cats_"] {
+    width: 48px;
+    height: 48px;
+    margin: 0 auto;
+    /* propriedades separadas: o atalho "background" zeraria a imagem de cada .cats_* */
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    border-radius: var(--radius-sm);
+}
+.cats_filmes { background-image: url('https://bj-share.info/static/common/newcaticons3/filme.svg'); }
+.cats_seriados { background-image: url('https://bj-share.info/static/common/newcaticons3/seriadob4.svg'); }
+.cats_animes { background-image: url('https://bj-share.info/static/common/newcaticons3/animeb.svg'); }
+.cats_aplicativos { background-image: url('https://bj-share.info/static/common/newcaticons3/softwareb.svg'); }
+.cats_cursos { background-image: url('https://bj-share.info/static/common/newcaticons3/cursos.svg'); }
+.cats_ebooks { background-image: url('https://bj-share.info/static/common/newcaticons3/e-booksb.svg'); }
+.cats_revistas { background-image: url('https://bj-share.info/static/common/newcaticons3/revistasb.svg'); }
+.cats_jornais { background-image: url('https://bj-share.info/static/common/newcaticons3/jornaisb.svg'); }
+.cats_esportes { background-image: url('https://bj-share.info/static/common/newcaticons3/esporteb.svg'); }
+.cats_audiobook, .cats_audiobooks { background-image: url('https://bj-share.info/static/common/newcaticons3/audiobook.svg'); }
+.cats_mangás, .cats_mangas { background-image: url('https://bj-share.info/static/common/newcaticons3/manga.svg'); }
+.cats_standupcomedy { background-image: url('https://bj-share.info/static/common/newcaticons3/standupb.svg'); }
+.cats_outros { background-image: url('https://bj-share.info/static/common/newcaticons3/outrosb.svg'); }
+.cats_jogos, .cats_hqs, .cats_históriasemquadrinhos {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--fill-2);
+    border: 1px solid var(--line-strong);
+}
+.cats_jogos::before, .cats_hqs::before, .cats_históriasemquadrinhos::before {
+    content: '\f11b'; /* gamepad */
+    font-family: var(--font-icon);
+    font-weight: 900;
+    font-size: 20px;
+    color: var(--text-bright);
+}
+.cats_hqs::before, .cats_históriasemquadrinhos::before { content: '\f5da'; } /* book-open */
+
+/* Linhas de versão dos grupos (detalhe): o RP aqui é texto, sem o <i> da página do torrent */
+.torrent_table tr.torrent_row:not(.torrent) td:first-child > span a[href*="reportsv2"]:not(:has(i)) {
+    font-size: 0 !important;
+}
+.torrent_table tr.torrent_row:not(.torrent) td:first-child > span a[href*="reportsv2"]:not(:has(i))::before {
+    content: '\f071';
+    font-family: var(--font-icon);
+    font-weight: 900;
+    font-size: var(--fs);
+}
+
+/* Expandir/recolher grupo: link vazio, o ícone vinha do tema nativo */
+.torrent_table .show_torrents_link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius-sm);
+    color: var(--text-muted);
+}
+.torrent_table .show_torrents_link::before {
+    content: '\f067'; /* + */
+    font-family: var(--font-icon);
+    font-weight: 900;
+    font-size: var(--fs);
+}
+.torrent_table .hide_torrents .show_torrents_link::before { content: '\f068'; } /* − (grupo aberto) */
+.torrent_table .show_torrents_link:hover { color: var(--text-strong); background: var(--fill-2); }
+
+/* Cabeçalho "Torrents" da tabela (colhead_dark só aqui; no fórum é o cabeçalho do post) */
+.torrent_table tr.colhead_dark > td {
+    background: var(--th-bg);
+    color: var(--text-strong);
+    font-size: var(--fs);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+}
+.torrent_table tr.colhead_dark > td strong { font-size: inherit; }
+
+/* Cover art (Favoritos e coleções): grade que ocupa a largura do box, capas do mesmo
+   tamanho em formato de pôster. O global.css do site fixa a lista em 590px e cada capa
+   em 118x118px, deixando sobra à direita e imagens distorcidas. */
+ul.bookmarks_images,
+ul.collage_images {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+    gap: 10px;
+    width: auto !important;
+    padding: 12px !important;
+    margin: 0 !important;
+}
+ul.bookmarks_images > li,
+ul.collage_images > li {
+    float: none !important;
+    width: auto !important;
+    height: auto !important;
+    margin: 0 !important;
+    aspect-ratio: 2 / 3;
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    background: var(--fill-2);
+    box-shadow: var(--shadow-sm);
+    transition: transform var(--transition-snappy), box-shadow var(--transition-snappy);
+}
+ul.bookmarks_images > li:hover,
+ul.collage_images > li:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md), 0 0 0 2px var(--accent);
+}
+ul.bookmarks_images > li > a,
+ul.collage_images > li > a {
+    display: block;
+    width: 100%;
+    height: 100% !important;
+}
+ul.bookmarks_images img,
+ul.collage_images img {
+    display: block;
+    width: 100% !important;
+    height: 100% !important;
+    max-width: none !important;
+    max-height: none !important;
+    margin: 0 !important;
+    object-fit: cover;
+    /* capa quebrada: o texto alternativo aparece pequeno, dentro do quadro */
+    font-size: var(--fs);
+    color: var(--text-muted);
+}
+
+/* --- bundle gerado: bj-zerfeus-theme.css + bj-zerfeus-theme-msn.css - edite os fontes e rode build-theme-bundles.ps1 --- */
+
+:root {
+    --color-scheme: light;
+    --msn-blue: #1e78d0;
+    --msn-blue-dark: #1e4e86;
+    --msn-green: #4caf3f;   /* status online / boneco do MSN */
+    --msn-orange: #e8890c;  /* ausente */
+    --msn-red: #d32f2f;     /* ocupado */
+    /* barra "aero": brilho em cima, divisão de vidro no meio */
+    --msn-gloss: linear-gradient(180deg, #f6fbff 0%, #e2effc 49%, #cfe3f8 50%, #dcebfb 100%);
+
+    --font-main: 'Segoe UI', Tahoma, Verdana, sans-serif;
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --radius-lg: 10px;
+    --glass-blur: none;
+
+    --bg-base: #d6e8f8;
+    --bg-solid: #ffffff;
+    --bg-panel: #ffffff;
+    --bg-card: rgb(255 255 255 / 0.92);
+    --bg-card-hover: #eef6fe;
+    --header-bg: var(--msn-gloss);
+
+    --text-muted: #5f7894;
+    --text-main: #2b3a4a;
+    --text-bright: #16283c;
+    --text-strong: #0b1a2b;
+
+    --ink: #1e4e86;
+    --recess: rgb(30 120 208 / 0.16);
+    --shade: rgb(30 78 134 / 0.22);
+    --scrim: #10365f;
+
+    --accent: var(--msn-blue);
+    --accent-2: #1a5fa8;
+    --accent-hover: #2a8ae6;
+    --on-accent: #ffffff;
+
+    --success: var(--msn-green);
+    --danger: var(--msn-red);
+    --warning: var(--msn-orange);
+    --info: var(--msn-blue);
+    --download: var(--msn-green);
+    --bookmark: var(--msn-orange);
+    --vote-ink: #ffffff;
+
+    --line: rgb(30 78 134 / 0.14);
+    --line-soft: rgb(30 78 134 / 0.08);
+    --line-strong: #a7c7e7;
+    --panel-border: #a7c7e7;
+    --panel-border-hover: #7fb0e0;
+    --panel-border-strong: #7fb0e0;
+
+    --shadow-sm: 0 1px 2px rgb(30 78 134 / 0.12);
+    --shadow-md: 0 2px 8px rgb(30 78 134 / 0.14);
+    --shadow-lg: 0 4px 14px rgb(30 78 134 / 0.18);
+    --shadow-xl: 0 6px 20px rgb(30 78 134 / 0.2);
+    --shadow-header: 0 1px 0 #a7c7e7, 0 2px 10px rgb(30 78 134 / 0.12);
+    --shadow-menu: 0 6px 18px rgb(30 78 134 / 0.22);
+    --shadow-glow: 0 0 12px rgb(30 120 208 / 0.3);
+    --link-glow: transparent;
+    /* céu: brilho claro no alto da página */
+    --body-glow-1: rgb(255 255 255 / 0.85);
+    --body-glow-2: rgb(76 175 63 / 0.06);
+
+    --header-line: #a7c7e7;
+    --header-link: var(--msn-blue-dark);
+    --header-link-hover: var(--msn-blue);
+    --menu-hover-bg: #d5e7fa;
+    --menu-hover-fg: var(--msn-blue-dark);
+    --submenu-hover-bg: #ddebfb;
+    --submenu-hover-fg: var(--msn-blue-dark);
+    --head-bg: var(--msn-gloss);
+    --head-fg: var(--msn-blue-dark);
+    --th-bg: var(--msn-gloss);
+    --filter-head-bg: #dcebfb;
+    --group-bg: #eaf3fd;
+    --title-fg: var(--msn-blue-dark);
+    --title-shadow: transparent;
+    --field-bg: #ffffff;
+    --field-bg-focus: #ffffff;
+    --btn-bg: var(--msn-gloss);
+    --btn-fg: var(--msn-blue-dark);
+    --btn-border: #8db8e3;
+    --btn-hover-bg: linear-gradient(180deg, #ffffff 0%, #d9ebfc 49%, #bcd9f6 50%, #d2e7fb 100%);
+    --btn-hover-fg: var(--msn-blue-dark);
+    --btn-hover-border: var(--msn-blue);
+    --footer-bg: var(--msn-gloss);
+    --footer-line: #a7c7e7;
+    --footer-link: var(--msn-blue);
+    --alert-link: var(--msn-blue);
+    --selection-bg: rgb(30 120 208 / 0.22);
+    --scrollbar-track: #e3effb;
+    --scrollbar-thumb: #8db8e3;
+    --scrollbar-thumb-hover: var(--msn-blue);
+    --logo-mark: var(--msn-green);
+    --logo-text: var(--msn-blue);
+}
+
+/* Fundo de céu: azul mais forte no alto, clareando para baixo */
+body {
+    background-image: linear-gradient(180deg, #b9d9f5 0%, #d6e8f8 320px, #e7f1fb 100%) !important;
+}
+
+/* Botão principal (enviar, filtrar): azul lustroso, como os do Messenger */
+input[type="submit"],
+.box.filter_torrents .ft_submit input[value="Filtrar"] {
+    background: linear-gradient(180deg, #5aa7ef 0%, #2e86de 49%, #1e70c8 50%, #2a83dc 100%) !important;
+    border: 1px solid #1a5fa8 !important;
+    color: #ffffff !important;
+    text-shadow: 0 1px 0 rgb(0 0 0 / 0.25);
+    box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.45), 0 1px 3px rgb(30 78 134 / 0.25) !important;
+}
+input[type="submit"]:hover,
+.box.filter_torrents .ft_submit input[value="Filtrar"]:hover {
+    background: linear-gradient(180deg, #74b8f5 0%, #3c95e8 49%, #2a80d6 50%, #3992e6 100%) !important;
+}
+
+/* Estatísticas do topo como "status": bolinha verde/laranja/vermelha antes do rótulo */
+#stats_seeding,
+#stats_leeching,
+#stats_ratio,
+#stats_bjpontos {
+    background: #ffffff !important;
+}
+#stats_seeding::before,
+#stats_leeching::before,
+#stats_ratio::before,
+#stats_bjpontos::before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--msn-green);
+    box-shadow: inset 0 1px 1px rgb(255 255 255 / 0.6), 0 0 0 1px rgb(0 0 0 / 0.12);
+}
+#stats_leeching::before { background: var(--msn-red); }
+#stats_ratio::before { background: var(--msn-blue); }
+#stats_bjpontos::before { background: var(--msn-orange); }
+
+.box .head a { font-weight: 700; }
