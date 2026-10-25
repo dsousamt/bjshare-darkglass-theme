@@ -93,8 +93,11 @@ def main():
             page.wait_for_timeout(600)
             png = page.screenshot()
             destino = SAIDA / f"{nome}.webp"
-            Image.open(io.BytesIO(png)).save(destino, "WEBP", quality=82, method=6)
-            print("gerado:", destino.relative_to(RAIZ))
+            imagem = Image.open(io.BytesIO(png)).convert("RGB")
+            imagem.save(destino, "WEBP", quality=82, method=6)
+            # JPG para posts no fórum ([img] nem sempre aceita WebP)
+            imagem.save(SAIDA / f"{nome}.jpg", "JPEG", quality=88, optimize=True, progressive=True)
+            print("gerado:", destino.relative_to(RAIZ), "(+ .jpg)")
         gerar_mosaico(browser)
         browser.close()
 
