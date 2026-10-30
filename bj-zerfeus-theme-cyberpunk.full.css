@@ -136,7 +136,19 @@ Bundles (*.full.css, base + variante num arquivo só): .\build-theme-bundles.ps1
     --alert-link: var(--text-strong);
     --alert-bg: var(--g-alert, var(--bg-solid));        /* barra de doação no topo */
     --alert-sheen: var(--g-alert-sheen, none);
-    --post-head-bg: var(--recess-1);                    /* cabeçalho do post: só um leve rebaixo */
+    --soft-head-bg: var(--recess-1);                    /* cabeçalho leve: post do fórum e listagens com vidro */
+    /* Listagens de torrents: com vidro, cabeçalhos e grupos leves, num tom só com as linhas;
+       sem vidro, os tons próprios do tema (--th-bg, --group-bg…) */
+    --list-head-bg: var(--g-list-head, var(--th-bg));
+    --list-head-fg: var(--g-list-head-fg, var(--text-strong));
+    --list-group-bg: var(--g-list-group, var(--group-bg));
+    --list-hover-bg: var(--g-list-hover, var(--bg-card-hover));
+    --list-season-bg: var(--g-list-head, var(--recess-3));
+    --list-res-bg: var(--g-list-group, var(--recess-2));
+    --list-side-bg: var(--g-list-side, var(--recess-1));
+    /* Colunas de seeders e leechers */
+    --seed-fg: color-mix(in oklab, var(--success) 80%, var(--text-strong));
+    --leech-fg: color-mix(in oklab, var(--danger) 70%, var(--text-main));
     --menu-hover-bg: var(--fill-2);
     --menu-hover-fg: var(--text-strong);
     --submenu-bg: var(--g-submenu, color-mix(in srgb, var(--bg-solid) 92%, transparent));
@@ -148,9 +160,14 @@ Bundles (*.full.css, base + variante num arquivo só): .\build-theme-bundles.ps1
     /* Valores com vidro ligado (var(--glass) vazio). Com "--glass: initial" cada um fica
        inválido e o token acima usa o valor de fallback, sem vidro. */
     --g-blur: var(--glass) blur(24px) saturate(1.6);
-    --g-header: var(--glass) color-mix(in srgb, var(--bg-base) 68%, transparent);
+    --g-header: var(--glass) color-mix(in srgb, var(--bg-base) 84%, transparent);
     --g-header-blur: var(--glass) blur(20px) saturate(1.5);
-    --g-submenu: var(--glass) color-mix(in srgb, var(--bg-solid) 74%, transparent);
+    --g-submenu: var(--glass) color-mix(in srgb, var(--bg-solid) 87%, transparent);
+    --g-list-head: var(--glass) var(--soft-head-bg);
+    --g-list-head-fg: var(--glass) var(--text-muted);
+    --g-list-group: var(--glass) var(--fill-1);
+    --g-list-hover: var(--glass) var(--fill-2);
+    --g-list-side: var(--glass) transparent;
     --g-alert: var(--glass) color-mix(in srgb, var(--header-bg) 85%, transparent);
     /* faixa de luz do acento no centro, sob o reflexo das caixas */
     --g-alert-sheen: var(--glass) linear-gradient(90deg, transparent 15%, var(--accent-12) 50%, transparent 85%), var(--glass-sheen);
@@ -1164,7 +1181,7 @@ img.brackets, img.brackets:hover { padding: 0; margin: 0; border: none; backgrou
 /* ==========================================================================
    9. Tabelas e Listagem de Torrents
    ========================================================================== */
-table { width: 100%; border-collapse: collapse; margin-bottom: 0; }
+table { width: 100%; border-collapse: collapse; margin-bottom: 0; font-size: inherit; }
 th, td { padding: var(--pad-cell); text-align: left; border-bottom: 1px solid var(--line); vertical-align: middle; }
 th {
     background: var(--th-bg);
@@ -1214,8 +1231,8 @@ table.collage_table tr:last-child td,
 /* Cabeçalho de tabela feito com <tr class="colhead"><td> (listagens, coleções): mesmo
    estilo do <th>, e não o de título de caixa (.colhead em div), que é 16px */
 table tr.colhead > td {
-    background: var(--th-bg);
-    color: var(--text-strong);
+    background: var(--list-head-bg);
+    color: var(--list-head-fg);
     font-size: var(--fs);
     font-weight: 600;
     text-transform: uppercase;
@@ -1244,7 +1261,7 @@ table:has(tr.resolution_header) tr:last-child td {
    9.1. Hierarquia visual (grupos e edições — só na listagem principal)
    -------------------------------------------------------------------------- */
 tr.group td {
-    background: var(--group-bg) !important;
+    background: var(--list-group-bg) !important;
     border-top: var(--line-w) solid var(--line-strong);
     font-weight: 700;
 }
@@ -1315,7 +1332,7 @@ tr.group_torrent:not(.audio_header):not(.season_header):not(.torrent_row) td {
 
 tr.torrent td { background-color: transparent; }
 
-.torrent_table tr:not(.colhead):not(.group):hover td { background-color: var(--bg-card-hover); }
+.torrent_table tr:not(.colhead):not(.group):hover td { background-color: var(--list-hover-bg); }
 
 /* Linha lateral de seleção (só na listagem principal) */
 .torrent_table tr.torrent:hover td:first-child, .torrent_table tr.group_torrent:not(.audio_header):not(.season_header):not(.torrent_row):hover td:first-child { position: relative; }
@@ -1368,6 +1385,35 @@ table:has(tr.torrent_row) strong[style*="color:orange"], table:has(tr.torrent_ro
 /* As cores acima valiam só nas tabelas de torrents; agora valem em qualquer tabela do
    conteúdo (Morrendo, Coleções…), menos posts do fórum, onde a cor é escolha de quem escreve */
 .torrentinfo_release { color: color-mix(in oklab, var(--info) 75%, var(--text-strong)) !important; font-weight: 700 !important; }
+
+/* Elementos da linha bem separados: título forte > release apagada > tags; uploader >
+   equipe em etiqueta; data apagada e tamanho forte; snatches apagados, seeders verdes e
+   leechers vermelhos. */
+.torrent_table .torrent_info { font-size: var(--fs); color: var(--text-muted); font-weight: 500; margin-top: 1px; }
+
+/* Uploader: o site separa a equipe com <br><br>; ela vira uma etiqueta logo abaixo */
+.torrent_table tr:is(.torrent, .group_torrent) td:has(> a[href*="user.php"]) > a[href*="user.php"] { color: var(--text-bright); font-weight: 600; }
+.torrent_table tr:is(.torrent, .group_torrent) td:has(> a[href*="user.php"]) > br { display: none; }
+.torrent_table tr:is(.torrent, .group_torrent) td > span:has(a[href*="action=team"]) {
+    display: block; width: fit-content; margin-top: 4px; padding: 1px 8px; line-height: 1.5;
+    border: 1px solid color-mix(in srgb, var(--danger) 30%, transparent);
+    background: color-mix(in srgb, var(--danger) 10%, transparent);
+    border-radius: var(--radius-pill);
+}
+.torrent_table tr:is(.torrent, .group_torrent) td > span:has(a[href*="action=team"]) :is(a, span) {
+    color: var(--danger) !important; font-size: var(--fs) !important; font-weight: 600 !important; text-shadow: none;
+}
+
+/* Data apagada (o tamanho, na coluna ao lado, continua forte) */
+.torrent_table tr:is(.torrent, .group_torrent) td.number_column.nobr:has(> .time) { color: var(--text-muted) !important; font-weight: 400 !important; }
+
+/* Snatches, seeders e leechers são sempre as 3 últimas colunas, nesta ordem, nas tabelas
+   com os ícones ↻ ↑ ↓ no cabeçalho (a Morrendo usa outra ordem e fica de fora) */
+table:has(.fa-arrow-up) tr:is(.torrent, .group, .group_torrent, .torrent_row) td.number_column:nth-last-child(3) { color: var(--text-muted) !important; }
+table:has(.fa-arrow-up) tr:is(.torrent, .group, .group_torrent, .torrent_row) td.number_column:nth-last-child(2) { color: var(--seed-fg) !important; font-weight: 600 !important; }
+table:has(.fa-arrow-up) tr:is(.torrent, .group, .group_torrent, .torrent_row) td.number_column:last-child { color: var(--leech-fg) !important; }
+table i.fa-arrow-up { color: var(--seed-fg) !important; }
+table i.fa-arrow-down { color: var(--leech-fg) !important; }
 
 /* --------------------------------------------------------------------------
    9.2. Capas, IMDb, Download e Favoritos
@@ -1572,7 +1618,7 @@ table:has(tr.season_header) {
     border-radius: var(--radius-md) !important;
     overflow: hidden !important;
     border: 1px solid var(--panel-border-strong) !important;
-    box-shadow: var(--shadow-xl) !important;
+    box-shadow: var(--glass-edge, 0 0 transparent), var(--shadow-lg) !important;
     margin-bottom: var(--space-block) !important;
     width: 100% !important;
     border-collapse: separate !important; /* exigido para o radius funcionar */
@@ -1581,7 +1627,7 @@ table:has(tr.season_header) {
 
 /* Nível 1: cabeçalhos principais (séries e temporadas) */
 tr.season_header td {
-    background-color: var(--recess-3) !important;
+    background: var(--list-season-bg) !important;
     color: var(--text-strong) !important;
     font-size: var(--fs) !important;
     text-transform: uppercase;
@@ -1769,7 +1815,7 @@ td.audio_header i { color: var(--text-muted) !important; }
 
 /* Nível 3: cabeçalho de resolução (alinhado à esquerda, neutro) */
 tr.resolution_header td {
-    background-color: var(--recess-2) !important;
+    background: var(--list-res-bg) !important;
     border-bottom: 1px solid var(--line-soft) !important;
     border-left: none !important;
     color: var(--text-strong) !important;
@@ -1841,7 +1887,7 @@ tr.torrent_row:hover td { background-color: var(--fill-1) !important; }
 
 /* Coluna lateral de temporada/episódio (quando existe) */
 table:has(tr.torrent_row) td[rowspan] {
-    background-color: var(--recess-1) !important;
+    background: var(--list-side-bg) !important;
     border-right: 1px solid var(--line) !important;
     padding: 8px 6px !important;
     vertical-align: middle !important;
@@ -1991,7 +2037,7 @@ table.forum_post:hover { border-color: var(--panel-border-hover) !important; }
    tem .colhead_dark, que pintaria --head-bg por baixo da célula. */
 table.forum_post tr.colhead_dark { background: none !important; }
 table.forum_post tr.colhead_dark td {
-    background: var(--post-head-bg) !important;
+    background: var(--soft-head-bg) !important;
     padding: 8px 12px 8px 14px !important;
     border-bottom: 1px solid var(--line) !important;
     font-size: var(--fs) !important;
@@ -2156,13 +2202,16 @@ ul.bjqs-controls {
 
 ul.bjqs-controls.v-centered li a {
     pointer-events: auto; position: absolute; top: 50%; transform: translateY(-50%);
-    background: color-mix(in srgb, var(--scrim) 70%, transparent) !important; color: transparent !important;
+    /* contraste sobre capas claras: véu mais denso, borda clara, sombra e glifo com sombra */
+    background: color-mix(in srgb, var(--scrim) 82%, transparent) !important; color: transparent !important;
+    backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
+    box-shadow: 0 4px 14px color-mix(in srgb, var(--shade) 55%, transparent), 0 0 0 1px color-mix(in srgb, var(--shade) 35%, transparent) !important;
     width: 44px !important; height: 44px !important; display: flex !important; align-items: center !important; justify-content: center !important;
     border-radius: 50% !important; text-decoration: none !important; font-size: 0 !important; font-weight: bold !important;
-    border: 1px solid color-mix(in srgb, var(--on-scrim) 20%, transparent) !important;
+    border: 1px solid color-mix(in srgb, var(--on-scrim) 45%, transparent) !important;
     transition: all var(--transition-snappy) !important; overflow: hidden !important; z-index: 10000 !important;
 }
-ul.bjqs-controls.v-centered li a::after { font-size: var(--fs-lg) !important; color: var(--on-scrim) !important; display: block !important; line-height: 1 !important; }
+ul.bjqs-controls.v-centered li a::after { font-size: var(--fs-lg) !important; color: var(--on-scrim) !important; display: block !important; line-height: 1 !important; text-shadow: 0 1px 3px color-mix(in srgb, var(--shade) 80%, transparent); }
 ul.bjqs-controls.v-centered li a:hover { background: var(--accent) !important; border-color: var(--accent) !important; transform: translateY(-50%) scale(1.1) !important; }
 ul.bjqs-controls.v-centered li.bjqs-next a { right: 15px !important; }
 ul.bjqs-controls.v-centered li.bjqs-next a::after { content: '❯' !important; margin-left: 2px !important; }
@@ -3174,8 +3223,8 @@ dialog button[value="ok"]:hover {
 
 /* Cabeçalho "Torrents" da tabela (colhead_dark só aqui; no fórum é o cabeçalho do post) */
 .torrent_table tr.colhead_dark > td {
-    background: var(--th-bg);
-    color: var(--text-strong);
+    background: var(--list-head-bg);
+    color: var(--list-head-fg);
     font-size: var(--fs);
     font-weight: 600;
     text-transform: uppercase;

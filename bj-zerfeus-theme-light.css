@@ -15,7 +15,7 @@
     --bg-panel: rgb(255 255 255 / 0.68);
     --bg-card: rgb(255 255 255 / 0.58);
     --bg-card-hover: rgb(255 255 255 / 0.82);
-    --header-bg: rgb(255 255 255 / 0.62);
+    --header-bg: rgb(255 255 255 / 0.81);
 
     --text-muted: #6b7c8e;
     --text-main: #3a4a5c;
@@ -49,7 +49,7 @@
     --filter-head-bg: rgb(255 255 255 / 0.45);
     --group-bg: rgb(255 255 255 / 0.45);
     --footer-bg: rgb(255 255 255 / 0.55);
-    --submenu-bg: rgb(255 255 255 / 0.72);
+    --submenu-bg: rgb(255 255 255 / 0.86);
     --menu-hover-bg: var(--accent-08);
     --alert-link: var(--accent);
     --title-shadow: transparent;
