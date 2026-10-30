@@ -176,7 +176,8 @@ Bundles (*.full.css, base + variante num arquivo só): .\build-theme-bundles.ps1
     --g-glow-2: var(--glass) color-mix(in srgb, var(--info) 12%, transparent);
     --g-glow-3: var(--glass) color-mix(in srgb, color-mix(in oklab, var(--accent), var(--info)) 10%, transparent);
     /* reflexo no topo das caixas e linha de luz na borda superior */
-    --glass-sheen: var(--glass) linear-gradient(180deg, color-mix(in srgb, var(--ink) 6%, transparent) 0%, transparent 38%);
+    /* até 120px: em caixa alta (Lançamentos) 38% da altura acinzentava metade da tabela */
+    --glass-sheen: var(--glass) linear-gradient(180deg, color-mix(in srgb, var(--ink) 6%, transparent) 0%, transparent min(38%, 120px));
     --glass-edge: var(--glass) inset 0 1px 0 color-mix(in srgb, var(--ink) 9%, transparent);
     --submenu-hover-bg: var(--accent-08);
     --submenu-hover-fg: var(--text-strong);
@@ -1419,6 +1420,10 @@ table:has(.fa-arrow-up) tr:is(.torrent, .group, .group_torrent, .torrent_row) td
 table i.fa-arrow-up { color: var(--seed-fg) !important; }
 table i.fa-arrow-down { color: var(--leech-fg) !important; }
 
+/* Cabeçalho das colunas numéricas centralizado como os valores (a home manda
+   text-align: right inline; na busca, "Lançado há" e "Tamanho" vinham à esquerda) */
+.torrent_table tr.colhead > td:is(:nth-last-child(-n+4), [onclick*="order=time"]) { text-align: center !important; }
+
 /* Zebra (a 1ª linha de dados fica lisa) e hover levemente tingido pelo acento, na listagem,
    em Favoritos e nos detalhes. :nth-child(n) só sobe a especificidade do hover acima da
    listra das linhas de versão dos grupos. */
@@ -1434,11 +1439,36 @@ tr.torrent_row:nth-child(n):hover td { background-color: var(--list-hover-bg) !i
 }
 
 /* Release: texto apagado e mais leve que o título. Equipe, Free, INTERNAL e grupo de
-   release (os <strong> com cor ou classe) viram etiquetas tingidas na própria cor. */
-.torrent_table .group_info { color: var(--text-muted); font-weight: 400; }
+   release (os <strong> com cor ou classe) viram etiquetas tingidas na própria cor, numa
+   linha abaixo das especificações.
+   Os colchetes e as barras são texto solto do site, sem elemento para esconder. A fonte
+   "BJ Sep" (embutida, gerada com fontTools) só tem "/", "[" e "]", sem desenho: "/" vira um
+   espaço de 0,35em e os colchetes somem. Com unicode-range, o resto do texto segue na
+   Inter. Vale para a linha do release e o ano; títulos (links) e tags voltam à fonte normal. */
+@font-face {
+    font-family: 'BJ Sep';
+    src: url(data:font/ttf;base64,AAEAAAAKAIAAAwAgT1MvMkUPQ1cAAAEoAAAAYGNtYXAAbwD2AAABmAAAAERnbHlmAAAAAAAAAegAAAABaGVhZC0rkMwAAACsAAAANmhoZWEDIgCaAAAA5AAAACRobXR4AV4AAAAAAYgAAAAObG9jYQAAAAAAAAHcAAAACm1heHAABQACAAABCAAAACBuYW1lPYbRdAAAAewAAABdcG9zdABYAD4AAAJMAAAAKgABAAAAAQAAO31Nw18PPPUAAwPoAAAAAOcKp/YAAAAA5wqn9gAAAAAAAAAAAAAAAwACAAAAAAAAAAEAAAMg/zgAAAFeAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAADAAEAAAAEAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAwFeAZAABQAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAPz8/PwAAAC8AXQMg/zgAAAMgAMgAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAV4AAAAAAAAAAAAAAAAAAgAAAAMAAAAUAAMAAQAAABQABAAwAAAACAAIAAIAAAAvAFsAXf//AAAALwBbAF3////S/6f/pgABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAA2AAEAAAAAAAEABgAAAAEAAAAAAAIABwAGAAMAAQQJAAEADAANAAMAAQQJAAIADgAZQkogU2VwUmVndWxhcgBCAEoAIABTAGUAcABSAGUAZwB1AGwAYQByAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAABIAPgBAAAA=) format('truetype');
+    unicode-range: U+2F, U+5B, U+5D;
+}
+.torrent_table .group_info { color: var(--text-muted); font-weight: 400; font-family: 'BJ Sep', var(--font-main); }
+.torrent_table .group_info :is(a, .tags) { font-family: var(--font-main); }
+
+/* Etiquetas numa linha própria: o container vira flex; os trechos de texto (itens anônimos,
+   ordem 0) ficam na 1ª linha, o ::after (ordem 1, 100% de largura) quebra a linha e as
+   etiquetas (ordem 2) vêm depois. As barras que sobram entre elas são invisíveis. */
+.torrent_table .torrent_info,
+.torrent_table .group_info:has(> br) { display: flex !important; flex-wrap: wrap; align-items: center; }
+.torrent_table .torrent_info::after,
+.torrent_table .group_info:has(> br)::after { content: ''; flex-basis: 100%; height: 0; order: 1; }
+.torrent_table :is(.torrent_info, .group_info) > strong:is([style], [class]) { order: 2; margin: 4px 6px 0 0 !important; }
+/* Home: o título (<strong> sem atributos) ocupa a 1ª linha e as tags a última */
+.torrent_table .group_info:has(> br) > br { display: none; }
+.torrent_table .group_info:has(> br) > strong:not([style]):not([class]) { flex-basis: 100%; }
+.torrent_table .group_info:has(> br) > .tags { order: 3; flex-basis: 100%; }
 /* <strong> do título na home: o ano fica apagado, o link mantém a cor do título */
 .torrent_table .group_info > strong:not([style]):not([class]) { color: var(--text-muted); font-weight: 500; }
-.torrent_table .group_info strong:is([style], [class]) {
+.torrent_table .group_info strong:is([style], [class]),
+tr.torrent_row:not(.torrent) td:first-child > a strong:is([style], [class]) {
     display: inline-block; padding: 0 6px; margin: 1px 0; line-height: 17px;
     border-radius: var(--radius-sm); font-weight: 600 !important; text-shadow: none !important;
     background: color-mix(in srgb, currentColor 14%, transparent);
@@ -1448,6 +1478,36 @@ tr.torrent_row:nth-child(n):hover td { background-color: var(--list-hover-bg) !i
    vírgulas soltas que o site põe entre elas. */
 .torrent_table .tags { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 5px; font-size: 0; }
 .torrent_table .tags a { margin: 0; padding: 1px 8px; font-size: var(--fs); letter-spacing: 0.4px; background: transparent; }
+
+/* Título maior (série + episódio, ou nome); o ano e o " - " continuam no tamanho do texto */
+.torrent_table .group_info a[href*="torrents.php?id="]:first-of-type:not([href*="action=download"]):not(.brackets),
+.torrent_table .group_info a[href*="series.php"] {
+    font-size: var(--fs-lg) !important; font-weight: 700 !important; color: var(--title-fg) !important;
+    letter-spacing: 0; margin-bottom: 2px;
+}
+
+/* Favorito e download: pílula de vidro sobre a linha, no canto direito, só no hover (ou
+   com foco do teclado). O <span> que envolve os botões sai do .group_info e se ancora
+   na linha; os botões voltam ao fluxo dele. Em tela de toque ficam sempre visíveis. */
+.torrent_table tr.torrent { position: relative; }
+.torrent_table tr.torrent .group_info { position: static !important; padding-right: 0 !important; min-height: 0; }
+.torrent_table tr.torrent .group_info > span:first-child {
+    position: absolute; right: 12px; top: 50%; transform: translateY(-50%); z-index: 20;
+    display: flex; align-items: center; gap: 6px; padding: 6px !important; font-size: 0;
+    background: color-mix(in srgb, var(--bg-solid) 82%, transparent);
+    backdrop-filter: var(--menu-blur); -webkit-backdrop-filter: var(--menu-blur);
+    border: 1px solid var(--line-strong); border-radius: var(--radius-pill);
+    box-shadow: var(--shadow-md);
+    transition: opacity var(--transition-snappy), visibility 0s;
+}
+.torrent_table tr.torrent .group_info > span:first-child :is(.add_bookmark, .remove_bookmark, .download_torrent, a[href*="action=download"]) {
+    position: static !important; transform: none !important; float: none !important;
+}
+.torrent_table tr.torrent .group_info > span:first-child a[href*="action=download"]:hover { transform: scale(1.12) !important; }
+@media (hover: hover) {
+    .torrent_table tr.torrent .group_info > span:first-child { opacity: 0; visibility: hidden; transition: opacity var(--transition-snappy), visibility 0s linear 0.15s; }
+    .torrent_table tr.torrent:is(:hover, :focus-within) .group_info > span:first-child { opacity: 1; visibility: visible; transition: opacity var(--transition-snappy), visibility 0s; }
+}
 
 /* --------------------------------------------------------------------------
    9.2. Capas, IMDb, Download e Favoritos
@@ -1954,36 +2014,40 @@ table:has(tr.torrent_row) td[rowspan] a:hover { color: var(--accent) !important;
 /* Coluna principal das releases (pílula + botões) */
 /* padding-right = largura dos botões de ação (absolutos à direita): 3 × 32px + 2 × 6px
    de espaço + 12px de margem + folga; com 4 botões, mais 38px */
+/* Os botões (DL, RP, link) ficam numa pílula sobre a linha, ancorada no <tr> */
+tr.torrent_row:not(.torrent) { position: relative; }
 tr.torrent_row:not(.torrent) td:first-child {
     padding-left: 12px !important;
     font-size: 0 !important;
-    position: relative !important;
-    padding-right: 132px !important;
+    position: static !important;
+    padding-right: 12px !important;
 }
-tr.torrent_row:not(.torrent) td:first-child:has(> span > a:nth-of-type(4)) { padding-right: 170px !important; }
 
-/* Pílula com o nome/características da release. inline-block (não inline-flex) para o
-   texto quebrar linha em vez de passar por baixo dos botões em releases de nome longo. */
+/* Nome/características da release: texto em destaque (é o nome da linha), sem colchetes nem
+   barras (fonte "BJ Sep", seção 9.1) e com as etiquetas na mesma linha. inline-block para o
+   texto quebrar linha em release de nome longo. */
 tr.torrent_row:not(.torrent) td:first-child > a:not(.tooltip),
 tr.group_torrent.torrent_row td:first-child > a:not(.tooltip) {
     display: inline-block !important;
     max-width: 100%;
     line-height: 1.45;
     font-size: var(--fs) !important;
-    background: var(--fill-2) !important;
+    font-family: 'BJ Sep', var(--font-main) !important;
+    background: none !important;
     border: none !important;
     border-left: none !important;
-    padding: 6px 12px !important;
-    border-radius: var(--radius-pill) !important;
+    padding: 4px 0 !important;
+    border-radius: 0 !important;
     color: var(--text-bright) !important;
     text-decoration: none !important;
     vertical-align: middle;
     transition: all var(--transition-snappy) !important;
-    font-weight: 500 !important;
+    font-weight: 600 !important;
     box-shadow: none !important;
 }
+tr.torrent_row:not(.torrent) td:first-child > a:not(.tooltip) strong:is([style], [class]) { margin-left: 2px !important; }
 tr.torrent_row:not(.torrent) td:first-child > a:not(.tooltip):hover {
-    background: var(--fill-3) !important;
+    background: none !important;
     color: var(--text-strong) !important;
     transform: none !important; /* estabilidade da página de detalhes */
 }
@@ -1997,6 +2061,16 @@ tr.torrent_row:not(.torrent) td:first-child > span {
     display: inline-flex !important;
     align-items: center;
     font-size: 0 !important;
+    z-index: 20;
+    padding: 6px;
+    background: color-mix(in srgb, var(--bg-solid) 82%, transparent);
+    backdrop-filter: var(--menu-blur); -webkit-backdrop-filter: var(--menu-blur);
+    border: 1px solid var(--line-strong); border-radius: var(--radius-pill);
+    box-shadow: var(--shadow-md);
+}
+@media (hover: hover) {
+    tr.torrent_row:not(.torrent) td:first-child > span { opacity: 0; visibility: hidden; transition: opacity var(--transition-snappy), visibility 0s linear 0.15s; }
+    tr.torrent_row:not(.torrent):is(:hover, :focus-within) td:first-child > span { opacity: 1; visibility: visible; transition: opacity var(--transition-snappy), visibility 0s; }
 }
 /* Espaço só entre os links: o site escreve "[ … | … ]" entre eles, e com gap cada
    separador escondido virava um item a mais (132px em vez de 108px) */
