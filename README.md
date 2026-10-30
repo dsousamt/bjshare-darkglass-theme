@@ -60,6 +60,7 @@ manter cache por até 12 h. Não use `raw.githubusercontent.com`: ele serve os a
 | `index.html` | Guia publicado no GitHub Pages |
 | `preview/demo.html` | Página de demonstração com a marcação do BJ e dados fictícios (`?tema=<nome>`) |
 | `tools/gerar-previews.py` | Gera `assets/previews/*.webp` (e `.jpg`, para posts no fórum) a partir da demonstração e o mosaico `assets/todos-os-temas.jpg` (todas as prévias numa imagem, para posts no fórum) |
+| `tools/gerar-fontes.py` | Gera as fontes embutidas no CSS (BJ Sep, BJ Tag e BJ Title, derivadas da Inter) e grava o base64 delas em `bj-zerfeus-theme.css`. Elas desenham o release em pílulas sem colchetes nem barras e deixam secundária a parte entre colchetes do título, coisas que o CSS sozinho não faz porque o site manda esse texto solto |
 | `logos/` | Logos do BJ-Share (PNG, para fundo claro e escuro) e as máscaras `mask-*.png`, embutidas no CSS para pintar o logo com as cores de cada tema (`--logo-mark` e `--logo-text`) |
 
 ### Como o tema é organizado
