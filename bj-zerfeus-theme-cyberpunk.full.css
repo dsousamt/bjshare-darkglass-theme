@@ -143,7 +143,8 @@ Bundles (*.full.css, base + variante num arquivo só): .\build-theme-bundles.ps1
     --list-head-fg: var(--g-list-head-fg, var(--text-strong));
     --list-group-bg: var(--g-list-group, var(--group-bg));
     --list-hover-bg: var(--g-list-hover, var(--bg-card-hover));
-    --list-season-bg: var(--g-list-head, var(--recess-3));
+    --list-season-bg: var(--g-list-season, var(--recess-3));
+    --list-stripe: var(--g-list-stripe, var(--row-stripe)); /* zebra das linhas */
     --list-res-bg: var(--g-list-group, var(--recess-2));
     --list-side-bg: var(--g-list-side, var(--recess-1));
     /* Colunas de seeders e leechers */
@@ -163,10 +164,12 @@ Bundles (*.full.css, base + variante num arquivo só): .\build-theme-bundles.ps1
     --g-header: var(--glass) color-mix(in srgb, var(--bg-base) 84%, transparent);
     --g-header-blur: var(--glass) blur(20px) saturate(1.5);
     --g-submenu: var(--glass) color-mix(in srgb, var(--bg-solid) 87%, transparent);
-    --g-list-head: var(--glass) var(--soft-head-bg);
+    --g-list-head: var(--glass) transparent; /* cabeçalho sem faixa: só rótulos apagados e a linha */
+    --g-list-season: var(--glass) var(--fill-1);
+    --g-list-stripe: var(--glass) var(--fill-1);
     --g-list-head-fg: var(--glass) var(--text-muted);
     --g-list-group: var(--glass) var(--fill-1);
-    --g-list-hover: var(--glass) var(--fill-2);
+    --g-list-hover: var(--glass) color-mix(in srgb, var(--accent) 7%, transparent);
     --g-list-side: var(--glass) transparent;
     --g-alert: var(--glass) color-mix(in srgb, var(--header-bg) 85%, transparent);
     /* faixa de luz do acento no centro, sob o reflexo das caixas */
@@ -1230,6 +1233,9 @@ table.collage_table tr:last-child td,
 
 /* Cabeçalho de tabela feito com <tr class="colhead"><td> (listagens, coleções): mesmo
    estilo do <th>, e não o de título de caixa (.colhead em div), que é 16px */
+/* O fundo fica só nas células: no <tr> o .colhead de título de caixa pintaria --head-bg
+   por baixo delas (cabeçalho escuro mesmo com --list-head-bg transparente) */
+table tr.colhead { background: none; }
 table tr.colhead > td {
     background: var(--list-head-bg);
     color: var(--list-head-fg);
@@ -1414,6 +1420,36 @@ table:has(.fa-arrow-up) tr:is(.torrent, .group, .group_torrent, .torrent_row) td
 table:has(.fa-arrow-up) tr:is(.torrent, .group, .group_torrent, .torrent_row) td.number_column:last-child { color: var(--leech-fg) !important; }
 table i.fa-arrow-up { color: var(--seed-fg) !important; }
 table i.fa-arrow-down { color: var(--leech-fg) !important; }
+
+/* Zebra (a 1ª linha de dados fica lisa) e hover levemente tingido pelo acento, na listagem,
+   em Favoritos e nos detalhes. :nth-child(n) só sobe a especificidade do hover acima da
+   listra das linhas de versão dos grupos. */
+.torrent_table tr.torrent:nth-child(odd) td,
+tr.torrent_row:nth-child(odd) td { background-color: var(--list-stripe) !important; }
+.torrent_table tr:is(.torrent, .group_torrent):nth-child(n):hover td,
+tr.torrent_row:nth-child(n):hover td { background-color: var(--list-hover-bg) !important; }
+
+/* Tabela dentro de caixa (Lançamentos da home): a caixa já é o cartão, a tabela fica rente */
+.box .torrent_table {
+    background: none; backdrop-filter: none; -webkit-backdrop-filter: none;
+    border: none; border-top: 1px solid var(--line); border-radius: 0; box-shadow: none; margin: 0;
+}
+
+/* Release: texto apagado e mais leve que o título. Equipe, Free, INTERNAL e grupo de
+   release (os <strong> com cor ou classe) viram etiquetas tingidas na própria cor. */
+.torrent_table .group_info { color: var(--text-muted); font-weight: 400; }
+/* <strong> do título na home: o ano fica apagado, o link mantém a cor do título */
+.torrent_table .group_info > strong:not([style]):not([class]) { color: var(--text-muted); font-weight: 500; }
+.torrent_table .group_info strong:is([style], [class]) {
+    display: inline-block; padding: 0 6px; margin: 1px 0; line-height: 17px;
+    border-radius: var(--radius-sm); font-weight: 600 !important; text-shadow: none !important;
+    background: color-mix(in srgb, currentColor 14%, transparent);
+}
+
+/* Tags: contorno em pílula (as etiquetas do release são cheias). font-size 0 some com as
+   vírgulas soltas que o site põe entre elas. */
+.torrent_table .tags { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 5px; font-size: 0; }
+.torrent_table .tags a { margin: 0; padding: 1px 8px; font-size: var(--fs); letter-spacing: 0.4px; background: transparent; }
 
 /* --------------------------------------------------------------------------
    9.2. Capas, IMDb, Download e Favoritos
@@ -1833,7 +1869,7 @@ tr.resolution_header td b {
 
 /* Nível 4: linhas das edições/releases */
 tr.torrent_row td {
-    background-color: var(--row-stripe) !important;
+    background-color: transparent !important; /* zebra e hover na seção 9.1 */
     padding: 5px 6px !important;
     border-bottom: 1px solid var(--line-soft) !important;
     border-left: none !important;
@@ -1883,7 +1919,6 @@ tr.torrent td:not(.big_info):not(.number_column):not(.cats_col):not(:has(> .tags
     width: 1% !important;
     white-space: nowrap !important;
 }
-tr.torrent_row:hover td { background-color: var(--fill-1) !important; }
 
 /* Coluna lateral de temporada/episódio (quando existe) */
 table:has(tr.torrent_row) td[rowspan] {
