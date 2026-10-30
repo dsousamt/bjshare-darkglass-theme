@@ -5,6 +5,8 @@ item, então o CSS sozinho não consegue esconder colchetes e barras nem desenha
 item. As fontes fazem isso no desenho do texto:
 
 - BJ Sep: só "/", "[" e "]", sem desenho ("/" vira um espaço). Usada no ano e nos títulos.
+- BJ Dash: só o hífen, sem desenho e sem largura. Nas linhas de série, some com o " - " entre
+  o nome e o episódio (que vai para antes do título).
 - BJ Tag: subconjunto Latin da Inter 500 (sem kerning) em que cada caractere tem um fundo
   (COLRv0, camada na cor da paleta + a letra em currentColor). Letras vizinhas formam uma faixa
   contínua; regras calt (GSUB) trocam o espaço colado à barra por bordas arredondadas, a barra
@@ -89,6 +91,20 @@ def bj_sep():
     fb.setupHorizontalMetrics({".notdef": (0, 0), "slash": (350, 0), "bracketleft": (0, 0), "bracketright": (0, 0)})
     fb.setupHorizontalHeader(ascent=800, descent=-200)
     fb.setupNameTable({"familyName": "BJ Sep", "styleName": "Regular"})
+    fb.setupOS2(sTypoAscender=800, sTypoDescender=-200, usWinAscent=800, usWinDescent=200)
+    fb.setupPost()
+    buf = io.BytesIO(); fb.save(buf)
+    return buf.getvalue()
+
+
+def bj_dash():
+    fb = FontBuilder(1000, isTTF=True)
+    fb.setupGlyphOrder([".notdef", "hyphen"])
+    fb.setupCharacterMap({0x2D: "hyphen"})
+    fb.setupGlyf({".notdef": vazio(), "hyphen": vazio()})
+    fb.setupHorizontalMetrics({".notdef": (0, 0), "hyphen": (0, 0)})
+    fb.setupHorizontalHeader(ascent=800, descent=-200)
+    fb.setupNameTable({"familyName": "BJ Dash", "styleName": "Regular"})
     fb.setupOS2(sTypoAscender=800, sTypoDescender=-200, usWinAscent=800, usWinDescent=200)
     fb.setupPost()
     buf = io.BytesIO(); fb.save(buf)
@@ -237,7 +253,9 @@ def gravar(css, familia, dados):
 
 if __name__ == "__main__":
     css = CSS.read_text(encoding="utf-8")
-    sep, tag, title = bj_sep(), bj_tag(baixar_inter(500)), bj_title(baixar_inter(700), baixar_inter(500))
-    css = gravar(gravar(gravar(css, "BJ Sep", sep), "BJ Tag", tag), "BJ Title", title)
+    fontes = {"BJ Sep": bj_sep(), "BJ Dash": bj_dash(), "BJ Tag": bj_tag(baixar_inter(500)),
+              "BJ Title": bj_title(baixar_inter(700), baixar_inter(500))}
+    for familia, dados in fontes.items():
+        css = gravar(css, familia, dados)
     CSS.write_text(css, encoding="utf-8", newline="")
-    print(f"BJ Sep: {len(sep)} bytes, BJ Tag: {len(tag)} bytes, BJ Title: {len(title)} bytes -> {CSS.name}")
+    print(", ".join(f"{k}: {len(v)} bytes" for k, v in fontes.items()), "->", CSS.name)
