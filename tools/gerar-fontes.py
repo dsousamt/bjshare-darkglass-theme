@@ -9,10 +9,11 @@ item. As fontes fazem isso no desenho do texto:
   (COLRv0, camada na cor da paleta + a letra em currentColor). Letras vizinhas formam uma faixa
   contínua; regras calt (GSUB) trocam o espaço colado à barra por bordas arredondadas, a barra
   pelo vão entre pílulas e os colchetes por bordas (ou nada). Resultado: uma pílula por item.
-- BJ Title: subconjunto Latin da Inter 700 (com kerning) para o título do lançamento. Uma regra
-  calt em cascata troca tudo de "[" até "]" por versões 88% menores, pintadas na cor do texto
-  com 55% de opacidade (COLRv1): "A Anatomia de Grey [Grey's Anatomy]" fica com a parte entre
-  colchetes secundária, em qualquer tema. Sem COLRv1 (Safari), a parte fica só menor.
+- BJ Title: subconjunto Latin da Inter 700 (com kerning) para o título do lançamento (14px).
+  Uma regra calt em cascata troca tudo de "[" até "]" pelos desenhos da Inter 500 em 12/14 do
+  tamanho (12px, como o ano), pintados na cor do texto a 50% (COLRv1), e some com os
+  colchetes: "A Anatomia de Grey [Grey's Anatomy]" mostra "Grey's Anatomy" como o ano, em
+  qualquer tema. Sem COLRv1 (Safari), a parte fica só menor.
 
 Uso (na raiz do repositório):  python tools/gerar-fontes.py
 Requer: pip install fonttools  (baixa a Inter 500 e 700 do Google Fonts)
@@ -30,6 +31,8 @@ from fontTools import subset
 from fontTools.feaLib.builder import addOpenTypeFeaturesFromString
 from fontTools.fontBuilder import FontBuilder
 from fontTools.pens.ttGlyphPen import TTGlyphPen
+from fontTools.pens.recordingPen import DecomposingRecordingPen
+from fontTools.pens.transformPen import TransformPen
 from fontTools.ttLib import TTFont, newTable
 from fontTools.ttLib.tables import C_P_A_L_
 from fontTools.ttLib.tables.C_O_L_R_ import LayerRecord
@@ -44,7 +47,7 @@ PAD, GAP, R = 700, 820, 700   # borda da pílula, vão entre pílulas, raio dos 
 Y0, Y1 = -420, 1910           # faixa do fundo, centrada na altura das maiúsculas
 TINT = (150, 155, 170, 52)    # cor do fundo (RGBA): cinza translúcido, serve no claro e no escuro
 # BJ Title
-ESCALA, ALFA = 0.88, 0.55     # parte entre colchetes: tamanho e opacidade
+ESCALA, ALFA = 12 / 14, 0.5   # parte entre colchetes: 12px num título de 14px, cor a 50%
 
 
 def baixar_inter(peso):
@@ -159,7 +162,7 @@ def bj_tag(f):
     return buf.getvalue()
 
 
-def bj_title(f):
+def bj_title(f, f500):
     opts = subset.Options()
     opts.layout_features = ["kern"]
     opts.hinting = False
@@ -175,20 +178,26 @@ def bj_title(f):
     ordem = list(f.getGlyphOrder())
     base = [g for g in ordem if g not in (".notdef", bl, br) and g in cmap.values()]
     novos, cores = {}, {}
+    gs500, cmap500, hmtx500 = f500.getGlyphSet(), f500.getBestCmap(), f500["hmtx"]
+    por_glifo = {g: u for u, g in cmap.items()}
     def menor(g):
-        """Composta com a glifo original reduzida (sobre a linha de base)."""
-        pen = TTGlyphPen(glyf)
-        if glyf[g].numberOfContours != 0:
-            pen.addComponent(g, (ESCALA, 0, 0, ESCALA, 0, 0))
-        return pen.glyph()
-    for g in base + [bl, br]:
-        w = round(hmtx[g][0] * ESCALA)
-        novos[g + ".alt"] = (menor(g), w)
-        novos[g + ".alt.o"] = (menor(g), w)
+        """Desenho da Inter 500 do mesmo caractere, reduzido sobre a linha de base."""
+        g5 = cmap500[por_glifo[g]]
+        pen, rec = TTGlyphPen(None), DecomposingRecordingPen(gs500)  # acentuadas são compostas
+        gs500[g5].draw(rec)
+        rec.replay(TransformPen(pen, (ESCALA, 0, 0, ESCALA, 0, 0)))
+        return pen.glyph(), round(hmtx500[g5][0] * ESCALA)
+    for g in base:
+        contorno, w = menor(g)
+        novos[g + ".alt"] = (contorno, w)
+        novos[g + ".alt.o"] = (copy.deepcopy(contorno), w)
         cores[g + ".alt"] = {
             "Format": ot.PaintFormat.PaintGlyph, "Glyph": g + ".alt.o",
             "Paint": {"Format": ot.PaintFormat.PaintSolid, "PaletteIndex": 0xFFFF, "Alpha": ALFA},
         }
+    # colchetes da parte secundária: sem desenho; "[" com meio espaço de folga, "]" sem largura
+    novos[bl + ".alt"] = (vazio(), hmtx[cmap[0x20]][0] // 2)
+    novos[br + ".alt"] = (vazio(), 0)
     for nome, (g, w) in novos.items():
         glyf[nome] = g; hmtx[nome] = (w, 0)
     f.setGlyphOrder(ordem + list(novos))
@@ -228,7 +237,7 @@ def gravar(css, familia, dados):
 
 if __name__ == "__main__":
     css = CSS.read_text(encoding="utf-8")
-    sep, tag, title = bj_sep(), bj_tag(baixar_inter(500)), bj_title(baixar_inter(700))
+    sep, tag, title = bj_sep(), bj_tag(baixar_inter(500)), bj_title(baixar_inter(700), baixar_inter(500))
     css = gravar(gravar(gravar(css, "BJ Sep", sep), "BJ Tag", tag), "BJ Title", title)
     CSS.write_text(css, encoding="utf-8", newline="")
     print(f"BJ Sep: {len(sep)} bytes, BJ Tag: {len(tag)} bytes, BJ Title: {len(title)} bytes -> {CSS.name}")
