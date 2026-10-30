@@ -1505,11 +1505,11 @@ tr.torrent_row:not(.torrent) td:first-child > a strong:is([style], [class]) {
 .torrent_table .group_info > .torrent_info { display: inline; }
 .torrent_table .group_info > .torrent_info::before { content: '\A'; white-space: pre; }
 
-/* Linhas de série ("Nome [Original] - S01E07 [2026]"): o episódio vai para antes do título,
-   como selo; o nome fica numa linha só, cortado com "…" no fim (a parte entre colchetes)
-   em vez de empurrar o ano para baixo; o " - " some (fonte BJ Dash). contain: inline-size: o
-   nome sem quebra não alarga a coluna (a largura vem da célula, e o "…" corta). */
-/* Home: o <strong> do título vira uma linha flex e o selo vem primeiro (order) */
+/* Linhas de série ("Nome [Original] - S01E07 [2026]"): o episódio vira um selo depois do nome;
+   o nome fica numa linha só, cortado com "…" no fim (a parte entre colchetes) em vez de
+   empurrar selo e ano para baixo; o " - " some (fonte BJ Dash). contain: inline-size: o nome
+   sem quebra não alarga a coluna (a largura vem da célula, e o "…" corta). */
+/* Home: o <strong> do título vira uma linha flex; o nome encolhe, selo e ano não */
 .torrent_table .group_info:has(> br) > strong:has(> a[href*="series.php"]) {
     display: flex !important; align-items: baseline; column-gap: 3px; contain: inline-size;
     font-family: 'BJ Dash', 'BJ Sep', var(--font-main) !important;
@@ -1518,9 +1518,9 @@ tr.torrent_row:not(.torrent) td:first-child > a strong:is([style], [class]) {
 .torrent_table .group_info > strong > a[href*="series.php"]:has(~ a[href*="torrents.php?id="]) {
     min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
-.torrent_table .group_info > strong > a[href*="series.php"] ~ a[href*="torrents.php?id="] { order: -1; flex: none; margin-right: 3px; }
-/* Lista: release e tags estão no mesmo .group_info, em fluxo de texto; o selo flutua para a
-   esquerda da 1ª linha e o nome é um inline-block com "…" que deixa lugar para selo e ano */
+.torrent_table .group_info > strong > a[href*="series.php"] ~ a[href*="torrents.php?id="] { flex: none; margin-right: 3px; }
+/* Lista: release e tags estão no mesmo .group_info, em fluxo de texto; o nome é um
+   inline-block com "…" que deixa lugar para selo e ano */
 .torrent_table .group_info:not(:has(> br)):has(> a[href*="series.php"]) {
     contain: inline-size; font-family: 'BJ Dash', 'BJ Sep', var(--font-main) !important;
 }
@@ -1528,11 +1528,17 @@ tr.torrent_row:not(.torrent) td:first-child > a strong:is([style], [class]) {
     display: inline-block; vertical-align: top; max-width: calc(100% - 8.5em);
     white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
-.torrent_table .group_info > a[href*="series.php"] ~ a[href*="torrents.php?id="] { float: left; margin-right: 6px; }
 /* Selo do episódio */
 .torrent_table .group_info > a[href*="series.php"] ~ a[href*="torrents.php?id="],
 .torrent_table .group_info > strong > a[href*="series.php"] ~ a[href*="torrents.php?id="] {
     padding: 0 6px; border-radius: 4px; background: var(--fill-2);
+    transition: background-color var(--transition-snappy), color var(--transition-snappy), box-shadow var(--transition-snappy) !important;
+}
+/* Hover só do selo: tinge com o acento e ganha contorno (o nome não muda) */
+table.torrent_table td .group_info > a[href*="series.php"] ~ a[href*="torrents.php?id="]:hover,
+table.torrent_table td .group_info > strong > a[href*="series.php"] ~ a[href*="torrents.php?id="]:hover {
+    background: var(--accent-20); color: var(--accent-hover) !important;
+    box-shadow: inset 0 0 0 1px var(--accent-40); text-shadow: none;
 }
 .torrent_table .tags a { margin: 0; padding: 1px 8px; font-size: var(--fs); letter-spacing: 0.4px; background: transparent; }
 
